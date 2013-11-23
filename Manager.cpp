@@ -6,26 +6,44 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QScreen>
+#include <QThread>
 
 #include "SettingsEditor.h"
 #include "SelectionDialog.h"
 #include "GlobalActionHelper.h"
+#include "Recognizer.h"
+#include "Translator.h"
 
 Manager::Manager(QObject *parent) :
   QObject(parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   selection_ (new SelectionDialog)
 {
-  trayIcon_->show ();
-  trayIcon_->setContextMenu (trayContextMenu ());
+  GlobalActionHelper::init ();
 
   selection_->setWindowIcon (trayIcon_->icon ());
   connect (this, SIGNAL (showPixmap (QPixmap)),
            selection_, SLOT (setPixmap (QPixmap)));
-  connect (selection_, SIGNAL (selected (QPixmap)),
-            SLOT (processRegion (QPixmap)));
 
-  GlobalActionHelper::init ();
+  Recognizer* recognizer = new Recognizer;
+  connect (selection_, SIGNAL (selected (QPixmap)),
+           recognizer, SLOT (recognize (QPixmap)));
+  QThread* recognizerThread = new QThread (this);
+  recognizer->moveToThread (recognizerThread);
+  recognizerThread->start ();
+
+  Translator* translator = new Translator;
+  connect (recognizer, SIGNAL (recognized (QString)),
+           translator, SLOT (translate (QString)));
+  QThread* translatorThread = new QThread (this);
+  translator->moveToThread (translatorThread);
+  translatorThread->start ();
+
+  connect (translator, SIGNAL (translated (QString, QString)),
+           SLOT (showTranslation (QString, QString)));
+
+  trayIcon_->setContextMenu (trayContextMenu ());
+  trayIcon_->show ();
 }
 
 Manager::~Manager()
@@ -67,7 +85,7 @@ void Manager::close()
   QApplication::quit ();
 }
 
-void Manager::processRegion(QPixmap selected)
+void Manager::showTranslation(QString sourceText, QString translatedText)
 {
 
 }

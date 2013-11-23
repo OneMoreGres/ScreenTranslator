@@ -18,13 +18,14 @@ class Manager : public QObject
 
   signals:
     void showPixmap (QPixmap pixmap);
+    void recognize (QPixmap pixmap);
 
   private slots:
     void capture ();
     void settings ();
     void close ();
 
-    void processRegion (QPixmap selected);
+    void showTranslation (QString sourceText, QString translatedText);
 
   private:
     QMenu* trayContextMenu ();

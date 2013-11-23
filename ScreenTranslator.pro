@@ -16,13 +16,17 @@ SOURCES += main.cpp\
     Manager.cpp \
     SettingsEditor.cpp \
     SelectionDialog.cpp \
-    GlobalActionHelper.cpp
+    GlobalActionHelper.cpp \
+    Recognizer.cpp \
+    Translator.cpp
 
 HEADERS  += \
     Manager.h \
     SettingsEditor.h \
     SelectionDialog.h \
-    GlobalActionHelper.h
+    GlobalActionHelper.h \
+    Recognizer.h \
+    Translator.h
 
 FORMS    += \
     SettingsEditor.ui \
