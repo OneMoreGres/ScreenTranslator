@@ -51,7 +51,7 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
       startSelectPos_ = currentSelectPos_ = QPoint ();
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
       emit selected (selectedPixmap);
-//      accept (); //DEBUG
+      accept ();
     }
   }
   else if (event->type () == QEvent::MouseMove)
