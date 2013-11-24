@@ -7,6 +7,7 @@
 #include <QScreen>
 #include <QThread>
 #include <QSettings>
+#include <QClipboard>
 #include <QMessageBox>
 
 #include "Settings.h"
@@ -96,6 +97,17 @@ void Manager::processTrayAction(QSystemTrayIcon::ActivationReason reason)
                               QSystemTrayIcon::Information);
     }
   }
+  else if (reason == QSystemTrayIcon::MiddleClick)
+  {
+    if (!lastMessage_.isEmpty ())
+    {
+      QClipboard* clipboard = QApplication::clipboard ();
+      clipboard->setText (lastMessage_);
+      trayIcon_->showMessage (tr ("Последний перевод"),
+                              tr ("Последний перевод был скопирован в буфер обмена."),
+                              QSystemTrayIcon::Information);
+    }
+  }
 }
 
 Manager::~Manager()
@@ -131,7 +143,7 @@ void Manager::about()
 {
   QString text = tr ("Программа для распознавания текста на экране.\n"\
                      "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
-                     "Автор: Gres (dariusiii@qip.ru)");
+                     "Автор: Gres (onemoregres@gmail.com)");
 
   QMessageBox message (QMessageBox::Information, tr ("О программе"), text,
                        QMessageBox::Ok);
