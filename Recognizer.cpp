@@ -87,6 +87,7 @@ void Recognizer::recognize(QPixmap pixmap)
   if (!result.isEmpty ())
   {
     emit recognized (result);
+    emit recognized (pixmap, result);
   }
   else
   {

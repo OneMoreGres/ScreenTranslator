@@ -18,6 +18,7 @@ class Recognizer : public QObject
 
   signals:
     void recognized (QString text);
+    void recognized (QPixmap pixmap, QString text);
     void error (QString text);
 
   public slots:
