@@ -1,12 +1,11 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include <QObject>
 #include <QPixmap>
+#include <QSystemTrayIcon>
 
 class QAction;
 class QMenu;
-class QSystemTrayIcon;
 
 class SelectionDialog;
 
@@ -26,8 +25,11 @@ class Manager : public QObject
     void capture ();
     void settings ();
     void close ();
+    void about ();
 
     void applySettings ();
+
+    void processTrayAction (QSystemTrayIcon::ActivationReason reason);
 
     void showTranslation (QString sourceText, QString translatedText);
     void showError (QString text);
@@ -39,7 +41,7 @@ class Manager : public QObject
     QSystemTrayIcon* trayIcon_;
     SelectionDialog* selection_;
     QAction* captureAction_;
-
+    QString lastMessage_;
 };
 
 #endif // MANAGER_H

@@ -1,13 +1,13 @@
 #include "Manager.h"
 
 #include <QDebug>
-#include <QSystemTrayIcon>
 #include <QMenu>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QScreen>
 #include <QThread>
 #include <QSettings>
+#include <QMessageBox>
 
 #include "Settings.h"
 #include "SettingsEditor.h"
@@ -54,6 +54,9 @@ Manager::Manager(QObject *parent) :
   connect (this, SIGNAL (settingsEdited ()), recognizer, SLOT (applySettings ()));
   connect (this, SIGNAL (settingsEdited ()), translator, SLOT (applySettings ()));
 
+  connect (trayIcon_, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
+           SLOT (processTrayAction (QSystemTrayIcon::ActivationReason)));
+
   trayIcon_->setContextMenu (trayContextMenu ());
   trayIcon_->show ();
 
@@ -65,6 +68,7 @@ QMenu*Manager::trayContextMenu()
   QMenu* menu = new QMenu ();
   captureAction_ = menu->addAction (tr ("Захват"), this, SLOT (capture ()));
   menu->addAction (tr ("Настройки"), this, SLOT (settings ()));
+  menu->addAction (tr ("О программе"), this, SLOT (about ()));
   menu->addAction (tr ("Выход"), this, SLOT (close ()));
   return menu;
 }
@@ -80,6 +84,18 @@ void Manager::applySettings()
   GlobalActionHelper::removeGlobal (captureAction_);
   captureAction_->setShortcut (captureHotkey);
   GlobalActionHelper::makeGlobal (captureAction_);
+}
+
+void Manager::processTrayAction(QSystemTrayIcon::ActivationReason reason)
+{
+  if (reason == QSystemTrayIcon::Trigger)
+  {
+    if (!lastMessage_.isEmpty ())
+    {
+      trayIcon_->showMessage (tr ("Последний перевод"), lastMessage_,
+                              QSystemTrayIcon::Information);
+    }
+  }
 }
 
 Manager::~Manager()
@@ -111,11 +127,23 @@ void Manager::close()
   QApplication::quit ();
 }
 
+void Manager::about()
+{
+  QString text = tr ("Программа для распознавания текста на экране.\n"\
+                     "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
+                     "Автор: Gres (dariusiii@qip.ru)");
+
+  QMessageBox message (QMessageBox::Information, tr ("О программе"), text,
+                       QMessageBox::Ok);
+  message.setIconPixmap (trayIcon_->icon ().pixmap (QSize (64, 64)));
+  message.exec ();
+}
+
 void Manager::showTranslation(QString sourceText, QString translatedText)
 {
-  QString message = sourceText + " - " + translatedText;
+  lastMessage_ = sourceText + " - " + translatedText;
   qDebug () << sourceText << translatedText;
-  trayIcon_->showMessage (tr ("Перевод"), message, QSystemTrayIcon::Information);
+  trayIcon_->showMessage (tr ("Перевод"), lastMessage_, QSystemTrayIcon::Information);
 }
 
 void Manager::showError(QString text)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>456</width>
-    <height>165</height>
+    <height>166</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,14 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="label">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Захват</string>
+        </property>
+        <property name="buddy">
+         <cstring>captureEdit</cstring>
         </property>
        </widget>
       </item>
@@ -41,8 +47,14 @@
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
        <widget class="QLabel" name="label_2">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Путь к tessdata</string>
+        </property>
+        <property name="buddy">
+         <cstring>tessdataEdit</cstring>
         </property>
        </widget>
       </item>
@@ -58,15 +70,27 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_4">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Язык распознавания</string>
+        </property>
+        <property name="buddy">
+         <cstring>ocrLangCombo</cstring>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_5">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Увеличение масштаба</string>
+        </property>
+        <property name="buddy">
+         <cstring>imageScaleSpin</cstring>
         </property>
        </widget>
       </item>
@@ -87,8 +111,14 @@
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="label_6">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Язык результата</string>
+        </property>
+        <property name="buddy">
+         <cstring>translateLangCombo</cstring>
         </property>
        </widget>
       </item>
@@ -136,6 +166,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>captureEdit</tabstop>
+  <tabstop>translateLangCombo</tabstop>
+  <tabstop>tessdataEdit</tabstop>
+  <tabstop>tessdataButton</tabstop>
+  <tabstop>ocrLangCombo</tabstop>
+  <tabstop>imageScaleSpin</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
