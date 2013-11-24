@@ -4,13 +4,16 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ScreenTranslator
 TEMPLATE = app
 
+INCLUDEPATH += C:/build/include
+
+LIBS += -LC:/build/bin -ltesseract
 
 SOURCES += main.cpp\
     Manager.cpp \
@@ -26,7 +29,8 @@ HEADERS  += \
     SelectionDialog.h \
     GlobalActionHelper.h \
     Recognizer.h \
-    Translator.h
+    Translator.h \
+    Settings.h
 
 FORMS    += \
     SettingsEditor.ui \

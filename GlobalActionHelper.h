@@ -14,6 +14,7 @@ class GlobalActionHelper : public QAbstractNativeEventFilter
 
     static void init ();
     static bool makeGlobal (QAction* action);
+    static bool removeGlobal (QAction* action);
 
   private:
     static QHash<QPair<quint32, quint32>, QAction*> actions_;

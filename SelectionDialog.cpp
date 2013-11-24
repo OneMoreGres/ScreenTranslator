@@ -50,8 +50,11 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
       QRect selection = QRect (startSelectPos_, endPos).normalized ();
       startSelectPos_ = currentSelectPos_ = QPoint ();
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
-      emit selected (selectedPixmap);
-      accept ();
+      if (!selectedPixmap.isNull ())
+      {
+        emit selected (selectedPixmap);
+        accept ();
+      }
     }
   }
   else if (event->type () == QEvent::MouseMove)
@@ -65,10 +68,13 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
   }
   else if (event->type () == QEvent::Paint)
   {
-    QPainter painter (ui->label);
-    painter.setPen (Qt::red);
     QRect selection = QRect (startSelectPos_, currentSelectPos_).normalized ();
-    painter.drawRect (selection);
+    if (selection.isValid ())
+    {
+      QPainter painter (ui->label);
+      painter.setPen (Qt::red);
+      painter.drawRect (selection);
+    }
   }
 
   return QDialog::eventFilter (object, event);

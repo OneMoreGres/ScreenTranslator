@@ -7,7 +7,9 @@
 #include <QDesktopWidget>
 #include <QScreen>
 #include <QThread>
+#include <QSettings>
 
+#include "Settings.h"
 #include "SettingsEditor.h"
 #include "SelectionDialog.h"
 #include "GlobalActionHelper.h"
@@ -17,7 +19,8 @@
 Manager::Manager(QObject *parent) :
   QObject(parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
-  selection_ (new SelectionDialog)
+  selection_ (new SelectionDialog),
+  captureAction_ (NULL)
 {
   GlobalActionHelper::init ();
 
@@ -28,6 +31,8 @@ Manager::Manager(QObject *parent) :
   Recognizer* recognizer = new Recognizer;
   connect (selection_, SIGNAL (selected (QPixmap)),
            recognizer, SLOT (recognize (QPixmap)));
+  connect (recognizer, SIGNAL (error (QString)),
+           SLOT (showError (QString)));
   QThread* recognizerThread = new QThread (this);
   recognizer->moveToThread (recognizerThread);
   recognizerThread->start ();
@@ -35,6 +40,8 @@ Manager::Manager(QObject *parent) :
   Translator* translator = new Translator;
   connect (recognizer, SIGNAL (recognized (QString)),
            translator, SLOT (translate (QString)));
+  connect (translator, SIGNAL (error (QString)),
+           SLOT (showError (QString)));
   QThread* translatorThread = new QThread (this);
   translator->moveToThread (translatorThread);
   translatorThread->start ();
@@ -42,23 +49,41 @@ Manager::Manager(QObject *parent) :
   connect (translator, SIGNAL (translated (QString, QString)),
            SLOT (showTranslation (QString, QString)));
 
+
+  connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
+  connect (this, SIGNAL (settingsEdited ()), recognizer, SLOT (applySettings ()));
+  connect (this, SIGNAL (settingsEdited ()), translator, SLOT (applySettings ()));
+
   trayIcon_->setContextMenu (trayContextMenu ());
   trayIcon_->show ();
-}
 
-Manager::~Manager()
-{
+  applySettings ();
 }
 
 QMenu*Manager::trayContextMenu()
 {
   QMenu* menu = new QMenu ();
-  QAction* capture = menu->addAction (tr ("Захват"), this, SLOT (capture ()),
-                                      tr ("Ctrl+Alt+Z"));
-  GlobalActionHelper::makeGlobal (capture);
+  captureAction_ = menu->addAction (tr ("Захват"), this, SLOT (capture ()));
   menu->addAction (tr ("Настройки"), this, SLOT (settings ()));
   menu->addAction (tr ("Выход"), this, SLOT (close ()));
   return menu;
+}
+
+void Manager::applySettings()
+{
+  QSettings settings;
+  settings.beginGroup (settings_names::guiGroup);
+  QString captureHotkey = settings.value (settings_names::captureHotkey,
+                                          settings_values::captureHotkey).
+                          toString ();
+  Q_CHECK_PTR (captureAction_);
+  GlobalActionHelper::removeGlobal (captureAction_);
+  captureAction_->setShortcut (captureHotkey);
+  GlobalActionHelper::makeGlobal (captureAction_);
+}
+
+Manager::~Manager()
+{
 }
 
 void Manager::capture()
@@ -77,6 +102,7 @@ void Manager::settings()
 {
   SettingsEditor editor;
   editor.setWindowIcon (trayIcon_->icon ());
+  connect (&editor, SIGNAL (settingsEdited ()), SIGNAL (settingsEdited ()));
   editor.exec ();
 }
 
@@ -87,5 +113,13 @@ void Manager::close()
 
 void Manager::showTranslation(QString sourceText, QString translatedText)
 {
+  QString message = sourceText + " - " + translatedText;
+  qDebug () << sourceText << translatedText;
+  trayIcon_->showMessage (tr ("Перевод"), message, QSystemTrayIcon::Information);
+}
 
+void Manager::showError(QString text)
+{
+  qCritical () << text;
+  trayIcon_->showMessage (tr ("Ошибка"), text, QSystemTrayIcon::Critical);
 }

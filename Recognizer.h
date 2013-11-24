@@ -4,6 +4,12 @@
 #include <QObject>
 #include "QPixmap"
 
+
+namespace tesseract
+{
+  class TessBaseAPI;
+}
+
 class Recognizer : public QObject
 {
     Q_OBJECT
@@ -12,9 +18,21 @@ class Recognizer : public QObject
 
   signals:
     void recognized (QString text);
+    void error (QString text);
 
   public slots:
     void recognize (QPixmap pixmap);
+    void applySettings ();
+
+  private:
+    bool initEngine ();
+
+  private:
+    tesseract::TessBaseAPI* engine_;
+
+    QString tessDataDir_;
+    QString ocrLanguage_;
+    int imageScale_;
 
 };
 

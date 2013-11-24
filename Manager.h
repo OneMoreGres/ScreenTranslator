@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPixmap>
 
+class QAction;
 class QMenu;
 class QSystemTrayIcon;
 
@@ -19,13 +20,17 @@ class Manager : public QObject
   signals:
     void showPixmap (QPixmap pixmap);
     void recognize (QPixmap pixmap);
+    void settingsEdited ();
 
   private slots:
     void capture ();
     void settings ();
     void close ();
 
+    void applySettings ();
+
     void showTranslation (QString sourceText, QString translatedText);
+    void showError (QString text);
 
   private:
     QMenu* trayContextMenu ();
@@ -33,6 +38,7 @@ class Manager : public QObject
   private:
     QSystemTrayIcon* trayIcon_;
     SelectionDialog* selection_;
+    QAction* captureAction_;
 
 };
 

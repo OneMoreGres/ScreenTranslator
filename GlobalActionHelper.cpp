@@ -32,6 +32,10 @@ void GlobalActionHelper::init()
 bool GlobalActionHelper::makeGlobal(QAction* action)
 {
   QKeySequence hotKey = action->shortcut ();
+  if (hotKey.isEmpty ())
+  {
+    return true;
+  }
   Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier |
                                   Qt::AltModifier | Qt::MetaModifier;
   Qt::Key key = hotKey.isEmpty() ?
@@ -47,6 +51,35 @@ bool GlobalActionHelper::makeGlobal(QAction* action)
     actions_.insert (qMakePair(nativeKey, nativeMods), action);
   else
     qWarning() << "Failed to register global hotkey:" << hotKey.toString();
+  return res;
+}
+
+bool GlobalActionHelper::removeGlobal(QAction *action)
+{
+  QKeySequence hotKey = action->shortcut ();
+  if (hotKey.isEmpty ())
+  {
+    return true;
+  }
+  Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier |
+                                  Qt::AltModifier | Qt::MetaModifier;
+  Qt::Key key = hotKey.isEmpty() ?
+                  Qt::Key(0) :
+                  Qt::Key((hotKey[0] ^ allMods) & hotKey[0]);
+  Qt::KeyboardModifiers mods = hotKey.isEmpty() ?
+                                 Qt::KeyboardModifiers(0) :
+                                 Qt::KeyboardModifiers(hotKey[0] & allMods);
+  const quint32 nativeKey = nativeKeycode(key);
+  const quint32 nativeMods = nativeModifiers(mods);
+  if (!actions_.contains (qMakePair(nativeKey, nativeMods)))
+  {
+    return true;
+  }
+  const bool res = unregisterHotKey(nativeKey, nativeMods);
+  if (res)
+    actions_.remove (qMakePair(nativeKey, nativeMods));
+  else
+    qWarning() << "Failed to unregister global hotkey:" << hotKey.toString();
   return res;
 }
 
@@ -227,7 +260,6 @@ quint32 GlobalActionHelper::nativeModifiers(Qt::KeyboardModifiers modifiers)
     native |= MOD_ALT;
   if (modifiers & Qt::MetaModifier)
     native |= MOD_WIN;
-  // TODO: resolve these?
   //if (modifiers & Qt::KeypadModifier)
   //if (modifiers & Qt::GroupSwitchModifier)
   return native;
