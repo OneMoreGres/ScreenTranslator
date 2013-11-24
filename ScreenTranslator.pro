@@ -38,3 +38,10 @@ FORMS    += \
 
 RESOURCES += \
     Recources.qrc
+
+win32{
+RC_FILE = app.rc
+}
+
+OTHER_FILES += \
+    app.rc
