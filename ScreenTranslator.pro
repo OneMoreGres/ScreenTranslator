@@ -44,4 +44,5 @@ RC_FILE = app.rc
 }
 
 OTHER_FILES += \
-    app.rc
+    app.rc \
+    images/icon.ico
