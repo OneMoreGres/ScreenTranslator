@@ -23,7 +23,8 @@ Manager::Manager(QObject *parent) :
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   selection_ (new SelectionDialog),
   resultDialog_ (new ResultDialog),
-  captureAction_ (NULL)
+  captureAction_ (NULL), repeatAction_ (NULL), clipboardAction_ (NULL),
+  useResultDialog_ (true)
 {
   GlobalActionHelper::init ();
   qRegisterMetaType<ProcessingItem>();
@@ -77,6 +78,11 @@ QMenu*Manager::trayContextMenu()
 {
   QMenu* menu = new QMenu ();
   captureAction_ = menu->addAction (tr ("Захват"), this, SLOT (capture ()));
+  QMenu* translateMenu = menu->addMenu (tr ("Перевод"));
+  repeatAction_ = translateMenu->addAction (tr ("Повторить"), this,
+                                            SLOT (showLast ()));
+  clipboardAction_ = translateMenu->addAction (tr ("Скопировать"), this,
+                                               SLOT (copyLastToClipboard ()));
   menu->addAction (tr ("Настройки"), this, SLOT (settings ()));
   menu->addAction (tr ("О программе"), this, SLOT (about ()));
   menu->addAction (tr ("Выход"), this, SLOT (close ()));
@@ -88,35 +94,29 @@ void Manager::applySettings()
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
   QString captureHotkey = settings.value (settings_names::captureHotkey,
-                                          settings_values::captureHotkey).
-                          toString ();
+                                          settings_values::captureHotkey).toString ();
   Q_CHECK_PTR (captureAction_);
   GlobalActionHelper::removeGlobal (captureAction_);
   captureAction_->setShortcut (captureHotkey);
   GlobalActionHelper::makeGlobal (captureAction_);
-}
 
-void Manager::processTrayAction(QSystemTrayIcon::ActivationReason reason)
-{
-  if (reason == QSystemTrayIcon::Trigger)
-  {
-    if (!lastMessage_.isEmpty ())
-    {
-      trayIcon_->showMessage (tr ("Последний перевод"), lastMessage_,
-                              QSystemTrayIcon::Information);
-    }
-  }
-  else if (reason == QSystemTrayIcon::MiddleClick)
-  {
-    if (!lastMessage_.isEmpty ())
-    {
-      QClipboard* clipboard = QApplication::clipboard ();
-      clipboard->setText (lastMessage_);
-      trayIcon_->showMessage (tr ("Последний перевод"),
-                              tr ("Последний перевод был скопирован в буфер обмена."),
-                              QSystemTrayIcon::Information);
-    }
-  }
+  QString repeatHotkey = settings.value (settings_names::repeatHotkey,
+                                         settings_values::repeatHotkey).toString ();
+  Q_CHECK_PTR (repeatAction_);
+  GlobalActionHelper::removeGlobal (repeatAction_);
+  repeatAction_->setShortcut (repeatHotkey);
+  GlobalActionHelper::makeGlobal (repeatAction_);
+
+  QString clipboardHotkey = settings.value (settings_names::clipboardHotkey,
+                                            settings_values::clipboardHotkey).toString ();
+  Q_CHECK_PTR (clipboardAction_);
+  GlobalActionHelper::removeGlobal (clipboardAction_);
+  clipboardAction_->setShortcut (clipboardHotkey);
+  GlobalActionHelper::makeGlobal (clipboardAction_);
+
+  // Depends on SettingsEditor button indexes. 1==dialog
+  useResultDialog_ = settings.value (settings_names::resultShowType,
+                                     settings_values::resultShowType).toBool ();
 }
 
 Manager::~Manager()
@@ -160,12 +160,52 @@ void Manager::about()
   message.exec ();
 }
 
+void Manager::processTrayAction(QSystemTrayIcon::ActivationReason reason)
+{
+  if (reason == QSystemTrayIcon::Trigger)
+  {
+    showLast ();
+  }
+  else if (reason == QSystemTrayIcon::MiddleClick)
+  {
+    copyLastToClipboard  ();
+  }
+}
+
+void Manager::showLast()
+{
+  if (lastItem_.isValid ())
+  {
+    showResult (lastItem_);
+  }
+}
+
+void Manager::copyLastToClipboard()
+{
+  if (lastItem_.isValid ())
+  {
+    QClipboard* clipboard = QApplication::clipboard ();
+    QString message = lastItem_.recognized + " - " + lastItem_.translated;
+    clipboard->setText (message);
+    trayIcon_->showMessage (tr ("Перевод"),
+                            tr ("Последний перевод был скопирован в буфер обмена."),
+                            QSystemTrayIcon::Information);
+  }
+}
+
 void Manager::showResult(ProcessingItem item)
 {
-  resultDialog_->showResult (item);
-//  lastMessage_ = sourceText + " - " + translatedText;
-//  qDebug () << sourceText << translatedText;
-//  trayIcon_->showMessage (tr ("Перевод"), lastMessage_, QSystemTrayIcon::Information);
+  Q_ASSERT (item.isValid ());
+  lastItem_ = item;
+  if (useResultDialog_)
+  {
+    resultDialog_->showResult (item);
+  }
+  else
+  {
+    QString message = item.recognized + " - " + item.translated;
+    trayIcon_->showMessage (tr ("Перевод"), message, QSystemTrayIcon::Information);
+  }
 }
 
 void Manager::showError(QString text)

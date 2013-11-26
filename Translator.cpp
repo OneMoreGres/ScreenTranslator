@@ -38,9 +38,6 @@ void Translator::applySettings()
 void Translator::translate(ProcessingItem item)
 {
   Q_ASSERT (!item.recognized.isEmpty ());
-  item.translated = "проверка";
-  emit translated (item);
-  return;
   if (translationLanguage_.isEmpty ())
   {
     emit error (tr ("Неверные парметры для перевода."));

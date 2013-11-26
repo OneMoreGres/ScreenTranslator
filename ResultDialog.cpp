@@ -43,15 +43,22 @@ void ResultDialog::showResult(ProcessingItem item)
 
   adjustSize ();
 
+  QDesktopWidget* desktop = QApplication::desktop ();
+  Q_CHECK_PTR (desktop);
   if (isShowAtCapturePos_)
   {
     QPoint correction = QPoint (ui->frame->lineWidth (), ui->frame->lineWidth ());
     move (item.screenPos - correction);
+    QRect screenRect = desktop->screenGeometry (this);
+    int minY = screenRect.bottom () - height ();
+    if (y () > minY)
+    {
+      move (x (), minY);
+    }
   }
   else
   {
-    QDesktopWidget* desktop = QApplication::desktop ();
-    Q_CHECK_PTR (desktop);
+
     QRect screenRect = desktop->availableGeometry (this);
     Q_ASSERT (screenRect.isValid ());
     QPoint newPos (screenRect.width () - width (), screenRect.height () - height ());

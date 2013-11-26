@@ -9,6 +9,9 @@ namespace settings_names
   const QString guiGroup = "GUI";
   const QString geometry = "geometry";
   const QString captureHotkey = "captureHotkey";
+  const QString repeatHotkey = "repeatHotkey";
+  const QString clipboardHotkey = "clipboardHotkey";
+  const QString resultShowType = "resultShowType";
 
   //! Recognition
   const QString recogntionGroup = "Recognition";
@@ -29,6 +32,9 @@ namespace settings_values
 
   //! UI
   const QString captureHotkey = "Ctrl+Alt+Z";
+  const QString repeatHotkey = "Ctrl+Alt+X";
+  const QString clipboardHotkey = "Ctrl+Alt+C";
+  const QString resultShowType = "1";//dialog
 
   //! Recognition
   const QString tessDataPlace = "./";

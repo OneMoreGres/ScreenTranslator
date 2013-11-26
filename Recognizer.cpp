@@ -1,6 +1,6 @@
 #include "Recognizer.h"
 
-//#include <tesseract/baseapi.h>
+#include <tesseract/baseapi.h>
 
 #include <QDebug>
 #include <QSettings>
@@ -35,67 +35,63 @@ void Recognizer::applySettings()
 
 bool Recognizer::initEngine()
 {
-//  if (tessDataDir_.isEmpty () || ocrLanguage_.isEmpty ())
-//  {
-//    emit error (tr ("Неверные параметры для OCR"));
-//    return false;
-//  }
-//  if (engine_ != NULL)
-//  {
-//    delete engine_;
-//  }
-//  engine_ = new tesseract::TessBaseAPI();
-//  int result = engine_->Init(qPrintable (tessDataDir_), qPrintable (ocrLanguage_),
-//                             tesseract::OEM_DEFAULT);
-//  if (result != 0)
-//  {
-//    emit error (tr ("Ошибка инициализации OCR: %1").arg (result));
-//    delete engine_;
-//    engine_ = NULL;
-//    return false;
-//  }
-//  return true;
+  if (tessDataDir_.isEmpty () || ocrLanguage_.isEmpty ())
+  {
+    emit error (tr ("Неверные параметры для OCR"));
+    return false;
+  }
+  if (engine_ != NULL)
+  {
+    delete engine_;
+  }
+  engine_ = new tesseract::TessBaseAPI();
+  int result = engine_->Init(qPrintable (tessDataDir_), qPrintable (ocrLanguage_),
+                             tesseract::OEM_DEFAULT);
+  if (result != 0)
+  {
+    emit error (tr ("Ошибка инициализации OCR: %1").arg (result));
+    delete engine_;
+    engine_ = NULL;
+    return false;
+  }
+  return true;
 }
 
 void Recognizer::recognize(ProcessingItem item)
 {
   Q_ASSERT (!item.source.isNull ());
-  item.recognized = "test rec";
-  emit recognized (item);
-  return;
-//  if (engine_ == NULL)
-//  {
-//    if (!initEngine ())
-//    {
-//      return;
-//    }
-//  }
+  if (engine_ == NULL)
+  {
+    if (!initEngine ())
+    {
+      return;
+    }
+  }
 
-//  QPixmap scaled = pixmap;
-//  if (imageScale_ > 0)
-//  {
-//    scaled = pixmap.scaledToHeight (pixmap.height () * imageScale_,
-//                                    Qt::SmoothTransformation);
-//  }
-//  QImage image = scaled.toImage ();
-//  const int bytesPerPixel = image.depth () / 8;
-//  engine_->SetImage (image.bits (), image.width (), image.height (),
-//                     bytesPerPixel, image.bytesPerLine ());
+  QPixmap scaled = item.source;
+  if (imageScale_ > 0)
+  {
+    scaled = scaled.scaledToHeight (scaled.height () * imageScale_,
+                                    Qt::SmoothTransformation);
+  }
+  QImage image = scaled.toImage ();
+  const int bytesPerPixel = image.depth () / 8;
+  engine_->SetImage (image.bits (), image.width (), image.height (),
+                     bytesPerPixel, image.bytesPerLine ());
 
-//  char* outText = engine_->GetUTF8Text();
-//  engine_->Clear();
+  char* outText = engine_->GetUTF8Text();
+  engine_->Clear();
 
-//  QString result (outText);
-//  result = result.trimmed();
-//  if (!result.isEmpty ())
-//  {
-//  item.recognized = result;
-//    emit recognized (result);
-//    emit recognized (pixmap, result);
-//  }
-//  else
-//  {
-//    emit error (tr ("Текст не распознан."));
-//  }
-//  delete [] outText;
+  QString result (outText);
+  result = result.trimmed();
+  if (!result.isEmpty ())
+  {
+    item.recognized = result;
+    emit recognized (item);
+  }
+  else
+  {
+    emit error (tr ("Текст не распознан."));
+  }
+  delete [] outText;
 }

@@ -10,9 +10,13 @@
 
 SettingsEditor::SettingsEditor(QWidget *parent) :
   QDialog(parent),
-  ui(new Ui::SettingsEditor)
+  ui(new Ui::SettingsEditor),
+  buttonGroup_ (new QButtonGroup (this))
 {
   ui->setupUi(this);
+
+  buttonGroup_->addButton (ui->trayRadio, 0);
+  buttonGroup_->addButton (ui->dialogRadio, 1);
 
   connect (ui->tessdataButton, SIGNAL (clicked ()), SLOT (openTessdataDialog ()));
   connect (ui->tessdataEdit, SIGNAL (textChanged (const QString&)),
@@ -44,6 +48,9 @@ void SettingsEditor::saveSettings() const
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
   settings.setValue (settings_names::captureHotkey, ui->captureEdit->text ());
+  settings.setValue (settings_names::repeatHotkey, ui->repeatEdit->text ());
+  settings.setValue (settings_names::clipboardHotkey, ui->clipboardEdit->text ());
+  settings.setValue (settings_names::resultShowType, buttonGroup_->checkedId ());
   settings.endGroup ();
 
 
@@ -82,6 +89,17 @@ void SettingsEditor::loadSettings()
   QString captureHotkey = settings.value (settings_names::captureHotkey,
                                           settings_values::captureHotkey).toString ();
   ui->captureEdit->setText (captureHotkey);
+  QString repeatHotkey = settings.value (settings_names::repeatHotkey,
+                                         settings_values::repeatHotkey).toString ();
+  ui->repeatEdit->setText (repeatHotkey);
+  QString clipboardHotkey = settings.value (settings_names::clipboardHotkey,
+                                            settings_values::clipboardHotkey).toString ();
+  ui->clipboardEdit->setText (clipboardHotkey);
+  int resultShowType = settings.value (settings_names::resultShowType,
+                                       settings_values::resultShowType).toInt ();
+  QAbstractButton* button = buttonGroup_->button (resultShowType);
+  Q_CHECK_PTR (button);
+  button->setChecked (true);
   settings.endGroup ();
 
 

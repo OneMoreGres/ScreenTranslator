@@ -28,6 +28,8 @@ class Manager : public QObject
     void settings ();
     void close ();
     void about ();
+    void showLast ();
+    void copyLastToClipboard ();
 
     void applySettings ();
 
@@ -44,7 +46,10 @@ class Manager : public QObject
     SelectionDialog* selection_;
     ResultDialog* resultDialog_;
     QAction* captureAction_;
-    QString lastMessage_;
+    QAction* repeatAction_;
+    QAction* clipboardAction_;
+    ProcessingItem lastItem_;
+    bool useResultDialog_;
 };
 
 #endif // MANAGER_H

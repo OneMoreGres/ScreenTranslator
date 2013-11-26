@@ -9,6 +9,8 @@ struct ProcessingItem
     QPixmap source;
     QString recognized;
     QString translated;
+
+    bool isValid () const;
 };
 Q_DECLARE_METATYPE(ProcessingItem)
 

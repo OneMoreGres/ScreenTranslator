@@ -2,6 +2,7 @@
 #define SETTINGSEDITOR_H
 
 #include <QDialog>
+#include <QButtonGroup>
 
 namespace Ui {
   class SettingsEditor;
@@ -34,6 +35,7 @@ class SettingsEditor : public QDialog
 
   private:
     Ui::SettingsEditor *ui;
+    QButtonGroup* buttonGroup_;
 };
 
 #endif // SETTINGSEDITOR_H
