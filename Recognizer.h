@@ -4,6 +4,7 @@
 #include <QObject>
 #include "QPixmap"
 
+#include "ProcessingItem.h"
 
 namespace tesseract
 {
@@ -17,12 +18,11 @@ class Recognizer : public QObject
     explicit Recognizer(QObject *parent = 0);
 
   signals:
-    void recognized (QString text);
-    void recognized (QPixmap pixmap, QString text);
+    void recognized (ProcessingItem item);
     void error (QString text);
 
   public slots:
-    void recognize (QPixmap pixmap);
+    void recognize (ProcessingItem item);
     void applySettings ();
 
   private:

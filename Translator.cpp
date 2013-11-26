@@ -35,20 +35,26 @@ void Translator::applySettings()
                          toString ();
 }
 
-void Translator::translate(QString text)
+void Translator::translate(ProcessingItem item)
 {
-  Q_ASSERT (!text.isEmpty ());
+  Q_ASSERT (!item.recognized.isEmpty ());
+  item.translated = "проверка";
+  emit translated (item);
+  return;
   if (translationLanguage_.isEmpty ())
   {
     emit error (tr ("Неверные парметры для перевода."));
     return;
   }
-  QUrl url (translateBaseUrl.arg (text, translationLanguage_));
-  network_.get (QNetworkRequest (url));
+  QUrl url (translateBaseUrl.arg (item.recognized, translationLanguage_));
+  QNetworkReply* reply = network_.get (QNetworkRequest (url));
+  items_.insert (reply, item);
 }
 
 void Translator::replyFinished(QNetworkReply* reply)
 {
+  Q_ASSERT (items_.contains (reply));
+  ProcessingItem item = items_.take (reply);
   Q_ASSERT (reply->isFinished ());
   if (reply->error () != QNetworkReply::NoError)
   {
@@ -73,7 +79,6 @@ void Translator::replyFinished(QNetworkReply* reply)
   }
   QJsonArray answerArray = document.array ();
   QJsonArray fullTranslation = answerArray.first ().toArray ();
-  QString source = "";
   QString translation = "";
   foreach (QJsonValue part, fullTranslation)
   {
@@ -83,7 +88,7 @@ void Translator::replyFinished(QNetworkReply* reply)
       continue;
     }
     translation += partTranslation.at (0).toString ();
-    source += partTranslation.at (1).toString ();
   }
-  emit translated (source, translation);
+  item.translated = translation;
+  emit translated (item);
 }

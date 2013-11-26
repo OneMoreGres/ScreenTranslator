@@ -11,9 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ScreenTranslator
 TEMPLATE = app
 
-INCLUDEPATH += C:/build/include
+#INCLUDEPATH += C:/build/include
 
-LIBS += -LC:/build/bin -ltesseract
+#LIBS += -LC:/build/bin -ltesseract
 
 SOURCES += main.cpp\
     Manager.cpp \
@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     SelectionDialog.cpp \
     GlobalActionHelper.cpp \
     Recognizer.cpp \
-    Translator.cpp
+    Translator.cpp \
+    ResultDialog.cpp
 
 HEADERS  += \
     Manager.h \
@@ -30,11 +31,14 @@ HEADERS  += \
     GlobalActionHelper.h \
     Recognizer.h \
     Translator.h \
-    Settings.h
+    Settings.h \
+    ProcessingItem.h \
+    ResultDialog.h
 
 FORMS    += \
     SettingsEditor.ui \
-    SelectionDialog.ui
+    SelectionDialog.ui \
+    ResultDialog.ui
 
 RESOURCES += \
     Recources.qrc

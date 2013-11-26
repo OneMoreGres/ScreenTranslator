@@ -3,6 +3,8 @@
 
 #include <QNetworkAccessManager>
 
+#include "ProcessingItem.h"
+
 class Translator : public QObject
 {
     Q_OBJECT
@@ -10,11 +12,11 @@ class Translator : public QObject
     explicit Translator(QObject *parent = 0);
 
   signals:
-    void translated (QString sourceText, QString translatedText);
+    void translated (ProcessingItem item);
     void error (QString text);
 
   public slots:
-    void translate (QString text);
+    void translate (ProcessingItem item);
     void applySettings ();
 
   private slots:
@@ -23,6 +25,7 @@ class Translator : public QObject
   private:
     QNetworkAccessManager network_;
     QString translationLanguage_;
+    QHash<QNetworkReply*, ProcessingItem> items_;
 
 };
 

@@ -52,7 +52,10 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
       if (!selectedPixmap.isNull ())
       {
-        emit selected (selectedPixmap);
+        ProcessingItem item;
+        item.source = selectedPixmap;
+        item.screenPos = selection.topLeft ();
+        emit selected (item);
         accept ();
       }
     }

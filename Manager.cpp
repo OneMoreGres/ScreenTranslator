@@ -16,44 +16,53 @@
 #include "GlobalActionHelper.h"
 #include "Recognizer.h"
 #include "Translator.h"
+#include "ResultDialog.h"
 
 Manager::Manager(QObject *parent) :
   QObject(parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   selection_ (new SelectionDialog),
+  resultDialog_ (new ResultDialog),
   captureAction_ (NULL)
 {
   GlobalActionHelper::init ();
+  qRegisterMetaType<ProcessingItem>();
 
-  selection_->setWindowIcon (trayIcon_->icon ());
-  connect (this, SIGNAL (showPixmap (QPixmap)),
-           selection_, SLOT (setPixmap (QPixmap)));
-
+  // Recognizer
   Recognizer* recognizer = new Recognizer;
-  connect (selection_, SIGNAL (selected (QPixmap)),
-           recognizer, SLOT (recognize (QPixmap)));
+  connect (selection_, SIGNAL (selected (ProcessingItem)),
+           recognizer, SLOT (recognize (ProcessingItem)));
   connect (recognizer, SIGNAL (error (QString)),
            SLOT (showError (QString)));
+  connect (this, SIGNAL (settingsEdited ()),
+           recognizer, SLOT (applySettings ()));
   QThread* recognizerThread = new QThread (this);
   recognizer->moveToThread (recognizerThread);
   recognizerThread->start ();
 
+
+  // Translator
   Translator* translator = new Translator;
-  connect (recognizer, SIGNAL (recognized (QString)),
-           translator, SLOT (translate (QString)));
+  connect (recognizer, SIGNAL (recognized (ProcessingItem)),
+           translator, SLOT (translate (ProcessingItem)));
   connect (translator, SIGNAL (error (QString)),
            SLOT (showError (QString)));
+  connect (this, SIGNAL (settingsEdited ()),
+           translator, SLOT (applySettings ()));
   QThread* translatorThread = new QThread (this);
   translator->moveToThread (translatorThread);
   translatorThread->start ();
 
-  connect (translator, SIGNAL (translated (QString, QString)),
-           SLOT (showTranslation (QString, QString)));
+  connect (translator, SIGNAL (translated (ProcessingItem)),
+           SLOT (showResult (ProcessingItem)));
 
+  connect (this, SIGNAL (showPixmap (QPixmap)),
+           selection_, SLOT (setPixmap (QPixmap)));
 
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
-  connect (this, SIGNAL (settingsEdited ()), recognizer, SLOT (applySettings ()));
-  connect (this, SIGNAL (settingsEdited ()), translator, SLOT (applySettings ()));
+  selection_->setWindowIcon (trayIcon_->icon ());
+  resultDialog_->setWindowIcon (trayIcon_->icon ());
+
 
   connect (trayIcon_, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
            SLOT (processTrayAction (QSystemTrayIcon::ActivationReason)));
@@ -151,11 +160,12 @@ void Manager::about()
   message.exec ();
 }
 
-void Manager::showTranslation(QString sourceText, QString translatedText)
+void Manager::showResult(ProcessingItem item)
 {
-  lastMessage_ = sourceText + " - " + translatedText;
-  qDebug () << sourceText << translatedText;
-  trayIcon_->showMessage (tr ("Перевод"), lastMessage_, QSystemTrayIcon::Information);
+  resultDialog_->showResult (item);
+//  lastMessage_ = sourceText + " - " + translatedText;
+//  qDebug () << sourceText << translatedText;
+//  trayIcon_->showMessage (tr ("Перевод"), lastMessage_, QSystemTrayIcon::Information);
 }
 
 void Manager::showError(QString text)

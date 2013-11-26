@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QPixmap>
 
+#include "ProcessingItem.h"
+
 namespace Ui {
   class SelectionDialog;
 }
@@ -19,7 +21,7 @@ class SelectionDialog : public QDialog
     bool eventFilter (QObject *object, QEvent *event);
 
   signals:
-    void selected (QPixmap pixmap);
+    void selected (ProcessingItem pixmap);
 
   public slots:
     void setPixmap (QPixmap pixmap);

@@ -4,10 +4,13 @@
 #include <QPixmap>
 #include <QSystemTrayIcon>
 
+#include "ProcessingItem.h"
+
 class QAction;
 class QMenu;
 
 class SelectionDialog;
+class ResultDialog;
 
 class Manager : public QObject
 {
@@ -18,7 +21,6 @@ class Manager : public QObject
 
   signals:
     void showPixmap (QPixmap pixmap);
-    void recognize (QPixmap pixmap);
     void settingsEdited ();
 
   private slots:
@@ -31,7 +33,7 @@ class Manager : public QObject
 
     void processTrayAction (QSystemTrayIcon::ActivationReason reason);
 
-    void showTranslation (QString sourceText, QString translatedText);
+    void showResult (ProcessingItem item);
     void showError (QString text);
 
   private:
@@ -40,6 +42,7 @@ class Manager : public QObject
   private:
     QSystemTrayIcon* trayIcon_;
     SelectionDialog* selection_;
+    ResultDialog* resultDialog_;
     QAction* captureAction_;
     QString lastMessage_;
 };
