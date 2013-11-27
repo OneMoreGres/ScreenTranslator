@@ -41,6 +41,7 @@ void ResultDialog::showResult(ProcessingItem item)
   ui->recognizeLabel->setText (item.recognized);
   ui->translateLabel->setText (item.translated);
 
+  show ();
   adjustSize ();
 
   QDesktopWidget* desktop = QApplication::desktop ();
@@ -64,6 +65,4 @@ void ResultDialog::showResult(ProcessingItem item)
     QPoint newPos (screenRect.width () - width (), screenRect.height () - height ());
     move (newPos);
   }
-
-  show ();
 }
