@@ -141,7 +141,7 @@ void SettingsEditor::initOcrLangCombo()
 {
   ui->ocrLangCombo->clear ();
   QString tessdataDir = ui->tessdataEdit->text ();
-  QDir dir (tessdataDir + "tessdata/");
+  QDir dir (tessdataDir + "/tessdata/");
   if (!dir.exists ())
   {
     return;
