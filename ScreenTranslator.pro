@@ -11,9 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ScreenTranslator
 TEMPLATE = app
 
-INCLUDEPATH += C:/build/include
+INCLUDEPATH += D:/Files/build/include
 
-LIBS += -LC:/build/bin -ltesseract
+LIBS += -LD:/Files/build/bin -ltesseract
 
 SOURCES += main.cpp\
     Manager.cpp \
@@ -43,6 +43,9 @@ FORMS    += \
 
 RESOURCES += \
     Recources.qrc
+
+TRANSLATIONS += \
+    translations/translation_en.ts
 
 win32{
 RC_FILE = app.rc
