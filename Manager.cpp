@@ -152,7 +152,7 @@ void Manager::about()
 {
   QString text = tr ("Программа для распознавания текста на экране.\n"\
                      "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
-                     "Автор: Gres (onemoregres@gmail.com)");
+                     "Автор: Gres (translator@gres.biz)");
 
   QMessageBox message (QMessageBox::Information, tr ("О программе"), text,
                        QMessageBox::Ok);
