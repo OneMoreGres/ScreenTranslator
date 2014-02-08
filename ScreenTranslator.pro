@@ -53,4 +53,5 @@ RC_FILE = app.rc
 
 OTHER_FILES += \
     app.rc \
-    images/icon.ico
+    images/icon.ico \
+    README.md
