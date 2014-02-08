@@ -1,0 +1,5 @@
+# Compiled translations
+*.qm
+
+# Qt creator user settings
+*.user
