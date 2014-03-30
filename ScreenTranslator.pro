@@ -13,7 +13,7 @@ TEMPLATE = app
 
 INCLUDEPATH += D:/Files/build/include
 
-LIBS += -LD:/Files/build/bin -ltesseract
+LIBS += -LD:/Files/build/bin -ltesseract -llept
 
 SOURCES += main.cpp\
     Manager.cpp \
@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     Recognizer.cpp \
     Translator.cpp \
     ResultDialog.cpp \
-    ProcessingItem.cpp
+    ProcessingItem.cpp \
+    ImageProcessing.cpp
 
 HEADERS  += \
     Manager.h \
@@ -34,7 +35,8 @@ HEADERS  += \
     Translator.h \
     Settings.h \
     ProcessingItem.h \
-    ResultDialog.h
+    ResultDialog.h \
+    ImageProcessing.h
 
 FORMS    += \
     SettingsEditor.ui \

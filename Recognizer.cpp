@@ -6,6 +6,7 @@
 #include <QSettings>
 
 #include "Settings.h"
+#include "ImageProcessing.h"
 
 Recognizer::Recognizer(QObject *parent) :
   QObject(parent),
@@ -68,22 +69,14 @@ void Recognizer::recognize(ProcessingItem item)
     }
   }
 
-  QPixmap scaled = item.source;
-  if (imageScale_ > 0)
-  {
-    scaled = scaled.scaledToHeight (scaled.height () * imageScale_,
-                                    Qt::SmoothTransformation);
-  }
-  QImage image = scaled.toImage ();
-  const int bytesPerPixel = image.depth () / 8;
-  engine_->SetImage (image.bits (), image.width (), image.height (),
-                     bytesPerPixel, image.bytesPerLine ());
-
+  Pix* image = prepareImage (item.source.toImage (), imageScale_);
+  Q_ASSERT (image != NULL);
+  engine_->SetImage (image);
   char* outText = engine_->GetUTF8Text();
+  QString result = QString (outText).trimmed ();
   engine_->Clear();
+  cleanupImage (&image);
 
-  QString result (outText);
-  result = result.trimmed();
   if (!result.isEmpty ())
   {
     item.recognized = result;
