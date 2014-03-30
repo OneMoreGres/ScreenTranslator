@@ -22,7 +22,9 @@ SettingsEditor::SettingsEditor(QWidget *parent) :
   connect (ui->tessdataEdit, SIGNAL (textChanged (const QString&)),
            SLOT (initOcrLangCombo ()));
 
-  initTranslateLangCombo ();
+  initTranslateLanguages ();
+  ui->translateLangCombo->addItems (translateLanguages_.keys ());
+  initOcrLanguages ();
   loadSettings ();
   loadState ();
 }
@@ -56,14 +58,24 @@ void SettingsEditor::saveSettings() const
 
   settings.beginGroup (settings_names::recogntionGroup);
   settings.setValue (settings_names::tessDataPlace, ui->tessdataEdit->text ());
-  settings.setValue (settings_names::ocrLanguage, ui->ocrLangCombo->currentText ());
+  QString uiOcrLanguage = ui->ocrLangCombo->currentText ();
+  QString settingsOcrLanguage = ocrLanguages_.value (uiOcrLanguage, uiOcrLanguage);
+  settings.setValue (settings_names::ocrLanguage, settingsOcrLanguage);
   settings.setValue (settings_names::imageScale, ui->imageScaleSpin->value ());
   settings.endGroup ();
 
 
   settings.beginGroup (settings_names::translationGroup);
-  settings.setValue (settings_names::translationLanguage,
-                     ui->translateLangCombo->currentText ());
+  Q_ASSERT (translateLanguages_.contains (ui->translateLangCombo->currentText ()));
+  QString uiTranslateLanguage = ui->translateLangCombo->currentText ();
+  QString settingsTranslateLanguage = translateLanguages_.value (uiTranslateLanguage);
+  settings.setValue (settings_names::translationLanguage, settingsTranslateLanguage);
+  QString sourceLanguage = settings_values::sourceLanguage;
+  if (translateLanguages_.contains (uiOcrLanguage))
+  {
+    sourceLanguage = translateLanguages_.value (uiOcrLanguage);
+  }
+  settings.setValue (settings_names::sourceLanguage, sourceLanguage);
   settings.endGroup ();
 }
 
@@ -107,9 +119,10 @@ void SettingsEditor::loadSettings()
   QString tessDataPlace = settings.value (settings_names::tessDataPlace,
                                           settings_values::tessDataPlace).toString ();
   ui->tessdataEdit->setText (tessDataPlace);
-  QString ocrLang = settings.value (settings_names::ocrLanguage,
-                                    settings_values::ocrLanguage).toString ();
-  ui->ocrLangCombo->setCurrentText (ocrLang);
+  QString settingsOcrLanguage = settings.value (settings_names::ocrLanguage,
+                                                settings_values::ocrLanguage).toString ();
+  QString uiOcrLanguage = ocrLanguages_.key (settingsOcrLanguage, settingsOcrLanguage);
+  ui->ocrLangCombo->setCurrentText (uiOcrLanguage);
   int imageScale = settings.value (settings_names::imageScale,
                                    settings_values::imageScale).toInt ();
   ui->imageScaleSpin->setValue (imageScale);
@@ -117,9 +130,11 @@ void SettingsEditor::loadSettings()
 
 
   settings.beginGroup (settings_names::translationGroup);
-  QString translationLanguage = settings.value (settings_names::translationLanguage,
-                                                settings_values::translationLanguage).toString ();
-  ui->translateLangCombo->setCurrentText (translationLanguage);
+  QString settingsTranslateLanguage = settings.value (settings_names::translationLanguage,
+                                                      settings_values::translationLanguage).toString ();
+  QString uiTranslateLanguage = translateLanguages_.key (settingsTranslateLanguage);
+  Q_ASSERT (!uiTranslateLanguage.isEmpty ());
+  ui->translateLangCombo->setCurrentText (uiTranslateLanguage);
   settings.endGroup ();
 }
 
@@ -151,71 +166,137 @@ void SettingsEditor::initOcrLangCombo()
   foreach (const QString& file, files)
   {
     QString lang = file.left (file.indexOf ("."));
+    lang = ocrLanguages_.key (lang, lang); // Replace with readable text if can.
     languages << lang;
   }
   ui->ocrLangCombo->addItems (languages);
 }
 
-void SettingsEditor::initTranslateLangCombo()
+void SettingsEditor::initTranslateLanguages()
 {
-  QHash<QString, QString> gtLang;
-  gtLang.insert("Afrikaans","af");
-  gtLang.insert("Albanian","sq");
-  gtLang.insert("Arabic","ar");
-  gtLang.insert("Armenian","hy");
-  gtLang.insert("Azerbaijani","az");
-  gtLang.insert("Basque","eu");
-  gtLang.insert("Belarusian","be");
-  gtLang.insert("Bulgarian","bg");
-  gtLang.insert("Catalan","ca");
-  gtLang.insert("Chinese (Simplified)","zh-CN");
-  gtLang.insert("Chinese (Traditional)","zh-TW");
-  gtLang.insert("Croatian","hr");
-  gtLang.insert("Czech","cs");
-  gtLang.insert("Danish","da");
-  gtLang.insert("Dutch","nl");
-  gtLang.insert("English","en");
-  gtLang.insert("Estonian","et");
-  gtLang.insert("Filipino","tl");
-  gtLang.insert("Finnish","fi");
-  gtLang.insert("French","fr");
-  gtLang.insert("Galician","gl");
-  gtLang.insert("Georgian","ka");
-  gtLang.insert("German","de");
-  gtLang.insert("Greek","el");
-  gtLang.insert("Haitian Creole","ht");
-  gtLang.insert("Hebrew","iw");
-  gtLang.insert("Hindi","hi");
-  gtLang.insert("Hungarian","hu");
-  gtLang.insert("Icelandic","is");
-  gtLang.insert("Indonesian","id");
-  gtLang.insert("Irish","ga");
-  gtLang.insert("Italian","it");
-  gtLang.insert("Japanese","ja");
-  gtLang.insert("Korean","ko");
-  gtLang.insert("Latvian","lv");
-  gtLang.insert("Lithuanian","lt");
-  gtLang.insert("Macedonian","mk");
-  gtLang.insert("Malay","ms");
-  gtLang.insert("Maltese","mt");
-  gtLang.insert("Norwegian","no");
-  gtLang.insert("Persian","fa");
-  gtLang.insert("Polish","pl");
-  gtLang.insert("Portuguese","pt");
-  gtLang.insert("Romanian","ro");
-  gtLang.insert("Russian","ru");
-  gtLang.insert("Serbian","sr");
-  gtLang.insert("Slovak","sk");
-  gtLang.insert("Slovenian","sl");
-  gtLang.insert("Spanish","es");
-  gtLang.insert("Swahili","sw");
-  gtLang.insert("Swedish","sv");
-  gtLang.insert("Thai","th");
-  gtLang.insert("Turkish","tr");
-  gtLang.insert("Ukrainian","uk");
-  gtLang.insert("Urdu","ur");
-  gtLang.insert("Vietnamese","vi");
-  gtLang.insert("Welsh","cy");
-  gtLang.insert("Yiddish","yi");
-  ui->translateLangCombo->addItems (gtLang.values ());
+  translateLanguages_.insert(tr("Afrikaans"),"af");
+  translateLanguages_.insert(tr("Albanian"),"sq");
+  translateLanguages_.insert(tr("Arabic"),"ar");
+  translateLanguages_.insert(tr("Armenian"),"hy");
+  translateLanguages_.insert(tr("Azerbaijani"),"az");
+  translateLanguages_.insert(tr("Basque"),"eu");
+  translateLanguages_.insert(tr("Belarusian"),"be");
+  translateLanguages_.insert(tr("Bulgarian"),"bg");
+  translateLanguages_.insert(tr("Catalan"),"ca");
+  translateLanguages_.insert(tr("Chinese (Simplified)"),"zh-CN");
+  translateLanguages_.insert(tr("Chinese (Traditional)"),"zh-TW");
+  translateLanguages_.insert(tr("Croatian"),"hr");
+  translateLanguages_.insert(tr("Czech"),"cs");
+  translateLanguages_.insert(tr("Danish"),"da");
+  translateLanguages_.insert(tr("Dutch"),"nl");
+  translateLanguages_.insert(tr("English"),"en");
+  translateLanguages_.insert(tr("Estonian"),"et");
+  translateLanguages_.insert(tr("Filipino"),"tl");
+  translateLanguages_.insert(tr("Finnish"),"fi");
+  translateLanguages_.insert(tr("French"),"fr");
+  translateLanguages_.insert(tr("Galician"),"gl");
+  translateLanguages_.insert(tr("Georgian"),"ka");
+  translateLanguages_.insert(tr("German"),"de");
+  translateLanguages_.insert(tr("Greek"),"el");
+  translateLanguages_.insert(tr("Haitian Creole"),"ht");
+  translateLanguages_.insert(tr("Hebrew"),"iw");
+  translateLanguages_.insert(tr("Hindi"),"hi");
+  translateLanguages_.insert(tr("Hungarian"),"hu");
+  translateLanguages_.insert(tr("Icelandic"),"is");
+  translateLanguages_.insert(tr("Indonesian"),"id");
+  translateLanguages_.insert(tr("Irish"),"ga");
+  translateLanguages_.insert(tr("Italian"),"it");
+  translateLanguages_.insert(tr("Japanese"),"ja");
+  translateLanguages_.insert(tr("Korean"),"ko");
+  translateLanguages_.insert(tr("Latvian"),"lv");
+  translateLanguages_.insert(tr("Lithuanian"),"lt");
+  translateLanguages_.insert(tr("Macedonian"),"mk");
+  translateLanguages_.insert(tr("Malay"),"ms");
+  translateLanguages_.insert(tr("Maltese"),"mt");
+  translateLanguages_.insert(tr("Norwegian"),"no");
+  translateLanguages_.insert(tr("Persian"),"fa");
+  translateLanguages_.insert(tr("Polish"),"pl");
+  translateLanguages_.insert(tr("Portuguese"),"pt");
+  translateLanguages_.insert(tr("Romanian"),"ro");
+  translateLanguages_.insert(tr("Russian"),"ru");
+  translateLanguages_.insert(tr("Serbian"),"sr");
+  translateLanguages_.insert(tr("Slovak"),"sk");
+  translateLanguages_.insert(tr("Slovenian"),"sl");
+  translateLanguages_.insert(tr("Spanish"),"es");
+  translateLanguages_.insert(tr("Swahili"),"sw");
+  translateLanguages_.insert(tr("Swedish"),"sv");
+  translateLanguages_.insert(tr("Thai"),"th");
+  translateLanguages_.insert(tr("Turkish"),"tr");
+  translateLanguages_.insert(tr("Ukrainian"),"uk");
+  translateLanguages_.insert(tr("Urdu"),"ur");
+  translateLanguages_.insert(tr("Vietnamese"),"vi");
+  translateLanguages_.insert(tr("Welsh"),"cy");
+  translateLanguages_.insert(tr("Yiddish"),"yi");
+}
+
+void SettingsEditor::initOcrLanguages()
+{
+  ocrLanguages_.insert(tr("Ancient Greek"),"grc");
+  ocrLanguages_.insert(tr("Esperanto alternative"),"epo_alt");
+  ocrLanguages_.insert(tr("English"),"eng");
+  ocrLanguages_.insert(tr("Ukrainian"),"ukr");
+  ocrLanguages_.insert(tr("Turkish"),"tur");
+  ocrLanguages_.insert(tr("Thai"),"tha");
+  ocrLanguages_.insert(tr("Tagalog"),"tgl");
+  ocrLanguages_.insert(tr("Telugu"),"tel");
+  ocrLanguages_.insert(tr("Tamil"),"tam");
+  ocrLanguages_.insert(tr("Swedish"),"swe");
+  ocrLanguages_.insert(tr("Swahili"),"swa");
+  ocrLanguages_.insert(tr("Serbian"),"srp");
+  ocrLanguages_.insert(tr("Albanian"),"sqi");
+  ocrLanguages_.insert(tr("Spanish"),"spa");
+  ocrLanguages_.insert(tr("Slovenian"),"slv");
+  ocrLanguages_.insert(tr("Slovakian"),"slk");
+  ocrLanguages_.insert(tr("Romanian"),"ron");
+  ocrLanguages_.insert(tr("Portuguese"),"por");
+  ocrLanguages_.insert(tr("Polish"),"pol");
+  ocrLanguages_.insert(tr("Norwegian"),"nor");
+  ocrLanguages_.insert(tr("Dutch"),"nld");
+  ocrLanguages_.insert(tr("Malay"),"msa");
+  ocrLanguages_.insert(tr("Maltese"),"mlt");
+  ocrLanguages_.insert(tr("Macedonian"),"mkd");
+  ocrLanguages_.insert(tr("Malayalam"),"mal");
+  ocrLanguages_.insert(tr("Lithuanian"),"lit");
+  ocrLanguages_.insert(tr("Latvian"),"lav");
+  ocrLanguages_.insert(tr("Korean"),"kor");
+  ocrLanguages_.insert(tr("Kannada"),"kan");
+  ocrLanguages_.insert(tr("Italian"),"ita");
+  ocrLanguages_.insert(tr("Icelandic"),"isl");
+  ocrLanguages_.insert(tr("Indonesian"),"ind");
+  ocrLanguages_.insert(tr("Cherokee"),"chr");
+  ocrLanguages_.insert(tr("Hungarian"),"hun");
+  ocrLanguages_.insert(tr("Croatian"),"hrv");
+  ocrLanguages_.insert(tr("Hindi"),"hin");
+  ocrLanguages_.insert(tr("Hebrew"),"heb");
+  ocrLanguages_.insert(tr("Galician"),"glg");
+  ocrLanguages_.insert(tr("Middle French (ca. 1400-1600)"),"frm");
+  ocrLanguages_.insert(tr("Frankish"),"frk");
+  ocrLanguages_.insert(tr("French"),"fra");
+  ocrLanguages_.insert(tr("Finnish"),"fin");
+  ocrLanguages_.insert(tr("Basque"),"eus");
+  ocrLanguages_.insert(tr("Estonian"),"est");
+  ocrLanguages_.insert(tr("Math / equation"),"equ");
+  ocrLanguages_.insert(tr("Esperanto"),"epo");
+  ocrLanguages_.insert(tr("Middle English (1100-1500)"),"enm");
+  ocrLanguages_.insert(tr("Greek"),"ell");
+  ocrLanguages_.insert(tr("German"),"deu");
+  ocrLanguages_.insert(tr("Danish"),"dan");
+  ocrLanguages_.insert(tr("Czech"),"ces");
+  ocrLanguages_.insert(tr("Catalan"),"cat");
+  ocrLanguages_.insert(tr("Bulgarian"),"bul");
+  ocrLanguages_.insert(tr("Bengali"),"ben");
+  ocrLanguages_.insert(tr("Belarusian"),"bel");
+  ocrLanguages_.insert(tr("Azerbaijani"),"aze");
+  ocrLanguages_.insert(tr("Arabic"),"ara");
+  ocrLanguages_.insert(tr("Afrikaans"),"afr");
+  ocrLanguages_.insert(tr("Japanese"),"jpn");
+  ocrLanguages_.insert(tr("Chinese (Simplified)"),"chi_sim");
+  ocrLanguages_.insert(tr("Chinese (Traditional)"),"chi_tra");
+  ocrLanguages_.insert(tr("Russian"),"rus");
+  ocrLanguages_.insert(tr("Vietnamese"),"vie");
 }

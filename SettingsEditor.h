@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QButtonGroup>
+#include <QMap>
 
 namespace Ui {
   class SettingsEditor;
@@ -31,11 +32,14 @@ class SettingsEditor : public QDialog
     void loadSettings ();
     void saveState () const;
     void loadState ();
-    void initTranslateLangCombo ();
+    void initTranslateLanguages ();
+    void initOcrLanguages ();
 
   private:
     Ui::SettingsEditor *ui;
     QButtonGroup* buttonGroup_;
+    QMap<QString, QString> translateLanguages_;
+    QMap<QString, QString> ocrLanguages_;
 };
 
 #endif // SETTINGSEDITOR_H

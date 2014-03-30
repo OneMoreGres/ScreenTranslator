@@ -13,7 +13,7 @@
 namespace
 {
   const QString translateBaseUrl = "http://translate.google.com/translate_a/"
-                                   "t?client=t&text=%1&sl=auto&tl=%2";
+                                   "t?client=t&text=%1&sl=%2&tl=%3";
 }
 
 Translator::Translator(QObject *parent) :
@@ -31,8 +31,9 @@ void Translator::applySettings()
   QSettings settings;
   settings.beginGroup (settings_names::translationGroup);
   translationLanguage_ = settings.value (settings_names::translationLanguage,
-                                         settings_values::translationLanguage).
-                         toString ();
+                                         settings_values::translationLanguage).toString ();
+  sourceLanguage_ = settings.value (settings_names::sourceLanguage,
+                                    settings_values::sourceLanguage).toString ();
 }
 
 void Translator::translate(ProcessingItem item)
@@ -43,7 +44,7 @@ void Translator::translate(ProcessingItem item)
     emit error (tr ("Неверные парметры для перевода."));
     return;
   }
-  QUrl url (translateBaseUrl.arg (item.recognized, translationLanguage_));
+  QUrl url (translateBaseUrl.arg (item.recognized, sourceLanguage_, translationLanguage_));
   QNetworkReply* reply = network_.get (QNetworkRequest (url));
   items_.insert (reply, item);
 }

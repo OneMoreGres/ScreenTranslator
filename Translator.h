@@ -25,6 +25,7 @@ class Translator : public QObject
   private:
     QNetworkAccessManager network_;
     QString translationLanguage_;
+    QString sourceLanguage_;
     QHash<QNetworkReply*, ProcessingItem> items_;
 
 };
