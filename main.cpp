@@ -13,9 +13,8 @@ int main(int argc, char *argv[])
 
   QTranslator translator;
   // Set default to english.
-  if (QLocale::system ().name () != "ru_RU" &&
-      (translator.load (QLocale::system (), "translation", "_") ||
-       translator.load ("translation_en")))
+  if (translator.load (QLocale::system (), "translation", "_", ":/translations") ||
+      translator.load (":/translations/translation_en"))
   {
     a.installTranslator(&translator);
   }
