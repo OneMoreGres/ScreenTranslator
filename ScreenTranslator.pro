@@ -47,7 +47,8 @@ RESOURCES += \
     Recources.qrc
 
 TRANSLATIONS += \
-    translations/translation_en.ts
+    translations/translation_en.ts \
+    translations/translation_ru.ts
 
 win32{
 RC_FILE = app.rc

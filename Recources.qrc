@@ -1,5 +1,7 @@
 <RCC>
-    <qresource prefix="/images">
-        <file alias="icon.png">images/icon.png</file>
+    <qresource prefix="/">
+        <file>translations/translation_en.qm</file>
+        <file>translations/translation_ru.qm</file>
+        <file>images/icon.png</file>
     </qresource>
 </RCC>
