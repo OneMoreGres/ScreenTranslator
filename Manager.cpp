@@ -42,6 +42,7 @@ Manager::Manager(QObject *parent) :
   QThread* recognizerThread = new QThread (this);
   recognizer->moveToThread (recognizerThread);
   recognizerThread->start ();
+  connect (qApp, SIGNAL (aboutToQuit ()), recognizerThread, SLOT (quit ()));
 
 
   // Translator
@@ -55,6 +56,7 @@ Manager::Manager(QObject *parent) :
   QThread* translatorThread = new QThread (this);
   translator->moveToThread (translatorThread);
   translatorThread->start ();
+  connect (qApp, SIGNAL (aboutToQuit ()), translatorThread, SLOT (quit ()));
 
   connect (translator, SIGNAL (translated (ProcessingItem)),
            SLOT (showResult (ProcessingItem)));
