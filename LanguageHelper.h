@@ -11,6 +11,7 @@ class LanguageHelper
 
     QStringList availableOcrLanguagesUi () const;
     const QStringList& availableOcrLanguages () const;
+    QStringList availableOcrLanguagesUi (const QString& path) const;
     QStringList translateLanguagesUi () const;
     QStringList translateLanguages () const;
 
@@ -23,6 +24,7 @@ class LanguageHelper
     void updateAvailableOcrLanguages ();
 
   private:
+    QStringList availableOcrLanguages (const QString& path) const;
     void init ();
     void initTranslateLanguages ();
     void initOcrLanguages ();

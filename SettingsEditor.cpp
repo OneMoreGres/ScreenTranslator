@@ -19,7 +19,7 @@ SettingsEditor::SettingsEditor(const LanguageHelper &dictionary, QWidget *parent
 
   connect (ui->tessdataButton, SIGNAL (clicked ()), SLOT (openTessdataDialog ()));
   connect (ui->tessdataEdit, SIGNAL (textChanged (const QString&)),
-           SLOT (initOcrLangCombo ()));
+           SLOT (initOcrLangCombo (const QString&)));
 
   ui->translateLangCombo->addItems (dictionary_.translateLanguagesUi ());
   loadSettings ();
@@ -126,8 +126,8 @@ void SettingsEditor::loadState()
   restoreGeometry (settings.value (objectName () + "_" + settings_names::geometry).toByteArray ());
 }
 
-void SettingsEditor::initOcrLangCombo()
+void SettingsEditor::initOcrLangCombo(const QString &path)
 {
   ui->ocrLangCombo->clear ();
-  ui->ocrLangCombo->addItems (dictionary_.availableOcrLanguagesUi ());
+  ui->ocrLangCombo->addItems (dictionary_.availableOcrLanguagesUi (path));
 }

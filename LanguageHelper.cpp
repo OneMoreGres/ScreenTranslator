@@ -25,6 +25,35 @@ const QStringList &LanguageHelper::availableOcrLanguages() const
   return availableOcrLanguages_;
 }
 
+QStringList LanguageHelper::availableOcrLanguages(const QString &path) const
+{
+  QDir dir (path + "/tessdata/");
+  if (!dir.exists ())
+  {
+    return QStringList ();
+  }
+  QStringList items;
+  QStringList files = dir.entryList (QStringList () << "*.traineddata", QDir::Files);
+  foreach (const QString& file, files)
+  {
+    QString lang = file.left (file.indexOf ("."));
+    items << lang;
+  }
+  return items;
+}
+
+QStringList LanguageHelper::availableOcrLanguagesUi(const QString &path) const
+{
+  QStringList uiItems, items;
+  items = availableOcrLanguages (path);
+  foreach (const QString& item, items)
+  {
+    uiItems << ocrCodeToUi (item);
+  }
+  uiItems.sort ();
+  return uiItems;
+}
+
 QStringList LanguageHelper::translateLanguagesUi() const
 {
   QStringList uiItems = translateLanguages_.keys ();
@@ -77,22 +106,12 @@ void LanguageHelper::init()
 
 void LanguageHelper::updateAvailableOcrLanguages()
 {
+  availableOcrLanguages_.clear ();
   QSettings settings;
   settings.beginGroup (settings_names::recogntionGroup);
   QString tessDataPlace = settings.value (settings_names::tessDataPlace,
                                           settings_values::tessDataPlace).toString ();
-  QDir dir (tessDataPlace + "/tessdata/");
-  if (!dir.exists ())
-  {
-    return;
-  }
-  availableOcrLanguages_.clear ();
-  QStringList files = dir.entryList (QStringList () << "*.traineddata", QDir::Files);
-  foreach (const QString& file, files)
-  {
-    QString lang = file.left (file.indexOf ("."));
-    availableOcrLanguages_ << lang;
-  }
+  availableOcrLanguages_ = availableOcrLanguages (tessDataPlace + "/tessdata/");
 }
 
 void LanguageHelper::initTranslateLanguages()

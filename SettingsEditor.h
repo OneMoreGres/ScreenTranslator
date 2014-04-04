@@ -27,7 +27,7 @@ class SettingsEditor : public QDialog
   private slots:
     void saveSettings () const;
     void openTessdataDialog ();
-    void initOcrLangCombo ();
+    void initOcrLangCombo (const QString& path);
 
   private:
     void loadSettings ();
