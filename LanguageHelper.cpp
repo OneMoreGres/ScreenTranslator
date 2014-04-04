@@ -111,7 +111,7 @@ void LanguageHelper::updateAvailableOcrLanguages()
   settings.beginGroup (settings_names::recogntionGroup);
   QString tessDataPlace = settings.value (settings_names::tessDataPlace,
                                           settings_values::tessDataPlace).toString ();
-  availableOcrLanguages_ = availableOcrLanguages (tessDataPlace + "/tessdata/");
+  availableOcrLanguages_ = availableOcrLanguages (tessDataPlace);
 }
 
 void LanguageHelper::initTranslateLanguages()
