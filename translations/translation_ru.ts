@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>Manager</name>
     <message>
         <location filename="../Manager.cpp" line="83"/>
         <source>Захват</source>
-        <translation>Capture</translation>
+        <translation>Захват</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="84"/>
         <location filename="../Manager.cpp" line="196"/>
         <location filename="../Manager.cpp" line="213"/>
         <source>Перевод</source>
-        <translation>Translation</translation>
+        <translation>Перевод</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="85"/>
         <source>Повторить</source>
-        <translation>Repeat</translation>
+        <translation>Повторить</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="87"/>
         <source>Скопировать</source>
-        <translation>Copy</translation>
+        <translation>Скопировать</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="89"/>
         <source>Настройки</source>
-        <translation>Settings</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="90"/>
         <location filename="../Manager.cpp" line="163"/>
         <source>О программе</source>
-        <translation>About</translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="91"/>
         <source>Выход</source>
-        <translation>Exit</translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="159"/>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)</source>
-        <translation>Screen text recognition and translation program. \n Uses Qt,  tesseract-ocr, Google Translate. \n Author: Gres (translator@gres.biz)</translation>
+        <translation>Программа для распознавания текста на экране.
+Создана с использованием Qt, tesseract-ocr, Google Translate.
+Автор: Gres (translator@gres.biz)</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="197"/>
         <source>Последний перевод был скопирован в буфер обмена.</source>
-        <translation>Last translation has been copied to the clipboard.</translation>
+        <translation>Последний перевод был скопирован в буфер обмена.</translation>
     </message>
     <message>
         <location filename="../Manager.cpp" line="220"/>
         <source>Ошибка</source>
-        <translation>Error</translation>
+        <translation>Ошибка</translation>
     </message>
 </context>
 <context>
@@ -65,414 +67,414 @@
         <location filename="../LanguageHelper.cpp" line="97"/>
         <location filename="../LanguageHelper.cpp" line="216"/>
         <source>Afrikaans</source>
-        <translation>Afrikaans</translation>
+        <translation>Африкаанс</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="98"/>
         <location filename="../LanguageHelper.cpp" line="171"/>
         <source>Albanian</source>
-        <translation>Albanian</translation>
+        <translation>Албанский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="99"/>
         <location filename="../LanguageHelper.cpp" line="215"/>
         <source>Arabic</source>
-        <translation>Arabic</translation>
+        <translation>Арабский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="100"/>
         <source>Armenian</source>
-        <translation>Armenian</translation>
+        <translation>Армянский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="101"/>
         <location filename="../LanguageHelper.cpp" line="214"/>
         <source>Azerbaijani</source>
-        <translation>Azerbaijani</translation>
+        <translation>Азербайджанский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="102"/>
         <location filename="../LanguageHelper.cpp" line="201"/>
         <source>Basque</source>
-        <translation>Basque</translation>
+        <translation>Басков</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="103"/>
         <location filename="../LanguageHelper.cpp" line="213"/>
         <source>Belarusian</source>
-        <translation>Belarusian</translation>
+        <translation>Белорусский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="104"/>
         <location filename="../LanguageHelper.cpp" line="211"/>
         <source>Bulgarian</source>
-        <translation>Bulgarian</translation>
+        <translation>Болгарский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="105"/>
         <location filename="../LanguageHelper.cpp" line="210"/>
         <source>Catalan</source>
-        <translation>Catalan</translation>
+        <translation>Каталонский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="106"/>
         <location filename="../LanguageHelper.cpp" line="218"/>
         <source>Chinese (Simplified)</source>
-        <translation>Chinese (Simplified)</translation>
+        <translation>Китайский (упрощенный)</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="107"/>
         <location filename="../LanguageHelper.cpp" line="219"/>
         <source>Chinese (Traditional)</source>
-        <translation>Chinese (Traditional)</translation>
+        <translation>Китайский (традиционный)</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="108"/>
         <location filename="../LanguageHelper.cpp" line="193"/>
         <source>Croatian</source>
-        <translation>Croatian</translation>
+        <translation>Хорватский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="109"/>
         <location filename="../LanguageHelper.cpp" line="209"/>
         <source>Czech</source>
-        <translation>Czech</translation>
+        <translation>Чешский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="110"/>
         <location filename="../LanguageHelper.cpp" line="208"/>
         <source>Danish</source>
-        <translation>Danish</translation>
+        <translation>Датский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="111"/>
         <location filename="../LanguageHelper.cpp" line="179"/>
         <source>Dutch</source>
-        <translation>Dutch</translation>
+        <translation>Голландский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="112"/>
         <location filename="../LanguageHelper.cpp" line="161"/>
         <source>English</source>
-        <translation>English</translation>
+        <translation>Английский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="113"/>
         <location filename="../LanguageHelper.cpp" line="202"/>
         <source>Estonian</source>
-        <translation>Estonian</translation>
+        <translation>Эстонский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="114"/>
         <source>Filipino</source>
-        <translation>Filipino</translation>
+        <translation>Филиппинский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="115"/>
         <location filename="../LanguageHelper.cpp" line="200"/>
         <source>Finnish</source>
-        <translation>Finnish</translation>
+        <translation>Финский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="116"/>
         <location filename="../LanguageHelper.cpp" line="199"/>
         <source>French</source>
-        <translation>French</translation>
+        <translation>Французский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="117"/>
         <location filename="../LanguageHelper.cpp" line="196"/>
         <source>Galician</source>
-        <translation>Galician</translation>
+        <translation>Галицкий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="118"/>
         <source>Georgian</source>
-        <translation>Georgian</translation>
+        <translation>Грузинский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="119"/>
         <location filename="../LanguageHelper.cpp" line="207"/>
         <source>German</source>
-        <translation>German</translation>
+        <translation>Немецкий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="120"/>
         <location filename="../LanguageHelper.cpp" line="206"/>
         <source>Greek</source>
-        <translation>Greek</translation>
+        <translation>Греческий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="121"/>
         <source>Haitian Creole</source>
-        <translation>Haitian Creole</translation>
+        <translation>Гаитянский креольский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="122"/>
         <location filename="../LanguageHelper.cpp" line="195"/>
         <source>Hebrew</source>
-        <translation>Hebrew</translation>
+        <translation>Иврит</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="123"/>
         <location filename="../LanguageHelper.cpp" line="194"/>
         <source>Hindi</source>
-        <translation>Hindi</translation>
+        <translation>Хинди</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="124"/>
         <location filename="../LanguageHelper.cpp" line="192"/>
         <source>Hungarian</source>
-        <translation>Hungarian</translation>
+        <translation>Венгерский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="125"/>
         <location filename="../LanguageHelper.cpp" line="189"/>
         <source>Icelandic</source>
-        <translation>Icelandic</translation>
+        <translation>Исландский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="126"/>
         <location filename="../LanguageHelper.cpp" line="190"/>
         <source>Indonesian</source>
-        <translation>Indonesian</translation>
+        <translation>Индонезийский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="127"/>
         <source>Irish</source>
-        <translation>Irish</translation>
+        <translation>Ирландский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="128"/>
         <location filename="../LanguageHelper.cpp" line="188"/>
         <source>Italian</source>
-        <translation>Italian</translation>
+        <translation>Итальянский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="129"/>
         <location filename="../LanguageHelper.cpp" line="217"/>
         <source>Japanese</source>
-        <translation>Japanese</translation>
+        <translation>Японский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="130"/>
         <location filename="../LanguageHelper.cpp" line="186"/>
         <source>Korean</source>
-        <translation>Korean</translation>
+        <translation>Корейский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="131"/>
         <location filename="../LanguageHelper.cpp" line="185"/>
         <source>Latvian</source>
-        <translation>Latvian</translation>
+        <translation>Латвийский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="132"/>
         <location filename="../LanguageHelper.cpp" line="184"/>
         <source>Lithuanian</source>
-        <translation>Lithuanian</translation>
+        <translation>Литовский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="133"/>
         <location filename="../LanguageHelper.cpp" line="182"/>
         <source>Macedonian</source>
-        <translation>Macedonian</translation>
+        <translation>Македонский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="134"/>
         <location filename="../LanguageHelper.cpp" line="180"/>
         <source>Malay</source>
-        <translation>Malay</translation>
+        <translation>Малайский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="135"/>
         <location filename="../LanguageHelper.cpp" line="181"/>
         <source>Maltese</source>
-        <translation>Maltese</translation>
+        <translation>Мальтийский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="136"/>
         <location filename="../LanguageHelper.cpp" line="178"/>
         <source>Norwegian</source>
-        <translation>Norwegian</translation>
+        <translation>Норвежский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="137"/>
         <source>Persian</source>
-        <translation>Persian</translation>
+        <translation>Персидский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="138"/>
         <location filename="../LanguageHelper.cpp" line="177"/>
         <source>Polish</source>
-        <translation>Polish</translation>
+        <translation>Польский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="139"/>
         <location filename="../LanguageHelper.cpp" line="176"/>
         <source>Portuguese</source>
-        <translation>Portuguese</translation>
+        <translation>Португальский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="140"/>
         <location filename="../LanguageHelper.cpp" line="175"/>
         <source>Romanian</source>
-        <translation>Romanian</translation>
+        <translation>Румынский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="141"/>
         <location filename="../LanguageHelper.cpp" line="220"/>
         <source>Russian</source>
-        <translation>Russian</translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="142"/>
         <location filename="../LanguageHelper.cpp" line="170"/>
         <source>Serbian</source>
-        <translation>Serbian</translation>
+        <translation>Сербский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="143"/>
         <source>Slovak</source>
-        <translation>Slovak</translation>
+        <translation>Словацкий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="144"/>
         <location filename="../LanguageHelper.cpp" line="173"/>
         <source>Slovenian</source>
-        <translation>Slovenian</translation>
+        <translation>Словенский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="145"/>
         <location filename="../LanguageHelper.cpp" line="172"/>
         <source>Spanish</source>
-        <translation>Spanish</translation>
+        <translation>Испанский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="146"/>
         <location filename="../LanguageHelper.cpp" line="169"/>
         <source>Swahili</source>
-        <translation>Swahili</translation>
+        <translation>Суахили</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="147"/>
         <location filename="../LanguageHelper.cpp" line="168"/>
         <source>Swedish</source>
-        <translation>Swedish</translation>
+        <translation>Шведский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="148"/>
         <location filename="../LanguageHelper.cpp" line="164"/>
         <source>Thai</source>
-        <translation>Thai</translation>
+        <translation>Тайский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="149"/>
         <location filename="../LanguageHelper.cpp" line="163"/>
         <source>Turkish</source>
-        <translation>Turkish</translation>
+        <translation>Турецкий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="150"/>
         <location filename="../LanguageHelper.cpp" line="162"/>
         <source>Ukrainian</source>
-        <translation>Ukrainian</translation>
+        <translation>Украинский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="151"/>
         <source>Urdu</source>
-        <translation>Urdu</translation>
+        <translation>Урду</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="152"/>
         <location filename="../LanguageHelper.cpp" line="221"/>
         <source>Vietnamese</source>
-        <translation>Vietnamese</translation>
+        <translation>Вьетнамский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="153"/>
         <source>Welsh</source>
-        <translation>Welsh</translation>
+        <translation>Валлийский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="154"/>
         <source>Yiddish</source>
-        <translation>Yiddish</translation>
+        <translation>Идиш</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="159"/>
         <source>Ancient Greek</source>
-        <translation>Ancient Greek</translation>
+        <translation>Древнегреческий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="160"/>
         <source>Esperanto alternative</source>
-        <translation></translation>
+        <translation>Эсперанто альтернативный</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="165"/>
         <source>Tagalog</source>
-        <translation>Tagalog</translation>
+        <translation>Тагальский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="166"/>
         <source>Telugu</source>
-        <translation>Telugu</translation>
+        <translation>Телугу</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="167"/>
         <source>Tamil</source>
-        <translation>Tamil</translation>
+        <translation>Тамил</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="174"/>
         <source>Slovakian</source>
-        <translation>Slovakian</translation>
+        <translation>Словацкий</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="183"/>
         <source>Malayalam</source>
-        <translation>Malayalam</translation>
+        <translation>Малаялам</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="187"/>
         <source>Kannada</source>
-        <translation>Kannada</translation>
+        <translation>Каннада</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="191"/>
         <source>Cherokee</source>
-        <translation>Cherokee</translation>
+        <translation>Чероки</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="197"/>
         <source>Middle French (ca. 1400-1600)</source>
-        <translation>Middle French</translation>
+        <translation>Средневековый Французский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="198"/>
         <source>Frankish</source>
-        <translation>Frankish</translation>
+        <translation>Франкский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="203"/>
         <source>Math / equation</source>
-        <translation>Math / equation</translation>
+        <translation>Математика/уравнение</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="204"/>
         <source>Esperanto</source>
-        <translation>Esperanto</translation>
+        <translation>Эсперанто</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="205"/>
         <source>Middle English (1100-1500)</source>
-        <translation>Middle English</translation>
+        <translation>Средневековый Английский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="212"/>
         <source>Bengali</source>
-        <translation>Bengali</translation>
+        <translation>Бенгальский</translation>
     </message>
 </context>
 <context>
@@ -480,17 +482,17 @@
     <message>
         <location filename="../Recognizer.cpp" line="41"/>
         <source>Неверные параметры для OCR</source>
-        <translation>Wrong parameters for OCR</translation>
+        <translation>Неверные параметры для OCR</translation>
     </message>
     <message>
         <location filename="../Recognizer.cpp" line="53"/>
         <source>Ошибка инициализации OCR: %1</source>
-        <translation>OCR initialization error: %1</translation>
+        <translation>Ошибка инициализации OCR: %1</translation>
     </message>
     <message>
         <location filename="../Recognizer.cpp" line="96"/>
         <source>Текст не распознан.</source>
-        <translation>Failed to recognize text.</translation>
+        <translation>Текст не распознан.</translation>
     </message>
 </context>
 <context>
@@ -498,7 +500,7 @@
     <message>
         <location filename="../ResultDialog.ui" line="14"/>
         <source>Результат</source>
-        <translation>Result</translation>
+        <translation>Результат</translation>
     </message>
 </context>
 <context>
@@ -506,7 +508,7 @@
     <message>
         <location filename="../SelectionDialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Selection</translation>
+        <translation>Выбор</translation>
     </message>
 </context>
 <context>
@@ -514,50 +516,50 @@
     <message>
         <location filename="../SettingsEditor.ui" line="14"/>
         <source>Настройки</source>
-        <translation>Settings</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="20"/>
         <source>Горячие клавиши</source>
-        <translation>Hotkeys</translation>
+        <translation>Горячие клавиши</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="26"/>
         <location filename="../SettingsEditor.ui" line="42"/>
         <location filename="../SettingsEditor.ui" line="58"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keys combination to enter capture mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="29"/>
         <source>Захватить</source>
-        <translation>Capture</translation>
+        <translation>Захватить</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="45"/>
         <source>Скопировать</source>
-        <translation>Copy</translation>
+        <translation>Скопировать</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="61"/>
         <source>Повторить</source>
-        <translation>Repeat</translation>
+        <translation>Повторить</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="77"/>
         <source>Распознавание</source>
-        <translation>Recognition</translation>
+        <translation>Распознавание</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="83"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Required for recognition.&lt;/p&gt;&lt;p&gt;Can me downloaded from there: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="86"/>
         <location filename="../SettingsEditor.cpp" line="76"/>
         <source>Путь к tessdata</source>
-        <translation>Tessdata path</translation>
+        <translation>Путь к tessdata</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="99"/>
@@ -567,340 +569,344 @@
     <message>
         <location filename="../SettingsEditor.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Values depend on tessdata contents&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="109"/>
         <source>Язык распознавания</source>
-        <translation>Recognition language</translation>
+        <translation>Язык распознавания</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="119"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Image scaling for better recognition. More is better (reasonable), but slower.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="122"/>
         <source>Увеличение масштаба</source>
-        <translation>Scale factor</translation>
+        <translation>Увеличение масштаба</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="154"/>
         <source>Вывод результата</source>
-        <translation>Result representation</translation>
+        <translation>Вывод результата</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="160"/>
         <source>Трей</source>
-        <translation>Tray</translation>
+        <translation>Трей</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="167"/>
         <source>Окно</source>
-        <translation>Window</translation>
+        <translation>Окно</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="180"/>
         <source>Перевод</source>
-        <translation>Translation</translation>
+        <translation>Перевод</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="186"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Translated text language.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="189"/>
         <source>Язык результата</source>
-        <translation>Result language</translation>
+        <translation>Язык результата</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="vanished">Afrikaans</translation>
+        <translation type="vanished">Африкаанс</translation>
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="vanished">Albanian</translation>
+        <translation type="vanished">Албанский</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="vanished">Arabic</translation>
+        <translation type="vanished">Арабский</translation>
     </message>
     <message>
         <source>Armenian</source>
-        <translation type="vanished">Armenian</translation>
+        <translation type="vanished">Армянский</translation>
     </message>
     <message>
         <source>Azerbaijani</source>
-        <translation type="vanished">Azerbaijani</translation>
+        <translation type="vanished">Азербайджанский</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="vanished">Basque</translation>
+        <translation type="vanished">Басков</translation>
     </message>
     <message>
         <source>Belarusian</source>
-        <translation type="vanished">Belarusian</translation>
+        <translation type="vanished">Белорусский</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="vanished">Bulgarian</translation>
+        <translation type="vanished">Болгарский</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="vanished">Catalan</translation>
+        <translation type="vanished">Каталонский</translation>
     </message>
     <message>
         <source>Chinese (Simplified)</source>
-        <translation type="vanished">Chinese (Simplified)</translation>
+        <translation type="vanished">Китайский (упрощенный)</translation>
     </message>
     <message>
         <source>Chinese (Traditional)</source>
-        <translation type="vanished">Chinese (Traditional)</translation>
+        <translation type="vanished">Китайский (традиционный)</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="vanished">Croatian</translation>
+        <translation type="vanished">Хорватский</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="vanished">Czech</translation>
+        <translation type="vanished">Чешский</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="vanished">Danish</translation>
+        <translation type="vanished">Датский</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="vanished">Dutch</translation>
+        <translation type="vanished">Голландский</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="vanished">English</translation>
+        <translation type="vanished">Английский</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="vanished">Estonian</translation>
+        <translation type="vanished">Эстонский</translation>
     </message>
     <message>
         <source>Filipino</source>
-        <translation type="vanished">Filipino</translation>
+        <translation type="vanished">Филиппинский</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="vanished">Finnish</translation>
+        <translation type="vanished">Финский</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="vanished">French</translation>
+        <translation type="vanished">Французский</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="vanished">Galician</translation>
+        <translation type="vanished">Галицкий</translation>
     </message>
     <message>
         <source>Georgian</source>
-        <translation type="vanished">Georgian</translation>
+        <translation type="vanished">Грузинский</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="vanished">German</translation>
+        <translation type="vanished">Немецкий</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="vanished">Greek</translation>
+        <translation type="vanished">Греческий</translation>
     </message>
     <message>
         <source>Haitian Creole</source>
-        <translation type="vanished">Haitian Creole</translation>
+        <translation type="vanished">Гаитянский креольский</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="vanished">Hebrew</translation>
+        <translation type="vanished">Иврит</translation>
     </message>
     <message>
         <source>Hindi</source>
-        <translation type="vanished">Hindi</translation>
+        <translation type="vanished">Хинди</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="vanished">Hungarian</translation>
+        <translation type="vanished">Венгерский</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="vanished">Icelandic</translation>
+        <translation type="vanished">Исландский</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="vanished">Indonesian</translation>
+        <translation type="vanished">Индонезийский</translation>
     </message>
     <message>
         <source>Irish</source>
-        <translation type="vanished">Irish</translation>
+        <translation type="vanished">Ирландский</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="vanished">Italian</translation>
+        <translation type="vanished">Итальянский</translation>
     </message>
     <message>
         <source>Japanese</source>
-        <translation type="vanished">Japanese</translation>
+        <translation type="vanished">Японский</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="vanished">Korean</translation>
+        <translation type="vanished">Корейский</translation>
     </message>
     <message>
         <source>Latvian</source>
-        <translation type="vanished">Latvian</translation>
+        <translation type="vanished">Латвийский</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="vanished">Lithuanian</translation>
+        <translation type="vanished">Литовский</translation>
     </message>
     <message>
         <source>Macedonian</source>
-        <translation type="vanished">Macedonian</translation>
+        <translation type="vanished">Македонский</translation>
     </message>
     <message>
         <source>Malay</source>
-        <translation type="vanished">Malay</translation>
+        <translation type="vanished">Малайский</translation>
     </message>
     <message>
         <source>Maltese</source>
-        <translation type="vanished">Maltese</translation>
+        <translation type="vanished">Мальтийский</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="vanished">Norwegian</translation>
+        <translation type="vanished">Норвежский</translation>
     </message>
     <message>
         <source>Persian</source>
-        <translation type="vanished">Persian</translation>
+        <translation type="vanished">Персидский</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="vanished">Polish</translation>
+        <translation type="vanished">Польский</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="vanished">Portuguese</translation>
+        <translation type="vanished">Португальский</translation>
     </message>
     <message>
         <source>Romanian</source>
-        <translation type="vanished">Romanian</translation>
+        <translation type="vanished">Румынский</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="vanished">Russian</translation>
+        <translation type="vanished">Русский</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="vanished">Serbian</translation>
+        <translation type="vanished">Сербский</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="vanished">Slovak</translation>
+        <translation type="vanished">Словацкий</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="vanished">Slovenian</translation>
+        <translation type="vanished">Словенский</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="vanished">Spanish</translation>
+        <translation type="vanished">Испанский</translation>
     </message>
     <message>
         <source>Swahili</source>
-        <translation type="vanished">Swahili</translation>
+        <translation type="vanished">Суахили</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="vanished">Swedish</translation>
+        <translation type="vanished">Шведский</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation type="vanished">Thai</translation>
+        <translation type="vanished">Тайский</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="vanished">Turkish</translation>
+        <translation type="vanished">Турецкий</translation>
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation type="vanished">Ukrainian</translation>
+        <translation type="vanished">Украинский</translation>
     </message>
     <message>
         <source>Urdu</source>
-        <translation type="vanished">Urdu</translation>
+        <translation type="vanished">Урду</translation>
     </message>
     <message>
         <source>Vietnamese</source>
-        <translation type="vanished">Vietnamese</translation>
+        <translation type="vanished">Вьетнамский</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="vanished">Welsh</translation>
+        <translation type="vanished">Валлийский</translation>
     </message>
     <message>
         <source>Yiddish</source>
-        <translation type="vanished">Yiddish</translation>
+        <translation type="vanished">Идиш</translation>
     </message>
     <message>
         <source>Ancient Greek</source>
-        <translation type="vanished">Ancient Greek</translation>
+        <translation type="vanished">Древнегреческий</translation>
+    </message>
+    <message>
+        <source>Esperanto alternative</source>
+        <translation type="vanished">Эсперанто альтернативный</translation>
     </message>
     <message>
         <source>Tagalog</source>
-        <translation type="vanished">Tagalog</translation>
+        <translation type="vanished">Тагальский</translation>
     </message>
     <message>
         <source>Telugu</source>
-        <translation type="vanished">Telugu</translation>
+        <translation type="vanished">Телугу</translation>
     </message>
     <message>
         <source>Tamil</source>
-        <translation type="vanished">Tamil</translation>
+        <translation type="vanished">Тамил</translation>
     </message>
     <message>
         <source>Slovakian</source>
-        <translation type="vanished">Slovakian</translation>
+        <translation type="vanished">Словацкий</translation>
     </message>
     <message>
         <source>Malayalam</source>
-        <translation type="vanished">Malayalam</translation>
+        <translation type="vanished">Малаялам</translation>
     </message>
     <message>
         <source>Kannada</source>
-        <translation type="vanished">Kannada</translation>
+        <translation type="vanished">Каннада</translation>
     </message>
     <message>
         <source>Cherokee</source>
-        <translation type="vanished">Cherokee</translation>
+        <translation type="vanished">Чероки</translation>
     </message>
     <message>
         <source>Middle French (ca. 1400-1600)</source>
-        <translation type="vanished">Middle French (ca. 1400-1600)</translation>
+        <translation type="vanished">Средневековый Французский (ок.1400-1600)</translation>
     </message>
     <message>
         <source>Frankish</source>
-        <translation type="vanished">Frankish</translation>
+        <translation type="vanished">Франкский</translation>
     </message>
     <message>
         <source>Math / equation</source>
-        <translation type="vanished">Math / equation</translation>
+        <translation type="vanished">Математика/уравнение</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="vanished">Esperanto</translation>
+        <translation type="vanished">Эсперанто</translation>
     </message>
     <message>
         <source>Middle English (1100-1500)</source>
-        <translation type="vanished">Middle English (1100-1500)</translation>
+        <translation type="vanished">Средневековый Английский (1100-1500)</translation>
     </message>
     <message>
         <source>Bengali</source>
-        <translation type="vanished">Bengali</translation>
+        <translation type="vanished">Бенгальский</translation>
     </message>
 </context>
 <context>
@@ -908,17 +914,17 @@
     <message>
         <location filename="../Translator.cpp" line="46"/>
         <source>Неверные парметры для перевода.</source>
-        <translation>Wrong translation parameters.</translation>
+        <translation>Неверные парметры для перевода.</translation>
     </message>
     <message>
         <location filename="../Translator.cpp" line="61"/>
         <source>Ошибка перевода: %1</source>
-        <translation>Translation error: %1</translation>
+        <translation>Ошибка перевода: %1</translation>
     </message>
     <message>
         <location filename="../Translator.cpp" line="76"/>
         <source>Ошибка разбора перевода: %1 (%2)</source>
-        <translation>Translation parsing error: %1 (%2)</translation>
+        <translation>Ошибка разбора перевода: %1 (%2)</translation>
     </message>
 </context>
 </TS>

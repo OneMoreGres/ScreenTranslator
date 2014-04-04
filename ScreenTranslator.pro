@@ -13,7 +13,8 @@ TEMPLATE = app
 
 INCLUDEPATH += D:/Files/build/include
 
-LIBS += -LD:/Files/build/bin -ltesseract -llept
+LIBS += -static -LD:/Files/build/bin -ltesseract -llept -ltiff -lgif -ljpeg -lz
+win32{LIBS += -lWs2_32}
 
 SOURCES += main.cpp\
     Manager.cpp \
