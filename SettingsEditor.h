@@ -8,13 +8,14 @@
 namespace Ui {
   class SettingsEditor;
 }
+class LanguageHelper;
 
 class SettingsEditor : public QDialog
 {
     Q_OBJECT
 
   public:
-    explicit SettingsEditor(QWidget *parent = 0);
+    explicit SettingsEditor(const LanguageHelper& dictionary, QWidget *parent = 0);
     ~SettingsEditor();
 
   signals:
@@ -32,14 +33,11 @@ class SettingsEditor : public QDialog
     void loadSettings ();
     void saveState () const;
     void loadState ();
-    void initTranslateLanguages ();
-    void initOcrLanguages ();
 
   private:
     Ui::SettingsEditor *ui;
+    const LanguageHelper& dictionary_;
     QButtonGroup* buttonGroup_;
-    QMap<QString, QString> translateLanguages_;
-    QMap<QString, QString> ocrLanguages_;
 };
 
 #endif // SETTINGSEDITOR_H

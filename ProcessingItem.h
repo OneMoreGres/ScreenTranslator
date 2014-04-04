@@ -10,6 +10,9 @@ struct ProcessingItem
     QString recognized;
     QString translated;
 
+    QString ocrLanguage;
+    QString sourceLanguage;
+
     bool isValid () const;
 };
 Q_DECLARE_METATYPE(ProcessingItem)

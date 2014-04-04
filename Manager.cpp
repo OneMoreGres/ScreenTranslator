@@ -17,11 +17,13 @@
 #include "Recognizer.h"
 #include "Translator.h"
 #include "ResultDialog.h"
+#include "LanguageHelper.h"
 
 Manager::Manager(QObject *parent) :
   QObject(parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
-  selection_ (new SelectionDialog),
+  dictionary_ (new LanguageHelper),
+  selection_ (new SelectionDialog (*dictionary_)),
   resultDialog_ (new ResultDialog),
   captureAction_ (NULL), repeatAction_ (NULL), clipboardAction_ (NULL),
   useResultDialog_ (true)
@@ -60,6 +62,7 @@ Manager::Manager(QObject *parent) :
   connect (this, SIGNAL (showPixmap (QPixmap)),
            selection_, SLOT (setPixmap (QPixmap)));
 
+  connect (this, SIGNAL (settingsEdited ()), selection_, SLOT (updateMenu ()));
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
   selection_->setWindowIcon (trayIcon_->icon ());
   resultDialog_->setWindowIcon (trayIcon_->icon ());
@@ -117,6 +120,9 @@ void Manager::applySettings()
   // Depends on SettingsEditor button indexes. 1==dialog
   useResultDialog_ = settings.value (settings_names::resultShowType,
                                      settings_values::resultShowType).toBool ();
+
+  Q_CHECK_PTR (dictionary_);
+  dictionary_->updateAvailableOcrLanguages ();
 }
 
 Manager::~Manager()
@@ -137,7 +143,7 @@ void Manager::capture()
 
 void Manager::settings()
 {
-  SettingsEditor editor;
+  SettingsEditor editor (*dictionary_);
   editor.setWindowIcon (trayIcon_->icon ());
   connect (&editor, SIGNAL (settingsEdited ()), SIGNAL (settingsEdited ()));
   editor.exec ();

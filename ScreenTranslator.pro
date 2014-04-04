@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     Translator.cpp \
     ResultDialog.cpp \
     ProcessingItem.cpp \
-    ImageProcessing.cpp
+    ImageProcessing.cpp \
+    LanguageHelper.cpp
 
 HEADERS  += \
     Manager.h \
@@ -36,7 +37,8 @@ HEADERS  += \
     Settings.h \
     ProcessingItem.h \
     ResultDialog.h \
-    ImageProcessing.h
+    ImageProcessing.h \
+    LanguageHelper.h
 
 FORMS    += \
     SettingsEditor.ui \

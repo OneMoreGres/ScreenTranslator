@@ -11,6 +11,7 @@ class QMenu;
 
 class SelectionDialog;
 class ResultDialog;
+class LanguageHelper;
 
 class Manager : public QObject
 {
@@ -43,6 +44,7 @@ class Manager : public QObject
 
   private:
     QSystemTrayIcon* trayIcon_;
+    LanguageHelper* dictionary_;
     SelectionDialog* selection_;
     ResultDialog* resultDialog_;
     QAction* captureAction_;
