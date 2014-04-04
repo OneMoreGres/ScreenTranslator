@@ -31,28 +31,28 @@ void Recognizer::applySettings()
   imageScale_ = settings.value (settings_names::imageScale,
                                 settings_values::imageScale).toInt ();
 
-  initEngine ();
+  initEngine (engine_);
 }
 
-bool Recognizer::initEngine()
+bool Recognizer::initEngine(tesseract::TessBaseAPI *&engine)
 {
   if (tessDataDir_.isEmpty () || ocrLanguage_.isEmpty ())
   {
     emit error (tr ("Неверные параметры для OCR"));
     return false;
   }
-  if (engine_ != NULL)
+  if (engine != NULL)
   {
-    delete engine_;
+    delete engine;
   }
-  engine_ = new tesseract::TessBaseAPI();
-  int result = engine_->Init(qPrintable (tessDataDir_), qPrintable (ocrLanguage_),
+  engine = new tesseract::TessBaseAPI();
+  int result = engine->Init(qPrintable (tessDataDir_), qPrintable (ocrLanguage_),
                              tesseract::OEM_DEFAULT);
   if (result != 0)
   {
     emit error (tr ("Ошибка инициализации OCR: %1").arg (result));
-    delete engine_;
-    engine_ = NULL;
+    delete engine;
+    engine = NULL;
     return false;
   }
   return true;
@@ -61,9 +61,12 @@ bool Recognizer::initEngine()
 void Recognizer::recognize(ProcessingItem item)
 {
   Q_ASSERT (!item.source.isNull ());
-  if (engine_ == NULL)
+  bool isCustomLanguage = (!item.ocrLanguage.isEmpty () &&
+                           item.ocrLanguage != ocrLanguage_);
+  tesseract::TessBaseAPI* engine = (isCustomLanguage) ? NULL : engine_;
+  if (engine == NULL)
   {
-    if (!initEngine ())
+    if (!initEngine (engine))
     {
       return;
     }
@@ -71,11 +74,17 @@ void Recognizer::recognize(ProcessingItem item)
 
   Pix* image = prepareImage (item.source.toImage (), imageScale_);
   Q_ASSERT (image != NULL);
-  engine_->SetImage (image);
-  char* outText = engine_->GetUTF8Text();
-  QString result = QString (outText).trimmed ();
-  engine_->Clear();
+  engine->SetImage (image);
+  char* outText = engine->GetUTF8Text();
+  engine->Clear();
   cleanupImage (&image);
+
+  QString result = QString (outText).trimmed ();
+  delete [] outText;
+  if (isCustomLanguage)
+  {
+    delete engine;
+  }
 
   if (!result.isEmpty ())
   {
@@ -86,5 +95,4 @@ void Recognizer::recognize(ProcessingItem item)
   {
     emit error (tr ("Текст не распознан."));
   }
-  delete [] outText;
 }

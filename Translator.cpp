@@ -39,12 +39,14 @@ void Translator::applySettings()
 void Translator::translate(ProcessingItem item)
 {
   Q_ASSERT (!item.recognized.isEmpty ());
-  if (translationLanguage_.isEmpty ())
+  QString sourceLanguage = item.sourceLanguage.isEmpty () ? sourceLanguage_ :
+                                                            item.sourceLanguage;
+  if (translationLanguage_.isEmpty () || sourceLanguage.isEmpty ())
   {
     emit error (tr ("Неверные парметры для перевода."));
     return;
   }
-  QUrl url (translateBaseUrl.arg (item.recognized, sourceLanguage_, translationLanguage_));
+  QUrl url (translateBaseUrl.arg (item.recognized, sourceLanguage, translationLanguage_));
   QNetworkReply* reply = network_.get (QNetworkRequest (url));
   items_.insert (reply, item);
 }

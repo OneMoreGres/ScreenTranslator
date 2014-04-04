@@ -26,7 +26,7 @@ class Recognizer : public QObject
     void applySettings ();
 
   private:
-    bool initEngine ();
+    bool initEngine (tesseract::TessBaseAPI*&engine);
 
   private:
     tesseract::TessBaseAPI* engine_;
