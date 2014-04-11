@@ -3,3 +3,6 @@
 
 # Qt creator user settings
 *.user
+
+*.exe
+distr/content/
