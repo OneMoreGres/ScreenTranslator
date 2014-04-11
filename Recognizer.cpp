@@ -31,12 +31,12 @@ void Recognizer::applySettings()
   imageScale_ = settings.value (settings_names::imageScale,
                                 settings_values::imageScale).toInt ();
 
-  initEngine (engine_);
+  initEngine (engine_, ocrLanguage_);
 }
 
-bool Recognizer::initEngine(tesseract::TessBaseAPI *&engine)
+bool Recognizer::initEngine(tesseract::TessBaseAPI *&engine, const QString& language)
 {
-  if (tessDataDir_.isEmpty () || ocrLanguage_.isEmpty ())
+  if (tessDataDir_.isEmpty () || language.isEmpty ())
   {
     emit error (tr ("Неверные параметры для OCR"));
     return false;
@@ -46,7 +46,7 @@ bool Recognizer::initEngine(tesseract::TessBaseAPI *&engine)
     delete engine;
   }
   engine = new tesseract::TessBaseAPI();
-  int result = engine->Init(qPrintable (tessDataDir_), qPrintable (ocrLanguage_),
+  int result = engine->Init(qPrintable (tessDataDir_), qPrintable (language),
                              tesseract::OEM_DEFAULT);
   if (result != 0)
   {
@@ -66,7 +66,8 @@ void Recognizer::recognize(ProcessingItem item)
   tesseract::TessBaseAPI* engine = (isCustomLanguage) ? NULL : engine_;
   if (engine == NULL)
   {
-    if (!initEngine (engine))
+    QString language = (isCustomLanguage) ? item.ocrLanguage : ocrLanguage_;
+    if (!initEngine (engine, language))
     {
       return;
     }
