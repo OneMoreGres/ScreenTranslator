@@ -1,8 +1,24 @@
+#include <QDebug>
+
 #include <leptonica/allheaders.h>
 
 #include <tesseract/host.h>
 
 #include "ImageProcessing.h"
+
+#ifdef WIN32
+#include <windows.h>
+qint64 getFreeMemory ()
+{
+  MEMORYSTATUSEX statex;
+  statex.dwLength = sizeof (statex);
+  if (GlobalMemoryStatusEx (&statex))
+  {
+    return statex.ullAvailPhys;
+  }
+  return -1;
+}
+#endif
 
 Pix *convertImage(const QImage& image)
 {
@@ -111,6 +127,14 @@ Pix *prepareImage(const QImage &image, int preferredScale)
     float maxScaleY = MAX_INT16 / double (gray->h);
     float scaleY = std::min (float (preferredScale), maxScaleY);
     float scale = std::min (scaleX, scaleY);
+
+#ifdef WIN32
+    qint64 availableMemory = getFreeMemory () * 0.95;
+    qint32 actualSize = gray->w * gray->h * gray->d / 8;
+    float maxScaleMemory = float (availableMemory) / actualSize;
+    scale = std::min (scale, maxScaleMemory);
+#endif
+
     scaled = pixScale (gray, scale, scale);
   }
   Q_ASSERT (scaled != NULL);
