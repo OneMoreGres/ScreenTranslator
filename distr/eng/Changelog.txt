@@ -1,4 +1,6 @@
-Changes. 
+Changes.
+1.2.2:
+* Added alternative translation source. 
 1.2.1:
 * Fixed the bug with the lack of translation. 
 * Fixed the bug with the use of language recognition by default when you select another one in OCR region selection mode.
