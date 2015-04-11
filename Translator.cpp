@@ -9,6 +9,7 @@
 #include <QSettings>
 
 #include "Settings.h"
+#include "GoogleWebTranslator.h"
 
 namespace
 {
@@ -18,10 +19,18 @@ namespace
 
 Translator::Translator(QObject *parent) :
   QObject(parent),
-  network_ (this)
+  network_ (this),
+  useAlternativeTranslation_ (false)
 {
   connect (&network_, SIGNAL (finished (QNetworkReply*)),
            SLOT (replyFinished (QNetworkReply*)));
+
+  GoogleWebTranslator* googleWeb = new GoogleWebTranslator;
+  connect (this, SIGNAL (translateAlternative (ProcessingItem)),
+           googleWeb, SLOT (translate (ProcessingItem)));
+  connect (googleWeb, SIGNAL (translated (ProcessingItem, bool)),
+           this, SLOT (translatedAlternative(ProcessingItem, bool)));
+  connect (googleWeb, SIGNAL (error (QString)), this, SIGNAL (error (QString)));
 
   applySettings ();
 }
@@ -38,6 +47,10 @@ void Translator::applySettings()
 
 void Translator::translate(ProcessingItem item)
 {
+  if (useAlternativeTranslation_) {
+    emit translateAlternative(item);
+    return;
+  }
   Q_ASSERT (!item.recognized.isEmpty ());
   QString sourceLanguage = item.sourceLanguage.isEmpty () ? sourceLanguage_ :
                                                             item.sourceLanguage;
@@ -51,6 +64,18 @@ void Translator::translate(ProcessingItem item)
   items_.insert (reply, item);
 }
 
+void Translator::translatedAlternative(ProcessingItem item, bool success)
+{
+  if (success)
+  {
+    emit translated(item);
+  }
+  else
+  {
+    emit error (tr ("Ошибка альтернативного перевода текста: %1").arg (item.recognized));
+  }
+}
+
 void Translator::replyFinished(QNetworkReply* reply)
 {
   Q_ASSERT (items_.contains (reply));
@@ -58,7 +83,8 @@ void Translator::replyFinished(QNetworkReply* reply)
   Q_ASSERT (reply->isFinished ());
   if (reply->error () != QNetworkReply::NoError)
   {
-    emit error (tr ("Ошибка перевода: %1").arg (reply->errorString ()));
+    useAlternativeTranslation_ = true;
+    emit translateAlternative(item);
     reply->deleteLater ();
     return;
   }
@@ -73,8 +99,8 @@ void Translator::replyFinished(QNetworkReply* reply)
   QJsonDocument document = QJsonDocument::fromJson (data, &parseError);
   if (document.isEmpty ())
   {
-    emit error (tr ("Ошибка разбора перевода: %1 (%2)").
-                arg (parseError.errorString ()).arg (parseError.offset));
+    useAlternativeTranslation_ = true;
+    emit translateAlternative(item);
     return;
   }
   QJsonArray answerArray = document.array ();

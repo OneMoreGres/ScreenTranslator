@@ -13,10 +13,12 @@ class Translator : public QObject
 
   signals:
     void translated (ProcessingItem item);
+    void translateAlternative (ProcessingItem item);
     void error (QString text);
 
   public slots:
     void translate (ProcessingItem item);
+    void translatedAlternative (ProcessingItem item, bool success);
     void applySettings ();
 
   private slots:
@@ -27,6 +29,7 @@ class Translator : public QObject
     QString translationLanguage_;
     QString sourceLanguage_;
     QHash<QNetworkReply*, ProcessingItem> items_;
+    bool useAlternativeTranslation_;
 
 };
 
