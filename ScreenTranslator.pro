@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     ResultDialog.cpp \
     ProcessingItem.cpp \
     ImageProcessing.cpp \
-    LanguageHelper.cpp
+    LanguageHelper.cpp \
+    GoogleWebTranslator.cpp
 
 HEADERS  += \
     Manager.h \
@@ -39,7 +40,8 @@ HEADERS  += \
     ProcessingItem.h \
     ResultDialog.h \
     ImageProcessing.h \
-    LanguageHelper.h
+    LanguageHelper.h \
+    GoogleWebTranslator.h
 
 FORMS    += \
     SettingsEditor.ui \
