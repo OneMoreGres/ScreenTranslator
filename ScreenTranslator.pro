@@ -11,10 +11,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ScreenTranslator
 TEMPLATE = app
 
-INCLUDEPATH += D:/Files/build/include
+INCLUDEPATH += ../include
 
-LIBS += -static -LD:/Files/build/bin -ltesseract -llept -ltiff -lgif -ljpeg -lz
-win32{LIBS += -lWs2_32}
+LIBS += -L../bin -ltesseract -llept -ltiff -lgif -ljpeg -lz
+LIBS += -lWs2_32
 
 SOURCES += main.cpp\
     Manager.cpp \
