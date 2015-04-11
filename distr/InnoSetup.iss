@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Screen Translator"
-#define MyAppVersion "1.2.1"
+#define MyAppVersion "1.2.2"
 #define MyAppPublisher "Gres"
 #define MyAppURL "http://gres.biz/screen-translator/"
 #define MyAppExeName "ScreenTranslator.exe"    
@@ -26,7 +26,7 @@ AllowNoIcons=yes
 PrivilegesRequired=admin
 CloseApplications=yes
 OutputDir=.
-OutputBaseFilename=ScreenTranslatorSetup
+OutputBaseFilename=ScreenTranslator-{#MyAppVersion}
 SetupIconFile=..\images\icon.ico
 SolidCompression=yes
 RestartIfNeededByRun=False
@@ -61,16 +61,7 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [Files]
 Source: "content\ScreenTranslator.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: Executable
 
-Source: "content\icudt51.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\icuin51.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\icuuc51.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries  
-Source: "content\libgcc_s_dw2-1.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\Qt5Network.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
-Source: "content\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
+Source: "content\*.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
 Source: "content\platforms\*"; DestDir: "{app}\platforms"; Flags: ignoreversion; Components: Libraries
 
 Source: "content\tessdata\afr.*"; DestDir: "{app}\tessdata"; Flags: ignoreversion; Components: Languages\Afrikaans
