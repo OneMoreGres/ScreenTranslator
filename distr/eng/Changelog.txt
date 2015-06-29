@@ -1,4 +1,7 @@
 Changes.
+1.2.3:
+* Fixed possible crash.
+* Added version information and some error messages.
 1.2.2:
 * Added alternative translation source. 
 1.2.1:

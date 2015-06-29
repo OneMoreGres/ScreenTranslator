@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Screen Translator"
-#define MyAppVersion "1.2.2"
+#define MyAppVersion "1.2.3"
 #define MyAppPublisher "Gres"
 #define MyAppURL "http://gres.biz/screen-translator/"
 #define MyAppExeName "ScreenTranslator.exe"    
