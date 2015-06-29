@@ -5,6 +5,7 @@
 #include <tesseract/host.h>
 
 #include "ImageProcessing.h"
+#include "StAssert.h"
 
 #ifdef WIN32
 #include <windows.h>
@@ -113,10 +114,10 @@ QImage convertImage(Pix &image)
 Pix *prepareImage(const QImage &image, int preferredScale)
 {
   Pix* pix = convertImage (image);
-  Q_ASSERT (pix != NULL);
+  ST_ASSERT (pix != NULL);
 
   Pix* gray = pixConvertRGBToGray (pix, 0.0, 0.0, 0.0);
-  Q_ASSERT (gray != NULL);
+  ST_ASSERT (gray != NULL);
   pixDestroy (&pix);
 
   Pix* scaled = gray;
@@ -137,7 +138,7 @@ Pix *prepareImage(const QImage &image, int preferredScale)
 
     scaled = pixScale (gray, scale, scale);
   }
-  Q_ASSERT (scaled != NULL);
+  ST_ASSERT (scaled != NULL);
   if (scaled != gray)
   {
     pixDestroy (&gray);

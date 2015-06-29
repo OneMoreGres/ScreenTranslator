@@ -18,6 +18,7 @@
 #include "Translator.h"
 #include "ResultDialog.h"
 #include "LanguageHelper.h"
+#include "StAssert.h"
 
 Manager::Manager(QObject *parent) :
   QObject(parent),
@@ -134,12 +135,12 @@ Manager::~Manager()
 void Manager::capture()
 {
   QList<QScreen*> screens = QApplication::screens ();
-  Q_ASSERT (!screens.isEmpty ());
+  ST_ASSERT (!screens.isEmpty ());
   QScreen* screen = screens.first ();
   Q_CHECK_PTR (screen);
   WId desktopId = QApplication::desktop ()->winId ();
   QPixmap pixmap = screen->grabWindow (desktopId);
-  Q_ASSERT (!pixmap.isNull ());
+  ST_ASSERT (!pixmap.isNull ());
   emit showPixmap (pixmap);
 }
 
@@ -203,7 +204,7 @@ void Manager::copyLastToClipboard()
 
 void Manager::showResult(ProcessingItem item)
 {
-  Q_ASSERT (item.isValid ());
+  ST_ASSERT (item.isValid ());
   lastItem_ = item;
   if (useResultDialog_)
   {

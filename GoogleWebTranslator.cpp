@@ -7,6 +7,7 @@
 
 #include "GoogleWebTranslator.h"
 #include "Settings.h"
+#include "StAssert.h"
 
 GoogleWebTranslator::GoogleWebTranslator()
   : QObject (), view_ (new QWebView),
@@ -82,7 +83,7 @@ void GoogleWebTranslator::replyFinished(QNetworkReply *reply)
 }
 
 void GoogleWebTranslator::load(const ProcessingItem &item) {
-  Q_ASSERT (!item.recognized.isEmpty ());
+  ST_ASSERT (!item.recognized.isEmpty ());
   if (translationLanguage_.isEmpty ()) {
     emit error (tr ("Неверные парметры для перевода."));
     return;

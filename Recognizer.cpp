@@ -7,6 +7,7 @@
 
 #include "Settings.h"
 #include "ImageProcessing.h"
+#include "StAssert.h"
 
 Recognizer::Recognizer(QObject *parent) :
   QObject(parent),
@@ -60,7 +61,7 @@ bool Recognizer::initEngine(tesseract::TessBaseAPI *&engine, const QString& lang
 
 void Recognizer::recognize(ProcessingItem item)
 {
-  Q_ASSERT (!item.source.isNull ());
+  ST_ASSERT (!item.source.isNull ());
   bool isCustomLanguage = (!item.ocrLanguage.isEmpty () &&
                            item.ocrLanguage != ocrLanguage_);
   tesseract::TessBaseAPI* engine = (isCustomLanguage) ? NULL : engine_;
@@ -74,7 +75,7 @@ void Recognizer::recognize(ProcessingItem item)
   }
 
   Pix* image = prepareImage (item.source.toImage (), imageScale_);
-  Q_ASSERT (image != NULL);
+  ST_ASSERT (image != NULL);
   engine->SetImage (image);
   char* outText = engine->GetUTF8Text();
   engine->Clear();

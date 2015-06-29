@@ -1,6 +1,7 @@
 #include "SelectionDialog.h"
 #include "ui_SelectionDialog.h"
 #include "LanguageHelper.h"
+#include "StAssert.h"
 
 #include <QMouseEvent>
 #include <QPainter>
@@ -139,9 +140,9 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
             return QDialog::eventFilter (object, event);
           }
           item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
-          Q_ASSERT (!item.ocrLanguage.isEmpty ());
+          ST_ASSERT (!item.ocrLanguage.isEmpty ());
           item.sourceLanguage = dictionary_.translateForOcrCode (item.ocrLanguage);
-          Q_ASSERT (!item.sourceLanguage.isEmpty ());
+          ST_ASSERT (!item.sourceLanguage.isEmpty ());
         }
         emit selected (item);
         accept ();
@@ -153,7 +154,7 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
 
 void SelectionDialog::setPixmap(QPixmap pixmap)
 {
-  Q_ASSERT (!pixmap.isNull ());
+  ST_ASSERT (!pixmap.isNull ());
   currentPixmap_ = pixmap;
   QPalette palette = this->palette ();
   palette.setBrush (this->backgroundRole (), pixmap);

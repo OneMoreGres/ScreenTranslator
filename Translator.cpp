@@ -10,6 +10,7 @@
 
 #include "Settings.h"
 #include "GoogleWebTranslator.h"
+#include "StAssert.h"
 
 namespace
 {
@@ -51,7 +52,7 @@ void Translator::translate(ProcessingItem item)
     emit translateAlternative(item);
     return;
   }
-  Q_ASSERT (!item.recognized.isEmpty ());
+  ST_ASSERT (!item.recognized.isEmpty ());
   QString sourceLanguage = item.sourceLanguage.isEmpty () ? sourceLanguage_ :
                                                             item.sourceLanguage;
   if (translationLanguage_.isEmpty () || sourceLanguage.isEmpty ())
@@ -78,9 +79,9 @@ void Translator::translatedAlternative(ProcessingItem item, bool success)
 
 void Translator::replyFinished(QNetworkReply* reply)
 {
-  Q_ASSERT (items_.contains (reply));
+  ST_ASSERT (items_.contains (reply));
   ProcessingItem item = items_.take (reply);
-  Q_ASSERT (reply->isFinished ());
+  ST_ASSERT (reply->isFinished ());
   if (reply->error () != QNetworkReply::NoError)
   {
     useAlternativeTranslation_ = true;

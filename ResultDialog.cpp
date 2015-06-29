@@ -1,5 +1,6 @@
 #include "ResultDialog.h"
 #include "ui_ResultDialog.h"
+#include "StAssert.h"
 
 #include <QDesktopWidget>
 
@@ -32,10 +33,10 @@ bool ResultDialog::eventFilter(QObject* object, QEvent* event)
 
 void ResultDialog::showResult(ProcessingItem item)
 {
-  Q_ASSERT (!item.source.isNull ());
-  Q_ASSERT (!item.recognized.isEmpty ());
-  Q_ASSERT (!item.translated.isEmpty ());
-  Q_ASSERT (!item.screenPos.isNull ());
+  ST_ASSERT (!item.source.isNull ());
+  ST_ASSERT (!item.recognized.isEmpty ());
+  ST_ASSERT (!item.translated.isEmpty ());
+  ST_ASSERT (!item.screenPos.isNull ());
 
   ui->sourceLabel->setPixmap (item.source);
   ui->recognizeLabel->setText (item.recognized);
@@ -61,7 +62,7 @@ void ResultDialog::showResult(ProcessingItem item)
   {
 
     QRect screenRect = desktop->availableGeometry (this);
-    Q_ASSERT (screenRect.isValid ());
+    ST_ASSERT (screenRect.isValid ());
     QPoint newPos (screenRect.width () - width (), screenRect.height () - height ());
     move (newPos);
   }

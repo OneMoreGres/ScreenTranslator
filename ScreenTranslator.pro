@@ -41,7 +41,8 @@ HEADERS  += \
     ResultDialog.h \
     ImageProcessing.h \
     LanguageHelper.h \
-    GoogleWebTranslator.h
+    GoogleWebTranslator.h \
+    StAssert.h
 
 FORMS    += \
     SettingsEditor.ui \
