@@ -4,7 +4,7 @@
 <context>
     <name>GoogleWebTranslator</name>
     <message>
-        <location filename="../GoogleWebTranslator.cpp" line="67"/>
+        <location filename="../GoogleWebTranslator.cpp" line="88"/>
         <source>Неверные парметры для перевода.</source>
         <translation>Wrong translation parameters.</translation>
     </message>
@@ -12,57 +12,64 @@
 <context>
     <name>Manager</name>
     <message>
-        <location filename="../Manager.cpp" line="85"/>
+        <location filename="../Manager.cpp" line="86"/>
         <source>Захват</source>
         <translation>Capture</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="86"/>
-        <location filename="../Manager.cpp" line="198"/>
-        <location filename="../Manager.cpp" line="215"/>
+        <location filename="../Manager.cpp" line="87"/>
+        <location filename="../Manager.cpp" line="202"/>
+        <location filename="../Manager.cpp" line="219"/>
         <source>Перевод</source>
         <translation>Translation</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="87"/>
+        <location filename="../Manager.cpp" line="88"/>
         <source>Повторить</source>
         <translation>Repeat</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="89"/>
+        <location filename="../Manager.cpp" line="90"/>
         <source>Скопировать</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="91"/>
+        <location filename="../Manager.cpp" line="92"/>
         <source>Настройки</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="92"/>
-        <location filename="../Manager.cpp" line="165"/>
+        <location filename="../Manager.cpp" line="93"/>
+        <location filename="../Manager.cpp" line="169"/>
         <source>О программе</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="93"/>
+        <location filename="../Manager.cpp" line="94"/>
         <source>Выход</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="161"/>
+        <location filename="../Manager.cpp" line="163"/>
+        <source>Программа для распознавания текста на экране.
+Создана с использованием Qt, tesseract-ocr, Google Translate.
+Автор: Gres (translator@gres.biz)
+Версия: %1 от %2 %3</source>
+        <translation>Screen text recognition and translation program. \n Uses Qt,  tesseract-ocr, Google Translate. \n Author: Gres (translator@gres.biz) \n Version: %1 from %2 %3</translation>
+    </message>
+    <message>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)</source>
-        <translation>Screen text recognition and translation program. \n Uses Qt,  tesseract-ocr, Google Translate. \n Author: Gres (translator@gres.biz)</translation>
+        <translation type="vanished">Screen text recognition and translation program. \n Uses Qt,  tesseract-ocr, Google Translate. \n Author: Gres (translator@gres.biz)</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="199"/>
+        <location filename="../Manager.cpp" line="203"/>
         <source>Последний перевод был скопирован в буфер обмена.</source>
         <translation>Last translation has been copied to the clipboard.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="222"/>
+        <location filename="../Manager.cpp" line="226"/>
         <source>Ошибка</source>
         <translation>Error</translation>
     </message>
@@ -486,17 +493,17 @@
 <context>
     <name>Recognizer</name>
     <message>
-        <location filename="../Recognizer.cpp" line="41"/>
+        <location filename="../Recognizer.cpp" line="42"/>
         <source>Неверные параметры для OCR</source>
         <translation>Wrong parameters for OCR</translation>
     </message>
     <message>
-        <location filename="../Recognizer.cpp" line="53"/>
+        <location filename="../Recognizer.cpp" line="54"/>
         <source>Ошибка инициализации OCR: %1</source>
         <translation>OCR initialization error: %1</translation>
     </message>
     <message>
-        <location filename="../Recognizer.cpp" line="97"/>
+        <location filename="../Recognizer.cpp" line="98"/>
         <source>Текст не распознан.</source>
         <translation>Failed to recognize text.</translation>
     </message>
@@ -914,12 +921,12 @@
 <context>
     <name>Translator</name>
     <message>
-        <location filename="../Translator.cpp" line="59"/>
+        <location filename="../Translator.cpp" line="60"/>
         <source>Неверные парметры для перевода.</source>
         <translation>Wrong translation parameters.</translation>
     </message>
     <message>
-        <location filename="../Translator.cpp" line="75"/>
+        <location filename="../Translator.cpp" line="76"/>
         <source>Ошибка альтернативного перевода текста: %1</source>
         <translation>Failed to translate with alternative method: %1</translation>
     </message>
