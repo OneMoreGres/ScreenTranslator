@@ -50,19 +50,20 @@ void GoogleWebTranslator::loadFinished(bool ok) {
       return;
   }
 
-  Q_ASSERT (!queue_.isEmpty());
-  ProcessingItem item = queue_.front();
-  queue_.pop_front();
-  if (ok) {
-    QWebElementCollection result = view_->page()->mainFrame()->findAllElements("#result_box > span");
-    item.translated = "";
-    foreach (const QWebElement& element, result) {
-      item.translated += element.toInnerXml() + " ";
+  if (!queue_.isEmpty()) {
+    ProcessingItem item = queue_.front();
+    queue_.pop_front();
+    if (ok) {
+      QWebElementCollection result = view_->page()->mainFrame()->findAllElements("#result_box > span");
+      item.translated = "";
+      foreach (const QWebElement& element, result) {
+        item.translated += element.toInnerXml() + " ";
+      }
+      emit translated(item, !item.translated.isEmpty());
     }
-    emit translated(item, !item.translated.isEmpty());
-  }
-  else {
-    emit translated (item, false);
+    else {
+      emit translated (item, false);
+    }
   }
 
   if (!queue_.isEmpty()) {
