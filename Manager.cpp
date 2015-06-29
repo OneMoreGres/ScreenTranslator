@@ -159,9 +159,12 @@ void Manager::close()
 
 void Manager::about()
 {
+  QString version = "1.2.3";
   QString text = tr ("Программа для распознавания текста на экране.\n"\
                      "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
-                     "Автор: Gres (translator@gres.biz)");
+                     "Автор: Gres (translator@gres.biz)\n"
+                     "Версия: %1 от %2 %3").arg (version)
+      .arg (__DATE__).arg (__TIME__);
 
   QMessageBox message (QMessageBox::Information, tr ("О программе"), text,
                        QMessageBox::Ok);
