@@ -7,43 +7,38 @@
 
 #include "Settings.h"
 
-SettingsEditor::SettingsEditor(const LanguageHelper &dictionary, QWidget *parent) :
-  QDialog(parent),
-  ui(new Ui::SettingsEditor), dictionary_ (dictionary),
-  buttonGroup_ (new QButtonGroup (this))
-{
-  ui->setupUi(this);
+SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *parent) :
+  QDialog (parent),
+  ui (new Ui::SettingsEditor), dictionary_ (dictionary),
+  buttonGroup_ (new QButtonGroup (this)) {
+  ui->setupUi (this);
 
   buttonGroup_->addButton (ui->trayRadio, 0);
   buttonGroup_->addButton (ui->dialogRadio, 1);
 
   connect (ui->tessdataButton, SIGNAL (clicked ()), SLOT (openTessdataDialog ()));
-  connect (ui->tessdataEdit, SIGNAL (textChanged (const QString&)),
-           SLOT (initOcrLangCombo (const QString&)));
+  connect (ui->tessdataEdit, SIGNAL (textChanged (const QString &)),
+           SLOT (initOcrLangCombo (const QString &)));
 
   ui->translateLangCombo->addItems (dictionary_.translateLanguagesUi ());
   loadSettings ();
   loadState ();
 }
 
-SettingsEditor::~SettingsEditor()
-{
+SettingsEditor::~SettingsEditor () {
   saveState ();
   delete ui;
 }
 
-void SettingsEditor::done(int result)
-{
-  if (result == QDialog::Accepted)
-  {
+void SettingsEditor::done (int result) {
+  if (result == QDialog::Accepted) {
     saveSettings ();
     emit settingsEdited ();
   }
   QDialog::done (result);
 }
 
-void SettingsEditor::saveSettings() const
-{
+void SettingsEditor::saveSettings () const {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
   settings.setValue (settings_names::captureHotkey, ui->captureEdit->text ());
@@ -69,65 +64,58 @@ void SettingsEditor::saveSettings() const
   settings.endGroup ();
 }
 
-void SettingsEditor::openTessdataDialog()
-{
+void SettingsEditor::openTessdataDialog () {
   QString path = QFileDialog::getExistingDirectory (this, tr ("Путь к tessdata"));
-  if (path.isEmpty ())
-  {
+  if (path.isEmpty ()) {
     return;
   }
   QDir dir (path);
-  if (dir.dirName () == QString ("tessdata"))
-  {
+  if (dir.dirName () == QString ("tessdata")) {
     dir.cdUp ();
   }
   ui->tessdataEdit->setText (dir.path ());
 }
 
-void SettingsEditor::loadSettings()
-{
+void SettingsEditor::loadSettings () {
 #define GET(FIELD) settings.value (settings_names::FIELD, settings_values::FIELD)
   QSettings settings;
 
   settings.beginGroup (settings_names::guiGroup);
-  ui->captureEdit->setText (GET(captureHotkey).toString ());
-  ui->repeatEdit->setText (GET(repeatHotkey).toString ());
-  ui->clipboardEdit->setText (GET(clipboardHotkey).toString ());
-  QAbstractButton* button = buttonGroup_->button (GET(resultShowType).toInt ());
+  ui->captureEdit->setText (GET (captureHotkey).toString ());
+  ui->repeatEdit->setText (GET (repeatHotkey).toString ());
+  ui->clipboardEdit->setText (GET (clipboardHotkey).toString ());
+  QAbstractButton *button = buttonGroup_->button (GET (resultShowType).toInt ());
   Q_CHECK_PTR (button);
   button->setChecked (true);
   settings.endGroup ();
 
   settings.beginGroup (settings_names::recogntionGroup);
-  ui->tessdataEdit->setText (GET(tessDataPlace).toString ());
-  QString ocrLanguage = dictionary_.ocrCodeToUi (GET(ocrLanguage).toString ());
+  ui->tessdataEdit->setText (GET (tessDataPlace).toString ());
+  QString ocrLanguage = dictionary_.ocrCodeToUi (GET (ocrLanguage).toString ());
   ui->ocrLangCombo->setCurrentText (ocrLanguage);
-  ui->imageScaleSpin->setValue (GET(imageScale).toInt ());
+  ui->imageScaleSpin->setValue (GET (imageScale).toInt ());
   settings.endGroup ();
 
   settings.beginGroup (settings_names::translationGroup);
-  QString trLanguage = dictionary_.translateCodeToUi (GET(translationLanguage).toString ());
+  QString trLanguage = dictionary_.translateCodeToUi (GET (translationLanguage).toString ());
   ui->translateLangCombo->setCurrentText (trLanguage);
   settings.endGroup ();
 #undef GET
 }
 
-void SettingsEditor::saveState() const
-{
+void SettingsEditor::saveState () const {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
   settings.setValue (objectName () + "_" + settings_names::geometry, saveGeometry ());
 }
 
-void SettingsEditor::loadState()
-{
+void SettingsEditor::loadState () {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
   restoreGeometry (settings.value (objectName () + "_" + settings_names::geometry).toByteArray ());
 }
 
-void SettingsEditor::initOcrLangCombo(const QString &path)
-{
+void SettingsEditor::initOcrLangCombo (const QString &path) {
   ui->ocrLangCombo->clear ();
   ui->ocrLangCombo->addItems (dictionary_.availableOcrLanguagesUi (path));
 }

@@ -6,16 +6,15 @@
 
 #include "ProcessingItem.h"
 
-namespace tesseract
-{
+namespace tesseract {
   class TessBaseAPI;
 }
 
-class Recognizer : public QObject
-{
-    Q_OBJECT
+class Recognizer : public QObject {
+  Q_OBJECT
+
   public:
-    explicit Recognizer(QObject *parent = 0);
+    explicit Recognizer (QObject *parent = 0);
 
   signals:
     void recognized (ProcessingItem item);
@@ -26,10 +25,10 @@ class Recognizer : public QObject
     void applySettings ();
 
   private:
-    bool initEngine (tesseract::TessBaseAPI*&engine, const QString &language);
+    bool initEngine (tesseract::TessBaseAPI * &engine, const QString &language);
 
   private:
-    tesseract::TessBaseAPI* engine_;
+    tesseract::TessBaseAPI *engine_;
 
     QString tessDataDir_;
     QString ocrLanguage_;

@@ -8,57 +8,47 @@
 #include <QDebug>
 #include <QMenu>
 
-SelectionDialog::SelectionDialog(const LanguageHelper &dictionary, QWidget *parent) :
-  QDialog(parent),
-  ui(new Ui::SelectionDialog), dictionary_ (dictionary),
-  languageMenu_ (new QMenu)
-{
-  ui->setupUi(this);
+SelectionDialog::SelectionDialog (const LanguageHelper &dictionary, QWidget *parent) :
+  QDialog (parent),
+  ui (new Ui::SelectionDialog), dictionary_ (dictionary),
+  languageMenu_ (new QMenu) {
+  ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint);
 
-  ui->label->setAutoFillBackground(false);
+  ui->label->setAutoFillBackground (false);
   ui->label->installEventFilter (this);
 
   updateMenu ();
 }
 
-SelectionDialog::~SelectionDialog()
-{
+SelectionDialog::~SelectionDialog () {
   delete ui;
 }
 
-void SelectionDialog::updateMenu()
-{
+void SelectionDialog::updateMenu () {
   Q_CHECK_PTR (languageMenu_);
   languageMenu_->clear ();
   QStringList languages = dictionary_.availableOcrLanguagesUi ();
-  if (languages.isEmpty ())
-  {
+  if (languages.isEmpty ()) {
     return;
   }
 
   const int max = 10;
 
-  if (languages.size () <= max)
-  {
-    foreach (const QString& language, languages)
-    {
+  if (languages.size () <= max) {
+    foreach (const QString &language, languages) {
       languageMenu_->addAction (language);
     }
   }
-  else
-  {
+  else {
     int subIndex = max;
-    QMenu* subMenu = NULL;
+    QMenu *subMenu = NULL;
     QString prevLetter;
-    foreach (const QString& language, languages)
-    {
+    foreach (const QString &language, languages) {
       QString curLetter = language.left (1);
-      if (++subIndex >= max && prevLetter != curLetter)
-      {
-        if (subMenu != NULL)
-        {
+      if (++subIndex >= max && prevLetter != curLetter) {
+        if (subMenu != NULL) {
           subMenu->setTitle (subMenu->title () + " - " + prevLetter);
         }
         subMenu = languageMenu_->addMenu (curLetter);
@@ -71,71 +61,56 @@ void SelectionDialog::updateMenu()
   }
 }
 
-bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
-{
-  if (object != ui->label)
-  {
+bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
+  if (object != ui->label) {
     return QDialog::eventFilter (object, event);
   }
 
-  if (event->type () == QEvent::Show)
-  {
+  if (event->type () == QEvent::Show) {
     startSelectPos_ = currentSelectPos_ = QPoint ();
   }
-  else if (event->type () == QEvent::MouseButtonPress)
-  {
-    QMouseEvent* mouseEvent = static_cast <QMouseEvent*> (event);
+  else if (event->type () == QEvent::MouseButtonPress) {
+    QMouseEvent *mouseEvent = static_cast <QMouseEvent *> (event);
     if ((mouseEvent->button () == Qt::LeftButton ||
-         mouseEvent->button () == Qt::RightButton) && startSelectPos_.isNull ())
-    {
+         mouseEvent->button () == Qt::RightButton) && startSelectPos_.isNull ()) {
       startSelectPos_ = mouseEvent->pos ();
     }
   }
-  else if (event->type () == QEvent::MouseMove)
-  {
-    QMouseEvent* mouseEvent = static_cast <QMouseEvent*> (event);
+  else if (event->type () == QEvent::MouseMove) {
+    QMouseEvent *mouseEvent = static_cast <QMouseEvent *> (event);
     if ((mouseEvent->buttons () & Qt::LeftButton ||
-        mouseEvent->buttons () & Qt::RightButton) && !startSelectPos_.isNull ())
-    {
+         mouseEvent->buttons () & Qt::RightButton) && !startSelectPos_.isNull ()) {
       currentSelectPos_ = mouseEvent->pos ();
       ui->label->repaint ();
     }
   }
-  else if (event->type () == QEvent::Paint)
-  {
+  else if (event->type () == QEvent::Paint) {
     QRect selection = QRect (startSelectPos_, currentSelectPos_).normalized ();
-    if (selection.isValid ())
-    {
+    if (selection.isValid ()) {
       QPainter painter (ui->label);
       painter.setPen (Qt::red);
       painter.drawRect (selection);
     }
   }
-  else if (event->type () == QEvent::MouseButtonRelease)
-  {
-    QMouseEvent* mouseEvent = static_cast <QMouseEvent*> (event);
+  else if (event->type () == QEvent::MouseButtonRelease) {
+    QMouseEvent *mouseEvent = static_cast <QMouseEvent *> (event);
     if (mouseEvent->button () == Qt::LeftButton ||
-        mouseEvent->button () == Qt::RightButton)
-    {
-      if (startSelectPos_.isNull () || currentPixmap_.isNull ())
-      {
+        mouseEvent->button () == Qt::RightButton) {
+      if (startSelectPos_.isNull () || currentPixmap_.isNull ()) {
         return QDialog::eventFilter (object, event);
       }
       QPoint endPos = mouseEvent->pos ();
       QRect selection = QRect (startSelectPos_, endPos).normalized ();
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
-      if (!selectedPixmap.isNull ())
-      {
+      if (!selectedPixmap.isNull ()) {
         ProcessingItem item;
         item.source = selectedPixmap;
         item.screenPos = selection.topLeft ();
 
         if (mouseEvent->button () == Qt::RightButton &&
-            !languageMenu_->children ().isEmpty ())
-        {
-          QAction* action = languageMenu_->exec (QCursor::pos ());
-          if (action == NULL)
-          {
+            !languageMenu_->children ().isEmpty ()) {
+          QAction *action = languageMenu_->exec (QCursor::pos ());
+          if (action == NULL) {
             reject ();
             return QDialog::eventFilter (object, event);
           }
@@ -152,8 +127,7 @@ bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
   return QDialog::eventFilter (object, event);
 }
 
-void SelectionDialog::setPixmap(QPixmap pixmap)
-{
+void SelectionDialog::setPixmap (QPixmap pixmap) {
   ST_ASSERT (!pixmap.isNull ());
   currentPixmap_ = pixmap;
   QPalette palette = this->palette ();

@@ -9,12 +9,12 @@ class QWebView;
 class QUrl;
 class QNetworkReply;
 
-class GoogleWebTranslator : public QObject
-{
-    Q_OBJECT
+class GoogleWebTranslator : public QObject {
+  Q_OBJECT
+
   public:
-    GoogleWebTranslator();
-    ~GoogleWebTranslator();
+    GoogleWebTranslator ();
+    ~GoogleWebTranslator ();
 
   signals:
     void translated (ProcessingItem item, bool success);
@@ -26,11 +26,11 @@ class GoogleWebTranslator : public QObject
 
   private slots:
     void loadStarted ();
-    void loadFinished(bool ok=true);
-    void replyFinished(QNetworkReply * reply);
+    void loadFinished (bool ok = true);
+    void replyFinished (QNetworkReply *reply);
 
   private:
-    void load (const ProcessingItem& item);
+    void load (const ProcessingItem &item);
 
   private:
     QVector<ProcessingItem> queue_;

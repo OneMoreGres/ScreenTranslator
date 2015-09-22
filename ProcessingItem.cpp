@@ -1,7 +1,6 @@
 #include "ProcessingItem.h"
 
-bool ProcessingItem::isValid() const
-{
+bool ProcessingItem::isValid () const {
   bool valid = true;
   valid &= (!screenPos.isNull ());
   valid &= (!source.isNull ());

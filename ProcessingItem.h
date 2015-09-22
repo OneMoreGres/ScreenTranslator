@@ -3,18 +3,17 @@
 
 #include <QPixmap>
 
-struct ProcessingItem
-{
-    QPoint screenPos;
-    QPixmap source;
-    QString recognized;
-    QString translated;
+struct ProcessingItem {
+  QPoint screenPos;
+  QPixmap source;
+  QString recognized;
+  QString translated;
 
-    QString ocrLanguage;
-    QString sourceLanguage;
+  QString ocrLanguage;
+  QString sourceLanguage;
 
-    bool isValid () const;
+  bool isValid () const;
 };
-Q_DECLARE_METATYPE(ProcessingItem)
+Q_DECLARE_METATYPE (ProcessingItem)
 
 #endif // PROCESSINGITEM_H

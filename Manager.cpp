@@ -20,41 +20,40 @@
 #include "LanguageHelper.h"
 #include "StAssert.h"
 
-Manager::Manager(QObject *parent) :
-  QObject(parent),
+Manager::Manager (QObject *parent) :
+  QObject (parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   dictionary_ (new LanguageHelper),
   selection_ (new SelectionDialog (*dictionary_)),
   resultDialog_ (new ResultDialog),
   captureAction_ (NULL), repeatAction_ (NULL), clipboardAction_ (NULL),
-  useResultDialog_ (true)
-{
+  useResultDialog_ (true) {
   GlobalActionHelper::init ();
   qRegisterMetaType<ProcessingItem>();
 
   // Recognizer
-  Recognizer* recognizer = new Recognizer;
+  Recognizer *recognizer = new Recognizer;
   connect (selection_, SIGNAL (selected (ProcessingItem)),
            recognizer, SLOT (recognize (ProcessingItem)));
   connect (recognizer, SIGNAL (error (QString)),
            SLOT (showError (QString)));
   connect (this, SIGNAL (settingsEdited ()),
            recognizer, SLOT (applySettings ()));
-  QThread* recognizerThread = new QThread (this);
+  QThread *recognizerThread = new QThread (this);
   recognizer->moveToThread (recognizerThread);
   recognizerThread->start ();
   connect (qApp, SIGNAL (aboutToQuit ()), recognizerThread, SLOT (quit ()));
 
 
   // Translator
-  Translator* translator = new Translator;
+  Translator *translator = new Translator;
   connect (recognizer, SIGNAL (recognized (ProcessingItem)),
            translator, SLOT (translate (ProcessingItem)));
   connect (translator, SIGNAL (error (QString)),
            SLOT (showError (QString)));
   connect (this, SIGNAL (settingsEdited ()),
            translator, SLOT (applySettings ()));
-  QThread* translatorThread = new QThread (this);
+  QThread *translatorThread = new QThread (this);
   translator->moveToThread (translatorThread);
   translatorThread->start ();
   connect (qApp, SIGNAL (aboutToQuit ()), translatorThread, SLOT (quit ()));
@@ -80,11 +79,10 @@ Manager::Manager(QObject *parent) :
   applySettings ();
 }
 
-QMenu*Manager::trayContextMenu()
-{
-  QMenu* menu = new QMenu ();
+QMenu * Manager::trayContextMenu () {
+  QMenu *menu = new QMenu ();
   captureAction_ = menu->addAction (tr ("Захват"), this, SLOT (capture ()));
-  QMenu* translateMenu = menu->addMenu (tr ("Перевод"));
+  QMenu *translateMenu = menu->addMenu (tr ("Перевод"));
   repeatAction_ = translateMenu->addAction (tr ("Повторить"), this,
                                             SLOT (showLast ()));
   clipboardAction_ = translateMenu->addAction (tr ("Скопировать"), this,
@@ -95,8 +93,7 @@ QMenu*Manager::trayContextMenu()
   return menu;
 }
 
-void Manager::applySettings()
-{
+void Manager::applySettings () {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
   QString captureHotkey = settings.value (settings_names::captureHotkey,
@@ -128,15 +125,13 @@ void Manager::applySettings()
   dictionary_->updateAvailableOcrLanguages ();
 }
 
-Manager::~Manager()
-{
+Manager::~Manager () {
 }
 
-void Manager::capture()
-{
-  QList<QScreen*> screens = QApplication::screens ();
+void Manager::capture () {
+  QList<QScreen *> screens = QApplication::screens ();
   ST_ASSERT (!screens.isEmpty ());
-  QScreen* screen = screens.first ();
+  QScreen *screen = screens.first ();
   Q_CHECK_PTR (screen);
   WId desktopId = QApplication::desktop ()->winId ();
   QPixmap pixmap = screen->grabWindow (desktopId);
@@ -144,27 +139,24 @@ void Manager::capture()
   emit showPixmap (pixmap);
 }
 
-void Manager::settings()
-{
+void Manager::settings () {
   SettingsEditor editor (*dictionary_);
   editor.setWindowIcon (trayIcon_->icon ());
   connect (&editor, SIGNAL (settingsEdited ()), SIGNAL (settingsEdited ()));
   editor.exec ();
 }
 
-void Manager::close()
-{
+void Manager::close () {
   QApplication::quit ();
 }
 
-void Manager::about()
-{
+void Manager::about () {
   QString version = "1.2.3";
-  QString text = tr ("Программа для распознавания текста на экране.\n"\
+  QString text = tr ("Программа для распознавания текста на экране.\n" \
                      "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
                      "Автор: Gres (translator@gres.biz)\n"
                      "Версия: %1 от %2 %3").arg (version)
-      .arg (__DATE__).arg (__TIME__);
+                 .arg (__DATE__).arg (__TIME__);
 
   QMessageBox message (QMessageBox::Information, tr ("О программе"), text,
                        QMessageBox::Ok);
@@ -172,31 +164,24 @@ void Manager::about()
   message.exec ();
 }
 
-void Manager::processTrayAction(QSystemTrayIcon::ActivationReason reason)
-{
-  if (reason == QSystemTrayIcon::Trigger)
-  {
+void Manager::processTrayAction (QSystemTrayIcon::ActivationReason reason) {
+  if (reason == QSystemTrayIcon::Trigger) {
     showLast ();
   }
-  else if (reason == QSystemTrayIcon::MiddleClick)
-  {
+  else if (reason == QSystemTrayIcon::MiddleClick) {
     copyLastToClipboard  ();
   }
 }
 
-void Manager::showLast()
-{
-  if (lastItem_.isValid ())
-  {
+void Manager::showLast () {
+  if (lastItem_.isValid ()) {
     showResult (lastItem_);
   }
 }
 
-void Manager::copyLastToClipboard()
-{
-  if (lastItem_.isValid ())
-  {
-    QClipboard* clipboard = QApplication::clipboard ();
+void Manager::copyLastToClipboard () {
+  if (lastItem_.isValid ()) {
+    QClipboard *clipboard = QApplication::clipboard ();
     QString message = lastItem_.recognized + " - " + lastItem_.translated;
     clipboard->setText (message);
     trayIcon_->showMessage (tr ("Перевод"),
@@ -205,23 +190,19 @@ void Manager::copyLastToClipboard()
   }
 }
 
-void Manager::showResult(ProcessingItem item)
-{
+void Manager::showResult (ProcessingItem item) {
   ST_ASSERT (item.isValid ());
   lastItem_ = item;
-  if (useResultDialog_)
-  {
+  if (useResultDialog_) {
     resultDialog_->showResult (item);
   }
-  else
-  {
+  else {
     QString message = item.recognized + " - " + item.translated;
     trayIcon_->showMessage (tr ("Перевод"), message, QSystemTrayIcon::Information);
   }
 }
 
-void Manager::showError(QString text)
-{
+void Manager::showError (QString text) {
   qCritical () << text;
   trayIcon_->showMessage (tr ("Ошибка"), text, QSystemTrayIcon::Critical);
 }

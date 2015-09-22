@@ -63,4 +63,5 @@ RC_FILE = app.rc
 OTHER_FILES += \
     app.rc \
     images/icon.ico \
-    README.md
+    README.md \
+    uncrustify.cfg

@@ -5,11 +5,11 @@
 
 #include "ProcessingItem.h"
 
-class Translator : public QObject
-{
-    Q_OBJECT
+class Translator : public QObject {
+  Q_OBJECT
+
   public:
-    explicit Translator(QObject *parent = 0);
+    explicit Translator (QObject *parent = 0);
 
   signals:
     void translated (ProcessingItem item);
@@ -22,13 +22,13 @@ class Translator : public QObject
     void applySettings ();
 
   private slots:
-    void replyFinished (QNetworkReply* reply);
+    void replyFinished (QNetworkReply *reply);
 
   private:
     QNetworkAccessManager network_;
     QString translationLanguage_;
     QString sourceLanguage_;
-    QHash<QNetworkReply*, ProcessingItem> items_;
+    QHash<QNetworkReply *, ProcessingItem> items_;
     bool useAlternativeTranslation_;
 
 };

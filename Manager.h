@@ -13,11 +13,11 @@ class SelectionDialog;
 class ResultDialog;
 class LanguageHelper;
 
-class Manager : public QObject
-{
-    Q_OBJECT
+class Manager : public QObject {
+  Q_OBJECT
+
   public:
-    explicit Manager(QObject *parent = 0);
+    explicit Manager (QObject *parent = 0);
     ~Manager ();
 
   signals:
@@ -40,16 +40,16 @@ class Manager : public QObject
     void showError (QString text);
 
   private:
-    QMenu* trayContextMenu ();
+    QMenu * trayContextMenu ();
 
   private:
-    QSystemTrayIcon* trayIcon_;
-    LanguageHelper* dictionary_;
-    SelectionDialog* selection_;
-    ResultDialog* resultDialog_;
-    QAction* captureAction_;
-    QAction* repeatAction_;
-    QAction* clipboardAction_;
+    QSystemTrayIcon *trayIcon_;
+    LanguageHelper *dictionary_;
+    SelectionDialog *selection_;
+    ResultDialog *resultDialog_;
+    QAction *captureAction_;
+    QAction *repeatAction_;
+    QAction *clipboardAction_;
     ProcessingItem lastItem_;
     bool useResultDialog_;
 };

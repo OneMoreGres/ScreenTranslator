@@ -4,35 +4,30 @@
 
 #include <QDesktopWidget>
 
-ResultDialog::ResultDialog(QWidget *parent) :
-  QDialog(parent),
-  ui(new Ui::ResultDialog),
-  isShowAtCapturePos_ (true)
-{
-  ui->setupUi(this);
+ResultDialog::ResultDialog (QWidget *parent) :
+  QDialog (parent),
+  ui (new Ui::ResultDialog),
+  isShowAtCapturePos_ (true) {
+  ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint);
 
   installEventFilter (this);
 }
 
-ResultDialog::~ResultDialog()
-{
+ResultDialog::~ResultDialog () {
   delete ui;
 }
 
-bool ResultDialog::eventFilter(QObject* object, QEvent* event)
-{
+bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
   Q_UNUSED (object);
-  if (event->type () == QEvent::MouseButtonRelease)
-  {
+  if (event->type () == QEvent::MouseButtonRelease) {
     hide ();
   }
   return QDialog::eventFilter (object, event);
 }
 
-void ResultDialog::showResult(ProcessingItem item)
-{
+void ResultDialog::showResult (ProcessingItem item) {
   ST_ASSERT (!item.source.isNull ());
   ST_ASSERT (!item.recognized.isEmpty ());
   ST_ASSERT (!item.translated.isEmpty ());
@@ -45,21 +40,18 @@ void ResultDialog::showResult(ProcessingItem item)
   show ();
   adjustSize ();
 
-  QDesktopWidget* desktop = QApplication::desktop ();
+  QDesktopWidget *desktop = QApplication::desktop ();
   Q_CHECK_PTR (desktop);
-  if (isShowAtCapturePos_)
-  {
+  if (isShowAtCapturePos_) {
     QPoint correction = QPoint (ui->frame->lineWidth (), ui->frame->lineWidth ());
     move (item.screenPos - correction);
     QRect screenRect = desktop->screenGeometry (this);
     int minY = screenRect.bottom () - height ();
-    if (y () > minY)
-    {
+    if (y () > minY) {
       move (x (), minY);
     }
   }
-  else
-  {
+  else {
 
     QRect screenRect = desktop->availableGeometry (this);
     ST_ASSERT (screenRect.isValid ());

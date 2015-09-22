@@ -10,13 +10,12 @@ namespace Ui {
 }
 class LanguageHelper;
 
-class SettingsEditor : public QDialog
-{
-    Q_OBJECT
+class SettingsEditor : public QDialog {
+  Q_OBJECT
 
   public:
-    explicit SettingsEditor(const LanguageHelper& dictionary, QWidget *parent = 0);
-    ~SettingsEditor();
+    explicit SettingsEditor (const LanguageHelper &dictionary, QWidget *parent = 0);
+    ~SettingsEditor ();
 
   signals:
     void settingsEdited ();
@@ -27,7 +26,7 @@ class SettingsEditor : public QDialog
   private slots:
     void saveSettings () const;
     void openTessdataDialog ();
-    void initOcrLangCombo (const QString& path);
+    void initOcrLangCombo (const QString &path);
 
   private:
     void loadSettings ();
@@ -36,8 +35,8 @@ class SettingsEditor : public QDialog
 
   private:
     Ui::SettingsEditor *ui;
-    const LanguageHelper& dictionary_;
-    QButtonGroup* buttonGroup_;
+    const LanguageHelper &dictionary_;
+    QButtonGroup *buttonGroup_;
 };
 
 #endif // SETTINGSEDITOR_H

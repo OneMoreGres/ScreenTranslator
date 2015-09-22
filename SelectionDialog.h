@@ -12,13 +12,12 @@ namespace Ui {
 }
 class LanguageHelper;
 
-class SelectionDialog : public QDialog
-{
-    Q_OBJECT
+class SelectionDialog : public QDialog {
+  Q_OBJECT
 
   public:
-    explicit SelectionDialog(const LanguageHelper& dictionary, QWidget *parent = 0);
-    ~SelectionDialog();
+    explicit SelectionDialog (const LanguageHelper &dictionary, QWidget *parent = 0);
+    ~SelectionDialog ();
 
     bool eventFilter (QObject *object, QEvent *event);
 
@@ -31,11 +30,11 @@ class SelectionDialog : public QDialog
 
   private:
     Ui::SelectionDialog *ui;
-    const LanguageHelper& dictionary_;
+    const LanguageHelper &dictionary_;
     QPoint startSelectPos_;
     QPoint currentSelectPos_;
     QPixmap currentPixmap_;
-    QMenu* languageMenu_;
+    QMenu *languageMenu_;
 };
 
 #endif // SELECTIONDIALOG_H

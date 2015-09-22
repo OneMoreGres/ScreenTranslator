@@ -3,8 +3,7 @@
 
 #include <QString>
 
-namespace settings_names
-{
+namespace settings_names {
   //! UI
   const QString guiGroup = "GUI";
   const QString geometry = "geometry";
@@ -26,8 +25,7 @@ namespace settings_names
 
 }
 
-namespace settings_values
-{
+namespace settings_values {
   const QString appName = "ScreenTranslator";
   const QString companyName = "Gres";
 

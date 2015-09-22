@@ -6,13 +6,13 @@
 class Pix;
 
 //! Convert QImage to Leptonica's PIX.
-Pix* convertImage(const QImage& image);
+Pix * convertImage (const QImage &image);
 //! Convert Leptonica's PIX to QImage.
-QImage convertImage(Pix &image);
+QImage convertImage (Pix &image);
 
 //! Propare image for OCR.
-Pix* prepareImage (const QImage& image, int preferredScale);
+Pix * prepareImage (const QImage &image, int preferredScale);
 //! Free allocated resources for image.
-void cleanupImage (Pix** image);
+void cleanupImage (Pix **image);
 
 #endif // IMAGEPROCESSING_H

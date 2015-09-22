@@ -9,13 +9,12 @@ namespace Ui {
   class ResultDialog;
 }
 
-class ResultDialog : public QDialog
-{
-    Q_OBJECT
+class ResultDialog : public QDialog {
+  Q_OBJECT
 
   public:
-    explicit ResultDialog(QWidget *parent = 0);
-    ~ResultDialog();
+    explicit ResultDialog (QWidget *parent = 0);
+    ~ResultDialog ();
 
   public:
     bool eventFilter (QObject *object, QEvent *event);
