@@ -16,6 +16,8 @@ INCLUDEPATH += ../include
 LIBS += -L../bin -ltesseract -llept -ltiff -lgif -ljpeg -lz
 LIBS += -lWs2_32
 
+include(3rd-party/qtsingleapplication/qtsingleapplication.pri)
+
 SOURCES += main.cpp\
     Manager.cpp \
     SettingsEditor.cpp \
