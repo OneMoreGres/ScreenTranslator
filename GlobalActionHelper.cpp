@@ -1,26 +1,9 @@
 #include "GlobalActionHelper.h"
 
-#include <qt_windows.h>
-
 #include <QDebug>
 #include <QApplication>
 
 QHash<QPair<quint32, quint32>, QAction *> GlobalActionHelper::actions_;
-
-bool GlobalActionHelper::nativeEventFilter (const QByteArray &eventType,
-                                            void *message, long *result) {
-  Q_UNUSED (eventType);
-  Q_UNUSED (result);
-  MSG *msg = static_cast<MSG *>(message);
-  if (msg->message == WM_HOTKEY) {
-    const quint32 keycode = HIWORD (msg->lParam);
-    const quint32 modifiers = LOWORD (msg->lParam);
-    QAction *action = actions_.value (qMakePair (keycode, modifiers));
-    Q_CHECK_PTR (action);
-    action->activate (QAction::Trigger);
-  }
-  return false;
-}
 
 void GlobalActionHelper::init () {
   qApp->installNativeEventFilter (new GlobalActionHelper);
@@ -77,6 +60,129 @@ bool GlobalActionHelper::removeGlobal (QAction *action) {
     qWarning () << "Failed to unregister global hotkey:" << hotKey.toString ();
   }
   return res;
+}
+
+
+
+#if defined(Q_OS_LINUX)
+#  include <QX11Info>
+#  include <X11/Xlib.h>
+#  include <xcb/xcb_event.h>
+
+static bool error = false;
+
+static int customHandler (Display *display, XErrorEvent *event) {
+  Q_UNUSED (display);
+  switch (event->error_code) {
+    case BadAccess:
+    case BadValue:
+    case BadWindow:
+      if (event->request_code == 33 /* X_GrabKey */ ||
+          event->request_code == 34 /* X_UngrabKey */) {
+        error = true;
+      }
+    default:
+      return 0;
+  }
+}
+
+bool GlobalActionHelper::registerHotKey (quint32 nativeKey, quint32 nativeMods) {
+  Display *display = QX11Info::display ();
+  Window window = QX11Info::appRootWindow ();
+  Bool owner = True;
+  int pointer = GrabModeAsync;
+  int keyboard = GrabModeAsync;
+  error = false;
+  int (*handler)(Display *display, XErrorEvent *event) = XSetErrorHandler (customHandler);
+  XGrabKey (display, nativeKey, nativeMods, window, owner, pointer, keyboard);
+  // allow numlock
+  XGrabKey (display, nativeKey, nativeMods | Mod2Mask, window, owner, pointer, keyboard);
+  XSync (display, False);
+  XSetErrorHandler (handler);
+  return !error;
+}
+
+bool GlobalActionHelper::unregisterHotKey (quint32 nativeKey, quint32 nativeMods) {
+  Display *display = QX11Info::display ();
+  Window window = QX11Info::appRootWindow ();
+  error = false;
+  int (*handler)(Display *display, XErrorEvent *event) = XSetErrorHandler (customHandler);
+  XUngrabKey (display, nativeKey, nativeMods, window);
+  // allow numlock
+  XUngrabKey (display, nativeKey, nativeMods | Mod2Mask, window);
+  XSync (display, False);
+  XSetErrorHandler (handler);
+  return !error;
+}
+
+bool GlobalActionHelper::nativeEventFilter (const QByteArray &eventType,
+                                            void *message, long *result) {
+  Q_UNUSED (eventType);
+  Q_UNUSED (result);
+  xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(message);
+  if (event->response_type == XCB_KEY_PRESS) {
+    xcb_key_press_event_t *keyEvent = static_cast<xcb_key_press_event_t *>(message);
+    const quint32 keycode = keyEvent->detail;
+    const quint32 modifiers = keyEvent->state & ~XCB_MOD_MASK_2;
+    QAction *action = actions_.value (qMakePair (keycode, modifiers));
+    if (action) {
+      action->activate (QAction::Trigger);
+    }
+  }
+  return false;
+}
+
+quint32 GlobalActionHelper::nativeKeycode (Qt::Key key) {
+  Display *display = QX11Info::display ();
+  KeySym keySym =  XStringToKeysym (qPrintable (QKeySequence (key).toString ()));
+  return XKeysymToKeycode (display, keySym);
+}
+
+quint32 GlobalActionHelper::nativeModifiers (Qt::KeyboardModifiers modifiers) {
+  quint32 native = 0;
+  if (modifiers & Qt::ShiftModifier) {
+    native |= ShiftMask;
+  }
+  if (modifiers & Qt::ControlModifier) {
+    native |= ControlMask;
+  }
+  if (modifiers & Qt::AltModifier) {
+    native |= Mod1Mask;
+  }
+  if (modifiers & Qt::MetaModifier) {
+    native |= Mod4Mask;
+  }
+  return native;
+}
+
+
+
+#elif defined(Q_OS_WIN)
+#  include <qt_windows.h>
+
+
+bool GlobalActionHelper::registerHotKey (quint32 nativeKey, quint32 nativeMods) {
+  return RegisterHotKey (0, nativeMods ^ nativeKey, nativeMods, nativeKey);
+}
+
+bool GlobalActionHelper::unregisterHotKey (quint32 nativeKey, quint32 nativeMods) {
+  return UnregisterHotKey (0, nativeMods ^ nativeKey);
+}
+
+bool GlobalActionHelper::nativeEventFilter (const QByteArray &eventType,
+                                            void *message, long *result) {
+  Q_UNUSED (eventType);
+  Q_UNUSED (result);
+  MSG *msg = static_cast<MSG *>(message);
+  if (msg->message == WM_HOTKEY) {
+    const quint32 keycode = HIWORD (msg->lParam);
+    const quint32 modifiers = LOWORD (msg->lParam);
+    QAction *action = actions_.value (qMakePair (keycode, modifiers));
+    if (action) {
+      action->activate (QAction::Trigger);
+    }
+  }
+  return false;
 }
 
 quint32 GlobalActionHelper::nativeKeycode (Qt::Key key) {
@@ -185,9 +291,6 @@ quint32 GlobalActionHelper::nativeKeycode (Qt::Key key) {
       return VK_MEDIA_PLAY_PAUSE;
     case Qt::Key_MediaStop:
       return VK_MEDIA_STOP;
-    // couldn't find those in VK_*
-    //case Qt::Key_MediaLast:
-    //case Qt::Key_MediaRecord:
     case Qt::Key_VolumeDown:
       return VK_VOLUME_DOWN;
     case Qt::Key_VolumeUp:
@@ -261,11 +364,4 @@ quint32 GlobalActionHelper::nativeModifiers (Qt::KeyboardModifiers modifiers) {
   //if (modifiers & Qt::GroupSwitchModifier)
   return native;
 }
-
-bool GlobalActionHelper::registerHotKey (quint32 nativeKey, quint32 nativeMods) {
-  return RegisterHotKey (0, nativeMods ^ nativeKey, nativeMods, nativeKey);
-}
-
-bool GlobalActionHelper::unregisterHotKey (quint32 nativeKey, quint32 nativeMods) {
-  return UnregisterHotKey (0, nativeMods ^ nativeKey);
-}
+#endif
