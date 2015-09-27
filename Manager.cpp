@@ -93,6 +93,12 @@ QMenu * Manager::trayContextMenu () {
   return menu;
 }
 
+void Manager::setActionsEnabled (bool isEnabled) {
+  captureAction_->setEnabled (isEnabled);
+  repeatAction_->setEnabled (isEnabled);
+  clipboardAction_->setEnabled (isEnabled);
+}
+
 void Manager::applySettings () {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
@@ -143,7 +149,9 @@ void Manager::settings () {
   SettingsEditor editor (*dictionary_);
   editor.setWindowIcon (trayIcon_->icon ());
   connect (&editor, SIGNAL (settingsEdited ()), SIGNAL (settingsEdited ()));
+  setActionsEnabled (false);
   editor.exec ();
+  setActionsEnabled (true);
 }
 
 void Manager::close () {

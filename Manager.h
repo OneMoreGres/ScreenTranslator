@@ -41,6 +41,7 @@ class Manager : public QObject {
 
   private:
     QMenu * trayContextMenu ();
+    void setActionsEnabled (bool isEnabled);
 
   private:
     QSystemTrayIcon *trayIcon_;
