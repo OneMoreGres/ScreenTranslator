@@ -11,10 +11,18 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ScreenTranslator
 TEMPLATE = app
 
-INCLUDEPATH += ../include
+win32{
+    RC_FILE = app.rc
+    INCLUDEPATH += ../mingw/include
+    LIBS += -L../mingw/lib -lws2_32
+}
+linux{
+    QT += x11extras
+    INCLUDEPATH += ../linux/include
+    LIBS += -L../linux/lib -lX11
+}
 
-LIBS += -L../bin -ltesseract -llept -ltiff -lgif -ljpeg -lz
-LIBS += -lWs2_32
+LIBS += -ltesseract -llept
 
 include(3rd-party/qtsingleapplication/qtsingleapplication.pri)
 
@@ -57,10 +65,6 @@ RESOURCES += \
 TRANSLATIONS += \
     translations/translation_en.ts \
     translations/translation_ru.ts
-
-win32{
-RC_FILE = app.rc
-}
 
 OTHER_FILES += \
     app.rc \
