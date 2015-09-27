@@ -22,6 +22,7 @@ class GlobalActionHelper : public QAbstractNativeEventFilter {
     static quint32 nativeModifiers (Qt::KeyboardModifiers modifiers);
     static bool registerHotKey (quint32 nativeKey, quint32 nativeMods);
     static bool unregisterHotKey (quint32 nativeKey, quint32 nativeMods);
+    static void triggerHotKey (quint32 nativeKey, quint32 nativeMods);
 
 };
 

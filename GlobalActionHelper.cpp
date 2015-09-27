@@ -62,6 +62,12 @@ bool GlobalActionHelper::removeGlobal (QAction *action) {
   return res;
 }
 
+void GlobalActionHelper::triggerHotKey (quint32 nativeKey, quint32 nativeMods) {
+  QAction *action = actions_.value (qMakePair (nativeKey, nativeMods));
+  if (action && action->isEnabled ()) {
+    action->activate (QAction::Trigger);
+  }
+}
 
 
 #if defined(Q_OS_LINUX)
@@ -124,10 +130,7 @@ bool GlobalActionHelper::nativeEventFilter (const QByteArray &eventType,
     xcb_key_press_event_t *keyEvent = static_cast<xcb_key_press_event_t *>(message);
     const quint32 keycode = keyEvent->detail;
     const quint32 modifiers = keyEvent->state & ~XCB_MOD_MASK_2;
-    QAction *action = actions_.value (qMakePair (keycode, modifiers));
-    if (action) {
-      action->activate (QAction::Trigger);
-    }
+    triggerHotKey (keycode, modifiers);
   }
   return false;
 }
@@ -177,10 +180,7 @@ bool GlobalActionHelper::nativeEventFilter (const QByteArray &eventType,
   if (msg->message == WM_HOTKEY) {
     const quint32 keycode = HIWORD (msg->lParam);
     const quint32 modifiers = LOWORD (msg->lParam);
-    QAction *action = actions_.value (qMakePair (keycode, modifiers));
-    if (action) {
-      action->activate (QAction::Trigger);
-    }
+    triggerHotKey (keycode, modifiers);
   }
   return false;
 }
