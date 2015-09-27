@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QScreen>
+#include <QDesktopWidget>
 #include <QThread>
 #include <QSettings>
 #include <QClipboard>
@@ -24,7 +25,6 @@ Manager::Manager (QObject *parent) :
   QObject (parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   dictionary_ (new LanguageHelper),
-  selection_ (new SelectionDialog (*dictionary_)),
   resultDialog_ (new ResultDialog),
   captureAction_ (NULL), repeatAction_ (NULL), clipboardAction_ (NULL),
   useResultDialog_ (true) {
@@ -33,7 +33,7 @@ Manager::Manager (QObject *parent) :
 
   // Recognizer
   Recognizer *recognizer = new Recognizer;
-  connect (selection_, SIGNAL (selected (ProcessingItem)),
+  connect (this, SIGNAL (selected (ProcessingItem)),
            recognizer, SLOT (recognize (ProcessingItem)));
   connect (recognizer, SIGNAL (error (QString)),
            SLOT (showError (QString)));
@@ -61,12 +61,7 @@ Manager::Manager (QObject *parent) :
   connect (translator, SIGNAL (translated (ProcessingItem)),
            SLOT (showResult (ProcessingItem)));
 
-  connect (this, SIGNAL (showPixmap (QPixmap)),
-           selection_, SLOT (setPixmap (QPixmap)));
-
-  connect (this, SIGNAL (settingsEdited ()), selection_, SLOT (updateMenu ()));
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
-  selection_->setWindowIcon (trayIcon_->icon ());
   resultDialog_->setWindowIcon (trayIcon_->icon ());
 
 
@@ -136,13 +131,24 @@ Manager::~Manager () {
 
 void Manager::capture () {
   QList<QScreen *> screens = QApplication::screens ();
-  ST_ASSERT (!screens.isEmpty ());
-  QScreen *screen = screens.first ();
-  Q_CHECK_PTR (screen);
-  WId desktopId = QApplication::desktop ()->winId ();
-  QPixmap pixmap = screen->grabWindow (desktopId);
-  ST_ASSERT (!pixmap.isNull ());
-  emit showPixmap (pixmap);
+  foreach (QScreen * screen, screens) {
+    QRect geometry = screen->availableGeometry ();
+    QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
+                                         geometry.width (), geometry.height ());
+    QString name = screen->name ();
+    if (!selections_.contains (name)) {
+      SelectionDialog *selection = new SelectionDialog (*dictionary_);
+      selection->setWindowIcon (trayIcon_->icon ());
+      connect (this, SIGNAL (closeSelections ()), selection, SLOT (close ()));
+      connect (this, SIGNAL (settingsEdited ()), selection, SLOT (updateMenu ()));
+      connect (selection, SIGNAL (selected (ProcessingItem)), SIGNAL (selected (ProcessingItem)));
+      connect (selection, SIGNAL (selected (ProcessingItem)), SIGNAL (closeSelections ()));
+      connect (selection, SIGNAL (rejected ()), SIGNAL (closeSelections ()));
+      selections_[name] = selection;
+    }
+    SelectionDialog *selection = selections_[name];
+    selection->setPixmap (pixmap, geometry);
+  }
 }
 
 void Manager::settings () {

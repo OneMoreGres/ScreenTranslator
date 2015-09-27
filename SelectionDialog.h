@@ -23,9 +23,11 @@ class SelectionDialog : public QDialog {
 
   signals:
     void selected (ProcessingItem pixmap);
+    void nothingSelected ();
 
   public slots:
-    void setPixmap (QPixmap pixmap);
+    //! Show pixmap with given geometry.
+    void setPixmap (QPixmap pixmap, const QRect &showGeometry);
     void updateMenu ();
 
   private:

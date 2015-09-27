@@ -120,20 +120,20 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
           ST_ASSERT (!item.sourceLanguage.isEmpty ());
         }
         emit selected (item);
-        accept ();
       }
     }
   }
   return QDialog::eventFilter (object, event);
 }
 
-void SelectionDialog::setPixmap (QPixmap pixmap) {
+void SelectionDialog::setPixmap (QPixmap pixmap, const QRect &showGeometry) {
   ST_ASSERT (!pixmap.isNull ());
+  ST_ASSERT (!showGeometry.isEmpty ());
   currentPixmap_ = pixmap;
   QPalette palette = this->palette ();
   palette.setBrush (this->backgroundRole (), pixmap);
   this->setPalette (palette);
-  this->resize (pixmap.size ());
+  this->setGeometry (showGeometry);
 
   show ();
   setFocus ();

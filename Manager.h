@@ -3,6 +3,7 @@
 
 #include <QPixmap>
 #include <QSystemTrayIcon>
+#include <QMap>
 
 #include "ProcessingItem.h"
 
@@ -21,7 +22,8 @@ class Manager : public QObject {
     ~Manager ();
 
   signals:
-    void showPixmap (QPixmap pixmap);
+    void selected (ProcessingItem item);
+    void closeSelections ();
     void settingsEdited ();
 
   private slots:
@@ -46,7 +48,8 @@ class Manager : public QObject {
   private:
     QSystemTrayIcon *trayIcon_;
     LanguageHelper *dictionary_;
-    SelectionDialog *selection_;
+    //! Selection dialogs for each screen. Key - screen name.
+    QMap<QString, SelectionDialog *> selections_;
     ResultDialog *resultDialog_;
     QAction *captureAction_;
     QAction *repeatAction_;
