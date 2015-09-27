@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>435</width>
-    <height>221</height>
+    <height>242</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,29 +28,10 @@
         <property name="text">
          <string>Захватить</string>
         </property>
-        <property name="buddy">
-         <cstring>captureEdit</cstring>
-        </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2">
-       <widget class="QLineEdit" name="captureEdit"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Скопировать</string>
-        </property>
-        <property name="buddy">
-         <cstring>captureEdit</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QLineEdit" name="clipboardEdit"/>
+      <item row="0" column="1">
+       <widget class="QKeySequenceEdit" name="captureEdit"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_3">
@@ -60,13 +41,23 @@
         <property name="text">
          <string>Повторить</string>
         </property>
-        <property name="buddy">
-         <cstring>captureEdit</cstring>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QKeySequenceEdit" name="repeatEdit"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Скопировать</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" colspan="2">
-       <widget class="QLineEdit" name="repeatEdit"/>
+      <item row="2" column="1">
+       <widget class="QKeySequenceEdit" name="clipboardEdit"/>
       </item>
      </layout>
     </widget>
@@ -225,7 +216,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>captureEdit</tabstop>
   <tabstop>translateLangCombo</tabstop>
   <tabstop>tessdataEdit</tabstop>
   <tabstop>tessdataButton</tabstop>

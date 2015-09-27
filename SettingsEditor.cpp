@@ -39,28 +39,29 @@ void SettingsEditor::done (int result) {
 }
 
 void SettingsEditor::saveSettings () const {
+  using namespace settings_names;
   QSettings settings;
-  settings.beginGroup (settings_names::guiGroup);
-  settings.setValue (settings_names::captureHotkey, ui->captureEdit->text ());
-  settings.setValue (settings_names::repeatHotkey, ui->repeatEdit->text ());
-  settings.setValue (settings_names::clipboardHotkey, ui->clipboardEdit->text ());
-  settings.setValue (settings_names::resultShowType, buttonGroup_->checkedId ());
+  settings.beginGroup (guiGroup);
+  settings.setValue (captureHotkey, ui->captureEdit->keySequence ().toString ());
+  settings.setValue (repeatHotkey, ui->repeatEdit->keySequence ().toString ());
+  settings.setValue (clipboardHotkey, ui->clipboardEdit->keySequence ().toString ());
+  settings.setValue (resultShowType, buttonGroup_->checkedId ());
   settings.endGroup ();
 
 
-  settings.beginGroup (settings_names::recogntionGroup);
-  settings.setValue (settings_names::tessDataPlace, ui->tessdataEdit->text ());
+  settings.beginGroup (recogntionGroup);
+  settings.setValue (tessDataPlace, ui->tessdataEdit->text ());
   QString ocrLanguage = dictionary_.ocrUiToCode (ui->ocrLangCombo->currentText ());
-  settings.setValue (settings_names::ocrLanguage, ocrLanguage);
-  settings.setValue (settings_names::imageScale, ui->imageScaleSpin->value ());
+  settings.setValue (ocrLanguage, ocrLanguage);
+  settings.setValue (imageScale, ui->imageScaleSpin->value ());
   settings.endGroup ();
 
 
-  settings.beginGroup (settings_names::translationGroup);
+  settings.beginGroup (translationGroup);
   QString trLanguage = dictionary_.translateUiToCode (ui->translateLangCombo->currentText ());
-  settings.setValue (settings_names::translationLanguage, trLanguage);
+  settings.setValue (translationLanguage, trLanguage);
   QString sourceLanguage = dictionary_.translateForOcrCode (ocrLanguage);
-  settings.setValue (settings_names::sourceLanguage, sourceLanguage);
+  settings.setValue (sourceLanguage, sourceLanguage);
   settings.endGroup ();
 }
 
@@ -81,9 +82,9 @@ void SettingsEditor::loadSettings () {
   QSettings settings;
 
   settings.beginGroup (settings_names::guiGroup);
-  ui->captureEdit->setText (GET (captureHotkey).toString ());
-  ui->repeatEdit->setText (GET (repeatHotkey).toString ());
-  ui->clipboardEdit->setText (GET (clipboardHotkey).toString ());
+  ui->captureEdit->setKeySequence (QKeySequence (GET (captureHotkey).toString ()));
+  ui->repeatEdit->setKeySequence (QKeySequence (GET (repeatHotkey).toString ()));
+  ui->clipboardEdit->setKeySequence (QKeySequence (GET (clipboardHotkey).toString ()));
   QAbstractButton *button = buttonGroup_->button (GET (resultShowType).toInt ());
   Q_CHECK_PTR (button);
   button->setChecked (true);
