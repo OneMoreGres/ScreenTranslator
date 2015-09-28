@@ -105,7 +105,7 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
       if (!selectedPixmap.isNull ()) {
         ProcessingItem item;
         item.source = selectedPixmap;
-        item.screenPos = selection.topLeft ();
+        item.screenPos = pos () + selection.topLeft ();
 
         if (mouseEvent->button () == Qt::RightButton &&
             !languageMenu_->children ().isEmpty ()) {
