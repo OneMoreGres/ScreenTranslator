@@ -28,11 +28,7 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
 }
 
 void ResultDialog::showResult (ProcessingItem item) {
-  ST_ASSERT (!item.source.isNull ());
-  ST_ASSERT (!item.recognized.isEmpty ());
-  ST_ASSERT (!item.translated.isEmpty ());
-  ST_ASSERT (!item.screenPos.isNull ());
-
+  ST_ASSERT (item.isValid ());
   ui->sourceLabel->setPixmap (item.source);
   ui->recognizeLabel->setText (item.recognized);
   ui->translateLabel->setText (item.translated);
