@@ -7,7 +7,22 @@
 #include "ImageProcessing.h"
 #include "StAssert.h"
 
-#ifdef WIN32
+#if defined(Q_OS_LINUX)
+#  include <fstream>
+#  include <limits>
+qint64 getFreeMemory () {
+  std::string token;
+  std::ifstream file ("/proc/meminfo");
+  qint64 freeMem = 0;
+  while (file >> token) {
+    if (token == "MemFree:" || token == "Buffers:" || token == "Cached:") {
+      unsigned long mem = 0;
+      freeMem += (file >> mem) ? mem : 0;
+    }
+  }
+  return freeMem * 1024;
+}
+#elif defined(Q_OS_WIN)
 #  include <windows.h>
 qint64 getFreeMemory () {
   MEMORYSTATUSEX statex;
@@ -128,16 +143,17 @@ Pix * prepareImage (const QImage &image, int preferredScale) {
     float scaleY = std::min (float (preferredScale), maxScaleY);
     float scale = std::min (scaleX, scaleY);
 
-#ifdef WIN32
     qint64 availableMemory = getFreeMemory () * 0.95;
-    qint32 actualSize = gray->w * gray->h * gray->d / 8;
-    float maxScaleMemory = float (availableMemory) / actualSize;
-    scale = std::min (scale, maxScaleMemory);
-#endif
-
+    if (availableMemory > 0) {
+      qint32 actualSize = gray->w * gray->h * gray->d / 8;
+      float maxScaleMemory = float (availableMemory) / actualSize;
+      scale = std::min (scale, maxScaleMemory);
+    }
     scaled = pixScale (gray, scale, scale);
+    if (scaled == NULL) {
+      scaled = gray;
+    }
   }
-  ST_ASSERT (scaled != NULL);
   if (scaled != gray) {
     pixDestroy (&gray);
   }
