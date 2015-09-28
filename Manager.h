@@ -56,6 +56,8 @@ class Manager : public QObject {
     QAction *clipboardAction_;
     ProcessingItem lastItem_;
     bool useResultDialog_;
+    //! Used threads. For proper termination.
+    QList<QThread *> threads_;
 };
 
 #endif // MANAGER_H

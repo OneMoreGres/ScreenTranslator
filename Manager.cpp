@@ -40,6 +40,7 @@ Manager::Manager (QObject *parent) :
   connect (this, SIGNAL (settingsEdited ()),
            recognizer, SLOT (applySettings ()));
   QThread *recognizerThread = new QThread (this);
+  threads_ << recognizerThread;
   recognizer->moveToThread (recognizerThread);
   recognizerThread->start ();
   connect (qApp, SIGNAL (aboutToQuit ()), recognizerThread, SLOT (quit ()));
@@ -54,6 +55,7 @@ Manager::Manager (QObject *parent) :
   connect (this, SIGNAL (settingsEdited ()),
            translator, SLOT (applySettings ()));
   QThread *translatorThread = new QThread (this);
+  threads_ << translatorThread;
   translator->moveToThread (translatorThread);
   translatorThread->start ();
   connect (qApp, SIGNAL (aboutToQuit ()), translatorThread, SLOT (quit ()));
@@ -127,6 +129,10 @@ void Manager::applySettings () {
 }
 
 Manager::~Manager () {
+  foreach (QThread * thread, threads_) {
+    thread->quit ();
+    thread->wait (1000000);
+  }
 }
 
 void Manager::capture () {
