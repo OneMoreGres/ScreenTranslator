@@ -97,35 +97,31 @@ void Manager::setActionsEnabled (bool isEnabled) {
 }
 
 void Manager::applySettings () {
+#define GET(NAME) settings.value (settings_names::NAME, settings_values::NAME)
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
-  QString captureHotkey = settings.value (settings_names::captureHotkey,
-                                          settings_values::captureHotkey).toString ();
+
   Q_CHECK_PTR (captureAction_);
   GlobalActionHelper::removeGlobal (captureAction_);
-  captureAction_->setShortcut (captureHotkey);
+  captureAction_->setShortcut (GET (captureHotkey).toString ());
   GlobalActionHelper::makeGlobal (captureAction_);
 
-  QString repeatHotkey = settings.value (settings_names::repeatHotkey,
-                                         settings_values::repeatHotkey).toString ();
   Q_CHECK_PTR (repeatAction_);
   GlobalActionHelper::removeGlobal (repeatAction_);
-  repeatAction_->setShortcut (repeatHotkey);
+  repeatAction_->setShortcut (GET (repeatHotkey).toString ());
   GlobalActionHelper::makeGlobal (repeatAction_);
 
-  QString clipboardHotkey = settings.value (settings_names::clipboardHotkey,
-                                            settings_values::clipboardHotkey).toString ();
   Q_CHECK_PTR (clipboardAction_);
   GlobalActionHelper::removeGlobal (clipboardAction_);
-  clipboardAction_->setShortcut (clipboardHotkey);
+  clipboardAction_->setShortcut (GET (clipboardHotkey).toString ());
   GlobalActionHelper::makeGlobal (clipboardAction_);
 
   // Depends on SettingsEditor button indexes. 1==dialog
-  useResultDialog_ = settings.value (settings_names::resultShowType,
-                                     settings_values::resultShowType).toBool ();
+  useResultDialog_ = GET (resultShowType).toBool ();
 
   Q_CHECK_PTR (dictionary_);
   dictionary_->updateAvailableOcrLanguages ();
+#undef GET
 }
 
 Manager::~Manager () {
