@@ -6,3 +6,5 @@
 
 *.exe
 distr/content/
+
+*.tar.gz
