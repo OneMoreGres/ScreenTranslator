@@ -36,10 +36,10 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_3">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для повторного отображения последнего результата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Повторить</string>
+         <string>Показать</string>
         </property>
        </widget>
       </item>
@@ -49,7 +49,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_7">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для копирования последнего результата в буфер обмена.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Скопировать</string>
@@ -71,7 +71,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_2">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://github.com/tesseract-ocr/tessdata&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#7593bc;&quot;&gt;https://github.com/tesseract-ocr/tessdata&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;quot;./&amp;quot; означает, что папка &amp;quot;tessdata&amp;quot; находится в одной директории с исполняемым файлом программы.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Путь к tessdata</string>
@@ -107,7 +107,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_5">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее и потребляет больше памяти.&lt;/p&gt;&lt;p&gt;Рекомендуемые значения от 5 до 10.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Увеличение масштаба</string>
