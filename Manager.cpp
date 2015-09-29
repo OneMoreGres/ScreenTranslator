@@ -35,6 +35,8 @@ Manager::Manager (QObject *parent) :
   Recognizer *recognizer = new Recognizer;
   connect (this, SIGNAL (selected (ProcessingItem)),
            recognizer, SLOT (recognize (ProcessingItem)));
+  connect (recognizer, SIGNAL (recognized (ProcessingItem)),
+           SIGNAL (recognized (ProcessingItem)));
   connect (recognizer, SIGNAL (error (QString)),
            SLOT (showError (QString)));
   connect (this, SIGNAL (settingsEdited ()),
@@ -48,8 +50,10 @@ Manager::Manager (QObject *parent) :
 
   // Translator
   Translator *translator = new Translator;
-  connect (recognizer, SIGNAL (recognized (ProcessingItem)),
+  connect (this, SIGNAL (requestTranslate (ProcessingItem)),
            translator, SLOT (translate (ProcessingItem)));
+  connect (translator, SIGNAL (translated (ProcessingItem)),
+           SLOT (showResult (ProcessingItem)));
   connect (translator, SIGNAL (error (QString)),
            SLOT (showError (QString)));
   connect (this, SIGNAL (settingsEdited ()),
@@ -59,9 +63,6 @@ Manager::Manager (QObject *parent) :
   translator->moveToThread (translatorThread);
   translatorThread->start ();
   connect (qApp, SIGNAL (aboutToQuit ()), translatorThread, SLOT (quit ()));
-
-  connect (translator, SIGNAL (translated (ProcessingItem)),
-           SLOT (showResult (ProcessingItem)));
 
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
   resultDialog_->setWindowIcon (trayIcon_->icon ());
@@ -118,9 +119,25 @@ void Manager::applySettings () {
 
   // Depends on SettingsEditor button indexes. 1==dialog
   useResultDialog_ = GET (resultShowType).toBool ();
+  settings.endGroup ();
 
   Q_CHECK_PTR (dictionary_);
   dictionary_->updateAvailableOcrLanguages ();
+
+  settings.beginGroup (settings_names::translationGroup);
+  bool doTranslation = GET (doTranslation).toBool ();
+  if (doTranslation) {
+    disconnect (this, SIGNAL (recognized (ProcessingItem)),
+                this, SLOT (showResult (ProcessingItem)));
+    connect (this, SIGNAL (recognized (ProcessingItem)),
+             this, SIGNAL (requestTranslate (ProcessingItem)), Qt::UniqueConnection);
+  }
+  else {
+    disconnect (this, SIGNAL (recognized (ProcessingItem)),
+                this, SIGNAL (requestTranslate (ProcessingItem)));
+    connect (this, SIGNAL (recognized (ProcessingItem)),
+             this, SLOT (showResult (ProcessingItem)), Qt::UniqueConnection);
+  }
 #undef GET
 }
 

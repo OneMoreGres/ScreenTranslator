@@ -23,6 +23,8 @@ class Manager : public QObject {
 
   signals:
     void selected (ProcessingItem item);
+    void recognized (ProcessingItem item);
+    void requestTranslate (ProcessingItem item);
     void closeSelections ();
     void settingsEdited ();
 

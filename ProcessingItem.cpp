@@ -5,6 +5,5 @@ bool ProcessingItem::isValid () const {
   valid &= (!screenPos.isNull ());
   valid &= (!source.isNull ());
   valid &= (!recognized.isEmpty ());
-  valid &= (!translated.isEmpty ());
   return valid;
 }

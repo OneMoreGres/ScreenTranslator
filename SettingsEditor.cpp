@@ -58,6 +58,7 @@ void SettingsEditor::saveSettings () const {
 
 
   settings.beginGroup (translationGroup);
+  settings.setValue (doTranslation, ui->doTranslationCombo->isChecked ());
   QString trLanguage = dictionary_.translateUiToCode (ui->translateLangCombo->currentText ());
   settings.setValue (translationLanguage, trLanguage);
   QString sourceLanguage = dictionary_.translateForOcrCode (ocrLanguage);
@@ -98,6 +99,7 @@ void SettingsEditor::loadSettings () {
   settings.endGroup ();
 
   settings.beginGroup (settings_names::translationGroup);
+  ui->doTranslationCombo->setChecked (GET (doTranslation).toBool ());
   QString trLanguage = dictionary_.translateCodeToUi (GET (translationLanguage).toString ());
   ui->translateLangCombo->setCurrentText (trLanguage);
   settings.endGroup ();

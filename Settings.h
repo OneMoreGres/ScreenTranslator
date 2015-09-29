@@ -20,6 +20,7 @@ namespace settings_names {
 
   //! Translation
   const QString translationGroup = "Translation";
+  const QString doTranslation = "doTranslation";
   const QString sourceLanguage = "source_language";
   const QString translationLanguage = "translation_language";
 
@@ -41,6 +42,7 @@ namespace settings_values {
   const int imageScale = 5;
 
   //! Translation
+  const bool doTranslation = true;
   const QString sourceLanguage = "auto";
   const QString translationLanguage = "ru";
 }
