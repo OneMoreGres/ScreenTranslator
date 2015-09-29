@@ -26,7 +26,8 @@ Manager::Manager (QObject *parent) :
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   dictionary_ (new LanguageHelper),
   resultDialog_ (new ResultDialog),
-  captureAction_ (NULL), repeatAction_ (NULL), clipboardAction_ (NULL),
+  captureAction_ (NULL), repeatCaptureAction_ (NULL),
+  repeatAction_ (NULL), clipboardAction_ (NULL),
   useResultDialog_ (true) {
   GlobalActionHelper::init ();
   qRegisterMetaType<ProcessingItem>();
@@ -72,6 +73,7 @@ Manager::Manager (QObject *parent) :
            SLOT (processTrayAction (QSystemTrayIcon::ActivationReason)));
 
   trayIcon_->setContextMenu (trayContextMenu ());
+  updateActionsState ();
   trayIcon_->show ();
 
   applySettings ();
@@ -80,6 +82,8 @@ Manager::Manager (QObject *parent) :
 QMenu * Manager::trayContextMenu () {
   QMenu *menu = new QMenu ();
   captureAction_ = menu->addAction (tr ("Захват"), this, SLOT (capture ()));
+  repeatCaptureAction_ = menu->addAction (tr ("Повторить захват"),
+                                          this, SLOT (repeatCapture ()));
   QMenu *translateMenu = menu->addMenu (tr ("Результат"));
   repeatAction_ = translateMenu->addAction (tr ("Показать"), this,
                                             SLOT (showLast ()));
@@ -91,10 +95,29 @@ QMenu * Manager::trayContextMenu () {
   return menu;
 }
 
-void Manager::setActionsEnabled (bool isEnabled) {
+void Manager::updateActionsState (bool isEnabled) {
+#ifdef Q_OS_LINUX
+  // Avoid unneeded tray blinking (required to update context menu).
+  QList<QAction *> actions;
+  actions << captureAction_ << repeatCaptureAction_ << repeatAction_ << clipboardAction_;
+  QList<bool> states;
+  foreach (const QAction * action, actions) {
+    states << action->isEnabled ();
+  }
+#endif
   captureAction_->setEnabled (isEnabled);
-  repeatAction_->setEnabled (isEnabled);
-  clipboardAction_->setEnabled (isEnabled);
+  repeatCaptureAction_->setEnabled (isEnabled && !selections_.isEmpty ());
+  repeatAction_->setEnabled (isEnabled && lastItem_.isValid ());
+  clipboardAction_->setEnabled (isEnabled && lastItem_.isValid ());
+#ifdef Q_OS_LINUX
+  for (int i = 0, end = actions.size (); i < end; ++i) {
+    if (states.at (i) != actions.at (i)->isEnabled ()) {
+      trayIcon_->hide ();
+      trayIcon_->show ();
+      break;
+    }
+  }
+#endif
 }
 
 void Manager::applySettings () {
@@ -106,6 +129,11 @@ void Manager::applySettings () {
   GlobalActionHelper::removeGlobal (captureAction_);
   captureAction_->setShortcut (GET (captureHotkey).toString ());
   GlobalActionHelper::makeGlobal (captureAction_);
+
+  Q_CHECK_PTR (repeatCaptureAction_);
+  GlobalActionHelper::removeGlobal (repeatCaptureAction_);
+  repeatCaptureAction_->setShortcut (GET (repeatCaptureHotkey).toString ());
+  GlobalActionHelper::makeGlobal (repeatCaptureAction_);
 
   Q_CHECK_PTR (repeatAction_);
   GlobalActionHelper::removeGlobal (repeatAction_);
@@ -168,15 +196,32 @@ void Manager::capture () {
     SelectionDialog *selection = selections_[name];
     selection->setPixmap (pixmap, geometry);
   }
+  updateActionsState ();
+}
+
+void Manager::repeatCapture () {
+  if (selections_.isEmpty ()) {
+    return;
+  }
+  QList<QScreen *> screens = QApplication::screens ();
+  foreach (QScreen * screen, screens) {
+    QString name = screen->name ();
+    if (!selections_.contains (name)) {
+      continue;
+    }
+    SelectionDialog *selection = selections_[name];
+    selection->show ();
+    selection->activateWindow ();
+  }
 }
 
 void Manager::settings () {
   SettingsEditor editor (*dictionary_);
   editor.setWindowIcon (trayIcon_->icon ());
   connect (&editor, SIGNAL (settingsEdited ()), SIGNAL (settingsEdited ()));
-  setActionsEnabled (false);
+  updateActionsState (false);
   editor.exec ();
-  setActionsEnabled (true);
+  updateActionsState (true);
 }
 
 void Manager::close () {
@@ -198,11 +243,14 @@ void Manager::about () {
 }
 
 void Manager::processTrayAction (QSystemTrayIcon::ActivationReason reason) {
-  if (reason == QSystemTrayIcon::Trigger) {
+  if (reason == QSystemTrayIcon::Trigger && repeatAction_->isEnabled ()) {
     showLast ();
   }
-  else if (reason == QSystemTrayIcon::MiddleClick) {
+  else if (reason == QSystemTrayIcon::MiddleClick && clipboardAction_->isEnabled ()) {
     copyLastToClipboard  ();
+  }
+  else if (reason == QSystemTrayIcon::DoubleClick && repeatCaptureAction_->isEnabled ()) {
+    repeatCapture ();
   }
 }
 
@@ -236,6 +284,7 @@ void Manager::showResult (ProcessingItem item) {
     QString message = item.recognized + " - " + item.translated;
     trayIcon_->showMessage (tr ("Результат"), message, QSystemTrayIcon::Information);
   }
+  updateActionsState ();
 }
 
 void Manager::showError (QString text) {

@@ -30,6 +30,7 @@ class Manager : public QObject {
 
   private slots:
     void capture ();
+    void repeatCapture ();
     void settings ();
     void close ();
     void about ();
@@ -45,7 +46,7 @@ class Manager : public QObject {
 
   private:
     QMenu * trayContextMenu ();
-    void setActionsEnabled (bool isEnabled);
+    void updateActionsState (bool isEnabled = true);
 
   private:
     QSystemTrayIcon *trayIcon_;
@@ -54,6 +55,7 @@ class Manager : public QObject {
     QMap<QString, SelectionDialog *> selections_;
     ResultDialog *resultDialog_;
     QAction *captureAction_;
+    QAction *repeatCaptureAction_;
     QAction *repeatAction_;
     QAction *clipboardAction_;
     ProcessingItem lastItem_;

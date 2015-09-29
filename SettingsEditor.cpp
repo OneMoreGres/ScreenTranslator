@@ -43,6 +43,7 @@ void SettingsEditor::saveSettings () const {
   QSettings settings;
   settings.beginGroup (guiGroup);
   settings.setValue (captureHotkey, ui->captureEdit->keySequence ().toString ());
+  settings.setValue (repeatCaptureHotkey, ui->repeatCaptureEdit->keySequence ().toString ());
   settings.setValue (repeatHotkey, ui->repeatEdit->keySequence ().toString ());
   settings.setValue (clipboardHotkey, ui->clipboardEdit->keySequence ().toString ());
   settings.setValue (resultShowType, buttonGroup_->checkedId ());
@@ -84,6 +85,7 @@ void SettingsEditor::loadSettings () {
 
   settings.beginGroup (settings_names::guiGroup);
   ui->captureEdit->setKeySequence (QKeySequence (GET (captureHotkey).toString ()));
+  ui->repeatCaptureEdit->setKeySequence (QKeySequence (GET (repeatCaptureHotkey).toString ()));
   ui->repeatEdit->setKeySequence (QKeySequence (GET (repeatHotkey).toString ()));
   ui->clipboardEdit->setKeySequence (QKeySequence (GET (clipboardHotkey).toString ()));
   QAbstractButton *button = buttonGroup_->button (GET (resultShowType).toInt ());
