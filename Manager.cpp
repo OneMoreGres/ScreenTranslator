@@ -80,10 +80,10 @@ Manager::Manager (QObject *parent) :
 QMenu * Manager::trayContextMenu () {
   QMenu *menu = new QMenu ();
   captureAction_ = menu->addAction (tr ("Захват"), this, SLOT (capture ()));
-  QMenu *translateMenu = menu->addMenu (tr ("Перевод"));
-  repeatAction_ = translateMenu->addAction (tr ("Повторить"), this,
+  QMenu *translateMenu = menu->addMenu (tr ("Результат"));
+  repeatAction_ = translateMenu->addAction (tr ("Показать"), this,
                                             SLOT (showLast ()));
-  clipboardAction_ = translateMenu->addAction (tr ("Скопировать"), this,
+  clipboardAction_ = translateMenu->addAction (tr ("В буфер"), this,
                                                SLOT (copyLastToClipboard ()));
   menu->addAction (tr ("Настройки"), this, SLOT (settings ()));
   menu->addAction (tr ("О программе"), this, SLOT (about ()));
@@ -215,10 +215,13 @@ void Manager::showLast () {
 void Manager::copyLastToClipboard () {
   if (lastItem_.isValid ()) {
     QClipboard *clipboard = QApplication::clipboard ();
-    QString message = lastItem_.recognized + " - " + lastItem_.translated;
+    QString message = lastItem_.recognized;
+    if (!lastItem_.translated.isEmpty ()) {
+      message += " - " + lastItem_.translated;
+    }
     clipboard->setText (message);
-    trayIcon_->showMessage (tr ("Перевод"),
-                            tr ("Последний перевод был скопирован в буфер обмена."),
+    trayIcon_->showMessage (tr ("Результат"),
+                            tr ("Последний результат был скопирован в буфер обмена."),
                             QSystemTrayIcon::Information);
   }
 }
@@ -231,7 +234,7 @@ void Manager::showResult (ProcessingItem item) {
   }
   else {
     QString message = item.recognized + " - " + item.translated;
-    trayIcon_->showMessage (tr ("Перевод"), message, QSystemTrayIcon::Information);
+    trayIcon_->showMessage (tr ("Результат"), message, QSystemTrayIcon::Information);
   }
 }
 

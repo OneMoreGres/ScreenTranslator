@@ -14,7 +14,16 @@
    <string>Результат</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <property name="spacing">
@@ -29,7 +38,16 @@
       <enum>QFrame::Plain</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <property name="spacing">
@@ -49,7 +67,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="Line" name="line_2">
+       <widget class="Line" name="recognizeLine">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -69,7 +87,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="Line" name="line">
+       <widget class="Line" name="translateLine">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>

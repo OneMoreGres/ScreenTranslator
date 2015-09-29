@@ -32,6 +32,9 @@ void ResultDialog::showResult (ProcessingItem item) {
   ui->sourceLabel->setPixmap (item.source);
   ui->recognizeLabel->setText (item.recognized);
   ui->translateLabel->setText (item.translated);
+  bool gotTranslation = !item.translated.isEmpty ();
+  ui->translateLabel->setVisible (gotTranslation);
+  ui->translateLine->setVisible (gotTranslation);
 
   show ();
   adjustSize ();
