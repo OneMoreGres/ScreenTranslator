@@ -57,4 +57,5 @@ void ResultDialog::showResult (ProcessingItem item) {
     QPoint newPos (screenRect.width () - width (), screenRect.height () - height ());
     move (newPos);
   }
+  activateWindow ();
 }

@@ -136,5 +136,5 @@ void SelectionDialog::setPixmap (QPixmap pixmap, const QRect &showGeometry) {
   this->setGeometry (showGeometry);
 
   show ();
-  setFocus ();
+  activateWindow ();
 }
