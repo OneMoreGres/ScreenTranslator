@@ -3,6 +3,7 @@
 
 #include <QMap>
 #include <QStringList>
+#include <QMenu>
 
 class LanguageHelper {
   public:
@@ -21,6 +22,9 @@ class LanguageHelper {
     QString translateForOcrCode (const QString &text) const;
 
     void updateAvailableOcrLanguages ();
+
+    //! Update languages menu. Group items into submenus if needed.
+    void updateMenu (QMenu *menu, const QStringList &languages, int groupSize = 10) const;
 
   private:
     QStringList availableOcrLanguages (const QString &path) const;

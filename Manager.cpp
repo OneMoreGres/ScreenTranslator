@@ -187,7 +187,7 @@ void Manager::capture () {
       SelectionDialog *selection = new SelectionDialog (*dictionary_);
       selection->setWindowIcon (trayIcon_->icon ());
       connect (this, SIGNAL (closeSelections ()), selection, SLOT (close ()));
-      connect (this, SIGNAL (settingsEdited ()), selection, SLOT (updateMenu ()));
+      connect (this, SIGNAL (settingsEdited ()), selection, SLOT (applySettings ()));
       connect (selection, SIGNAL (selected (ProcessingItem)),
                SLOT (handleSelection (ProcessingItem)));
       connect (selection, SIGNAL (rejected ()), SIGNAL (closeSelections ()));

@@ -28,7 +28,7 @@ class SelectionDialog : public QDialog {
   public slots:
     //! Show pixmap with given geometry.
     void setPixmap (QPixmap pixmap, const QRect &showGeometry);
-    void updateMenu ();
+    void applySettings ();
 
   private:
     Ui::SelectionDialog *ui;

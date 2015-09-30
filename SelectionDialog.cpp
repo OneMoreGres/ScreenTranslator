@@ -19,46 +19,15 @@ SelectionDialog::SelectionDialog (const LanguageHelper &dictionary, QWidget *par
   ui->label->setAutoFillBackground (false);
   ui->label->installEventFilter (this);
 
-  updateMenu ();
+  applySettings ();
 }
 
 SelectionDialog::~SelectionDialog () {
   delete ui;
 }
 
-void SelectionDialog::updateMenu () {
-  Q_CHECK_PTR (languageMenu_);
-  languageMenu_->clear ();
-  QStringList languages = dictionary_.availableOcrLanguagesUi ();
-  if (languages.isEmpty ()) {
-    return;
-  }
-
-  const int max = 10;
-
-  if (languages.size () <= max) {
-    foreach (const QString &language, languages) {
-      languageMenu_->addAction (language);
-    }
-  }
-  else {
-    int subIndex = max;
-    QMenu *subMenu = NULL;
-    QString prevLetter;
-    foreach (const QString &language, languages) {
-      QString curLetter = language.left (1);
-      if (++subIndex >= max && prevLetter != curLetter) {
-        if (subMenu != NULL) {
-          subMenu->setTitle (subMenu->title () + " - " + prevLetter);
-        }
-        subMenu = languageMenu_->addMenu (curLetter);
-        subIndex = 0;
-      }
-      prevLetter = curLetter;
-      subMenu->addAction (language);
-    }
-    subMenu->setTitle (subMenu->title () + " - " + prevLetter);
-  }
+void SelectionDialog::applySettings () {
+  dictionary_.updateMenu (languageMenu_, dictionary_.availableOcrLanguagesUi ());
 }
 
 bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {

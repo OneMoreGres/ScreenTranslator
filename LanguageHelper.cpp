@@ -3,6 +3,7 @@
 
 #include "LanguageHelper.h"
 #include "Settings.h"
+#include "StAssert.h"
 
 LanguageHelper::LanguageHelper () {
   init ();
@@ -93,6 +94,38 @@ void LanguageHelper::updateAvailableOcrLanguages () {
   QString tessDataPlace = settings.value (settings_names::tessDataPlace,
                                           settings_values::tessDataPlace).toString ();
   availableOcrLanguages_ = availableOcrLanguages (tessDataPlace);
+}
+
+void LanguageHelper::updateMenu (QMenu *menu, const QStringList &languages, int groupSize) const {
+  ST_ASSERT (menu != NULL);
+  menu->clear ();
+  if (languages.isEmpty ()) {
+    return;
+  }
+
+  if (languages.size () <= groupSize) {
+    foreach (const QString &language, languages) {
+      menu->addAction (language);
+    }
+  }
+  else {
+    int subIndex = groupSize;
+    QMenu *subMenu = NULL;
+    QString prevLetter;
+    foreach (const QString &language, languages) {
+      QString curLetter = language.left (1);
+      if (++subIndex >= groupSize && prevLetter != curLetter) {
+        if (subMenu != NULL) {
+          subMenu->setTitle (subMenu->title () + " - " + prevLetter);
+        }
+        subMenu = menu->addMenu (curLetter);
+        subIndex = 0;
+      }
+      prevLetter = curLetter;
+      subMenu->addAction (language);
+    }
+    subMenu->setTitle (subMenu->title () + " - " + prevLetter);
+  }
 }
 
 void LanguageHelper::initTranslateLanguages () {
