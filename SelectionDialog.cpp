@@ -102,25 +102,27 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
       QPoint endPos = mouseEvent->pos ();
       QRect selection = QRect (startSelectPos_, endPos).normalized ();
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
-      if (!selectedPixmap.isNull ()) {
-        ProcessingItem item;
-        item.source = selectedPixmap;
-        item.screenPos = pos () + selection.topLeft ();
-
-        if (mouseEvent->button () == Qt::RightButton &&
-            !languageMenu_->children ().isEmpty ()) {
-          QAction *action = languageMenu_->exec (QCursor::pos ());
-          if (action == NULL) {
-            reject ();
-            return QDialog::eventFilter (object, event);
-          }
-          item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
-          ST_ASSERT (!item.ocrLanguage.isEmpty ());
-          item.sourceLanguage = dictionary_.translateForOcrCode (item.ocrLanguage);
-          ST_ASSERT (!item.sourceLanguage.isEmpty ());
-        }
-        emit selected (item);
+      if (selectedPixmap.width () < 3 || selectedPixmap.height () < 3) {
+        reject ();
+        return QDialog::eventFilter (object, event);
       }
+      ProcessingItem item;
+      item.source = selectedPixmap;
+      item.screenPos = pos () + selection.topLeft ();
+
+      if (mouseEvent->button () == Qt::RightButton &&
+          !languageMenu_->children ().isEmpty ()) {
+        QAction *action = languageMenu_->exec (QCursor::pos ());
+        if (action == NULL) {
+          reject ();
+          return QDialog::eventFilter (object, event);
+        }
+        item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
+        ST_ASSERT (!item.ocrLanguage.isEmpty ());
+        item.sourceLanguage = dictionary_.translateForOcrCode (item.ocrLanguage);
+        ST_ASSERT (!item.sourceLanguage.isEmpty ());
+      }
+      emit selected (item);
     }
   }
   return QDialog::eventFilter (object, event);
