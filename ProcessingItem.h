@@ -11,6 +11,7 @@ struct ProcessingItem {
 
   QString ocrLanguage;
   QString sourceLanguage;
+  QString translateLanguage;
 
   Qt::KeyboardModifiers modifiers;
 

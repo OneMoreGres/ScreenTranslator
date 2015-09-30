@@ -55,7 +55,9 @@ void Translator::translate (ProcessingItem item) {
     emit error (tr ("Неверные парметры для перевода."));
     return;
   }
-  QUrl url (translateBaseUrl.arg (item.recognized, sourceLanguage, translationLanguage_));
+  QString translateLanguage = (item.translateLanguage.isEmpty ())
+                              ? translationLanguage_ : item.translateLanguage;
+  QUrl url (translateBaseUrl.arg (item.recognized, sourceLanguage, translateLanguage));
   QNetworkReply *reply = network_.get (QNetworkRequest (url));
   items_.insert (reply, item);
 }

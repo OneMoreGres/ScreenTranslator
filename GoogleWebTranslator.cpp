@@ -87,6 +87,8 @@ void GoogleWebTranslator::load (const ProcessingItem &item) {
     emit error (tr ("Неверные парметры для перевода."));
     return;
   }
-  QUrl url (QString ("https://translate.google.com/#auto/%1/%2").arg (translationLanguage_, item.recognized));
+  QString translateLanguage = (item.translateLanguage.isEmpty ())
+                              ? translationLanguage_ : item.translateLanguage;
+  QUrl url (QString ("https://translate.google.com/#auto/%1/%2").arg (translateLanguage, item.recognized));
   view_->setUrl (url);
 }
