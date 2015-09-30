@@ -20,6 +20,7 @@ class ResultDialog : public QDialog {
 
   signals:
     void requestRecognize (ProcessingItem item);
+    void requestClipboard (); // Assume that slot will be called immediately.
 
   public:
     const ProcessingItem &item () const;
@@ -38,6 +39,7 @@ class ResultDialog : public QDialog {
     bool isShowAtCapturePos_;
     QMenu *contextMenu_;
     QMenu *recognizeSubMenu_;
+    QAction *clipboardAction_;
     ProcessingItem item_;
 };
 

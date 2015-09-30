@@ -71,6 +71,7 @@ Manager::Manager (QObject *parent) :
   connect (this, SIGNAL (settingsEdited ()), resultDialog_, SLOT (applySettings ()));
   connect (resultDialog_, SIGNAL (requestRecognize (ProcessingItem)),
            this, SIGNAL (requestRecognize (ProcessingItem)));
+  connect (resultDialog_, SIGNAL (requestClipboard ()), SLOT (copyLastToClipboard ()));
 
 
   connect (trayIcon_, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),

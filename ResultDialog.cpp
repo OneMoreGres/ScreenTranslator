@@ -11,7 +11,7 @@ ResultDialog::ResultDialog (const LanguageHelper &dictionary, QWidget *parent) :
   QDialog (parent),
   ui (new Ui::ResultDialog),
   dictionary_ (dictionary), isShowAtCapturePos_ (true),
-  contextMenu_ (NULL), recognizeSubMenu_ (NULL) {
+  contextMenu_ (NULL), recognizeSubMenu_ (NULL), clipboardAction_ (NULL) {
   ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -37,6 +37,7 @@ void ResultDialog::applySettings () {
 void ResultDialog::createContextMenu () {
   contextMenu_ = new QMenu ();
   recognizeSubMenu_ = contextMenu_->addMenu (tr ("Распознать другой язык"));
+  clipboardAction_ = contextMenu_->addAction (tr ("Скопировать в буфер"));
 }
 
 bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
@@ -51,6 +52,9 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
         item.translated = item.recognized = QString ();
         item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
         emit requestRecognize (item);
+      }
+      else if (action == clipboardAction_) {
+        emit requestClipboard ();
       }
     }
     hide ();
