@@ -261,6 +261,9 @@ void Manager::processTrayAction (QSystemTrayIcon::ActivationReason reason) {
   }
   else if (reason == QSystemTrayIcon::MiddleClick && clipboardAction_->isEnabled ()) {
     copyLastToClipboard  ();
+    trayIcon_->showMessage (tr ("Результат"),
+                            tr ("Последний результат был скопирован в буфер обмена."),
+                            QSystemTrayIcon::Information);
   }
   else if (reason == QSystemTrayIcon::DoubleClick && repeatCaptureAction_->isEnabled ()) {
     repeatCapture ();
@@ -283,9 +286,6 @@ void Manager::copyLastToClipboard () {
       message += " - " + item.translated;
     }
     clipboard->setText (message);
-    trayIcon_->showMessage (tr ("Результат"),
-                            tr ("Последний результат был скопирован в буфер обмена."),
-                            QSystemTrayIcon::Information);
   }
 }
 
