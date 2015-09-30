@@ -88,7 +88,7 @@ void ResultDialog::showResult (ProcessingItem item) {
 
   QDesktopWidget *desktop = QApplication::desktop ();
   Q_CHECK_PTR (desktop);
-  QPoint correction = QPoint (ui->frame->lineWidth (), ui->frame->lineWidth ());
+  QPoint correction = QPoint ((width () - item.source.width ()) / 2, ui->frame->lineWidth ());
   move (item.screenPos - correction);
   QRect screenRect = desktop->screenGeometry (this);
   int minY = screenRect.bottom () - height ();
