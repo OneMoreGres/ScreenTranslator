@@ -59,7 +59,6 @@ class Manager : public QObject {
     QAction *repeatCaptureAction_;
     QAction *repeatAction_;
     QAction *clipboardAction_;
-    ProcessingItem lastItem_;
     bool useResultDialog_;
     //! Used threads. For proper termination.
     QList<QThread *> threads_;

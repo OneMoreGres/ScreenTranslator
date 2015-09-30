@@ -26,6 +26,10 @@ ResultDialog::~ResultDialog () {
   delete ui;
 }
 
+const ProcessingItem &ResultDialog::item () const {
+  return item_;
+}
+
 void ResultDialog::applySettings () {
   dictionary_.updateMenu (recognizeSubMenu_, dictionary_.availableOcrLanguagesUi ());
 }
@@ -43,7 +47,7 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
       QAction *action = contextMenu_->exec (QCursor::pos ());
       QWidget *subMenu = action->parentWidget ();
       if (recognizeSubMenu_->isAncestorOf (subMenu)) {
-        ProcessingItem item = lastItem_;
+        ProcessingItem item = item_;
         item.translated = item.recognized = QString ();
         item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
         emit requestRecognize (item);
@@ -59,7 +63,7 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
 
 void ResultDialog::showResult (ProcessingItem item) {
   ST_ASSERT (item.isValid ());
-  lastItem_ = item;
+  item_ = item;
   ui->sourceLabel->setPixmap (item.source);
   ui->recognizeLabel->setText (item.recognized);
   ui->translateLabel->setText (item.translated);

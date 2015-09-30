@@ -22,6 +22,7 @@ class ResultDialog : public QDialog {
     void requestRecognize (ProcessingItem item);
 
   public:
+    const ProcessingItem &item () const;
     bool eventFilter (QObject *object, QEvent *event);
 
   public slots:
@@ -37,7 +38,7 @@ class ResultDialog : public QDialog {
     bool isShowAtCapturePos_;
     QMenu *contextMenu_;
     QMenu *recognizeSubMenu_;
-    ProcessingItem lastItem_;
+    ProcessingItem item_;
 };
 
 #endif // RESULTDIALOG_H

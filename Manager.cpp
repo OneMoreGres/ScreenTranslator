@@ -111,8 +111,9 @@ void Manager::updateActionsState (bool isEnabled) {
 #endif
   captureAction_->setEnabled (isEnabled);
   repeatCaptureAction_->setEnabled (isEnabled && !selections_.isEmpty ());
-  repeatAction_->setEnabled (isEnabled && lastItem_.isValid ());
-  clipboardAction_->setEnabled (isEnabled && lastItem_.isValid ());
+  const ProcessingItem &lastItem = resultDialog_->item ();
+  repeatAction_->setEnabled (isEnabled && lastItem.isValid ());
+  clipboardAction_->setEnabled (isEnabled && lastItem.isValid ());
 #ifdef Q_OS_LINUX
   for (int i = 0, end = actions.size (); i < end; ++i) {
     if (states.at (i) != actions.at (i)->isEnabled ()) {
@@ -266,17 +267,19 @@ void Manager::processTrayAction (QSystemTrayIcon::ActivationReason reason) {
 }
 
 void Manager::showLast () {
-  if (lastItem_.isValid ()) {
-    showResult (lastItem_);
+  const ProcessingItem &item = resultDialog_->item ();
+  if (item.isValid ()) {
+    showResult (item);
   }
 }
 
 void Manager::copyLastToClipboard () {
-  if (lastItem_.isValid ()) {
+  const ProcessingItem &item = resultDialog_->item ();
+  if (item.isValid ()) {
     QClipboard *clipboard = QApplication::clipboard ();
-    QString message = lastItem_.recognized;
-    if (!lastItem_.translated.isEmpty ()) {
-      message += " - " + lastItem_.translated;
+    QString message = item.recognized;
+    if (!item.translated.isEmpty ()) {
+      message += " - " + item.translated;
     }
     clipboard->setText (message);
     trayIcon_->showMessage (tr ("Результат"),
@@ -287,7 +290,6 @@ void Manager::copyLastToClipboard () {
 
 void Manager::showResult (ProcessingItem item) {
   ST_ASSERT (item.isValid ());
-  lastItem_ = item;
   if (useResultDialog_) {
     resultDialog_->showResult (item);
   }
