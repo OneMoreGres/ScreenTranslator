@@ -46,8 +46,7 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
     Qt::MouseButton button = static_cast<QMouseEvent *>(event)->button ();
     if (button == Qt::RightButton) {
       QAction *action = contextMenu_->exec (QCursor::pos ());
-      QWidget *subMenu = action->parentWidget ();
-      if (recognizeSubMenu_->isAncestorOf (subMenu)) {
+      if (recognizeSubMenu_->findChildren<QAction *> ().contains (action)) {
         ProcessingItem item = item_;
         item.translated = item.recognized = QString ();
         item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
