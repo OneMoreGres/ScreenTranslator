@@ -37,7 +37,6 @@ class ResultDialog : public QDialog {
   private:
     Ui::ResultDialog *ui;
     const LanguageHelper &dictionary_;
-    bool isShowAtCapturePos_;
     QMenu *contextMenu_;
     QMenu *recognizeSubMenu_;
     QMenu *translateSubMenu_;

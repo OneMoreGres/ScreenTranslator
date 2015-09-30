@@ -10,7 +10,7 @@
 ResultDialog::ResultDialog (const LanguageHelper &dictionary, QWidget *parent) :
   QDialog (parent),
   ui (new Ui::ResultDialog),
-  dictionary_ (dictionary), isShowAtCapturePos_ (true),
+  dictionary_ (dictionary),
   contextMenu_ (NULL), recognizeSubMenu_ (NULL),  translateSubMenu_ (NULL),
   clipboardAction_ (NULL) {
   ui->setupUi (this);
@@ -88,21 +88,12 @@ void ResultDialog::showResult (ProcessingItem item) {
 
   QDesktopWidget *desktop = QApplication::desktop ();
   Q_CHECK_PTR (desktop);
-  if (isShowAtCapturePos_) {
-    QPoint correction = QPoint (ui->frame->lineWidth (), ui->frame->lineWidth ());
-    move (item.screenPos - correction);
-    QRect screenRect = desktop->screenGeometry (this);
-    int minY = screenRect.bottom () - height ();
-    if (y () > minY) {
-      move (x (), minY);
-    }
-  }
-  else {
-
-    QRect screenRect = desktop->availableGeometry (this);
-    ST_ASSERT (screenRect.isValid ());
-    QPoint newPos (screenRect.width () - width (), screenRect.height () - height ());
-    move (newPos);
+  QPoint correction = QPoint (ui->frame->lineWidth (), ui->frame->lineWidth ());
+  move (item.screenPos - correction);
+  QRect screenRect = desktop->screenGeometry (this);
+  int minY = screenRect.bottom () - height ();
+  if (y () > minY) {
+    move (x (), minY);
   }
   activateWindow ();
 }
