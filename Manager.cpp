@@ -25,7 +25,7 @@ Manager::Manager (QObject *parent) :
   QObject (parent),
   trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
   dictionary_ (new LanguageHelper),
-  resultDialog_ (new ResultDialog),
+  resultDialog_ (new ResultDialog (*dictionary_)),
   captureAction_ (NULL), repeatCaptureAction_ (NULL),
   repeatAction_ (NULL), clipboardAction_ (NULL),
   useResultDialog_ (true) {
@@ -66,7 +66,11 @@ Manager::Manager (QObject *parent) :
   connect (qApp, SIGNAL (aboutToQuit ()), translatorThread, SLOT (quit ()));
 
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
+
   resultDialog_->setWindowIcon (trayIcon_->icon ());
+  connect (this, SIGNAL (settingsEdited ()), resultDialog_, SLOT (applySettings ()));
+  connect (resultDialog_, SIGNAL (requestRecognize (ProcessingItem)),
+           this, SIGNAL (requestRecognize (ProcessingItem)));
 
 
   connect (trayIcon_, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),

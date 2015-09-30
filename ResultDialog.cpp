@@ -1,28 +1,57 @@
 #include "ResultDialog.h"
 #include "ui_ResultDialog.h"
 #include "StAssert.h"
+#include "LanguageHelper.h"
 
 #include <QDesktopWidget>
+#include <QMouseEvent>
+#include <QMenu>
 
-ResultDialog::ResultDialog (QWidget *parent) :
+ResultDialog::ResultDialog (const LanguageHelper &dictionary, QWidget *parent) :
   QDialog (parent),
   ui (new Ui::ResultDialog),
-  isShowAtCapturePos_ (true) {
+  dictionary_ (dictionary), isShowAtCapturePos_ (true),
+  contextMenu_ (NULL), recognizeSubMenu_ (NULL) {
   ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
   installEventFilter (this);
+  createContextMenu ();
+  applySettings ();
 }
 
 ResultDialog::~ResultDialog () {
+  delete contextMenu_;
   delete ui;
+}
+
+void ResultDialog::applySettings () {
+  dictionary_.updateMenu (recognizeSubMenu_, dictionary_.availableOcrLanguagesUi ());
+}
+
+void ResultDialog::createContextMenu () {
+  contextMenu_ = new QMenu ();
+  recognizeSubMenu_ = contextMenu_->addMenu (tr ("Распознать другой язык"));
 }
 
 bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
   Q_UNUSED (object);
-  if (event->type () == QEvent::MouseButtonRelease ||
-      event->type () == QEvent::WindowDeactivate) {
+  if (event->type () == QEvent::MouseButtonPress) {
+    Qt::MouseButton button = static_cast<QMouseEvent *>(event)->button ();
+    if (button == Qt::RightButton) {
+      QAction *action = contextMenu_->exec (QCursor::pos ());
+      QWidget *subMenu = action->parentWidget ();
+      if (recognizeSubMenu_->isAncestorOf (subMenu)) {
+        ProcessingItem item = lastItem_;
+        item.translated = item.recognized = QString ();
+        item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
+        emit requestRecognize (item);
+      }
+    }
+    hide ();
+  }
+  else if (event->type () == QEvent::WindowDeactivate) {
     hide ();
   }
   return QDialog::eventFilter (object, event);
@@ -30,6 +59,7 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
 
 void ResultDialog::showResult (ProcessingItem item) {
   ST_ASSERT (item.isValid ());
+  lastItem_ = item;
   ui->sourceLabel->setPixmap (item.source);
   ui->recognizeLabel->setText (item.recognized);
   ui->translateLabel->setText (item.translated);
