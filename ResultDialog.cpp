@@ -10,7 +10,7 @@ ResultDialog::ResultDialog (QWidget *parent) :
   isShowAtCapturePos_ (true) {
   ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
-                  Qt::WindowStaysOnTopHint);
+                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
   installEventFilter (this);
 }
@@ -21,7 +21,8 @@ ResultDialog::~ResultDialog () {
 
 bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
   Q_UNUSED (object);
-  if (event->type () == QEvent::MouseButtonRelease) {
+  if (event->type () == QEvent::MouseButtonRelease ||
+      event->type () == QEvent::WindowDeactivate) {
     hide ();
   }
   return QDialog::eventFilter (object, event);

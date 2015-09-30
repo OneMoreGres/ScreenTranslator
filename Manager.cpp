@@ -34,7 +34,7 @@ Manager::Manager (QObject *parent) :
 
   // Recognizer
   Recognizer *recognizer = new Recognizer;
-  connect (this, SIGNAL (selected (ProcessingItem)),
+  connect (this, SIGNAL (requestRecognize (ProcessingItem)),
            recognizer, SLOT (recognize (ProcessingItem)));
   connect (recognizer, SIGNAL (recognized (ProcessingItem)),
            SIGNAL (recognized (ProcessingItem)));
@@ -188,8 +188,8 @@ void Manager::capture () {
       selection->setWindowIcon (trayIcon_->icon ());
       connect (this, SIGNAL (closeSelections ()), selection, SLOT (close ()));
       connect (this, SIGNAL (settingsEdited ()), selection, SLOT (updateMenu ()));
-      connect (selection, SIGNAL (selected (ProcessingItem)), SIGNAL (selected (ProcessingItem)));
-      connect (selection, SIGNAL (selected (ProcessingItem)), SIGNAL (closeSelections ()));
+      connect (selection, SIGNAL (selected (ProcessingItem)),
+               SLOT (handleSelection (ProcessingItem)));
       connect (selection, SIGNAL (rejected ()), SIGNAL (closeSelections ()));
       selections_[name] = selection;
     }
@@ -197,6 +197,13 @@ void Manager::capture () {
     selection->setPixmap (pixmap, geometry);
   }
   updateActionsState ();
+}
+
+void Manager::handleSelection (ProcessingItem item) {
+  emit requestRecognize (item);
+  if (!(item.modifiers & Qt::ControlModifier)) {
+    emit closeSelections ();
+  }
 }
 
 void Manager::repeatCapture () {

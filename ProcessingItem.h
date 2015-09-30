@@ -12,6 +12,8 @@ struct ProcessingItem {
   QString ocrLanguage;
   QString sourceLanguage;
 
+  Qt::KeyboardModifiers modifiers;
+
   bool isValid () const;
 };
 Q_DECLARE_METATYPE (ProcessingItem)

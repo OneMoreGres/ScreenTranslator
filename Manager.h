@@ -22,7 +22,7 @@ class Manager : public QObject {
     ~Manager ();
 
   signals:
-    void selected (ProcessingItem item);
+    void requestRecognize (ProcessingItem item);
     void recognized (ProcessingItem item);
     void requestTranslate (ProcessingItem item);
     void closeSelections ();
@@ -41,6 +41,7 @@ class Manager : public QObject {
 
     void processTrayAction (QSystemTrayIcon::ActivationReason reason);
 
+    void handleSelection (ProcessingItem item);
     void showResult (ProcessingItem item);
     void showError (QString text);
 

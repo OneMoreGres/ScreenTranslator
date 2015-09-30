@@ -19,7 +19,7 @@ win32{
 linux{
     QT += x11extras
     INCLUDEPATH += ../linux/include
-    LIBS += -L../linux/lib -lX11
+    LIBS += -L../linux/lib -lX11 -Wl,-rpath,.
 }
 
 LIBS += -ltesseract -llept
@@ -70,4 +70,5 @@ OTHER_FILES += \
     app.rc \
     images/icon.ico \
     README.md \
-    uncrustify.cfg
+    uncrustify.cfg\
+    TODO.md

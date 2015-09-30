@@ -14,7 +14,7 @@ SelectionDialog::SelectionDialog (const LanguageHelper &dictionary, QWidget *par
   languageMenu_ (new QMenu) {
   ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
-                  Qt::WindowStaysOnTopHint);
+                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
   ui->label->setAutoFillBackground (false);
   ui->label->installEventFilter (this);
@@ -101,6 +101,7 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
       }
       QPoint endPos = mouseEvent->pos ();
       QRect selection = QRect (startSelectPos_, endPos).normalized ();
+      startSelectPos_ = currentSelectPos_ = QPoint ();
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
       if (selectedPixmap.width () < 3 || selectedPixmap.height () < 3) {
         reject ();
@@ -109,6 +110,7 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
       ProcessingItem item;
       item.source = selectedPixmap;
       item.screenPos = pos () + selection.topLeft ();
+      item.modifiers = mouseEvent->modifiers ();
 
       if (mouseEvent->button () == Qt::RightButton &&
           !languageMenu_->children ().isEmpty ()) {
