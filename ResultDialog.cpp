@@ -12,7 +12,7 @@ ResultDialog::ResultDialog (const LanguageHelper &dictionary, QWidget *parent) :
   ui (new Ui::ResultDialog),
   dictionary_ (dictionary),
   contextMenu_ (NULL), recognizeSubMenu_ (NULL),  translateSubMenu_ (NULL),
-  clipboardAction_ (NULL) {
+  clipboardAction_ (NULL), correctAction_ (NULL) {
   ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -41,6 +41,7 @@ void ResultDialog::createContextMenu () {
   recognizeSubMenu_ = contextMenu_->addMenu (tr ("Распознать другой язык"));
   translateSubMenu_ = contextMenu_->addMenu (tr ("Перевести на другой язык"));
   clipboardAction_ = contextMenu_->addAction (tr ("Скопировать в буфер"));
+  correctAction_ = contextMenu_->addAction (tr ("Исправить распознанный текст"));
 }
 
 bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
@@ -63,6 +64,11 @@ bool ResultDialog::eventFilter (QObject *object, QEvent *event) {
       }
       else if (action == clipboardAction_) {
         emit requestClipboard ();
+      }
+      else if (action == correctAction_) {
+        emit requestEdition (item_);
+        // Return because Manager calls showResult() before hide() otherwise.
+        return QDialog::eventFilter (object, event);
       }
     }
     hide ();

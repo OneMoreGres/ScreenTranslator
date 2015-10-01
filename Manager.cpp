@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QClipboard>
 #include <QMessageBox>
+#include <QInputDialog>
 
 #include "Settings.h"
 #include "SettingsEditor.h"
@@ -74,6 +75,8 @@ Manager::Manager (QObject *parent) :
   connect (resultDialog_, SIGNAL (requestTranslate (ProcessingItem)),
            this, SIGNAL (requestTranslate (ProcessingItem)));
   connect (resultDialog_, SIGNAL (requestClipboard ()), SLOT (copyLastToClipboard ()));
+  connect (resultDialog_, SIGNAL (requestEdition (ProcessingItem)),
+           this, SLOT (editRecognized (ProcessingItem)));
 
 
   connect (trayIcon_, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
@@ -269,6 +272,16 @@ void Manager::processTrayAction (QSystemTrayIcon::ActivationReason reason) {
   }
   else if (reason == QSystemTrayIcon::DoubleClick && repeatCaptureAction_->isEnabled ()) {
     repeatCapture ();
+  }
+}
+
+void Manager::editRecognized (ProcessingItem item) {
+  ST_ASSERT (item.isValid ());
+  QString fixed = QInputDialog::getMultiLineText (
+    NULL, tr ("Правка"), tr ("Исправьте распознанный текст"), item.recognized);
+  if (!fixed.isEmpty ()) {
+    item.recognized = fixed;
+    showResult (item);
   }
 }
 

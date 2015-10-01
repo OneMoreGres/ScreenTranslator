@@ -41,6 +41,7 @@ class Manager : public QObject {
 
     void processTrayAction (QSystemTrayIcon::ActivationReason reason);
 
+    void editRecognized (ProcessingItem item);
     void handleSelection (ProcessingItem item);
     void showResult (ProcessingItem item);
     void showError (QString text);

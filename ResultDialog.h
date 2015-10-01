@@ -22,6 +22,7 @@ class ResultDialog : public QDialog {
     void requestRecognize (ProcessingItem item);
     void requestTranslate (ProcessingItem item);
     void requestClipboard (); // Assume that slot will be called immediately.
+    void requestEdition (ProcessingItem item);
 
   public:
     const ProcessingItem &item () const;
@@ -41,6 +42,7 @@ class ResultDialog : public QDialog {
     QMenu *recognizeSubMenu_;
     QMenu *translateSubMenu_;
     QAction *clipboardAction_;
+    QAction *correctAction_;
     ProcessingItem item_;
 };
 
