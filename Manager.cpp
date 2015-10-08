@@ -17,7 +17,7 @@
 #include "SelectionDialog.h"
 #include "GlobalActionHelper.h"
 #include "Recognizer.h"
-#include "Translator.h"
+#include "WebTranslator.h"
 #include "ResultDialog.h"
 #include "LanguageHelper.h"
 #include "StAssert.h"
@@ -51,7 +51,7 @@ Manager::Manager (QObject *parent) :
 
 
   // Translator
-  Translator *translator = new Translator;
+  WebTranslator *translator = new WebTranslator;
   connect (this, SIGNAL (requestTranslate (ProcessingItem)),
            translator, SLOT (translate (ProcessingItem)));
   connect (translator, SIGNAL (translated (ProcessingItem)),
@@ -60,11 +60,6 @@ Manager::Manager (QObject *parent) :
            SLOT (showError (QString)));
   connect (this, SIGNAL (settingsEdited ()),
            translator, SLOT (applySettings ()));
-  QThread *translatorThread = new QThread (this);
-  threads_ << translatorThread;
-  translator->moveToThread (translatorThread);
-  translatorThread->start ();
-  connect (qApp, SIGNAL (aboutToQuit ()), translatorThread, SLOT (quit ()));
 
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
 
@@ -160,6 +155,10 @@ void Manager::applySettings () {
   useResultDialog_ = GET (resultShowType).toBool ();
   settings.endGroup ();
 
+  settings.beginGroup (settings_names::translationGroup);
+  defaultTranslationLanguage_ = GET (translationLanguage).toString ();
+  settings.endGroup ();
+
   Q_CHECK_PTR (dictionary_);
   dictionary_->updateAvailableOcrLanguages ();
 
@@ -211,6 +210,9 @@ void Manager::capture () {
 }
 
 void Manager::handleSelection (ProcessingItem item) {
+  if (item.translateLanguage.isEmpty ()) {
+    item.translateLanguage = defaultTranslationLanguage_;
+  }
   emit requestRecognize (item);
   if (!(item.modifiers & Qt::ControlModifier)) {
     emit closeSelections ();

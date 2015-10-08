@@ -63,6 +63,7 @@ class Manager : public QObject {
     bool useResultDialog_;
     //! Used threads. For proper termination.
     QList<QThread *> threads_;
+    QString defaultTranslationLanguage_;
 };
 
 #endif // MANAGER_H

@@ -32,13 +32,12 @@ SOURCES += main.cpp\
     SelectionDialog.cpp \
     GlobalActionHelper.cpp \
     Recognizer.cpp \
-    Translator.cpp \
     ResultDialog.cpp \
     ProcessingItem.cpp \
     ImageProcessing.cpp \
     LanguageHelper.cpp \
     WebTranslator.cpp \
-    GoogleWebTranslator.cpp
+    WebTranslatorProxy.cpp
 
 HEADERS  += \
     Manager.h \
@@ -46,14 +45,13 @@ HEADERS  += \
     SelectionDialog.h \
     GlobalActionHelper.h \
     Recognizer.h \
-    Translator.h \
     Settings.h \
     ProcessingItem.h \
     ResultDialog.h \
     ImageProcessing.h \
     LanguageHelper.h \
     WebTranslator.h \
-    GoogleWebTranslator.h \
+    WebTranslatorProxy.h \
     StAssert.h
 
 FORMS    += \
