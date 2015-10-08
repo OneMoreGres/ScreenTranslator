@@ -16,6 +16,7 @@ WebTranslator::WebTranslator ()
 
   view_->settings ()->setAttribute (QWebSettings::AutoLoadImages, false);
   view_->settings ()->setAttribute (QWebSettings::DeveloperExtrasEnabled, true);
+  view_->settings ()->setAttribute (QWebSettings::LocalStorageEnabled, true);
 
   connect (view_, SIGNAL (loadFinished (bool)), SLOT (loadFinished (bool)));
   connect (view_->page ()->mainFrame (), SIGNAL (javaScriptWindowObjectCleared ()),
