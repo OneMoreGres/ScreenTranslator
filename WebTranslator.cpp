@@ -71,7 +71,7 @@ void WebTranslator::proxyTranslated (const QString &text) {
     item.translated = text;
     emit translated (item);
   }
-  finishTranslation ();
+  finishTranslation (false);
 }
 
 void WebTranslator::abortTranslation () {
@@ -87,9 +87,13 @@ void WebTranslator::loadFinished (bool ok) {
   }
 }
 
-void WebTranslator::finishTranslation () {
+void WebTranslator::finishTranslation (bool markAsTranslated) {
   translationTimeout_.stop ();
+  view_->stop ();
   if (!queue_.isEmpty ()) {
+    if (markAsTranslated) {
+      emit translated (queue_.first ());
+    }
     queue_.pop_front ();
   }
   isReady_ = true;

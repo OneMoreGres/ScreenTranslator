@@ -39,7 +39,7 @@ class WebTranslator : public QObject {
   private:
     void translateQueued ();
     void runScriptForItem (const ProcessingItem &item);
-    void finishTranslation ();
+    void finishTranslation (bool markAsTranslated = true);
 
   private:
     WebTranslatorProxy *proxy_;
