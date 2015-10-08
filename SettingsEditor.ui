@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>603</width>
-    <height>269</height>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -194,7 +194,7 @@
       <string>Перевод</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0" colspan="2">
+      <item row="0" column="0" colspan="3">
        <widget class="QCheckBox" name="doTranslationCombo">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -204,20 +204,37 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="label_9">
+        <property name="whatsThis">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Максимальное время перевода:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QSpinBox" name="translateTimeoutSpin">
+        <property name="suffix">
+         <string> сек.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLabel" name="label_6">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Язык результата</string>
+         <string>Язык результата:</string>
         </property>
         <property name="buddy">
          <cstring>translateLangCombo</cstring>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1" colspan="2">
        <widget class="QComboBox" name="translateLangCombo"/>
       </item>
      </layout>

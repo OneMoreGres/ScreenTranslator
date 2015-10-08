@@ -37,6 +37,7 @@ SOURCES += main.cpp\
     ProcessingItem.cpp \
     ImageProcessing.cpp \
     LanguageHelper.cpp \
+    WebTranslator.cpp \
     GoogleWebTranslator.cpp
 
 HEADERS  += \
@@ -51,6 +52,7 @@ HEADERS  += \
     ResultDialog.h \
     ImageProcessing.h \
     LanguageHelper.h \
+    WebTranslator.h \
     GoogleWebTranslator.h \
     StAssert.h
 
@@ -71,4 +73,5 @@ OTHER_FILES += \
     images/icon.ico \
     README.md \
     uncrustify.cfg\
+    translators/google.js \
     TODO.md

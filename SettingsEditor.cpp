@@ -64,6 +64,7 @@ void SettingsEditor::saveSettings () const {
   settings.setValue (translationLanguage, trLanguage);
   QString sourceLanguage = dictionary_.translateForOcrCode (ocrLanguage);
   settings.setValue (sourceLanguage, sourceLanguage);
+  settings.setValue (translationTimeout, ui->translateTimeoutSpin->value ());
   settings.endGroup ();
 }
 
@@ -104,6 +105,7 @@ void SettingsEditor::loadSettings () {
   ui->doTranslationCombo->setChecked (GET (doTranslation).toBool ());
   QString trLanguage = dictionary_.translateCodeToUi (GET (translationLanguage).toString ());
   ui->translateLangCombo->setCurrentText (trLanguage);
+  ui->translateTimeoutSpin->setValue (GET (translationTimeout).toInt ());
   settings.endGroup ();
 #undef GET
 }
