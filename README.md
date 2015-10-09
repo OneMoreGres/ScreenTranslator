@@ -14,7 +14,7 @@ Usage
 
 Features
 --------
-* Many OCR languages (can be modified dynamicly)
+* Many OCR languages (can be modified dynamically)
 * Global hotkeys for main actions
 * Copy last translation to clipboard
 * Repeat last translation
@@ -27,7 +27,7 @@ Limitations
 -----------
 * Works only on primary screen
 * Can not capture some dynamic web-pages
-* Not very precise OCR (need better preprocessing steps)
+* Not very precise OCR
 
 Used software
 -------------
