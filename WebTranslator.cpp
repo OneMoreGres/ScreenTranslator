@@ -9,10 +9,12 @@
 #include "Settings.h"
 #include "StAssert.h"
 #include "WebTranslatorProxy.h"
+#include "TranslatorHelper.h"
 
 WebTranslator::WebTranslator ()
   : QObject (),
-  proxy_ (new WebTranslatorProxy (this)), view_ (new QWebView), isReady_ (true) {
+  proxy_ (new WebTranslatorProxy (this)), view_ (new QWebView),
+  translatorHelper_ (new TranslatorHelper), isReady_ (true) {
 
   view_->settings ()->setAttribute (QWebSettings::AutoLoadImages, false);
   view_->settings ()->setAttribute (QWebSettings::DeveloperExtrasEnabled, true);
@@ -29,16 +31,18 @@ WebTranslator::WebTranslator ()
 
   connect (proxy_, SIGNAL (translated (QString)), SLOT (proxyTranslated (QString)));
 
-  applySettings ();
+  // Delay because it can emit signal that is not connected yet.
+  QTimer::singleShot (500, this, SLOT (applySettings ()));
 }
 
 WebTranslator::~WebTranslator () {
+  delete translatorHelper_;
   delete view_;
 }
 
 void WebTranslator::addProxyToView () {
   view_->page ()->mainFrame ()->addToJavaScriptWindowObject ("st_wtp", proxy_);
-  view_->page ()->mainFrame ()->evaluateJavaScript (script_);
+  view_->page ()->mainFrame ()->evaluateJavaScript (translatorHelper_->currentScript ());
 }
 
 void WebTranslator::translate (ProcessingItem item) {
@@ -47,21 +51,20 @@ void WebTranslator::translate (ProcessingItem item) {
 }
 
 void WebTranslator::translateQueued () {
-  if (isReady_ && !script_.isEmpty () && !queue_.isEmpty ()) {
-    isReady_ = false;
-    runScriptForItem (queue_.first ());
-    translationTimeout_.start ();
+  if (isReady_ && !queue_.isEmpty ()) {
+    translatorHelper_->newItem ();
+    proxy_->setItem (queue_.first ());
+    if (!tryNextTranslator (true)) {
+      return;
+    }
   }
-}
-
-void WebTranslator::runScriptForItem (const ProcessingItem &item) {
-  ST_ASSERT (!script_.isEmpty ());
-  proxy_->setItem (item);
-  view_->page ()->mainFrame ()->evaluateJavaScript ("translate();");
 }
 
 void WebTranslator::proxyTranslated (const QString &text) {
   if (!queue_.isEmpty () && queue_.first ().recognized == proxy_->sourceText ()) {
+    if (text.isEmpty () && tryNextTranslator ()) {
+      return;
+    }
     ProcessingItem &item = queue_.first ();
     item.translated = text;
     emit translated (item);
@@ -70,12 +73,14 @@ void WebTranslator::proxyTranslated (const QString &text) {
 }
 
 void WebTranslator::abortTranslation () {
-  emit error (tr ("Перевод отменен по таймауту."));
-  finishTranslation ();
+  if (!tryNextTranslator ()) {
+    emit error (tr ("Перевод отменен по таймауту."));
+    finishTranslation ();
+  }
 }
 
 void WebTranslator::loadFinished (bool ok) {
-  if (!ok) {
+  if (!ok && !tryNextTranslator ()) {
     QString url = view_->url ().toString ();
     emit error (tr ("Ошибка загрузки страницы (%1) для перевода.").arg (url));
     finishTranslation ();
@@ -95,6 +100,21 @@ void WebTranslator::finishTranslation (bool markAsTranslated) {
   translateQueued ();
 }
 
+bool WebTranslator::tryNextTranslator (bool firstTime) {
+  QString script = firstTime ? translatorHelper_->currentScript ()
+                   : translatorHelper_->nextScript ();
+  if (script.isEmpty ()) {
+    return false;
+  }
+  translationTimeout_.stop ();
+  view_->stop ();
+  addProxyToView ();
+  view_->page ()->mainFrame ()->evaluateJavaScript ("translate();");
+  isReady_ = false;
+  translationTimeout_.start ();
+  return true;
+}
+
 void WebTranslator::replyFinished (QNetworkReply *reply) {
   emit proxy_->resourceLoaded (reply->url ().toString ());
 }
@@ -104,18 +124,11 @@ void WebTranslator::applySettings () {
   settings.beginGroup (settings_names::translationGroup);
 #define GET(NAME) settings.value (settings_names::NAME, settings_values::NAME)
   translationTimeout_.setInterval (GET (translationTimeout).toInt () * 1000);
+  translatorHelper_->loadScripts ();
+  if (!translatorHelper_->gotScripts ()) {
+    emit error (tr ("Нет сценариев для перевода. Измените настройки."));
+  }
 #undef GET
-
-  QFile f ("translators/google.js");
-  if (f.open (QFile::ReadOnly)) {
-    script_ = QString::fromUtf8 (f.readAll ());
-    if (script_.isEmpty ()) {
-      emit error (tr ("Пустой сценарий для перевода. Перевод недоступен."));
-    }
-  }
-  else {
-    emit error (tr ("Не считан сценарий для перевода. Перевод недоступен."));
-  }
 }
 
 void WebTranslator::setDebugMode (bool isOn) {

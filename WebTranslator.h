@@ -11,6 +11,7 @@ class QWebView;
 class QNetworkReply;
 
 class WebTranslatorProxy;
+class TranslatorHelper;
 
 class WebTranslator : public QObject {
   Q_OBJECT
@@ -37,15 +38,15 @@ class WebTranslator : public QObject {
 
   private:
     void translateQueued ();
-    void runScriptForItem (const ProcessingItem &item);
     void finishTranslation (bool markAsTranslated = true);
+    bool tryNextTranslator (bool firstTime = false);
 
   private:
     WebTranslatorProxy *proxy_;
     QWebView *view_;
+    TranslatorHelper *translatorHelper_;
     QVector<ProcessingItem> queue_;
     bool isReady_;
-    QString script_;
     QTimer translationTimeout_;
 };
 
