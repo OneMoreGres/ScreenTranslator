@@ -9,6 +9,7 @@ namespace Ui {
   class SettingsEditor;
 }
 class LanguageHelper;
+class TranslatorHelper;
 
 class SettingsEditor : public QDialog {
   Q_OBJECT
@@ -35,6 +36,7 @@ class SettingsEditor : public QDialog {
 
   private:
     Ui::SettingsEditor *ui;
+    TranslatorHelper *translatorHelper_;
     const LanguageHelper &dictionary_;
     QButtonGroup *buttonGroup_;
 };

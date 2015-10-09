@@ -1,15 +1,17 @@
 #include "SettingsEditor.h"
 #include "ui_SettingsEditor.h"
 #include "LanguageHelper.h"
+#include "TranslatorHelper.h"
 
 #include <QSettings>
 #include <QFileDialog>
+#include <QDir>
 
 #include "Settings.h"
 
 SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *parent) :
   QDialog (parent),
-  ui (new Ui::SettingsEditor), dictionary_ (dictionary),
+  ui (new Ui::SettingsEditor), translatorHelper_ (new TranslatorHelper), dictionary_ (dictionary),
   buttonGroup_ (new QButtonGroup (this)) {
   ui->setupUi (this);
 
@@ -27,6 +29,7 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
 
 SettingsEditor::~SettingsEditor () {
   saveState ();
+  delete translatorHelper_;
   delete ui;
 }
 
@@ -52,19 +55,32 @@ void SettingsEditor::saveSettings () const {
 
   settings.beginGroup (recogntionGroup);
   settings.setValue (tessDataPlace, ui->tessdataEdit->text ());
-  QString ocrLanguage = dictionary_.ocrUiToCode (ui->ocrLangCombo->currentText ());
-  settings.setValue (ocrLanguage, ocrLanguage);
+  QString ocrLanguageVal = dictionary_.ocrUiToCode (ui->ocrLangCombo->currentText ());
+  settings.setValue (ocrLanguage, ocrLanguageVal);
   settings.setValue (imageScale, ui->imageScaleSpin->value ());
   settings.endGroup ();
 
 
   settings.beginGroup (translationGroup);
-  settings.setValue (doTranslation, ui->doTranslationCombo->isChecked ());
+  settings.setValue (doTranslation, ui->doTranslationCheck->isChecked ());
+  settings.setValue (translationDebugMode, ui->translatorDebugCheck->isChecked ());
   QString trLanguage = dictionary_.translateUiToCode (ui->translateLangCombo->currentText ());
   settings.setValue (translationLanguage, trLanguage);
-  QString sourceLanguage = dictionary_.translateForOcrCode (ocrLanguage);
-  settings.setValue (sourceLanguage, sourceLanguage);
+  QString sourceLanguageVal = dictionary_.translateForOcrCode (ocrLanguage);
+  settings.setValue (sourceLanguage, sourceLanguageVal);
   settings.setValue (translationTimeout, ui->translateTimeoutSpin->value ());
+
+  {//Translators
+    QStringList enabled;
+    for (int i = 0, end = ui->translatorList->count (); i < end; ++i) {
+      QListWidgetItem *item = ui->translatorList->item (i);
+      if (item->checkState () == Qt::Checked) {
+        enabled << item->text ();
+      }
+    }
+    translatorHelper_->setEnabledTranslators (enabled);
+  }
+
   settings.endGroup ();
 }
 
@@ -102,10 +118,22 @@ void SettingsEditor::loadSettings () {
   settings.endGroup ();
 
   settings.beginGroup (settings_names::translationGroup);
-  ui->doTranslationCombo->setChecked (GET (doTranslation).toBool ());
+  ui->doTranslationCheck->setChecked (GET (doTranslation).toBool ());
+  ui->translatorDebugCheck->setChecked (GET (translationDebugMode).toBool ());
   QString trLanguage = dictionary_.translateCodeToUi (GET (translationLanguage).toString ());
   ui->translateLangCombo->setCurrentText (trLanguage);
   ui->translateTimeoutSpin->setValue (GET (translationTimeout).toInt ());
+
+  {// Translators
+    QStringList enabled;
+    ui->translatorList->addItems (translatorHelper_->possibleTranslators (enabled));
+    for (int i = 0, end = ui->translatorList->count (); i < end; ++i) {
+      QListWidgetItem *item = ui->translatorList->item (i);
+      Qt::CheckState state = enabled.contains (item->text ()) ? Qt::Checked : Qt::Unchecked;
+      item->setCheckState (state);
+    }
+  }
+
   settings.endGroup ();
 #undef GET
 }
