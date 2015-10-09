@@ -23,7 +23,6 @@ class Manager : public QObject {
 
   signals:
     void requestRecognize (ProcessingItem item);
-    void recognized (ProcessingItem item);
     void requestTranslate (ProcessingItem item);
     void closeSelections ();
     void settingsEdited ();
@@ -64,6 +63,7 @@ class Manager : public QObject {
     //! Used threads. For proper termination.
     QList<QThread *> threads_;
     QString defaultTranslationLanguage_;
+    bool doTranslation_;
 };
 
 #endif // MANAGER_H

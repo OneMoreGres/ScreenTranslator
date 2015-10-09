@@ -29,7 +29,7 @@ Manager::Manager (QObject *parent) :
   resultDialog_ (new ResultDialog (*dictionary_)),
   captureAction_ (NULL), repeatCaptureAction_ (NULL),
   repeatAction_ (NULL), clipboardAction_ (NULL),
-  useResultDialog_ (true) {
+  useResultDialog_ (true), doTranslation_ (true) {
   GlobalActionHelper::init ();
   qRegisterMetaType<ProcessingItem>();
 
@@ -38,7 +38,7 @@ Manager::Manager (QObject *parent) :
   connect (this, SIGNAL (requestRecognize (ProcessingItem)),
            recognizer, SLOT (recognize (ProcessingItem)));
   connect (recognizer, SIGNAL (recognized (ProcessingItem)),
-           SIGNAL (recognized (ProcessingItem)));
+           this, SIGNAL (requestTranslate (ProcessingItem)));
   connect (recognizer, SIGNAL (error (QString)),
            SLOT (showError (QString)));
   connect (this, SIGNAL (settingsEdited ()),
@@ -157,25 +157,11 @@ void Manager::applySettings () {
 
   settings.beginGroup (settings_names::translationGroup);
   defaultTranslationLanguage_ = GET (translationLanguage).toString ();
+  doTranslation_ = GET (doTranslation).toBool ();
   settings.endGroup ();
 
   Q_CHECK_PTR (dictionary_);
   dictionary_->updateAvailableOcrLanguages ();
-
-  settings.beginGroup (settings_names::translationGroup);
-  bool doTranslation = GET (doTranslation).toBool ();
-  if (doTranslation) {
-    disconnect (this, SIGNAL (recognized (ProcessingItem)),
-                this, SLOT (showResult (ProcessingItem)));
-    connect (this, SIGNAL (recognized (ProcessingItem)),
-             this, SIGNAL (requestTranslate (ProcessingItem)), Qt::UniqueConnection);
-  }
-  else {
-    disconnect (this, SIGNAL (recognized (ProcessingItem)),
-                this, SIGNAL (requestTranslate (ProcessingItem)));
-    connect (this, SIGNAL (recognized (ProcessingItem)),
-             this, SLOT (showResult (ProcessingItem)), Qt::UniqueConnection);
-  }
 #undef GET
 }
 
@@ -210,7 +196,8 @@ void Manager::capture () {
 }
 
 void Manager::handleSelection (ProcessingItem item) {
-  if (item.translateLanguage.isEmpty ()) {
+  bool altMod = item.modifiers & Qt::AltModifier;
+  if ((doTranslation_ && !altMod) || (!doTranslation_ && altMod)) {
     item.translateLanguage = defaultTranslationLanguage_;
   }
   emit requestRecognize (item);

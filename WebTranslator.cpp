@@ -46,6 +46,10 @@ void WebTranslator::addProxyToView () {
 }
 
 void WebTranslator::translate (ProcessingItem item) {
+  if (item.translateLanguage.isEmpty ()) {
+    emit translated (item);
+    return;
+  }
   queue_.push_back (item);
   translateQueued ();
 }
