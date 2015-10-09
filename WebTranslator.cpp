@@ -128,6 +128,8 @@ void WebTranslator::applySettings () {
   if (!translatorHelper_->gotScripts ()) {
     emit error (tr ("Нет сценариев для перевода. Измените настройки."));
   }
+  bool debugMode = GET (translationDebugMode).toBool ();
+  setDebugMode (debugMode);
 #undef GET
 }
 
