@@ -1,24 +1,19 @@
 var isPageLoaded = false;
-var isTranslationFinished = false; // async translation request
+var isTranslationFinished = true; // async translation request
 var isScheduled = false;
 
 function checkFinished () {
     if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
     isScheduled = true;
     setTimeout(function () {
-        var spans = [].slice.call (document.querySelectorAll ('#result_box > span'));
+        var spans = [].slice.call (document.querySelectorAll ('#translation > span'));
         var text = spans.reduce (function (res, i) {
-            return res + ' ' + i.innerText;
+            return res + i.innerText;
         }, '');
         st_wtp.translated (text);
-        isTranslationFinished = isScheduled = false;
     }, 500); // wait for gui fill
 }
 function onResourceLoad (url) {
-    if (url.indexOf ('/translate_a/single') > -1) {
-        isTranslationFinished = true;
-        checkFinished ();
-    }
 }
 st_wtp.resourceLoaded.connect (onResourceLoad);
 function onPageLoad () {
@@ -28,7 +23,9 @@ function onPageLoad () {
 window.onload = onPageLoad();
 
 function translate (){
-    var url = 'https://translate.google.com/#auto/' +
-            st_wtp.resultLanguage + '/' + st_wtp.sourceText;
-    window.location = encodeURI (url);
+    var url = 'https://translate.yandex.ru/?text=' + st_wtp.sourceText + '&lang=auto-' +
+            st_wtp.resultLanguage;
+    url = url.replace(new RegExp(' ','g') , '%20')
+    console.log(encodeURI(url));
+    window.location = (url);
 }

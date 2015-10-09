@@ -6,16 +6,15 @@ function checkFinished () {
     if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
     isScheduled = true;
     setTimeout(function () {
-        var spans = [].slice.call (document.querySelectorAll ('#result_box > span'));
+        var spans = [].slice.call (document.querySelectorAll ('#OutputText span'));
         var text = spans.reduce (function (res, i) {
-            return res + ' ' + i.innerText;
+            return res + i.innerText;
         }, '');
         st_wtp.translated (text);
-        isTranslationFinished = isScheduled = false;
     }, 500); // wait for gui fill
 }
 function onResourceLoad (url) {
-    if (url.indexOf ('/translate_a/single') > -1) {
+    if (url.indexOf ('/api.microsofttranslator.com/') > -1) {
         isTranslationFinished = true;
         checkFinished ();
     }
@@ -28,7 +27,7 @@ function onPageLoad () {
 window.onload = onPageLoad();
 
 function translate (){
-    var url = 'https://translate.google.com/#auto/' +
-            st_wtp.resultLanguage + '/' + st_wtp.sourceText;
+    var url = 'https://bing.com/translator/?text=' + st_wtp.sourceText + '#auto/' +
+            st_wtp.resultLanguage;
     window.location = encodeURI (url);
 }
