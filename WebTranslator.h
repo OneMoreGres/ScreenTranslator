@@ -33,7 +33,6 @@ class WebTranslator : public QObject {
     void replyFinished (QNetworkReply *reply);
     void addProxyToView ();
     void abortTranslation ();
-    void proxyError (const QString &message);
     void proxyTranslated (const QString &text);
 
   private:

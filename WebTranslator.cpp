@@ -27,7 +27,6 @@ WebTranslator::WebTranslator ()
   translationTimeout_.setSingleShot (true);
   connect (&translationTimeout_, SIGNAL (timeout ()), SLOT (abortTranslation ()));
 
-  connect (proxy_, SIGNAL (error (QString)), SLOT (proxyError (QString)));
   connect (proxy_, SIGNAL (translated (QString)), SLOT (proxyTranslated (QString)));
 
   applySettings ();
@@ -59,11 +58,6 @@ void WebTranslator::runScriptForItem (const ProcessingItem &item) {
   ST_ASSERT (!script_.isEmpty ());
   proxy_->setItem (item);
   view_->page ()->mainFrame ()->evaluateJavaScript ("translate();");
-}
-
-void WebTranslator::proxyError (const QString &message) {
-  emit error (message);
-  finishTranslation ();
 }
 
 void WebTranslator::proxyTranslated (const QString &text) {

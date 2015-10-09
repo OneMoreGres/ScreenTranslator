@@ -25,7 +25,6 @@ class WebTranslatorProxy : public QObject {
 
   signals:
     void translated (const QString &text);
-    void error (const QString &message);
 
     void resourceLoaded (const QString &url);
 
