@@ -22,6 +22,7 @@ class ResultDialog : public QDialog {
     void requestRecognize (ProcessingItem item);
     void requestTranslate (ProcessingItem item);
     void requestClipboard (); // Assume that slot will be called immediately.
+    void requestImageClipboard (); // Assume that slot will be called immediately.
     void requestEdition (ProcessingItem item);
 
   public:
@@ -42,6 +43,7 @@ class ResultDialog : public QDialog {
     QMenu *recognizeSubMenu_;
     QMenu *translateSubMenu_;
     QAction *clipboardAction_;
+    QAction *imageClipboardAction_;
     QAction *correctAction_;
     ProcessingItem item_;
 };

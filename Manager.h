@@ -35,6 +35,7 @@ class Manager : public QObject {
     void about ();
     void showLast ();
     void copyLastToClipboard ();
+    void copyLastImageToClipboard ();
 
     void applySettings ();
 

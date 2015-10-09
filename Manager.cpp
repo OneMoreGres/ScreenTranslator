@@ -70,6 +70,8 @@ Manager::Manager (QObject *parent) :
   connect (resultDialog_, SIGNAL (requestTranslate (ProcessingItem)),
            this, SIGNAL (requestTranslate (ProcessingItem)));
   connect (resultDialog_, SIGNAL (requestClipboard ()), SLOT (copyLastToClipboard ()));
+  connect (resultDialog_, SIGNAL (requestImageClipboard ()),
+           SLOT (copyLastImageToClipboard ()));
   connect (resultDialog_, SIGNAL (requestEdition (ProcessingItem)),
            this, SLOT (editRecognized (ProcessingItem)));
 
@@ -290,6 +292,14 @@ void Manager::copyLastToClipboard () {
       message += " - " + item.translated;
     }
     clipboard->setText (message);
+  }
+}
+
+void Manager::copyLastImageToClipboard () {
+  const ProcessingItem &item = resultDialog_->item ();
+  if (item.isValid ()) {
+    QClipboard *clipboard = QApplication::clipboard ();
+    clipboard->setPixmap (item.source);
   }
 }
 
