@@ -74,7 +74,6 @@ OTHER_FILES += \
     images/icon.ico \
     README.md \
     uncrustify.cfg\
-    images/README.md \
     translators/google.js \
     translators/yandex.js \
     translators/bing.js \
