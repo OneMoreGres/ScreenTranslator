@@ -25,6 +25,7 @@ namespace settings_names {
   const QString sourceLanguage = "source_language";
   const QString translationLanguage = "translation_language";
   const QString translationTimeout = "translation_timeout";
+  const QString translators = "translators";
 
 }
 
@@ -49,6 +50,7 @@ namespace settings_values {
   const QString sourceLanguage = "auto";
   const QString translationLanguage = "ru";
   const int translationTimeout = 15; // secs
+  const QString translators = "";
 }
 
 #endif // SETTINGS_H

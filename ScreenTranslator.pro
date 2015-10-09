@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ScreenTranslator
 TEMPLATE = app
+CONFIG += c++11
 
 win32{
     RC_FILE = app.rc
@@ -37,7 +38,8 @@ SOURCES += main.cpp\
     ImageProcessing.cpp \
     LanguageHelper.cpp \
     WebTranslator.cpp \
-    WebTranslatorProxy.cpp
+    WebTranslatorProxy.cpp \
+    TranslatorHelper.cpp
 
 HEADERS  += \
     Manager.h \
@@ -52,7 +54,8 @@ HEADERS  += \
     LanguageHelper.h \
     WebTranslator.h \
     WebTranslatorProxy.h \
-    StAssert.h
+    StAssert.h \
+    TranslatorHelper.h
 
 FORMS    += \
     SettingsEditor.ui \
@@ -71,5 +74,8 @@ OTHER_FILES += \
     images/icon.ico \
     README.md \
     uncrustify.cfg\
+    images/README.md \
     translators/google.js \
+    translators/yandex.js \
+    translators/bing.js \
     TODO.md
