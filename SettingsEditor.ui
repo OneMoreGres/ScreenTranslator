@@ -407,10 +407,17 @@
   <tabstop>clipboardEdit</tabstop>
   <tabstop>trayRadio</tabstop>
   <tabstop>dialogRadio</tabstop>
+  <tabstop>proxyTypeCombo</tabstop>
+  <tabstop>proxyHostEdit</tabstop>
+  <tabstop>proxyPortSpin</tabstop>
+  <tabstop>proxyUserEdit</tabstop>
+  <tabstop>proxyPassEdit</tabstop>
+  <tabstop>proxySaveCheck</tabstop>
   <tabstop>tessdataEdit</tabstop>
   <tabstop>tessdataButton</tabstop>
   <tabstop>ocrLangCombo</tabstop>
   <tabstop>imageScaleSpin</tabstop>
+  <tabstop>recognizerFixTable</tabstop>
   <tabstop>doTranslationCheck</tabstop>
   <tabstop>translatorDebugCheck</tabstop>
   <tabstop>translateTimeoutSpin</tabstop>
@@ -426,8 +433,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>256</x>
+     <y>447</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -442,8 +449,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>324</x>
+     <y>447</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
