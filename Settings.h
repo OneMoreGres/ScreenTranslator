@@ -12,6 +12,12 @@ namespace settings_names {
   const QString repeatHotkey = "repeatHotkey";
   const QString clipboardHotkey = "clipboardHotkey";
   const QString resultShowType = "resultShowType";
+  const QString proxyType = "proxyType";
+  const QString proxyHostName = "proxyHostName";
+  const QString proxyPort = "proxyPort";
+  const QString proxyUser = "proxyUser";
+  const QString proxyPassword = "proxyPassword";
+  const QString proxySavePassword = "proxySavePassword";
 
   //! Recognition
   const QString recogntionGroup = "Recognition";
@@ -27,7 +33,6 @@ namespace settings_names {
   const QString translationTimeout = "translation_timeout";
   const QString translationDebugMode = "translation_debug";
   const QString translators = "translators";
-
 }
 
 namespace settings_values {
@@ -40,6 +45,12 @@ namespace settings_values {
   const QString repeatHotkey = "Ctrl+Alt+X";
   const QString clipboardHotkey = "Ctrl+Alt+C";
   const QString resultShowType = "1";//dialog
+  const int proxyType = 0;
+  const QString proxyHostName = "";
+  const int proxyPort = 8080;
+  const QString proxyUser = "";
+  const QString proxyPassword = "";
+  const bool proxySavePassword = false;
 
   //! Recognition
   const QString tessDataPlace = "./";

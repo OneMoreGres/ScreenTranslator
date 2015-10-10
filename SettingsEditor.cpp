@@ -4,10 +4,13 @@
 #include "TranslatorHelper.h"
 #include "RecognizerHelper.h"
 #include "StAssert.h"
+#include "Utils.h"
 
 #include <QSettings>
 #include <QFileDialog>
 #include <QDir>
+#include <QRegExpValidator>
+#include <QNetworkProxy>
 
 #include "Settings.h"
 
@@ -29,6 +32,22 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
            SLOT (recognizerFixTableItemChanged (QTableWidgetItem *)));
 
   ui->translateLangCombo->addItems (dictionary_.translateLanguagesUi ());
+
+  typedef QNetworkProxy::ProxyType ProxyType;
+  QMap<ProxyType, QString> proxyTypeNames;
+  proxyTypeNames.insert (QNetworkProxy::NoProxy, tr ("Нет"));
+  proxyTypeNames.insert (QNetworkProxy::Socks5Proxy, tr ("SOCKS 5"));
+  proxyTypeNames.insert (QNetworkProxy::HttpProxy, tr ("HTTP"));
+  QList<ProxyType> proxyOrder;
+  proxyOrder << QNetworkProxy::NoProxy << QNetworkProxy::Socks5Proxy << QNetworkProxy::HttpProxy;
+  foreach (ProxyType type, proxyOrder) {
+    ui->proxyTypeCombo->addItem (proxyTypeNames.value (type));
+  }
+
+  QRegExp urlRegexp (R"(^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$)");
+  ui->proxyHostEdit->setValidator (new QRegExpValidator (urlRegexp, ui->proxyHostEdit));
+  ui->proxyPassEdit->setEchoMode (QLineEdit::PasswordEchoOnEdit);
+
   loadSettings ();
   loadState ();
 }
@@ -57,6 +76,20 @@ void SettingsEditor::saveSettings () const {
   settings.setValue (repeatHotkey, ui->repeatEdit->keySequence ().toString ());
   settings.setValue (clipboardHotkey, ui->clipboardEdit->keySequence ().toString ());
   settings.setValue (resultShowType, buttonGroup_->checkedId ());
+  settings.setValue (proxyType, ui->proxyTypeCombo->currentIndex ());
+  settings.setValue (proxyHostName, ui->proxyHostEdit->text ());
+  settings.setValue (proxyPort, ui->proxyPortSpin->value ());
+  settings.setValue (proxyUser, ui->proxyUserEdit->text ());
+  if (ui->proxySaveCheck->isChecked ()) {
+    settings.setValue (proxyPassword, encode (ui->proxyPassEdit->text ()));
+  }
+  else {
+    settings.remove (proxyPassword);
+    QNetworkProxy proxy = QNetworkProxy::applicationProxy ();
+    proxy.setPassword (ui->proxyPassEdit->text ());
+    QNetworkProxy::setApplicationProxy (proxy);
+  }
+  settings.setValue (proxySavePassword, ui->proxySaveCheck->isChecked ());
   settings.endGroup ();
 
 
@@ -136,6 +169,17 @@ void SettingsEditor::loadSettings () {
   QAbstractButton *button = buttonGroup_->button (GET (resultShowType).toInt ());
   Q_CHECK_PTR (button);
   button->setChecked (true);
+  ui->proxyTypeCombo->setCurrentIndex (GET (proxyType).toInt ());
+  ui->proxyHostEdit->setText (GET (proxyHostName).toString ());
+  ui->proxyPortSpin->setValue (GET (proxyPort).toInt ());
+  ui->proxyUserEdit->setText (GET (proxyUser).toString ());
+  ui->proxySaveCheck->setChecked (GET (proxySavePassword).toBool ());
+  if (ui->proxySaveCheck->isChecked ()) {
+    ui->proxyPassEdit->setText (encode (GET (proxyPassword).toString ()));
+  }
+  else {
+    ui->proxyPassEdit->setText (QNetworkProxy::applicationProxy ().password ());
+  }
   settings.endGroup ();
 
   settings.beginGroup (settings_names::recogntionGroup);

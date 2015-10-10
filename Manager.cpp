@@ -11,6 +11,7 @@
 #include <QClipboard>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QNetworkProxy>
 
 #include "Settings.h"
 #include "SettingsEditor.h"
@@ -21,6 +22,7 @@
 #include "ResultDialog.h"
 #include "LanguageHelper.h"
 #include "StAssert.h"
+#include "Utils.h"
 
 Manager::Manager (QObject *parent) :
   QObject (parent),
@@ -155,6 +157,16 @@ void Manager::applySettings () {
 
   // Depends on SettingsEditor button indexes. 1==dialog
   useResultDialog_ = GET (resultShowType).toBool ();
+
+  QNetworkProxy proxy = QNetworkProxy::applicationProxy ();
+  proxy.setType (QNetworkProxy::ProxyType (GET (proxyType).toInt ()));
+  proxy.setHostName (GET (proxyHostName).toString ());
+  proxy.setPort (GET (proxyPort).toInt ());
+  proxy.setUser (GET (proxyUser).toString ());
+  if (GET (proxySavePassword).toBool ()) {
+    proxy.setPassword (encode (GET (proxyPassword).toString ()));
+  }
+  QNetworkProxy::setApplicationProxy (proxy);
   settings.endGroup ();
 
   settings.beginGroup (settings_names::translationGroup);
