@@ -283,8 +283,21 @@ void Manager::about () {
                      "Автор: Gres (translator@gres.biz)\n"
                      "Версия: %1 от %2 %3").arg (version)
                  .arg (__DATE__).arg (__TIME__);
+  QString tips = tr ("\n\nПодсказки.\n"
+                     "Клик по иконке в трее:\n"
+                     "* левой кнопкой - отобразить последний результат\n"
+                     "* средней кнопкой - скопировать последний результат в буфер обмена\n"
+#ifdef Q_OS_WIN
+                     "* двойной клик - повторный захват последнего экрана\n"
+#endif
+                     "\n"
+                     "Захвата изображения при зажатых кнопках:\n"
+                     "* Ctrl - не выходить из режима захвата\n"
+                     "* Alt - выполнить перевод, если в настройках он выключен "
+                     "(и наоборот, не выполнять, если включен)\n"
+                     "");
 
-  QMessageBox message (QMessageBox::Information, tr ("О программе"), text,
+  QMessageBox message (QMessageBox::Information, tr ("О программе"), text + tips,
                        QMessageBox::Ok);
   message.setIconPixmap (trayIcon_->icon ().pixmap (QSize (64, 64)));
   message.exec ();
