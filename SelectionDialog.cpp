@@ -11,7 +11,7 @@
 SelectionDialog::SelectionDialog (const LanguageHelper &dictionary, QWidget *parent) :
   QDialog (parent),
   ui (new Ui::SelectionDialog), dictionary_ (dictionary),
-  languageMenu_ (new QMenu) {
+  languageMenu_ (new QMenu), swapLanguagesAction_ (NULL) {
   ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -28,6 +28,9 @@ SelectionDialog::~SelectionDialog () {
 
 void SelectionDialog::applySettings () {
   dictionary_.updateMenu (languageMenu_, dictionary_.availableOcrLanguagesUi ());
+  if (!languageMenu_->isEmpty ()) {
+    swapLanguagesAction_ = languageMenu_->addAction (tr ("Поменять язык текста и перевода"));
+  }
 }
 
 bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
@@ -88,10 +91,15 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
           reject ();
           return QDialog::eventFilter (object, event);
         }
-        item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
-        ST_ASSERT (!item.ocrLanguage.isEmpty ());
-        item.sourceLanguage = dictionary_.ocrToTranslateCodes (item.ocrLanguage);
-        ST_ASSERT (!item.sourceLanguage.isEmpty ());
+        if (action == swapLanguagesAction_) {
+          item.swapLanguages_ = true;
+        }
+        else {
+          item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
+          ST_ASSERT (!item.ocrLanguage.isEmpty ());
+          item.sourceLanguage = dictionary_.ocrToTranslateCodes (item.ocrLanguage);
+          ST_ASSERT (!item.sourceLanguage.isEmpty ());
+        }
       }
       emit selected (item);
     }

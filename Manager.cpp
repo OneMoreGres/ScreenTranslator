@@ -216,11 +216,25 @@ void Manager::capture () {
 
 void Manager::handleSelection (ProcessingItem item) {
   bool altMod = item.modifiers & Qt::AltModifier;
-  if ((doTranslation_ && !altMod) || (!doTranslation_ && altMod)) {
+  bool doTranslation = (doTranslation_ && !altMod) || (!doTranslation_ && altMod);
+  if (doTranslation) {
     item.translateLanguage = defaultTranslationLanguage_;
   }
   if (item.ocrLanguage.isEmpty ()) {
     item.ocrLanguage = defaultOrcLanguage_;
+  }
+  if (item.swapLanguages_) {
+    QString translate = (item.translateLanguage.isEmpty ())
+                        ? defaultTranslationLanguage_ : item.translateLanguage;
+    if (doTranslation) {
+      item.translateLanguage = dictionary_->ocrToTranslateCodes (item.ocrLanguage);
+    }
+    item.sourceLanguage.clear ();
+    item.ocrLanguage = dictionary_->translateToOcrCodes (translate);
+    if (item.ocrLanguage.isEmpty ()) {
+      showError (tr ("Не найден подходящий язык распознавания."));
+      return;
+    }
   }
   if (item.sourceLanguage.isEmpty ()) {
     item.sourceLanguage = dictionary_->ocrToTranslateCodes (item.ocrLanguage);

@@ -4,6 +4,7 @@
 #include <QPixmap>
 
 struct ProcessingItem {
+  ProcessingItem ();
   QPoint screenPos;
   QPixmap source;
   QString recognized;
@@ -14,6 +15,7 @@ struct ProcessingItem {
   QString translateLanguage;
 
   Qt::KeyboardModifiers modifiers;
+  bool swapLanguages_;
 
   bool isValid (bool checkOnlyInput = false) const;
 };

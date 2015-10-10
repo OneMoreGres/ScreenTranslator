@@ -37,6 +37,7 @@ class SelectionDialog : public QDialog {
     QPoint currentSelectPos_;
     QPixmap currentPixmap_;
     QMenu *languageMenu_;
+    QAction *swapLanguagesAction_;
 };
 
 #endif // SELECTIONDIALOG_H
