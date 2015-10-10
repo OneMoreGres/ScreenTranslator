@@ -8,16 +8,19 @@
 #include "Settings.h"
 #include "ImageProcessing.h"
 #include "StAssert.h"
+#include "RecognizerHelper.h"
 
 Recognizer::Recognizer (QObject *parent) :
   QObject (parent),
-  engine_ (NULL), imageScale_ (0) {
+  engine_ (NULL), recognizerHelper_ (new RecognizerHelper), imageScale_ (0) {
   applySettings ();
 }
 
 void Recognizer::applySettings () {
   QSettings settings;
   settings.beginGroup (settings_names::recogntionGroup);
+
+  recognizerHelper_->load ();
 
   tessDataDir_ = settings.value (settings_names::tessDataPlace,
                                  settings_values::tessDataPlace).toString ();
@@ -57,8 +60,8 @@ void Recognizer::recognize (ProcessingItem item) {
   bool isCustomLanguage = (!item.ocrLanguage.isEmpty () &&
                            item.ocrLanguage != ocrLanguage_);
   tesseract::TessBaseAPI *engine = (isCustomLanguage) ? NULL : engine_;
+  QString language = (isCustomLanguage) ? item.ocrLanguage : ocrLanguage_;
   if (engine == NULL) {
-    QString language = (isCustomLanguage) ? item.ocrLanguage : ocrLanguage_;
     if (!initEngine (engine, language)) {
       return;
     }
@@ -78,7 +81,7 @@ void Recognizer::recognize (ProcessingItem item) {
   }
 
   if (!result.isEmpty ()) {
-    item.recognized = result;
+    item.recognized = recognizerHelper_->substitute (result, language);
     emit recognized (item);
   }
   else {

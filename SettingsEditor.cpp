@@ -2,6 +2,8 @@
 #include "ui_SettingsEditor.h"
 #include "LanguageHelper.h"
 #include "TranslatorHelper.h"
+#include "RecognizerHelper.h"
+#include "StAssert.h"
 
 #include <QSettings>
 #include <QFileDialog>
@@ -11,7 +13,8 @@
 
 SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *parent) :
   QDialog (parent),
-  ui (new Ui::SettingsEditor), translatorHelper_ (new TranslatorHelper), dictionary_ (dictionary),
+  ui (new Ui::SettingsEditor), translatorHelper_ (new TranslatorHelper),
+  recognizerHelper_ (new RecognizerHelper), dictionary_ (dictionary),
   buttonGroup_ (new QButtonGroup (this)) {
   ui->setupUi (this);
 
@@ -22,6 +25,9 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
   connect (ui->tessdataEdit, SIGNAL (textChanged (const QString &)),
            SLOT (initOcrLangCombo (const QString &)));
 
+  connect (ui->recognizerFixTable, SIGNAL (itemChanged (QTableWidgetItem *)),
+           SLOT (recognizerFixTableItemChanged (QTableWidgetItem *)));
+
   ui->translateLangCombo->addItems (dictionary_.translateLanguagesUi ());
   loadSettings ();
   loadState ();
@@ -29,6 +35,7 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
 
 SettingsEditor::~SettingsEditor () {
   saveState ();
+  delete recognizerHelper_;
   delete translatorHelper_;
   delete ui;
 }
@@ -58,8 +65,29 @@ void SettingsEditor::saveSettings () const {
   QString ocrLanguageVal = dictionary_.ocrUiToCode (ui->ocrLangCombo->currentText ());
   settings.setValue (ocrLanguage, ocrLanguageVal);
   settings.setValue (imageScale, ui->imageScaleSpin->value ());
-  settings.endGroup ();
 
+  {  //Recognizer substitutions
+    RecognizerHelper::Subs subs;
+    QTableWidget *t = ui->recognizerFixTable; // Shortcut
+    for (int i = 0, end = t->rowCount () - 1; i < end; ++i) {
+      QComboBox *combo = static_cast<QComboBox *>(t->cellWidget (i, SubsColLanguage));
+      QString langUi = combo->currentText ();
+      RecognizerHelper::Sub sub;
+      sub.language = dictionary_.ocrUiToCode (langUi);
+#define GET(COL) (t->item (i, COL) ? t->item (i, COL)->text () : QString ())
+      sub.source = GET (SubsColSource);
+      sub.target = GET (SubsColTarget);
+#undef GET
+      if (langUi.isEmpty () || sub.language == langUi || sub.source.isEmpty ()) {
+        continue;
+      }
+      subs.append (sub);
+    }
+    recognizerHelper_->setSubs (subs);
+    recognizerHelper_->save ();
+  }
+
+  settings.endGroup ();
 
   settings.beginGroup (translationGroup);
   settings.setValue (doTranslation, ui->doTranslationCheck->isChecked ());
@@ -115,7 +143,27 @@ void SettingsEditor::loadSettings () {
   QString ocrLanguage = dictionary_.ocrCodeToUi (GET (ocrLanguage).toString ());
   ui->ocrLangCombo->setCurrentText (ocrLanguage);
   ui->imageScaleSpin->setValue (GET (imageScale).toInt ());
+
+  {//Recognizer substitutions
+    recognizerHelper_->load ();
+    RecognizerHelper::Subs subs = recognizerHelper_->subs ();
+    ui->recognizerFixTable->setRowCount (subs.size ());
+    int row = 0;
+    foreach (const RecognizerHelper::Sub & sub, subs) {
+      if (!initSubsTableRow (row, sub.language)) {
+        continue;
+      }
+      ui->recognizerFixTable->setItem (row, SubsColSource, new QTableWidgetItem (sub.source));
+      ui->recognizerFixTable->setItem (row, SubsColTarget, new QTableWidgetItem (sub.target));
+      ++row;
+    }
+    ui->recognizerFixTable->setRowCount (row + 1);
+    initSubsTableRow (row);
+    ui->recognizerFixTable->resizeColumnsToContents ();
+  }
+
   settings.endGroup ();
+
 
   settings.beginGroup (settings_names::translationGroup);
   ui->doTranslationCheck->setChecked (GET (doTranslation).toBool ());
@@ -138,6 +186,23 @@ void SettingsEditor::loadSettings () {
 #undef GET
 }
 
+bool SettingsEditor::initSubsTableRow (int row, const QString &languageCode) {
+  QString lang = dictionary_.ocrCodeToUi (languageCode);
+  if (!languageCode.isEmpty () && lang == languageCode) {
+    return false;
+  }
+  QComboBox *langCombo = new QComboBox (ui->recognizerFixTable);
+  langCombo->setModel (ui->ocrLangCombo->model ());
+  if (!languageCode.isEmpty ()) {
+    langCombo->setCurrentText (lang);
+  }
+  else {
+    langCombo->setCurrentIndex (ui->ocrLangCombo->currentIndex ());
+  }
+  ui->recognizerFixTable->setCellWidget (row, SubsColLanguage, langCombo);
+  return true;
+}
+
 void SettingsEditor::saveState () const {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
@@ -153,4 +218,22 @@ void SettingsEditor::loadState () {
 void SettingsEditor::initOcrLangCombo (const QString &path) {
   ui->ocrLangCombo->clear ();
   ui->ocrLangCombo->addItems (dictionary_.availableOcrLanguagesUi (path));
+}
+
+void SettingsEditor::recognizerFixTableItemChanged (QTableWidgetItem *item) {
+  ST_ASSERT (item->column () < 3);
+  int row = item->row ();
+  QTableWidget *t = ui->recognizerFixTable;
+#define CHECK(COL) (!t->item (row, COL) || t->item (row, COL)->text ().isEmpty ())
+  bool isRowEmpty = CHECK (SubsColSource) && CHECK (SubsColTarget);
+#undef CHECK
+  int lastRow = ui->recognizerFixTable->rowCount () - 1;
+  if (isRowEmpty && row != lastRow) {
+    ui->recognizerFixTable->removeRow (row);
+  }
+  else if (!isRowEmpty && row == lastRow) {
+    int newRow = lastRow + 1;
+    ui->recognizerFixTable->insertRow (newRow);
+    initSubsTableRow (newRow);
+  }
 }

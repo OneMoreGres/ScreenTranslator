@@ -9,6 +9,7 @@
 namespace tesseract {
   class TessBaseAPI;
 }
+class RecognizerHelper;
 
 class Recognizer : public QObject {
   Q_OBJECT
@@ -29,6 +30,7 @@ class Recognizer : public QObject {
 
   private:
     tesseract::TessBaseAPI *engine_;
+    RecognizerHelper *recognizerHelper_;
 
     QString tessDataDir_;
     QString ocrLanguage_;

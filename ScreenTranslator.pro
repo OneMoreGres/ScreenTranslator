@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     LanguageHelper.cpp \
     WebTranslator.cpp \
     WebTranslatorProxy.cpp \
-    TranslatorHelper.cpp
+    TranslatorHelper.cpp \
+    RecognizerHelper.cpp
 
 HEADERS  += \
     Manager.h \
@@ -55,7 +56,8 @@ HEADERS  += \
     WebTranslator.h \
     WebTranslatorProxy.h \
     StAssert.h \
-    TranslatorHelper.h
+    TranslatorHelper.h \
+    RecognizerHelper.h
 
 FORMS    += \
     SettingsEditor.ui \
