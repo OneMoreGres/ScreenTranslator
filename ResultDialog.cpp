@@ -17,6 +17,14 @@ ResultDialog::ResultDialog (const LanguageHelper &dictionary, QWidget *parent) :
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                   Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
+  QString styleSheet =
+    "#recognizeLabel, #translateLabel {"
+    "color: black;"
+    "background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+    "stop:0 darkGray, stop: 0.5 lightGray, stop:1 darkGray);"
+    "}";
+  setStyleSheet (styleSheet);
+
   installEventFilter (this);
   createContextMenu ();
   applySettings ();
