@@ -63,6 +63,7 @@ void Recognizer::recognize (ProcessingItem item) {
   QString language = (isCustomLanguage) ? item.ocrLanguage : ocrLanguage_;
   if (engine == NULL) {
     if (!initEngine (engine, language)) {
+      emit recognized (item);
       return;
     }
   }
@@ -82,9 +83,9 @@ void Recognizer::recognize (ProcessingItem item) {
 
   if (!result.isEmpty ()) {
     item.recognized = recognizerHelper_->substitute (result, language);
-    emit recognized (item);
   }
   else {
     emit error (tr ("Текст не распознан."));
   }
+  emit recognized (item);
 }
