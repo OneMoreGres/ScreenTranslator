@@ -19,7 +19,8 @@ class LanguageHelper {
     QString translateUiToCode (const QString &text) const;
     QString ocrCodeToUi (const QString &text) const;
     QString ocrUiToCode (const QString &text) const;
-    QString translateForOcrCode (const QString &text) const;
+    QString ocrToTranslateCodes (const QString &text) const;
+    QString translateToOcrCodes (const QString &text) const;
 
     void updateAvailableOcrLanguages ();
 

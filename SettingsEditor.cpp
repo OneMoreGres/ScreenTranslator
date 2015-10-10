@@ -127,7 +127,7 @@ void SettingsEditor::saveSettings () const {
   settings.setValue (translationDebugMode, ui->translatorDebugCheck->isChecked ());
   QString trLanguage = dictionary_.translateUiToCode (ui->translateLangCombo->currentText ());
   settings.setValue (translationLanguage, trLanguage);
-  QString sourceLanguageVal = dictionary_.translateForOcrCode (ocrLanguage);
+  QString sourceLanguageVal = dictionary_.ocrToTranslateCodes (ocrLanguage);
   settings.setValue (sourceLanguage, sourceLanguageVal);
   settings.setValue (translationTimeout, ui->translateTimeoutSpin->value ());
 

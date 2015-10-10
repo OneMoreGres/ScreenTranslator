@@ -90,7 +90,7 @@ bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
         }
         item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
         ST_ASSERT (!item.ocrLanguage.isEmpty ());
-        item.sourceLanguage = dictionary_.translateForOcrCode (item.ocrLanguage);
+        item.sourceLanguage = dictionary_.ocrToTranslateCodes (item.ocrLanguage);
         ST_ASSERT (!item.sourceLanguage.isEmpty ());
       }
       emit selected (item);

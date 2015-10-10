@@ -72,13 +72,22 @@ QString LanguageHelper::ocrUiToCode (const QString &text) const {
   return ocrLanguages_.value (text, text);
 }
 
-QString LanguageHelper::translateForOcrCode (const QString &text) const {
-  QString ocrUi = ocrUiToCode (text);
-  QString translate = translateCodeToUi (ocrUi);
-  if (translate == ocrUi) {
-    translate = "auto";
+QString LanguageHelper::ocrToTranslateCodes (const QString &text) const {
+  QString ocrUi = ocrCodeToUi (text);
+  QString translateCode = translateUiToCode (ocrUi);
+  if (translateCode == ocrUi) {
+    translateCode = "auto";
   }
-  return translate;
+  return translateCode;
+}
+
+QString LanguageHelper::translateToOcrCodes (const QString &text) const {
+  QString translateUi = translateCodeToUi (text);
+  QString ocrCode = ocrUiToCode (translateUi);
+  if (translateUi == ocrCode) {
+    return QString ();
+  }
+  return ocrCode;
 }
 
 void LanguageHelper::init () {
