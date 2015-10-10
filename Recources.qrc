@@ -2,6 +2,9 @@
     <qresource prefix="/">
         <file>translations/translation_en.qm</file>
         <file>translations/translation_ru.qm</file>
-        <file>images/icon.png</file>
+        <file>images/STIconBlue.png</file>
+        <file>images/STIconGreen.png</file>
+        <file>images/STIconOrange.png</file>
+        <file>images/STIconRed.png</file>
     </qresource>
 </RCC>

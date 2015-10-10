@@ -17,6 +17,10 @@ class LanguageHelper;
 class Manager : public QObject {
   Q_OBJECT
 
+  enum IconType {
+    IconTypeNormal, IconTypeWorking, IconTypeError, IconTypeSuccess
+  };
+
   public:
     explicit Manager (QObject *parent = 0);
     ~Manager ();
@@ -46,9 +50,12 @@ class Manager : public QObject {
     void showResult (ProcessingItem item);
     void showError (QString text);
 
+    void updateNormalIcon ();
+
   private:
     QMenu * trayContextMenu ();
     void updateActionsState (bool isEnabled = true);
+    void changeIcon (int iconType, int timeoutMsec = 3000);
 
   private:
     QSystemTrayIcon *trayIcon_;
@@ -65,6 +72,7 @@ class Manager : public QObject {
     QList<QThread *> threads_;
     QString defaultTranslationLanguage_;
     bool doTranslation_;
+    int itemProcessingCount_;
 };
 
 #endif // MANAGER_H

@@ -26,12 +26,13 @@
 
 Manager::Manager (QObject *parent) :
   QObject (parent),
-  trayIcon_ (new QSystemTrayIcon (QIcon (":/images/icon.png"), this)),
+  trayIcon_ (new QSystemTrayIcon (this)),
   dictionary_ (new LanguageHelper),
   resultDialog_ (new ResultDialog (*dictionary_)),
   captureAction_ (NULL), repeatCaptureAction_ (NULL),
   repeatAction_ (NULL), clipboardAction_ (NULL),
-  useResultDialog_ (true), doTranslation_ (true) {
+  useResultDialog_ (true), doTranslation_ (true), itemProcessingCount_ (0) {
+  updateNormalIcon ();
   GlobalActionHelper::init ();
   qRegisterMetaType<ProcessingItem>();
 
@@ -215,6 +216,8 @@ void Manager::handleSelection (ProcessingItem item) {
     item.translateLanguage = defaultTranslationLanguage_;
   }
   emit requestRecognize (item);
+  ++itemProcessingCount_;
+  updateNormalIcon ();
   if (!(item.modifiers & Qt::ControlModifier)) {
     emit closeSelections ();
   }
@@ -279,7 +282,6 @@ void Manager::processTrayAction (QSystemTrayIcon::ActivationReason reason) {
 }
 
 void Manager::editRecognized (ProcessingItem item) {
-  ST_ASSERT (item.isValid ());
   QString fixed = QInputDialog::getMultiLineText (
     NULL, tr ("Правка"), tr ("Исправьте распознанный текст"), item.recognized);
   if (!fixed.isEmpty ()) {
@@ -316,7 +318,13 @@ void Manager::copyLastImageToClipboard () {
 }
 
 void Manager::showResult (ProcessingItem item) {
-  ST_ASSERT (item.isValid ());
+  --itemProcessingCount_;
+  if (!item.isValid ()) {
+    // delay because it can show error
+    QTimer::singleShot (3000, this, SLOT (updateNormalIcon ()));
+    return;
+  }
+  changeIcon (IconTypeSuccess);
   if (useResultDialog_) {
     resultDialog_->showResult (item);
   }
@@ -329,5 +337,30 @@ void Manager::showResult (ProcessingItem item) {
 
 void Manager::showError (QString text) {
   qCritical () << text;
+  changeIcon (IconTypeError);
   trayIcon_->showMessage (tr ("Ошибка"), text, QSystemTrayIcon::Critical);
+}
+
+void Manager::changeIcon (int iconType, int timeoutMsec) {
+  QString fileName;
+  switch (iconType) {
+    case IconTypeSuccess:
+      fileName = ":/images/STIconGreen.png";
+      break;
+    case IconTypeError:
+      fileName = ":/images/STIconRed.png";
+      break;
+    default:
+      return;
+  }
+  trayIcon_->setIcon (QIcon (fileName));
+  if (timeoutMsec > 0) {
+    QTimer::singleShot (timeoutMsec, this, SLOT (updateNormalIcon ()));
+  }
+}
+
+void Manager::updateNormalIcon () {
+  QString fileName = itemProcessingCount_ > 0
+                     ? ":/images/STIconOrange.png" : ":/images/STIconBlue.png";
+  trayIcon_->setIcon (QIcon (fileName));
 }
