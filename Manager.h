@@ -71,6 +71,7 @@ class Manager : public QObject {
     //! Used threads. For proper termination.
     QList<QThread *> threads_;
     QString defaultTranslationLanguage_;
+    QString defaultOrcLanguage_;
     bool doTranslation_;
     int itemProcessingCount_;
 };

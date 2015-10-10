@@ -1,9 +1,12 @@
 #include "ProcessingItem.h"
 
-bool ProcessingItem::isValid () const {
+bool ProcessingItem::isValid (bool checkOnlyInput) const {
   bool valid = true;
   valid &= (!screenPos.isNull ());
   valid &= (!source.isNull ());
-  valid &= (!recognized.isEmpty ());
+  valid &= (!ocrLanguage.isEmpty ());
+  if (!checkOnlyInput) {
+    valid &= (!recognized.isEmpty ());
+  }
   return valid;
 }

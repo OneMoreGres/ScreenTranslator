@@ -15,7 +15,7 @@ struct ProcessingItem {
 
   Qt::KeyboardModifiers modifiers;
 
-  bool isValid () const;
+  bool isValid (bool checkOnlyInput = false) const;
 };
 Q_DECLARE_METATYPE (ProcessingItem)
 

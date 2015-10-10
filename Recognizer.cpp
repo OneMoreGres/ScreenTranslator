@@ -56,9 +56,11 @@ bool Recognizer::initEngine (tesseract::TessBaseAPI * &engine, const QString &la
 }
 
 void Recognizer::recognize (ProcessingItem item) {
-  ST_ASSERT (!item.source.isNull ());
-  bool isCustomLanguage = (!item.ocrLanguage.isEmpty () &&
-                           item.ocrLanguage != ocrLanguage_);
+  if (!item.isValid (true)) {
+    emit recognized (item);
+    return;
+  }
+  bool isCustomLanguage = (item.ocrLanguage != ocrLanguage_);
   tesseract::TessBaseAPI *engine = (isCustomLanguage) ? NULL : engine_;
   QString language = (isCustomLanguage) ? item.ocrLanguage : ocrLanguage_;
   if (engine == NULL) {

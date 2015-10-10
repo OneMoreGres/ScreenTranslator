@@ -170,6 +170,10 @@ void Manager::applySettings () {
   QNetworkProxy::setApplicationProxy (proxy);
   settings.endGroup ();
 
+  settings.beginGroup (settings_names::recogntionGroup);
+  defaultOrcLanguage_ = GET (ocrLanguage).toString ();
+  settings.endGroup ();
+
   settings.beginGroup (settings_names::translationGroup);
   defaultTranslationLanguage_ = GET (translationLanguage).toString ();
   doTranslation_ = GET (doTranslation).toBool ();
@@ -214,6 +218,12 @@ void Manager::handleSelection (ProcessingItem item) {
   bool altMod = item.modifiers & Qt::AltModifier;
   if ((doTranslation_ && !altMod) || (!doTranslation_ && altMod)) {
     item.translateLanguage = defaultTranslationLanguage_;
+  }
+  if (item.ocrLanguage.isEmpty ()) {
+    item.ocrLanguage = defaultOrcLanguage_;
+  }
+  if (item.sourceLanguage.isEmpty ()) {
+    item.sourceLanguage = dictionary_->ocrToTranslateCodes (item.ocrLanguage);
   }
   emit requestRecognize (item);
   ++itemProcessingCount_;
