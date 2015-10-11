@@ -285,7 +285,7 @@ void Manager::close () {
 }
 
 void Manager::about () {
-  QString version = "1.2.3";
+  QString version = "2.0.0";
   QString text = tr ("Программа для распознавания текста на экране.\n" \
                      "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
                      "Автор: Gres (translator@gres.biz)\n"
