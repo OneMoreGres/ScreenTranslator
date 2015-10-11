@@ -338,6 +338,7 @@ void Manager::editRecognized (ProcessingItem item) {
 void Manager::showLast () {
   const ProcessingItem &item = resultDialog_->item ();
   if (item.isValid ()) {
+    ++itemProcessingCount_;
     showResult (item);
   }
 }
