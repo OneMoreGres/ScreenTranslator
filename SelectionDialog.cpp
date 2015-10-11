@@ -23,6 +23,7 @@ SelectionDialog::SelectionDialog (const LanguageHelper &dictionary, QWidget *par
 }
 
 SelectionDialog::~SelectionDialog () {
+  delete languageMenu_;
   delete ui;
 }
 

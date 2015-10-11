@@ -187,6 +187,12 @@ void Manager::applySettings () {
 }
 
 Manager::~Manager () {
+  foreach (SelectionDialog * selection, selections_.values ()) {
+    selection->hide ();
+    delete selection;
+  }
+  trayIcon_->hide ();
+  delete trayIcon_->contextMenu ();
   foreach (QThread * thread, threads_) {
     thread->quit ();
     thread->wait (1000000);

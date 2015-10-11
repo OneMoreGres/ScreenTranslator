@@ -68,7 +68,8 @@ Pix * convertImage (const QImage &image) {
   }
   pixSetResolution (pix, resolutionX, resolutionY);
 
-  return pixEndianByteSwapNew (pix);
+  pixEndianByteSwap (pix);
+  return pix;
 }
 
 QImage convertImage (Pix &image) {
