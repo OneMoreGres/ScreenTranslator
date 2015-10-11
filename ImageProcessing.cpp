@@ -37,28 +37,20 @@ qint64 getFreeMemory () {
 Pix * convertImage (const QImage &image) {
   PIX *pix;
 
-  QImage swapped = image.rgbSwapped ();
-  int width = swapped.width ();
-  int height = swapped.height ();
-  int depth = swapped.depth ();
-  int wpl = swapped.bytesPerLine () / 4;
+  int width = image.width ();
+  int height = image.height ();
+  int depth = image.depth ();
+  int bytesPerLine = image.bytesPerLine ();
+  int wpl = bytesPerLine / 4;
 
   pix = pixCreate (width, height, depth);
   pixSetWpl (pix, wpl);
   pixSetColormap (pix, NULL);
-  l_uint32 *outData = pix->data;
-
-  for (int y = 0; y < height; y++) {
-    l_uint32 *lines = outData + y * wpl;
-    QByteArray a ((const char *)swapped.scanLine (y), swapped.bytesPerLine ());
-    for (int j = 0; j < a.size (); j++) {
-      *((l_uint8 *)lines + j) = a[j];
-    }
-  }
+  memmove (pix->data, image.bits (), bytesPerLine * height);
 
   const qreal toDPM = 1.0 / 0.0254;
-  int resolutionX = swapped.dotsPerMeterX () / toDPM;
-  int resolutionY = swapped.dotsPerMeterY () / toDPM;
+  int resolutionX = image.dotsPerMeterX () / toDPM;
+  int resolutionY = image.dotsPerMeterY () / toDPM;
 
   if (resolutionX < 300) {
     resolutionX = 300;
@@ -67,8 +59,6 @@ Pix * convertImage (const QImage &image) {
     resolutionY = 300;
   }
   pixSetResolution (pix, resolutionX, resolutionY);
-
-  pixEndianByteSwap (pix);
   return pix;
 }
 
@@ -77,7 +67,7 @@ QImage convertImage (Pix &image) {
   int height = pixGetHeight (&image);
   int depth = pixGetDepth (&image);
   int bytesPerLine = pixGetWpl (&image) * 4;
-  l_uint32 *datas = pixGetData (pixEndianByteSwapNew (&image));
+  l_uint32 *datas = pixGetData (&image);
 
   QImage::Format format;
   if (depth == 1) {
@@ -125,7 +115,7 @@ QImage convertImage (Pix &image) {
     return none;
   }
 
-  return result.rgbSwapped ();
+  return result;
 }
 
 Pix * prepareImage (const QImage &image, int preferredScale) {
