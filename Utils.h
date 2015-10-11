@@ -5,4 +5,6 @@
 
 QString encode (const QString &source);
 
+QList<int> proxyTypeOrder ();
+
 #endif // UTILS_H

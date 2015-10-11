@@ -1,3 +1,5 @@
+#include <QNetworkProxy>
+
 #include "Utils.h"
 
 QString encode (const QString &source) {
@@ -10,4 +12,10 @@ QString encode (const QString &source) {
     result [i] = result[i] ^ encKeys[ i % sizeof(encKeys)];
   }
   return QString::fromUtf8 (result.data ());
+}
+
+QList<int> proxyTypeOrder () {
+  QList<int> proxyOrder;
+  proxyOrder << QNetworkProxy::NoProxy << QNetworkProxy::Socks5Proxy << QNetworkProxy::HttpProxy;
+  return proxyOrder;
 }

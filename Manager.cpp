@@ -160,7 +160,9 @@ void Manager::applySettings () {
   useResultDialog_ = GET (resultShowType).toBool ();
 
   QNetworkProxy proxy = QNetworkProxy::applicationProxy ();
-  proxy.setType (QNetworkProxy::ProxyType (GET (proxyType).toInt ()));
+  QList<int> proxyTypes = proxyTypeOrder ();
+  int proxyTypeIndex = std::min (GET (proxyType).toInt (), proxyTypes.size ());
+  proxy.setType (QNetworkProxy::ProxyType (proxyTypes.at (std::max (proxyTypeIndex, 0))));
   proxy.setHostName (GET (proxyHostName).toString ());
   proxy.setPort (GET (proxyPort).toInt ());
   proxy.setUser (GET (proxyUser).toString ());

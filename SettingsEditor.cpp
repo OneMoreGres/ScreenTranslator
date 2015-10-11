@@ -38,10 +38,9 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
   proxyTypeNames.insert (QNetworkProxy::NoProxy, tr ("Нет"));
   proxyTypeNames.insert (QNetworkProxy::Socks5Proxy, tr ("SOCKS 5"));
   proxyTypeNames.insert (QNetworkProxy::HttpProxy, tr ("HTTP"));
-  QList<ProxyType> proxyOrder;
-  proxyOrder << QNetworkProxy::NoProxy << QNetworkProxy::Socks5Proxy << QNetworkProxy::HttpProxy;
-  foreach (ProxyType type, proxyOrder) {
-    ui->proxyTypeCombo->addItem (proxyTypeNames.value (type));
+  QList<int> proxyOrder = proxyTypeOrder ();
+  foreach (int type, proxyOrder) {
+    ui->proxyTypeCombo->addItem (proxyTypeNames.value (QNetworkProxy::ProxyType (type)));
   }
 
   QRegExp urlRegexp (R"(^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$)");
