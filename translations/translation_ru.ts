@@ -4,53 +4,74 @@
 <context>
     <name>GoogleWebTranslator</name>
     <message>
-        <location filename="../GoogleWebTranslator.cpp" line="88"/>
         <source>Неверные парметры для перевода.</source>
-        <translation>Неверные парметры для перевода.</translation>
+        <translation type="vanished">Неверные парметры для перевода.</translation>
     </message>
 </context>
 <context>
     <name>Manager</name>
     <message>
-        <location filename="../Manager.cpp" line="86"/>
+        <location filename="../Manager.cpp" line="94"/>
         <source>Захват</source>
         <translation>Захват</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="87"/>
-        <location filename="../Manager.cpp" line="202"/>
-        <location filename="../Manager.cpp" line="219"/>
         <source>Перевод</source>
-        <translation>Перевод</translation>
+        <translation type="vanished">Перевод</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="88"/>
         <source>Повторить</source>
-        <translation>Повторить</translation>
+        <translation type="vanished">Повторить</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="90"/>
         <source>Скопировать</source>
-        <translation>Скопировать</translation>
+        <translation type="vanished">Скопировать</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="92"/>
+        <location filename="../Manager.cpp" line="95"/>
+        <source>Повторить захват</source>
+        <translation>Повторить захват</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="97"/>
+        <location filename="../Manager.cpp" line="312"/>
+        <location filename="../Manager.cpp" line="370"/>
+        <source>Результат</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="98"/>
+        <source>Показать</source>
+        <translation>Показать</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="100"/>
+        <source>В буфер</source>
+        <translation>В буфер</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="102"/>
         <source>Настройки</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="93"/>
-        <location filename="../Manager.cpp" line="169"/>
+        <location filename="../Manager.cpp" line="103"/>
+        <location filename="../Manager.cpp" line="300"/>
         <source>О программе</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="94"/>
+        <location filename="../Manager.cpp" line="104"/>
         <source>Выход</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="163"/>
+        <location filename="../Manager.cpp" line="235"/>
+        <source>Не найден подходящий язык распознавания.</source>
+        <translation>Не найден подходящий язык распознавания.</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="281"/>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)
@@ -61,6 +82,48 @@
 Версия: %1 от %2 %3</translation>
     </message>
     <message>
+        <location filename="../Manager.cpp" line="286"/>
+        <source>
+
+Подсказки.
+Клик по иконке в трее:
+* левой кнопкой - отобразить последний результат
+* средней кнопкой - скопировать последний результат в буфер обмена
+* двойной клик - повторный захват последнего экрана
+
+Захвата изображения при зажатых кнопках:
+* Ctrl - не выходить из режима захвата
+* Alt - выполнить перевод, если в настройках он выключен (и наоборот, не выполнять, если включен)
+</source>
+        <translation>
+
+Подсказки.
+Клик по иконке в трее:
+* левой кнопкой - отобразить последний результат
+* средней кнопкой - скопировать последний результат в буфер обмена
+* двойной клик - повторный захват последнего экрана
+
+Захват изображения при зажатых кнопках:
+* Ctrl - не выходить из режима захвата
+* Alt - выполнить перевод, если в настройках он выключен (и наоборот, не выполнять, если включен)
+</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="313"/>
+        <source>Последний результат был скопирован в буфер обмена.</source>
+        <translation>Последний результат был скопирован в буфер обмена.</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="323"/>
+        <source>Правка</source>
+        <translation>Правка</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="323"/>
+        <source>Исправьте распознанный текст</source>
+        <translation>Исправьте распознанный текст</translation>
+    </message>
+    <message>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)</source>
@@ -69,12 +132,11 @@
 Автор: Gres (translator@gres.biz)</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="203"/>
         <source>Последний перевод был скопирован в буфер обмена.</source>
-        <translation>Последний перевод был скопирован в буфер обмена.</translation>
+        <translation type="vanished">Последний перевод был скопирован в буфер обмена.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="226"/>
+        <location filename="../Manager.cpp" line="378"/>
         <source>Ошибка</source>
         <translation>Ошибка</translation>
     </message>
@@ -82,415 +144,415 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../LanguageHelper.cpp" line="119"/>
-        <location filename="../LanguageHelper.cpp" line="238"/>
+        <location filename="../LanguageHelper.cpp" line="141"/>
+        <location filename="../LanguageHelper.cpp" line="259"/>
         <source>Afrikaans</source>
         <translation>Африкаанс</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="120"/>
-        <location filename="../LanguageHelper.cpp" line="193"/>
+        <location filename="../LanguageHelper.cpp" line="142"/>
+        <location filename="../LanguageHelper.cpp" line="214"/>
         <source>Albanian</source>
         <translation>Албанский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="121"/>
-        <location filename="../LanguageHelper.cpp" line="237"/>
+        <location filename="../LanguageHelper.cpp" line="143"/>
+        <location filename="../LanguageHelper.cpp" line="258"/>
         <source>Arabic</source>
         <translation>Арабский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="122"/>
+        <location filename="../LanguageHelper.cpp" line="144"/>
         <source>Armenian</source>
         <translation>Армянский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="123"/>
-        <location filename="../LanguageHelper.cpp" line="236"/>
+        <location filename="../LanguageHelper.cpp" line="145"/>
+        <location filename="../LanguageHelper.cpp" line="257"/>
         <source>Azerbaijani</source>
         <translation>Азербайджанский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="124"/>
-        <location filename="../LanguageHelper.cpp" line="223"/>
+        <location filename="../LanguageHelper.cpp" line="146"/>
+        <location filename="../LanguageHelper.cpp" line="244"/>
         <source>Basque</source>
         <translation>Басков</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="125"/>
-        <location filename="../LanguageHelper.cpp" line="235"/>
+        <location filename="../LanguageHelper.cpp" line="147"/>
+        <location filename="../LanguageHelper.cpp" line="256"/>
         <source>Belarusian</source>
         <translation>Белорусский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="126"/>
-        <location filename="../LanguageHelper.cpp" line="233"/>
+        <location filename="../LanguageHelper.cpp" line="148"/>
+        <location filename="../LanguageHelper.cpp" line="254"/>
         <source>Bulgarian</source>
         <translation>Болгарский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="127"/>
-        <location filename="../LanguageHelper.cpp" line="232"/>
+        <location filename="../LanguageHelper.cpp" line="149"/>
+        <location filename="../LanguageHelper.cpp" line="253"/>
         <source>Catalan</source>
         <translation>Каталонский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="128"/>
-        <location filename="../LanguageHelper.cpp" line="240"/>
+        <location filename="../LanguageHelper.cpp" line="150"/>
+        <location filename="../LanguageHelper.cpp" line="261"/>
         <source>Chinese (Simplified)</source>
         <translation>Китайский (упрощенный)</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="129"/>
-        <location filename="../LanguageHelper.cpp" line="241"/>
+        <location filename="../LanguageHelper.cpp" line="151"/>
+        <location filename="../LanguageHelper.cpp" line="262"/>
         <source>Chinese (Traditional)</source>
         <translation>Китайский (традиционный)</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="130"/>
-        <location filename="../LanguageHelper.cpp" line="215"/>
+        <location filename="../LanguageHelper.cpp" line="152"/>
+        <location filename="../LanguageHelper.cpp" line="236"/>
         <source>Croatian</source>
         <translation>Хорватский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="131"/>
-        <location filename="../LanguageHelper.cpp" line="231"/>
+        <location filename="../LanguageHelper.cpp" line="153"/>
+        <location filename="../LanguageHelper.cpp" line="252"/>
         <source>Czech</source>
         <translation>Чешский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="132"/>
-        <location filename="../LanguageHelper.cpp" line="230"/>
+        <location filename="../LanguageHelper.cpp" line="154"/>
+        <location filename="../LanguageHelper.cpp" line="251"/>
         <source>Danish</source>
         <translation>Датский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="133"/>
-        <location filename="../LanguageHelper.cpp" line="201"/>
+        <location filename="../LanguageHelper.cpp" line="155"/>
+        <location filename="../LanguageHelper.cpp" line="222"/>
         <source>Dutch</source>
         <translation>Голландский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="134"/>
-        <location filename="../LanguageHelper.cpp" line="183"/>
+        <location filename="../LanguageHelper.cpp" line="156"/>
+        <location filename="../LanguageHelper.cpp" line="204"/>
         <source>English</source>
         <translation>Английский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="135"/>
-        <location filename="../LanguageHelper.cpp" line="224"/>
+        <location filename="../LanguageHelper.cpp" line="157"/>
+        <location filename="../LanguageHelper.cpp" line="245"/>
         <source>Estonian</source>
         <translation>Эстонский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="136"/>
+        <location filename="../LanguageHelper.cpp" line="158"/>
         <source>Filipino</source>
         <translation>Филиппинский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="137"/>
-        <location filename="../LanguageHelper.cpp" line="222"/>
+        <location filename="../LanguageHelper.cpp" line="159"/>
+        <location filename="../LanguageHelper.cpp" line="243"/>
         <source>Finnish</source>
         <translation>Финский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="138"/>
-        <location filename="../LanguageHelper.cpp" line="221"/>
+        <location filename="../LanguageHelper.cpp" line="160"/>
+        <location filename="../LanguageHelper.cpp" line="242"/>
         <source>French</source>
         <translation>Французский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="139"/>
-        <location filename="../LanguageHelper.cpp" line="218"/>
+        <location filename="../LanguageHelper.cpp" line="161"/>
+        <location filename="../LanguageHelper.cpp" line="239"/>
         <source>Galician</source>
         <translation>Галицкий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="140"/>
+        <location filename="../LanguageHelper.cpp" line="162"/>
         <source>Georgian</source>
         <translation>Грузинский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="141"/>
-        <location filename="../LanguageHelper.cpp" line="229"/>
+        <location filename="../LanguageHelper.cpp" line="163"/>
+        <location filename="../LanguageHelper.cpp" line="250"/>
         <source>German</source>
         <translation>Немецкий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="142"/>
-        <location filename="../LanguageHelper.cpp" line="228"/>
+        <location filename="../LanguageHelper.cpp" line="164"/>
+        <location filename="../LanguageHelper.cpp" line="249"/>
         <source>Greek</source>
         <translation>Греческий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="143"/>
+        <location filename="../LanguageHelper.cpp" line="165"/>
         <source>Haitian Creole</source>
         <translation>Гаитянский креольский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="144"/>
-        <location filename="../LanguageHelper.cpp" line="217"/>
+        <location filename="../LanguageHelper.cpp" line="166"/>
+        <location filename="../LanguageHelper.cpp" line="238"/>
         <source>Hebrew</source>
         <translation>Иврит</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="145"/>
-        <location filename="../LanguageHelper.cpp" line="216"/>
+        <location filename="../LanguageHelper.cpp" line="167"/>
+        <location filename="../LanguageHelper.cpp" line="237"/>
         <source>Hindi</source>
         <translation>Хинди</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="146"/>
-        <location filename="../LanguageHelper.cpp" line="214"/>
+        <location filename="../LanguageHelper.cpp" line="168"/>
+        <location filename="../LanguageHelper.cpp" line="235"/>
         <source>Hungarian</source>
         <translation>Венгерский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="147"/>
-        <location filename="../LanguageHelper.cpp" line="211"/>
+        <location filename="../LanguageHelper.cpp" line="169"/>
+        <location filename="../LanguageHelper.cpp" line="232"/>
         <source>Icelandic</source>
         <translation>Исландский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="148"/>
-        <location filename="../LanguageHelper.cpp" line="212"/>
+        <location filename="../LanguageHelper.cpp" line="170"/>
+        <location filename="../LanguageHelper.cpp" line="233"/>
         <source>Indonesian</source>
         <translation>Индонезийский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="149"/>
+        <location filename="../LanguageHelper.cpp" line="171"/>
         <source>Irish</source>
         <translation>Ирландский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="150"/>
-        <location filename="../LanguageHelper.cpp" line="210"/>
+        <location filename="../LanguageHelper.cpp" line="172"/>
+        <location filename="../LanguageHelper.cpp" line="231"/>
         <source>Italian</source>
         <translation>Итальянский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="151"/>
-        <location filename="../LanguageHelper.cpp" line="239"/>
+        <location filename="../LanguageHelper.cpp" line="173"/>
+        <location filename="../LanguageHelper.cpp" line="260"/>
         <source>Japanese</source>
         <translation>Японский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="152"/>
-        <location filename="../LanguageHelper.cpp" line="208"/>
+        <location filename="../LanguageHelper.cpp" line="174"/>
+        <location filename="../LanguageHelper.cpp" line="229"/>
         <source>Korean</source>
         <translation>Корейский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="153"/>
-        <location filename="../LanguageHelper.cpp" line="207"/>
+        <location filename="../LanguageHelper.cpp" line="175"/>
+        <location filename="../LanguageHelper.cpp" line="228"/>
         <source>Latvian</source>
         <translation>Латвийский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="154"/>
-        <location filename="../LanguageHelper.cpp" line="206"/>
+        <location filename="../LanguageHelper.cpp" line="176"/>
+        <location filename="../LanguageHelper.cpp" line="227"/>
         <source>Lithuanian</source>
         <translation>Литовский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="155"/>
-        <location filename="../LanguageHelper.cpp" line="204"/>
+        <location filename="../LanguageHelper.cpp" line="177"/>
+        <location filename="../LanguageHelper.cpp" line="225"/>
         <source>Macedonian</source>
         <translation>Македонский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="156"/>
-        <location filename="../LanguageHelper.cpp" line="202"/>
+        <location filename="../LanguageHelper.cpp" line="178"/>
+        <location filename="../LanguageHelper.cpp" line="223"/>
         <source>Malay</source>
         <translation>Малайский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="157"/>
-        <location filename="../LanguageHelper.cpp" line="203"/>
+        <location filename="../LanguageHelper.cpp" line="179"/>
+        <location filename="../LanguageHelper.cpp" line="224"/>
         <source>Maltese</source>
         <translation>Мальтийский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="158"/>
-        <location filename="../LanguageHelper.cpp" line="200"/>
+        <location filename="../LanguageHelper.cpp" line="180"/>
+        <location filename="../LanguageHelper.cpp" line="221"/>
         <source>Norwegian</source>
         <translation>Норвежский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="159"/>
+        <location filename="../LanguageHelper.cpp" line="181"/>
         <source>Persian</source>
         <translation>Персидский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="160"/>
-        <location filename="../LanguageHelper.cpp" line="199"/>
+        <location filename="../LanguageHelper.cpp" line="182"/>
+        <location filename="../LanguageHelper.cpp" line="220"/>
         <source>Polish</source>
         <translation>Польский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="161"/>
-        <location filename="../LanguageHelper.cpp" line="198"/>
+        <location filename="../LanguageHelper.cpp" line="183"/>
+        <location filename="../LanguageHelper.cpp" line="219"/>
         <source>Portuguese</source>
         <translation>Португальский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="162"/>
-        <location filename="../LanguageHelper.cpp" line="197"/>
+        <location filename="../LanguageHelper.cpp" line="184"/>
+        <location filename="../LanguageHelper.cpp" line="218"/>
         <source>Romanian</source>
         <translation>Румынский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="163"/>
-        <location filename="../LanguageHelper.cpp" line="242"/>
+        <location filename="../LanguageHelper.cpp" line="185"/>
+        <location filename="../LanguageHelper.cpp" line="263"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="164"/>
-        <location filename="../LanguageHelper.cpp" line="192"/>
+        <location filename="../LanguageHelper.cpp" line="186"/>
+        <location filename="../LanguageHelper.cpp" line="213"/>
         <source>Serbian</source>
         <translation>Сербский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="165"/>
+        <location filename="../LanguageHelper.cpp" line="187"/>
         <source>Slovak</source>
         <translation>Словацкий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="166"/>
-        <location filename="../LanguageHelper.cpp" line="195"/>
+        <location filename="../LanguageHelper.cpp" line="188"/>
+        <location filename="../LanguageHelper.cpp" line="216"/>
         <source>Slovenian</source>
         <translation>Словенский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="167"/>
-        <location filename="../LanguageHelper.cpp" line="194"/>
+        <location filename="../LanguageHelper.cpp" line="189"/>
+        <location filename="../LanguageHelper.cpp" line="215"/>
         <source>Spanish</source>
         <translation>Испанский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="168"/>
-        <location filename="../LanguageHelper.cpp" line="191"/>
+        <location filename="../LanguageHelper.cpp" line="190"/>
+        <location filename="../LanguageHelper.cpp" line="212"/>
         <source>Swahili</source>
         <translation>Суахили</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="169"/>
-        <location filename="../LanguageHelper.cpp" line="190"/>
+        <location filename="../LanguageHelper.cpp" line="191"/>
+        <location filename="../LanguageHelper.cpp" line="211"/>
         <source>Swedish</source>
         <translation>Шведский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="170"/>
-        <location filename="../LanguageHelper.cpp" line="186"/>
+        <location filename="../LanguageHelper.cpp" line="192"/>
+        <location filename="../LanguageHelper.cpp" line="207"/>
         <source>Thai</source>
         <translation>Тайский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="171"/>
-        <location filename="../LanguageHelper.cpp" line="185"/>
+        <location filename="../LanguageHelper.cpp" line="193"/>
+        <location filename="../LanguageHelper.cpp" line="206"/>
         <source>Turkish</source>
         <translation>Турецкий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="172"/>
-        <location filename="../LanguageHelper.cpp" line="184"/>
+        <location filename="../LanguageHelper.cpp" line="194"/>
+        <location filename="../LanguageHelper.cpp" line="205"/>
         <source>Ukrainian</source>
         <translation>Украинский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="173"/>
+        <location filename="../LanguageHelper.cpp" line="195"/>
         <source>Urdu</source>
         <translation>Урду</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="174"/>
-        <location filename="../LanguageHelper.cpp" line="243"/>
+        <location filename="../LanguageHelper.cpp" line="196"/>
+        <location filename="../LanguageHelper.cpp" line="264"/>
         <source>Vietnamese</source>
         <translation>Вьетнамский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="175"/>
+        <location filename="../LanguageHelper.cpp" line="197"/>
         <source>Welsh</source>
         <translation>Валлийский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="176"/>
+        <location filename="../LanguageHelper.cpp" line="198"/>
         <source>Yiddish</source>
         <translation>Идиш</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="181"/>
+        <location filename="../LanguageHelper.cpp" line="202"/>
         <source>Ancient Greek</source>
         <translation>Древнегреческий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="182"/>
+        <location filename="../LanguageHelper.cpp" line="203"/>
         <source>Esperanto alternative</source>
         <translation>Эсперанто альтернативный</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="187"/>
+        <location filename="../LanguageHelper.cpp" line="208"/>
         <source>Tagalog</source>
         <translation>Тагальский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="188"/>
+        <location filename="../LanguageHelper.cpp" line="209"/>
         <source>Telugu</source>
         <translation>Телугу</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="189"/>
+        <location filename="../LanguageHelper.cpp" line="210"/>
         <source>Tamil</source>
         <translation>Тамил</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="196"/>
+        <location filename="../LanguageHelper.cpp" line="217"/>
         <source>Slovakian</source>
         <translation>Словацкий</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="205"/>
+        <location filename="../LanguageHelper.cpp" line="226"/>
         <source>Malayalam</source>
         <translation>Малаялам</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="209"/>
+        <location filename="../LanguageHelper.cpp" line="230"/>
         <source>Kannada</source>
         <translation>Каннада</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="213"/>
+        <location filename="../LanguageHelper.cpp" line="234"/>
         <source>Cherokee</source>
         <translation>Чероки</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="219"/>
+        <location filename="../LanguageHelper.cpp" line="240"/>
         <source>Middle French (ca. 1400-1600)</source>
         <translation>Средневековый Французский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="220"/>
+        <location filename="../LanguageHelper.cpp" line="241"/>
         <source>Frankish</source>
         <translation>Франкский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="225"/>
+        <location filename="../LanguageHelper.cpp" line="246"/>
         <source>Math / equation</source>
         <translation>Математика/уравнение</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="226"/>
+        <location filename="../LanguageHelper.cpp" line="247"/>
         <source>Esperanto</source>
         <translation>Эсперанто</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="227"/>
+        <location filename="../LanguageHelper.cpp" line="248"/>
         <source>Middle English (1100-1500)</source>
         <translation>Средневековый Английский</translation>
     </message>
     <message>
-        <location filename="../LanguageHelper.cpp" line="234"/>
+        <location filename="../LanguageHelper.cpp" line="255"/>
         <source>Bengali</source>
         <translation>Бенгальский</translation>
     </message>
@@ -498,17 +560,17 @@
 <context>
     <name>Recognizer</name>
     <message>
-        <location filename="../Recognizer.cpp" line="42"/>
+        <location filename="../Recognizer.cpp" line="40"/>
         <source>Неверные параметры для OCR</source>
         <translation>Неверные параметры для OCR</translation>
     </message>
     <message>
-        <location filename="../Recognizer.cpp" line="54"/>
+        <location filename="../Recognizer.cpp" line="50"/>
         <source>Ошибка инициализации OCR: %1</source>
         <translation>Ошибка инициализации OCR: %1</translation>
     </message>
     <message>
-        <location filename="../Recognizer.cpp" line="98"/>
+        <location filename="../Recognizer.cpp" line="90"/>
         <source>Текст не распознан.</source>
         <translation>Текст не распознан.</translation>
     </message>
@@ -520,6 +582,31 @@
         <source>Результат</source>
         <translation>Результат</translation>
     </message>
+    <message>
+        <location filename="../ResultDialog.cpp" line="49"/>
+        <source>Распознать другой язык</source>
+        <translation>Распознать другой язык</translation>
+    </message>
+    <message>
+        <location filename="../ResultDialog.cpp" line="50"/>
+        <source>Перевести на другой язык</source>
+        <translation>Перевести на другой язык</translation>
+    </message>
+    <message>
+        <location filename="../ResultDialog.cpp" line="51"/>
+        <source>Скопировать в буфер</source>
+        <translation>Скопировать в буфер</translation>
+    </message>
+    <message>
+        <location filename="../ResultDialog.cpp" line="52"/>
+        <source>Скопировать рисунок в буфер</source>
+        <translation>Скопировать рисунок в буфер</translation>
+    </message>
+    <message>
+        <location filename="../ResultDialog.cpp" line="53"/>
+        <source>Исправить распознанный текст</source>
+        <translation>Исправить распознанный текст</translation>
+    </message>
 </context>
 <context>
     <name>SelectionDialog</name>
@@ -527,6 +614,11 @@
         <location filename="../SelectionDialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Выбор</translation>
+    </message>
+    <message>
+        <location filename="../SelectionDialog.cpp" line="32"/>
+        <source>Поменять язык текста и перевода</source>
+        <translation>Поменять язык текста и перевода</translation>
     </message>
 </context>
 <context>
@@ -537,102 +629,246 @@
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="20"/>
+        <location filename="../SettingsEditor.ui" line="34"/>
+        <source>Общее</source>
+        <translation>Общее</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="40"/>
         <source>Горячие клавиши</source>
         <translation>Горячие клавиши</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="26"/>
-        <location filename="../SettingsEditor.ui" line="42"/>
-        <location filename="../SettingsEditor.ui" line="58"/>
+        <location filename="../SettingsEditor.ui" line="46"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="29"/>
+        <location filename="../SettingsEditor.ui" line="49"/>
         <source>Захватить</source>
         <translation>Захватить</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="45"/>
+        <location filename="../SettingsEditor.ui" line="59"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата, но с использованием последнего использованного, а не текущего, изображения.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата, но с использованием последнего использованного, а не текущего, изображения.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="62"/>
+        <source>Захватить повторно</source>
+        <translation>Захватить повторно</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="72"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для повторного отображения последнего результата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для повторного отображения последнего результата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="75"/>
+        <source>Показать</source>
+        <translation>Показать</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="85"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для копирования последнего результата в буфер обмена.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для копирования последнего результата в буфер обмена.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="88"/>
         <source>Скопировать</source>
         <translation>Скопировать</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="61"/>
         <source>Повторить</source>
-        <translation>Повторить</translation>
+        <translation type="vanished">Повторить</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="77"/>
+        <location filename="../SettingsEditor.ui" line="214"/>
         <source>Распознавание</source>
         <translation>Распознавание</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="83"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="86"/>
-        <location filename="../SettingsEditor.cpp" line="74"/>
+        <location filename="../SettingsEditor.ui" line="223"/>
+        <location filename="../SettingsEditor.cpp" line="149"/>
         <source>Путь к tessdata</source>
         <translation>Путь к tessdata</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="99"/>
+        <location filename="../SettingsEditor.ui" line="236"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="106"/>
+        <location filename="../SettingsEditor.ui" line="243"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="109"/>
+        <location filename="../SettingsEditor.ui" line="246"/>
         <source>Язык распознавания</source>
         <translation>Язык распознавания</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="119"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="122"/>
+        <location filename="../SettingsEditor.ui" line="262"/>
         <source>Увеличение масштаба</source>
         <translation>Увеличение масштаба</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="154"/>
+        <location filename="../SettingsEditor.ui" line="101"/>
         <source>Вывод результата</source>
         <translation>Вывод результата</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="160"/>
+        <location filename="../SettingsEditor.ui" line="107"/>
         <source>Трей</source>
         <translation>Трей</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="167"/>
+        <location filename="../SettingsEditor.ui" line="114"/>
         <source>Окно</source>
         <translation>Окно</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="180"/>
+        <location filename="../SettingsEditor.ui" line="127"/>
+        <source>Прокси</source>
+        <translation>Прокси</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="133"/>
+        <source>Тип:</source>
+        <translation>Тип:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="143"/>
+        <source>Пользователь:</source>
+        <translation>Пользователь:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="153"/>
+        <source>Адрес:</source>
+        <translation>Адрес:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="163"/>
+        <source>Пароль:</source>
+        <translation>Пароль:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="173"/>
+        <source>Порт:</source>
+        <translation>Порт:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="190"/>
+        <source>Сохранять пароль (небезопасно)</source>
+        <translation>Сохранять пароль (небезопасно)</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="220"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://github.com/tesseract-ocr/tessdata&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#7593bc;&quot;&gt;https://github.com/tesseract-ocr/tessdata&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;quot;./&amp;quot; означает, что папка &amp;quot;tessdata&amp;quot; находится в одной директории с исполняемым файлом программы.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://github.com/tesseract-ocr/tessdata&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#7593bc;&quot;&gt;https://github.com/tesseract-ocr/tessdata&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;quot;./&amp;quot; означает, что папка &amp;quot;tessdata&amp;quot; находится в одной директории с исполняемым файлом программы.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="259"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее и потребляет больше памяти.&lt;/p&gt;&lt;p&gt;Рекомендуемые значения от 5 до 10.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее и потребляет больше памяти.&lt;/p&gt;&lt;p&gt;Рекомендуемые значения от 5 до 10.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="275"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Символы, регулярно распознаваемые с ошибками. При обнаружении будут заменены на указанные.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Символы, регулярно распознаваемые с ошибками. При обнаружении будут заменены на указанные.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="278"/>
+        <source>Исправления:</source>
+        <translation>Исправления:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="295"/>
+        <source>Язык</source>
+        <translation>Язык</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="300"/>
+        <source>Исходный текст</source>
+        <translation>Исходный текст</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="305"/>
+        <source>Исправление</source>
+        <translation>Исправление</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="314"/>
         <source>Перевод</source>
         <translation>Перевод</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="186"/>
+        <location filename="../SettingsEditor.ui" line="320"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="323"/>
+        <source>Переводить текст</source>
+        <translation>Переводить текст</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="330"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="333"/>
+        <source>Режим отладки</source>
+        <translation>Режим отладки</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="340"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="343"/>
+        <source>Максимальное время перевода:</source>
+        <translation>Максимальное время перевода:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="350"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="189"/>
+        <location filename="../SettingsEditor.ui" line="353"/>
+        <source>Язык результата:</source>
+        <translation>Язык результата:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="363"/>
+        <source>Переводчики:</source>
+        <translation>Переводчики:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="376"/>
+        <source> сек.</source>
+        <translation> сек.</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="383"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>Язык результата</source>
-        <translation>Язык результата</translation>
+        <translation type="vanished">Язык результата</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -926,18 +1162,31 @@
         <source>Bengali</source>
         <translation type="vanished">Бенгальский</translation>
     </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="38"/>
+        <source>Нет</source>
+        <translation>Нет</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="39"/>
+        <source>SOCKS 5</source>
+        <translation>SOCKS 5</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="40"/>
+        <source>HTTP</source>
+        <translation>HTTP</translation>
+    </message>
 </context>
 <context>
     <name>Translator</name>
     <message>
-        <location filename="../Translator.cpp" line="60"/>
         <source>Неверные парметры для перевода.</source>
-        <translation>Неверные парметры для перевода.</translation>
+        <translation type="vanished">Неверные парметры для перевода.</translation>
     </message>
     <message>
-        <location filename="../Translator.cpp" line="76"/>
         <source>Ошибка альтернативного перевода текста: %1</source>
-        <translation>Ошибка альтернативного перевода текста: %1</translation>
+        <translation type="vanished">Ошибка альтернативного перевода текста: %1</translation>
     </message>
     <message>
         <source>Ошибка перевода: %1</source>
@@ -946,6 +1195,24 @@
     <message>
         <source>Ошибка разбора перевода: %1 (%2)</source>
         <translation type="vanished">Ошибка разбора перевода: %1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>WebTranslator</name>
+    <message>
+        <location filename="../WebTranslator.cpp" line="81"/>
+        <source>Перевод отменен по таймауту.</source>
+        <translation>Перевод отменен по таймауту.</translation>
+    </message>
+    <message>
+        <location filename="../WebTranslator.cpp" line="89"/>
+        <source>Ошибка загрузки страницы (%1) для перевода.</source>
+        <translation>Ошибка загрузки страницы (%1) для перевода.</translation>
+    </message>
+    <message>
+        <location filename="../WebTranslator.cpp" line="133"/>
+        <source>Нет сценариев для перевода. Измените настройки.</source>
+        <translation>Нет сценариев для перевода. Измените настройки.</translation>
     </message>
 </context>
 </TS>
