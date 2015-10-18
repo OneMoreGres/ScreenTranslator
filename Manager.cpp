@@ -23,12 +23,14 @@
 #include "LanguageHelper.h"
 #include "StAssert.h"
 #include "Utils.h"
+#include "Updater.h"
 
 Manager::Manager (QObject *parent) :
   QObject (parent),
   trayIcon_ (new QSystemTrayIcon (this)),
   dictionary_ (new LanguageHelper),
   resultDialog_ (new ResultDialog (*dictionary_)),
+  updater_ (new Updater (this)), updateTimer_ (new QTimer (this)),
   captureAction_ (NULL), repeatCaptureAction_ (NULL),
   repeatAction_ (NULL), clipboardAction_ (NULL),
   useResultDialog_ (true), doTranslation_ (true), itemProcessingCount_ (0) {
@@ -66,6 +68,11 @@ Manager::Manager (QObject *parent) :
 
   connect (this, SIGNAL (settingsEdited ()), this, SLOT (applySettings ()));
 
+  connect (updater_, SIGNAL (updated ()), SIGNAL (settingsEdited ()));
+  connect (updater_, SIGNAL (error (QString)), SLOT (showError (QString)));
+  updateTimer_->setSingleShot (true);
+  connect (updateTimer_, SIGNAL (timeout ()), SLOT (checkForUpdates ()));
+
   resultDialog_->setWindowIcon (trayIcon_->icon ());
   connect (this, SIGNAL (settingsEdited ()), resultDialog_, SLOT (applySettings ()));
   connect (resultDialog_, SIGNAL (requestRecognize (ProcessingItem)),
@@ -77,7 +84,6 @@ Manager::Manager (QObject *parent) :
            SLOT (copyLastImageToClipboard ()));
   connect (resultDialog_, SIGNAL (requestEdition (ProcessingItem)),
            this, SLOT (editRecognized (ProcessingItem)));
-
 
   connect (trayIcon_, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
            SLOT (processTrayAction (QSystemTrayIcon::ActivationReason)));
@@ -170,6 +176,8 @@ void Manager::applySettings () {
     proxy.setPassword (encode (GET (proxyPassword).toString ()));
   }
   QNetworkProxy::setApplicationProxy (proxy);
+
+  scheduleUpdate ();
   settings.endGroup ();
 
   settings.beginGroup (settings_names::recogntionGroup);
@@ -184,6 +192,27 @@ void Manager::applySettings () {
   Q_CHECK_PTR (dictionary_);
   dictionary_->updateAvailableOcrLanguages ();
 #undef GET
+}
+
+void Manager::scheduleUpdate (bool justChecked) {
+#define GET(NAME) settings.value (settings_names::NAME, settings_values::NAME)
+  QSettings settings;
+  settings.beginGroup (settings_names::guiGroup);
+  updateTimer_->stop ();
+  if (justChecked) {
+    settings.setValue (settings_names::lastUpdateCheck, QDateTime::currentDateTime ());
+  }
+  QDateTime nextUpdateCheck = updater_->nextCheckTime (GET (lastUpdateCheck).toDateTime (),
+                                                       GET (autoUpdateType).toInt ());
+  if (nextUpdateCheck.isValid ()) {
+    updateTimer_->start (QDateTime::currentDateTime ().msecsTo (nextUpdateCheck));
+  }
+#undef GET
+}
+
+void Manager::checkForUpdates () {
+  updater_->checkForUpdates ();
+  scheduleUpdate (true);
 }
 
 Manager::~Manager () {
@@ -275,6 +304,7 @@ void Manager::settings () {
   SettingsEditor editor (*dictionary_);
   editor.setWindowIcon (trayIcon_->icon ());
   connect (&editor, SIGNAL (settingsEdited ()), SIGNAL (settingsEdited ()));
+  connect (&editor, SIGNAL (updateCheckRequested ()), SLOT (checkForUpdates ()));
   updateActionsState (false);
   editor.exec ();
   updateActionsState (true);
@@ -285,11 +315,10 @@ void Manager::close () {
 }
 
 void Manager::about () {
-  QString version = "2.0.0";
   QString text = tr ("Программа для распознавания текста на экране.\n" \
                      "Создана с использованием Qt, tesseract-ocr, Google Translate.\n"
                      "Автор: Gres (translator@gres.biz)\n"
-                     "Версия: %1 от %2 %3").arg (version)
+                     "Версия: %1 от %2 %3").arg (updater_->currentAppVersion ())
                  .arg (__DATE__).arg (__TIME__);
   QString tips = tr ("\n\nПодсказки.\n"
                      "Клик по иконке в трее:\n"

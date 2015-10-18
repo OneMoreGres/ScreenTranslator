@@ -13,6 +13,7 @@ class QMenu;
 class SelectionDialog;
 class ResultDialog;
 class LanguageHelper;
+class Updater;
 
 class Manager : public QObject {
   Q_OBJECT
@@ -42,6 +43,7 @@ class Manager : public QObject {
     void copyLastImageToClipboard ();
 
     void applySettings ();
+    void checkForUpdates ();
 
     void processTrayAction (QSystemTrayIcon::ActivationReason reason);
 
@@ -56,6 +58,7 @@ class Manager : public QObject {
     QMenu * trayContextMenu ();
     void updateActionsState (bool isEnabled = true);
     void changeIcon (int iconType, int timeoutMsec = 3000);
+    void scheduleUpdate (bool justChecked = false);
 
   private:
     QSystemTrayIcon *trayIcon_;
@@ -63,6 +66,8 @@ class Manager : public QObject {
     //! Selection dialogs for each screen. Key - screen name.
     QMap<QString, SelectionDialog *> selections_;
     ResultDialog *resultDialog_;
+    Updater *updater_;
+    QTimer *updateTimer_;
     QAction *captureAction_;
     QAction *repeatCaptureAction_;
     QAction *repeatAction_;
