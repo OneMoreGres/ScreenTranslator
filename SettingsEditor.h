@@ -26,6 +26,7 @@ class SettingsEditor : public QDialog {
 
   signals:
     void settingsEdited ();
+    void updateCheckRequested ();
 
   public slots:
     void done (int result);

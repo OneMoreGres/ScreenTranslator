@@ -23,6 +23,10 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
 
   buttonGroup_->addButton (ui->trayRadio, 0);
   buttonGroup_->addButton (ui->dialogRadio, 1);
+  connect (ui->updateButton, SIGNAL (clicked (bool)), SIGNAL (updateCheckRequested ()));
+  QStringList updateTypes = QStringList () << tr ("Никогда") << tr ("Ежедневно")
+                                           << tr ("Еженедельно") << tr ("Ежемесячно");
+  ui->updateCombo->addItems (updateTypes);
 
   connect (ui->tessdataButton, SIGNAL (clicked ()), SLOT (openTessdataDialog ()));
   connect (ui->tessdataEdit, SIGNAL (textChanged (const QString &)),
@@ -89,6 +93,7 @@ void SettingsEditor::saveSettings () const {
     QNetworkProxy::setApplicationProxy (proxy);
   }
   settings.setValue (proxySavePassword, ui->proxySaveCheck->isChecked ());
+  settings.setValue (autoUpdateType, ui->updateCombo->currentIndex ());
   settings.endGroup ();
 
 
@@ -179,6 +184,7 @@ void SettingsEditor::loadSettings () {
   else {
     ui->proxyPassEdit->setText (QNetworkProxy::applicationProxy ().password ());
   }
+  ui->updateCombo->setCurrentIndex (GET (autoUpdateType).toInt ());
   settings.endGroup ();
 
   settings.beginGroup (settings_names::recogntionGroup);

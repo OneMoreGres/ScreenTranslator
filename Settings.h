@@ -18,6 +18,8 @@ namespace settings_names {
   const QString proxyUser = "proxyUser";
   const QString proxyPassword = "proxyPassword";
   const QString proxySavePassword = "proxySavePassword";
+  const QString autoUpdateType = "autoUpdateType";
+  const QString lastUpdateCheck = "lastUpdateCheck";
 
   //! Recognition
   const QString recogntionGroup = "Recognition";
@@ -51,6 +53,8 @@ namespace settings_values {
   const QString proxyUser = "";
   const QString proxyPassword = "";
   const bool proxySavePassword = false;
+  const int autoUpdateType = 0; //Never
+  const QString lastUpdateCheck = "";
 
   //! Recognition
   const QString tessDataPlace = "./";
