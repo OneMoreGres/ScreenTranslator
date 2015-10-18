@@ -6,5 +6,6 @@
         <file>images/STIconGreen.png</file>
         <file>images/STIconOrange.png</file>
         <file>images/STIconRed.png</file>
+        <file>version.json</file>
     </qresource>
 </RCC>

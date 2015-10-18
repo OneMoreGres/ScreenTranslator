@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     WebTranslatorProxy.cpp \
     TranslatorHelper.cpp \
     RecognizerHelper.cpp \
-    Utils.cpp
+    Utils.cpp \
+    Updater.cpp
 
 HEADERS  += \
     Manager.h \
@@ -59,7 +60,8 @@ HEADERS  += \
     StAssert.h \
     TranslatorHelper.h \
     RecognizerHelper.h \
-    Utils.h
+    Utils.h \
+    Updater.h
 
 FORMS    += \
     SettingsEditor.ui \
@@ -76,6 +78,7 @@ TRANSLATIONS += \
 OTHER_FILES += \
     app.rc \
     images/icon.ico \
+    version.json \
     README.md \
     uncrustify.cfg\
     translators/google.js \
