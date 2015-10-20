@@ -14,13 +14,13 @@ CONFIG += c++11
 
 win32{
     RC_FILE = app.rc
-    INCLUDEPATH += ../mingw/include
-    LIBS += -L../mingw/lib -lws2_32
+    INCLUDEPATH += $$PWD/../build/mingw/deps/include
+    LIBS += -L$$PWD/../build/mingw/deps/lib -lws2_32
 }
 linux{
     QT += x11extras
-    INCLUDEPATH += ../linux/include
-    LIBS += -L../linux/lib -lX11 -Wl,-rpath,.
+    INCLUDEPATH += $$PWD/../build/linux/deps/include
+    LIBS += -L$$PWD/../build/linux/deps/lib -lX11 -Wl,-rpath,.
 }
 
 LIBS += -ltesseract -llept
@@ -84,4 +84,6 @@ OTHER_FILES += \
     translators/google.js \
     translators/yandex.js \
     translators/bing.js \
+    distr/eng/Changelog.txt \
+    distr/ru/Changelog.txt \
     TODO.md
