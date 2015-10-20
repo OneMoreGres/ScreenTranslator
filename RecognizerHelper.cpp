@@ -1,9 +1,16 @@
+#include <QDir>
 #include <QFile>
+#include <QFileInfo>
+#include <QSettings>
 
 #include "RecognizerHelper.h"
 
 RecognizerHelper::RecognizerHelper ()
-  : fileName_ ("subs.csv") {
+  : fileName_ ("st_subs.csv") {
+#ifdef Q_OS_LINUX
+  QDir settingDir = QFileInfo (QSettings ().fileName ()).dir ();
+  fileName_ = settingDir.absoluteFilePath (fileName_);
+#endif
 }
 
 void RecognizerHelper::load () {
