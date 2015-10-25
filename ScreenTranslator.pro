@@ -76,14 +76,12 @@ TRANSLATIONS += \
     translations/translation_ru.ts
 
 OTHER_FILES += \
+    images/* \
+    translators/* \
+    scripts/* \
+    distr/* \
     app.rc \
-    images/icon.ico \
     version.json \
     README.md \
     uncrustify.cfg\
-    translators/google.js \
-    translators/yandex.js \
-    translators/bing.js \
-    distr/eng/Changelog.txt \
-    distr/ru/Changelog.txt \
     TODO.md
