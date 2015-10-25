@@ -142,25 +142,39 @@ void Manager::applySettings () {
   QSettings settings;
   settings.beginGroup (settings_names::guiGroup);
 
+  QStringList globalActionsFailed;
   Q_CHECK_PTR (captureAction_);
   GlobalActionHelper::removeGlobal (captureAction_);
   captureAction_->setShortcut (GET (captureHotkey).toString ());
-  GlobalActionHelper::makeGlobal (captureAction_);
+  if (!GlobalActionHelper::makeGlobal (captureAction_)) {
+    globalActionsFailed << captureAction_->shortcut ().toString ();
+  }
 
   Q_CHECK_PTR (repeatCaptureAction_);
   GlobalActionHelper::removeGlobal (repeatCaptureAction_);
   repeatCaptureAction_->setShortcut (GET (repeatCaptureHotkey).toString ());
-  GlobalActionHelper::makeGlobal (repeatCaptureAction_);
+  if (!GlobalActionHelper::makeGlobal (repeatCaptureAction_)) {
+    globalActionsFailed << repeatCaptureAction_->shortcut ().toString ();
+  }
 
   Q_CHECK_PTR (repeatAction_);
   GlobalActionHelper::removeGlobal (repeatAction_);
   repeatAction_->setShortcut (GET (repeatHotkey).toString ());
-  GlobalActionHelper::makeGlobal (repeatAction_);
+  if (!GlobalActionHelper::makeGlobal (repeatAction_)) {
+    globalActionsFailed << repeatAction_->shortcut ().toString ();
+  }
 
   Q_CHECK_PTR (clipboardAction_);
   GlobalActionHelper::removeGlobal (clipboardAction_);
   clipboardAction_->setShortcut (GET (clipboardHotkey).toString ());
-  GlobalActionHelper::makeGlobal (clipboardAction_);
+  if (!GlobalActionHelper::makeGlobal (clipboardAction_)) {
+    globalActionsFailed << clipboardAction_->shortcut ().toString ();
+  }
+
+  if (!globalActionsFailed.isEmpty ()) {
+    showError (tr ("Failed to register global shortcuts:\n%1")
+               .arg (globalActionsFailed.join ("\n")));
+  }
 
   // Depends on SettingsEditor button indexes. 1==dialog
   useResultDialog_ = GET (resultShowType).toBool ();
