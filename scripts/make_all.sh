@@ -6,8 +6,8 @@ cleanupDirInNeeded $WORK_DIR
 echo "Running all scripts for $PLATFORM"
 #./install_deps $@
 #./get_tessdata.sh $@
-./get_deps.sh $@
-./make_deps.sh $@
+#./get_deps.sh $@
+#./make_deps.sh $@
 ./make_app.sh $@
 if [ "$PLATFORM" == "linux" ]; then
   ./make_deb.sh $@

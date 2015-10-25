@@ -84,4 +84,5 @@ OTHER_FILES += \
     version.json \
     README.md \
     uncrustify.cfg\
+    .travis.yml \
     TODO.md

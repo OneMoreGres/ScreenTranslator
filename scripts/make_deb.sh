@@ -29,7 +29,9 @@ echo $CHANGELOG
 
 echo "Making deb"
 cp $SRC_DIR/LICENSE.md $DEB_DIR/DEBIAN/copyright
+mkdir -p $DEB_DIR/usr/share/pixmaps/
 cp $SRC_DIR/images/STIconBlue.png $DEB_DIR/usr/share/pixmaps/ScreenTranslator.png
+mkdir -p $DEB_DIR/$INSTALL_DIR/
 cp $APP_DIR/ScreenTranslator $DEB_DIR/$INSTALL_DIR/ScreenTranslator
 $STRIP -s $DEB_DIR/$INSTALL_DIR/ScreenTranslator
 cp -r $SRC_DIR/translators $DEB_DIR/$INSTALL_DIR/translators

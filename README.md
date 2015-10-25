@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/OneMoreGres/ScreenTranslator.svg)](https://travis-ci.org/OneMoreGres/ScreenTranslator.svg)
+
 Screen Translator
 =================
 
