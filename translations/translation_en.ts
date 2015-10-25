@@ -11,7 +11,7 @@
 <context>
     <name>Manager</name>
     <message>
-        <location filename="../Manager.cpp" line="94"/>
+        <location filename="../Manager.cpp" line="100"/>
         <source>Захват</source>
         <translation>Capture</translation>
     </message>
@@ -28,50 +28,57 @@
         <translation type="vanished">Copy</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="95"/>
+        <location filename="../Manager.cpp" line="101"/>
         <source>Повторить захват</source>
         <translation>Retry capture</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="97"/>
-        <location filename="../Manager.cpp" line="312"/>
-        <location filename="../Manager.cpp" line="370"/>
+        <location filename="../Manager.cpp" line="103"/>
+        <location filename="../Manager.cpp" line="365"/>
+        <location filename="../Manager.cpp" line="424"/>
         <source>Результат</source>
         <translation>Result</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="98"/>
+        <location filename="../Manager.cpp" line="104"/>
         <source>Показать</source>
         <translation>Show</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="100"/>
+        <location filename="../Manager.cpp" line="106"/>
         <source>В буфер</source>
         <translation>To clipboard</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="102"/>
+        <location filename="../Manager.cpp" line="108"/>
         <source>Настройки</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="103"/>
-        <location filename="../Manager.cpp" line="300"/>
+        <location filename="../Manager.cpp" line="109"/>
+        <location filename="../Manager.cpp" line="353"/>
         <source>О программе</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="104"/>
+        <location filename="../Manager.cpp" line="110"/>
         <source>Выход</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="235"/>
+        <location filename="../Manager.cpp" line="175"/>
+        <source>Failed to register global shortcuts:
+%1</source>
+        <translation>Failed to register global shortcuts:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../Manager.cpp" line="288"/>
         <source>Не найден подходящий язык распознавания.</source>
         <translation>Failed to find selected recognition language.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="281"/>
+        <location filename="../Manager.cpp" line="334"/>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)
@@ -79,7 +86,7 @@
         <translation>Screen text recognition and translation program. \n Uses Qt,  tesseract-ocr, Google Translate. \n Author: Gres (translator@gres.biz) \n Version: %1 from %2 %3</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="286"/>
+        <location filename="../Manager.cpp" line="339"/>
         <source>
 
 Подсказки.
@@ -106,17 +113,17 @@ Key modifiers what capturing :
 </translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="313"/>
+        <location filename="../Manager.cpp" line="366"/>
         <source>Последний результат был скопирован в буфер обмена.</source>
         <translation>Last result has been copied to clipboard.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="323"/>
+        <location filename="../Manager.cpp" line="376"/>
         <source>Правка</source>
         <translation>Correction</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="323"/>
+        <location filename="../Manager.cpp" line="376"/>
         <source>Исправьте распознанный текст</source>
         <translation>Correct recognized text</translation>
     </message>
@@ -131,7 +138,7 @@ Key modifiers what capturing :
         <translation type="vanished">Last translation has been copied to the clipboard.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="378"/>
+        <location filename="../Manager.cpp" line="432"/>
         <source>Ошибка</source>
         <translation>Error</translation>
     </message>
@@ -264,6 +271,7 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="162"/>
+        <location filename="../LanguageHelper.cpp" line="278"/>
         <source>Georgian</source>
         <translation>Georgian</translation>
     </message>
@@ -316,6 +324,7 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="171"/>
+        <location filename="../LanguageHelper.cpp" line="273"/>
         <source>Irish</source>
         <translation>Irish</translation>
     </message>
@@ -375,6 +384,7 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="181"/>
+        <location filename="../LanguageHelper.cpp" line="272"/>
         <source>Persian</source>
         <translation>Persian</translation>
     </message>
@@ -457,6 +467,7 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="195"/>
+        <location filename="../LanguageHelper.cpp" line="297"/>
         <source>Urdu</source>
         <translation>Urdu</translation>
     </message>
@@ -468,11 +479,13 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="197"/>
+        <location filename="../LanguageHelper.cpp" line="270"/>
         <source>Welsh</source>
         <translation>Welsh</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="198"/>
+        <location filename="../LanguageHelper.cpp" line="299"/>
         <source>Yiddish</source>
         <translation>Yiddish</translation>
     </message>
@@ -551,6 +564,151 @@ Key modifiers what capturing :
         <source>Bengali</source>
         <translation>Bengali</translation>
     </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="265"/>
+        <source>Amharic</source>
+        <translation>Amharic</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="266"/>
+        <source>Assamese</source>
+        <translation>Assamese</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="267"/>
+        <source>Tibetan</source>
+        <translation>Tibetan</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="268"/>
+        <source>Bosnian</source>
+        <translation>Bosnian</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="269"/>
+        <source>Cebuano</source>
+        <translation>Cebuano</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="271"/>
+        <source>Dzongkha</source>
+        <translation>Dzongkha</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="274"/>
+        <source>Gujarati</source>
+        <translation>Gujarati</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="275"/>
+        <source>Haitian</source>
+        <translation>Haitian</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="276"/>
+        <source>Inuktitut</source>
+        <translation>Inuktitut</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="277"/>
+        <source>Javanese</source>
+        <translation>Javanese</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="279"/>
+        <source>Kazakh</source>
+        <translation>Kazakh</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="280"/>
+        <source>Khmer</source>
+        <translation>Khmer</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="281"/>
+        <source>Kirghiz</source>
+        <translation>Kirghiz</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="282"/>
+        <source>Kurdish</source>
+        <translation>Kurdish</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="283"/>
+        <source>Lao</source>
+        <translation>Lao</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="284"/>
+        <source>Latin</source>
+        <translation>Latin</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="285"/>
+        <source>Marathi</source>
+        <translation>Marathi</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="286"/>
+        <source>Burmese</source>
+        <translation>Burmese</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="287"/>
+        <source>Nepali</source>
+        <translation>Nepali</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="288"/>
+        <source>Oriya</source>
+        <translation>Oriya</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="289"/>
+        <source>Panjabi</source>
+        <translation>Panjabi</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="290"/>
+        <source>Pushto</source>
+        <translation>Pushto</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="291"/>
+        <source>Sanskrit</source>
+        <translation>Sanskrit</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="292"/>
+        <source>Sinhala</source>
+        <translation>Sinhala</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="293"/>
+        <source>Syriac</source>
+        <translation>Syriac</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="294"/>
+        <source>Tajik</source>
+        <translation>Tajik</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="295"/>
+        <source>Tigrinya</source>
+        <translation>Tigrinya</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="296"/>
+        <source>Uighur</source>
+        <translation>Uighur</translation>
+    </message>
+    <message>
+        <location filename="../LanguageHelper.cpp" line="298"/>
+        <source>Uzbek</source>
+        <translation>Uzbek</translation>
+    </message>
 </context>
 <context>
     <name>Recognizer</name>
@@ -611,7 +769,7 @@ Key modifiers what capturing :
         <translation>Selection</translation>
     </message>
     <message>
-        <location filename="../SelectionDialog.cpp" line="32"/>
+        <location filename="../SelectionDialog.cpp" line="33"/>
         <source>Поменять язык текста и перевода</source>
         <translation>Swap recognition/translation languages</translation>
     </message>
@@ -678,7 +836,7 @@ Key modifiers what capturing :
         <translation type="vanished">Repeat</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="214"/>
+        <location filename="../SettingsEditor.ui" line="268"/>
         <source>Распознавание</source>
         <translation>Recognition</translation>
     </message>
@@ -687,23 +845,23 @@ Key modifiers what capturing :
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Required for recognition.&lt;/p&gt;&lt;p&gt;Can me downloaded from there: &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/downloads/list&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://code.google.com/p/tesseract-ocr/downloads/list&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="223"/>
-        <location filename="../SettingsEditor.cpp" line="149"/>
+        <location filename="../SettingsEditor.ui" line="277"/>
+        <location filename="../SettingsEditor.cpp" line="153"/>
         <source>Путь к tessdata</source>
         <translation>Tessdata path</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="236"/>
+        <location filename="../SettingsEditor.ui" line="290"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="243"/>
+        <location filename="../SettingsEditor.ui" line="297"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Values depend on tessdata contents&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="246"/>
+        <location filename="../SettingsEditor.ui" line="300"/>
         <source>Язык распознавания</source>
         <translation>Recognition language</translation>
     </message>
@@ -712,152 +870,167 @@ Key modifiers what capturing :
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Image scaling for better recognition. More is better (reasonable), but slower.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="262"/>
+        <location filename="../SettingsEditor.ui" line="316"/>
         <source>Увеличение масштаба</source>
         <translation>Scale factor</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="101"/>
+        <location filename="../SettingsEditor.ui" line="182"/>
         <source>Вывод результата</source>
         <translation>Result representation</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="107"/>
+        <location filename="../SettingsEditor.ui" line="194"/>
         <source>Трей</source>
         <translation>Tray</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="114"/>
+        <location filename="../SettingsEditor.ui" line="207"/>
         <source>Окно</source>
         <translation>Window</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="127"/>
+        <location filename="../SettingsEditor.ui" line="101"/>
         <source>Прокси</source>
         <translation>Proxy</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="133"/>
+        <location filename="../SettingsEditor.ui" line="107"/>
         <source>Тип:</source>
         <translation>Type:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="143"/>
+        <location filename="../SettingsEditor.ui" line="117"/>
         <source>Пользователь:</source>
         <translation>User:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="153"/>
+        <location filename="../SettingsEditor.ui" line="127"/>
         <source>Адрес:</source>
         <translation>Host:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="163"/>
+        <location filename="../SettingsEditor.ui" line="137"/>
         <source>Пароль:</source>
         <translation>Password:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="173"/>
+        <location filename="../SettingsEditor.ui" line="147"/>
         <source>Порт:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="190"/>
+        <location filename="../SettingsEditor.ui" line="164"/>
         <source>Сохранять пароль (небезопасно)</source>
         <translation>Save password (unsafe)</translation>
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="220"/>
+        <source>Обновление</source>
+        <translation>Updates</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="226"/>
+        <source>Проверять обновления:</source>
+        <translation>Check interval:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="242"/>
+        <source>Проверить</source>
+        <translation>Check now</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="274"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://github.com/tesseract-ocr/tessdata&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#7593bc;&quot;&gt;https://github.com/tesseract-ocr/tessdata&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;quot;./&amp;quot; означает, что папка &amp;quot;tessdata&amp;quot; находится в одной директории с исполняемым файлом программы.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Required for recognition.&lt;/p&gt;&lt;p&gt;Can me downloaded from there: &lt;a href=&quot;https://github.com/tesseract-ocr/tessdata&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#7593bc;&quot;&gt;https://github.com/tesseract-ocr/tessdata&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;quot;./&amp;quot; means that .&amp;quot;tessdata&amp;quot; is in the same folder as program&apos;s binary&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="259"/>
+        <location filename="../SettingsEditor.ui" line="313"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее и потребляет больше памяти.&lt;/p&gt;&lt;p&gt;Рекомендуемые значения от 5 до 10.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Image scaling can improve recognition results. More is better (up to reasonable limits), but slower and consumes more memory.&lt;/p&gt;&lt;p&gt;Recommended values are between 5 and 10.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="275"/>
+        <location filename="../SettingsEditor.ui" line="329"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Символы, регулярно распознаваемые с ошибками. При обнаружении будут заменены на указанные.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Symbols to replace in recognition results. Allows to avoid repeating errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="278"/>
+        <location filename="../SettingsEditor.ui" line="332"/>
         <source>Исправления:</source>
         <translation>Substitutions:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="295"/>
+        <location filename="../SettingsEditor.ui" line="349"/>
         <source>Язык</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="300"/>
+        <location filename="../SettingsEditor.ui" line="354"/>
         <source>Исходный текст</source>
         <translation>Source</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="305"/>
+        <location filename="../SettingsEditor.ui" line="359"/>
         <source>Исправление</source>
         <translation>Target</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="314"/>
+        <location filename="../SettingsEditor.ui" line="368"/>
         <source>Перевод</source>
         <translation>Translation</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="320"/>
+        <location filename="../SettingsEditor.ui" line="374"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled - recognized text will be translated. Only recognize otherwise.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="323"/>
+        <location filename="../SettingsEditor.ui" line="377"/>
         <source>Переводить текст</source>
         <translation>Translate text</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="330"/>
+        <location filename="../SettingsEditor.ui" line="384"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays translator&apos;s window. Should me used only for new translators development.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="333"/>
+        <location filename="../SettingsEditor.ui" line="387"/>
         <source>Режим отладки</source>
         <translation>Debug mode</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="340"/>
+        <location filename="../SettingsEditor.ui" line="394"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max time of translation process.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="343"/>
+        <location filename="../SettingsEditor.ui" line="397"/>
         <source>Максимальное время перевода:</source>
         <translation>Max translation time:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="350"/>
+        <location filename="../SettingsEditor.ui" line="404"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Translated text language.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="353"/>
+        <location filename="../SettingsEditor.ui" line="407"/>
         <source>Язык результата:</source>
         <translation>Translation language:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="363"/>
+        <location filename="../SettingsEditor.ui" line="417"/>
         <source>Переводчики:</source>
         <translation>Translators:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="376"/>
+        <location filename="../SettingsEditor.ui" line="430"/>
         <source> сек.</source>
         <translation>secs.</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="383"/>
+        <location filename="../SettingsEditor.ui" line="437"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sorted by priority descending.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -1154,17 +1327,37 @@ Key modifiers what capturing :
         <translation type="vanished">Bengali</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.cpp" line="38"/>
+        <location filename="../SettingsEditor.cpp" line="27"/>
+        <source>Никогда</source>
+        <translation>Never</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="27"/>
+        <source>Ежедневно</source>
+        <translation>Daily</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="28"/>
+        <source>Еженедельно</source>
+        <translation>Weekly</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="28"/>
+        <source>Ежемесячно</source>
+        <translation>Monthly</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.cpp" line="42"/>
         <source>Нет</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.cpp" line="39"/>
+        <location filename="../SettingsEditor.cpp" line="43"/>
         <source>SOCKS 5</source>
         <translation>SOCKS 5</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.cpp" line="40"/>
+        <location filename="../SettingsEditor.cpp" line="44"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
@@ -1186,6 +1379,68 @@ Key modifiers what capturing :
     <message>
         <source>Ошибка разбора перевода: %1 (%2)</source>
         <translation type="vanished">Translation parsing error: %1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>Updater</name>
+    <message>
+        <location filename="../Updater.cpp" line="86"/>
+        <source>Ошибка определения текущей версии. Обновление недоступно.</source>
+        <translation>Current version check error. Updates disabled.</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="124"/>
+        <source>Ошибка загрузки информации для обновления.</source>
+        <translation>Update load error.</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="175"/>
+        <source>Доступно обновлений: %1.
+</source>
+        <translation>Updates available: %1.
+</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="178"/>
+        <source>Несовместимых обновлений: %1.
+Выполните обновление вручную.</source>
+        <translation>Incompatible updates: %1.
+Perform manual update.</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="182"/>
+        <source>Недоступных для записи директорий: %1.
+%2
+Измените права доступа и повторите попытку или выполните обновление вручную.</source>
+        <translation>Inaccessible dirs (no write access): %1.
+%2
+Change dirs permissions and try again or perform manual update.</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="187"/>
+        <source>Обновить?</source>
+        <translation>Update?</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="190"/>
+        <location filename="../Updater.cpp" line="249"/>
+        <source>Обновление</source>
+        <translation>Update</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="232"/>
+        <source>Ошибка обновления файла (%1).</source>
+        <translation>File update error (%1).</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="247"/>
+        <source>Обновление завершено. Для активации некоторых компонентов может потребоваться перезапуск.</source>
+        <translation>Update finished. Some components may require restart to work.</translation>
+    </message>
+    <message>
+        <location filename="../Updater.cpp" line="256"/>
+        <source>Ошибка обновления файла с текущей версией.</source>
+        <translation>Failed to update current version file.</translation>
     </message>
 </context>
 <context>
