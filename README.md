@@ -28,11 +28,12 @@ Limitations
 * Works only on primary screen
 * Can not capture some dynamic web-pages
 * Not very precise OCR
+* Not all functions are cross-platform (may be bugged on some systems)
 
 Used software
 -------------
 * see [Qt 5](http://qt-project.org/)
 * see [Tesseract](https://code.google.com/p/tesseract-ocr/)
 * see [Leptonica](http://leptonica.com/) (Tesseract dependency)
-* Google Translate
+* several online translation services
 
