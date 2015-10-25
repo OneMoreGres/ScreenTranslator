@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QSettings>
+#include <QApplication>
 
 #include "RecognizerHelper.h"
 
@@ -10,6 +11,8 @@ RecognizerHelper::RecognizerHelper ()
 #ifdef Q_OS_LINUX
   QDir settingDir = QFileInfo (QSettings ().fileName ()).dir ();
   fileName_ = settingDir.absoluteFilePath (fileName_);
+#else
+  fileName_ = QApplication::applicationDirPath () + QDir::separator () + fileName_;
 #endif
 }
 

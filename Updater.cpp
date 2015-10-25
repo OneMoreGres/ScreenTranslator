@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QMessageBox>
+#include <QApplication>
 
 #include "Updater.h"
 #include "StAssert.h"
@@ -44,7 +45,7 @@ Updater::Updater (QObject *parent)
   : QObject (parent),
   network_ (new QNetworkAccessManager (this)),
   componentsUpdating_ (0) {
-  updatesFileName_ = "updates.json";
+  updatesFileName_ = QApplication::applicationDirPath () + QDir::separator () + "updates.json";
   backupSuffix_ = "_backup";
   connect (network_, SIGNAL (finished (QNetworkReply *)),
            SLOT (replyFinished (QNetworkReply *)));

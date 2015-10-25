@@ -1,12 +1,14 @@
 #include <QSettings>
 #include <QDir>
 #include <QFile>
+#include <QApplication>
 
 #include "TranslatorHelper.h"
 #include "Settings.h"
 
 TranslatorHelper::TranslatorHelper ()
   : translatorsDir_ ("translators"), currentIndex_ (0) {
+  translatorsDir_ = QApplication::applicationDirPath () + QDir::separator () + translatorsDir_;
 }
 
 void TranslatorHelper::setEnabledTranslators (const QStringList &enabled) const {
