@@ -13,7 +13,6 @@ TEMPLATE = app
 CONFIG += c++11
 
 win32{
-    RC_FILE = app.rc
     INCLUDEPATH += $$PWD/../build/mingw/deps/include
     LIBS += -L$$PWD/../build/mingw/deps/lib -lws2_32
 }
@@ -80,9 +79,14 @@ OTHER_FILES += \
     translators/* \
     scripts/* \
     distr/* \
-    app.rc \
     version.json \
     README.md \
     uncrustify.cfg\
     .travis.yml \
     TODO.md
+
+QMAKE_TARGET_COMPANY = Gres
+QMAKE_TARGET_PRODUCT = Screen Translator
+QMAKE_TARGET_COPYRIGHT = Copyright (c) Gres
+VERSION = 2.0.0.0
+RC_ICONS = images/icon.ico
