@@ -5,6 +5,7 @@ set -e
 PLATFORM=linux
 CLEAN=false
 JOBS=""
+QT_CHOOSER="-qt=qt5"
 QMAKE=qmake
 QT_LIB_DIR=/usr/lib/x86_64-linux-gnu
 STRIP=strip
@@ -17,6 +18,7 @@ for arg in ${@}; do
     "-j"* ) JOBS=$arg;;
     *"qmake" ) QMAKE=$arg
       QT_LIB_DIR=`readlink -e $(dirname $arg)/../lib`
+      QT_CHOOSER=""
       ;;
   esac
 done

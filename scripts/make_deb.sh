@@ -2,6 +2,15 @@
 
 source ./options.sh $@
 
+U_VER="15.04"
+
+for arg in ${@}; do
+  case "$arg" in
+    "15.10" ) U_VER=$arg;;
+  esac
+done
+
+
 cleanupDirInNeeded $DEB_DIR
 
 cp -r $SRC_DISTR_DIR/deb/* $DEB_DIR
@@ -42,6 +51,9 @@ sed "s/Version=.*\+/Version=$VERSION/" -i $DEB_DIR/usr/share/applications/Screen
 SIZE=$(expr `du -bs $DEB_DIR | cut -f1` / 1024)
 sed "s/Installed-Size:.*\+/Installed-Size: $SIZE/" -i $DEB_DIR/DEBIAN/control
 echo -e $(makeChangelog) > $DEB_DIR/DEBIAN/changelog
+if [ "$U_VER" == "15.10" ]; then
+  sed "s/libtesseract3/libtesseract3v5/" -i $DEB_DIR/DEBIAN/control
+fi
 
-fakeroot dpkg-deb --build $DEB_DIR $WORK_DIR/screen-translator-$VERSION.deb
+fakeroot dpkg-deb --build $DEB_DIR $WORK_DIR/screen-translator-$VERSION-$U_VER.deb
 
