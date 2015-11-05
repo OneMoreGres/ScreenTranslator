@@ -103,6 +103,10 @@ void ResultDialog::showResult (ProcessingItem item) {
 
   show ();
   adjustSize ();
+#ifdef Q_OS_LINUX
+  hide (); // buggy otherwise (on some systems)
+  show ();
+#endif
 
   QDesktopWidget *desktop = QApplication::desktop ();
   Q_CHECK_PTR (desktop);
