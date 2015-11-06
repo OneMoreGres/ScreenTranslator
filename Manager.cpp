@@ -374,6 +374,8 @@ void Manager::editRecognized (ProcessingItem item) {
     NULL, tr ("Правка"), tr ("Исправьте распознанный текст"), item.recognized);
   if (!fixed.isEmpty ()) {
     item.recognized = fixed;
+    ++itemProcessingCount_;
+    updateNormalIcon ();
     emit requestTranslate (item);
   }
 }
