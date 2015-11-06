@@ -32,8 +32,8 @@ namespace {
 
   QString versionField (const QJsonObject &component, const QString &field) {
     return component.contains (field + _platform)
-           ? component[field + _platform].toString ()
-           : component[field].toString ();
+           ? component[field + _platform].toVariant ().toString ()
+           : component[field].toVariant ().toString ();
   }
 
   QFileInfo fileDir (const QString &fileName) {
