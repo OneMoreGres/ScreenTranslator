@@ -8,7 +8,7 @@
         "built_in": true,
         "versionString": "2.0.0",
         "permissions": "0x7755",
-        "url_win": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/releases/2.0.0/ScreenTranslator.exe",
+        "url_win": "https://github.com/OneMoreGres/ScreenTranslator/releases/download/2.0.0/ScreenTranslator.exe",
         "path_win": "ScreenTranslator.exe",
         "url_linux": "disabled",
         "path_linux": "ScreenTranslator"
