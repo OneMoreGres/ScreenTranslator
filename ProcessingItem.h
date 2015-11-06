@@ -3,18 +3,22 @@
 
 #include <QPixmap>
 
-struct ProcessingItem
-{
-    QPoint screenPos;
-    QPixmap source;
-    QString recognized;
-    QString translated;
+struct ProcessingItem {
+  ProcessingItem ();
+  QPoint screenPos;
+  QPixmap source;
+  QString recognized;
+  QString translated;
 
-    QString ocrLanguage;
-    QString sourceLanguage;
+  QString ocrLanguage;
+  QString sourceLanguage;
+  QString translateLanguage;
 
-    bool isValid () const;
+  Qt::KeyboardModifiers modifiers;
+  bool swapLanguages_;
+
+  bool isValid (bool checkOnlyInput = false) const;
 };
-Q_DECLARE_METATYPE(ProcessingItem)
+Q_DECLARE_METATYPE (ProcessingItem)
 
 #endif // PROCESSINGITEM_H

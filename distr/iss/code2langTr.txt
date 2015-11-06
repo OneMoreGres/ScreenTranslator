@@ -1,0 +1,109 @@
+#iso-639-3 standard code to names
+afr Afrikaans Африкаанс 
+amh Amharic Амхарский 
+ara Arabic Арабский 
+asm Assamese Ассамский 
+aze Azerbaijani Азербайджанский 
+#aze_cyrl aze_cyrl 
+bel Belarusian Белорусский 
+ben Bengali Бенгальский 
+bod Tibetan Тибетский 
+bos Bosnian Боснийский 
+bul Bulgarian Болгарии 
+cat Catalan Каталонский 
+ceb Cebuano Кебуано 
+ces Czech Чешский 
+chi_sim Chineese_simplified Китайский_упрощенный 
+chi_tra Chineese_traditional Китайский_традиционный 
+chr Cherokee Чероки 
+cym Welsh Валлийский 
+dan Danish Датский 
+#dan_frak dan_frak 
+deu German Немецкий 
+#deu_frak deu_frak 
+dzo Dzongkha Джонгкха 
+ell Modern_Greek Новогреческий 
+eng English Английский 
+enm Middle_English Средневековый_английский 
+epo Esperanto Эсперанто 
+equ Math Математика 
+est Estonian Эстонский 
+eus Basque Басков 
+fas Persian Персидский 
+fin Finnish Финский 
+fra French Французский 
+frk Frankish Франкский 
+frm Middle_French Средневековый_французский 
+gle Irish Ирландский 
+glg Galician Галисийский 
+grc Ancient_Greek Древнегреческий 
+guj Gujarati Гуджарати 
+hat Haitian Гаити 
+heb Hebrew Иврит 
+hin Hindi Хинди 
+hrv Croatian Хорватский 
+hun Hungarian Венгерский 
+iku Inuktitut Инуктитут 
+ind Indonesian Индонезийский 
+isl Icelandic Исландский 
+ita Italian Итальянский 
+#ita_old ita_old 
+jav Javanese Яванский 
+jpn Japanese Японский 
+kan Kannada Каннада 
+kat Georgian Грузинский 
+#kat_old kat_old 
+kaz Kazakh Казахский 
+khm Khmer Кхмерский 
+kir Kirghiz Киргизский 
+kor Korean Корейский 
+kur Kurdish Курдский 
+lao Lao Лао 
+lat Latin Латинский 
+lav Latvian Латышский 
+lit Lithuanian Литовский 
+mal Malayalam Малаялам 
+mar Marathi Маратхи 
+mkd Macedonian Македонский 
+mlt Maltese Мальтийский 
+msa Malay Малайский 
+mya Burmese Бирманский 
+nep Nepali Непальский 
+nld Dutch Голландский 
+nor Norwegian Норвежский 
+ori Oriya Ория 
+#osd OSD OSD 
+pan Panjabi Панджаби 
+pol Polish Польский 
+por Portuguese Португальский 
+pus Pushto Пушту 
+ron Romanian Румынский 
+rus Russian Русский 
+san Sanskrit Санскрит 
+sin Sinhala Сингальский 
+slk Slovak Словацкий 
+#slk_frak slk_frak 
+slv Slovenian Словенский 
+spa Spanish Испанский 
+#spa_old spa_old 
+sqi Albanian Албанский 
+srp Serbian Сербский 
+#srp_latn srp_latn 
+swa Swahili Суахили 
+swe Swedish Шведский 
+syr Syriac Сирийский 
+tam Tamil Тамил 
+tel Telugu Телугу 
+tgk Tajik Таджикиский 
+tgl Tagalog Тагальский 
+tha Thai Тайский 
+tir Tigrinya Тиграи 
+tur Turkish Турецкий 
+uig Uighur Уйгурский 
+ukr Ukrainian Украинский 
+urd Urdu Урду 
+uzb Uzbek Узбекский 
+#uzb_cyrl uzb_cyrl 
+vie Vietnamese Вьетнамский 
+yid Yiddish Идиш 
+ 

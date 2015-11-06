@@ -1,0 +1,19 @@
+language: cpp
+compiler:
+  - gcc
+  - clang
+sudo: required
+dist: trusty
+install: ./scripts/install_deps.sh
+script: cd scripts && ./make_all.sh
+branches:
+  only:
+    - master
+    - develop
+    - /release.*/
+    - /.*travis/
+os:
+  - linux
+email:
+  on_success: change
+  on_failure: change

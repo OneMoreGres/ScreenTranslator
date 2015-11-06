@@ -8,159 +8,115 @@
 #include <QDebug>
 #include <QMenu>
 
-SelectionDialog::SelectionDialog(const LanguageHelper &dictionary, QWidget *parent) :
-  QDialog(parent),
-  ui(new Ui::SelectionDialog), dictionary_ (dictionary),
-  languageMenu_ (new QMenu)
-{
-  ui->setupUi(this);
+SelectionDialog::SelectionDialog (const LanguageHelper &dictionary, QWidget *parent) :
+  QDialog (parent),
+  ui (new Ui::SelectionDialog), dictionary_ (dictionary),
+  languageMenu_ (new QMenu), swapLanguagesAction_ (NULL) {
+  ui->setupUi (this);
   setWindowFlags (Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
-                  Qt::WindowStaysOnTopHint);
+                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
-  ui->label->setAutoFillBackground(false);
+  ui->label->setAutoFillBackground (false);
   ui->label->installEventFilter (this);
 
-  updateMenu ();
+  applySettings ();
 }
 
-SelectionDialog::~SelectionDialog()
-{
+SelectionDialog::~SelectionDialog () {
+  delete languageMenu_;
   delete ui;
 }
 
-void SelectionDialog::updateMenu()
-{
-  Q_CHECK_PTR (languageMenu_);
-  languageMenu_->clear ();
-  QStringList languages = dictionary_.availableOcrLanguagesUi ();
-  if (languages.isEmpty ())
-  {
-    return;
-  }
-
-  const int max = 10;
-
-  if (languages.size () <= max)
-  {
-    foreach (const QString& language, languages)
-    {
-      languageMenu_->addAction (language);
-    }
-  }
-  else
-  {
-    int subIndex = max;
-    QMenu* subMenu = NULL;
-    QString prevLetter;
-    foreach (const QString& language, languages)
-    {
-      QString curLetter = language.left (1);
-      if (++subIndex >= max && prevLetter != curLetter)
-      {
-        if (subMenu != NULL)
-        {
-          subMenu->setTitle (subMenu->title () + " - " + prevLetter);
-        }
-        subMenu = languageMenu_->addMenu (curLetter);
-        subIndex = 0;
-      }
-      prevLetter = curLetter;
-      subMenu->addAction (language);
-    }
-    subMenu->setTitle (subMenu->title () + " - " + prevLetter);
+void SelectionDialog::applySettings () {
+  dictionary_.updateMenu (languageMenu_, dictionary_.availableOcrLanguagesUi ());
+  if (!languageMenu_->isEmpty ()) {
+    swapLanguagesAction_ = languageMenu_->addAction (tr ("Поменять язык текста и перевода"));
   }
 }
 
-bool SelectionDialog::eventFilter(QObject* object, QEvent* event)
-{
-  if (object != ui->label)
-  {
+bool SelectionDialog::eventFilter (QObject *object, QEvent *event) {
+  if (object != ui->label) {
     return QDialog::eventFilter (object, event);
   }
 
-  if (event->type () == QEvent::Show)
-  {
+  if (event->type () == QEvent::Show) {
     startSelectPos_ = currentSelectPos_ = QPoint ();
   }
-  else if (event->type () == QEvent::MouseButtonPress)
-  {
-    QMouseEvent* mouseEvent = static_cast <QMouseEvent*> (event);
+  else if (event->type () == QEvent::MouseButtonPress) {
+    QMouseEvent *mouseEvent = static_cast <QMouseEvent *> (event);
     if ((mouseEvent->button () == Qt::LeftButton ||
-         mouseEvent->button () == Qt::RightButton) && startSelectPos_.isNull ())
-    {
+         mouseEvent->button () == Qt::RightButton) && startSelectPos_.isNull ()) {
       startSelectPos_ = mouseEvent->pos ();
     }
   }
-  else if (event->type () == QEvent::MouseMove)
-  {
-    QMouseEvent* mouseEvent = static_cast <QMouseEvent*> (event);
+  else if (event->type () == QEvent::MouseMove) {
+    QMouseEvent *mouseEvent = static_cast <QMouseEvent *> (event);
     if ((mouseEvent->buttons () & Qt::LeftButton ||
-        mouseEvent->buttons () & Qt::RightButton) && !startSelectPos_.isNull ())
-    {
+         mouseEvent->buttons () & Qt::RightButton) && !startSelectPos_.isNull ()) {
       currentSelectPos_ = mouseEvent->pos ();
       ui->label->repaint ();
     }
   }
-  else if (event->type () == QEvent::Paint)
-  {
+  else if (event->type () == QEvent::Paint) {
     QRect selection = QRect (startSelectPos_, currentSelectPos_).normalized ();
-    if (selection.isValid ())
-    {
+    if (selection.isValid ()) {
       QPainter painter (ui->label);
       painter.setPen (Qt::red);
       painter.drawRect (selection);
     }
   }
-  else if (event->type () == QEvent::MouseButtonRelease)
-  {
-    QMouseEvent* mouseEvent = static_cast <QMouseEvent*> (event);
+  else if (event->type () == QEvent::MouseButtonRelease) {
+    QMouseEvent *mouseEvent = static_cast <QMouseEvent *> (event);
     if (mouseEvent->button () == Qt::LeftButton ||
-        mouseEvent->button () == Qt::RightButton)
-    {
-      if (startSelectPos_.isNull () || currentPixmap_.isNull ())
-      {
+        mouseEvent->button () == Qt::RightButton) {
+      if (startSelectPos_.isNull () || currentPixmap_.isNull ()) {
         return QDialog::eventFilter (object, event);
       }
       QPoint endPos = mouseEvent->pos ();
       QRect selection = QRect (startSelectPos_, endPos).normalized ();
+      startSelectPos_ = currentSelectPos_ = QPoint ();
       QPixmap selectedPixmap = currentPixmap_.copy (selection);
-      if (!selectedPixmap.isNull ())
-      {
-        ProcessingItem item;
-        item.source = selectedPixmap;
-        item.screenPos = selection.topLeft ();
+      if (selectedPixmap.width () < 3 || selectedPixmap.height () < 3) {
+        reject ();
+        return QDialog::eventFilter (object, event);
+      }
+      ProcessingItem item;
+      item.source = selectedPixmap;
+      item.screenPos = pos () + selection.topLeft ();
+      item.modifiers = mouseEvent->modifiers ();
 
-        if (mouseEvent->button () == Qt::RightButton &&
-            !languageMenu_->children ().isEmpty ())
-        {
-          QAction* action = languageMenu_->exec (QCursor::pos ());
-          if (action == NULL)
-          {
-            reject ();
-            return QDialog::eventFilter (object, event);
-          }
+      if (mouseEvent->button () == Qt::RightButton &&
+          !languageMenu_->children ().isEmpty ()) {
+        QAction *action = languageMenu_->exec (QCursor::pos ());
+        if (action == NULL) {
+          reject ();
+          return QDialog::eventFilter (object, event);
+        }
+        if (action == swapLanguagesAction_) {
+          item.swapLanguages_ = true;
+        }
+        else {
           item.ocrLanguage = dictionary_.ocrUiToCode (action->text ());
           ST_ASSERT (!item.ocrLanguage.isEmpty ());
-          item.sourceLanguage = dictionary_.translateForOcrCode (item.ocrLanguage);
+          item.sourceLanguage = dictionary_.ocrToTranslateCodes (item.ocrLanguage);
           ST_ASSERT (!item.sourceLanguage.isEmpty ());
         }
-        emit selected (item);
-        accept ();
       }
+      emit selected (item);
     }
   }
   return QDialog::eventFilter (object, event);
 }
 
-void SelectionDialog::setPixmap(QPixmap pixmap)
-{
+void SelectionDialog::setPixmap (QPixmap pixmap, const QRect &showGeometry) {
   ST_ASSERT (!pixmap.isNull ());
+  ST_ASSERT (!showGeometry.isEmpty ());
   currentPixmap_ = pixmap;
   QPalette palette = this->palette ();
   palette.setBrush (this->backgroundRole (), pixmap);
   this->setPalette (palette);
-  this->resize (pixmap.size ());
+  this->setGeometry (showGeometry);
 
   show ();
-  setFocus ();
+  activateWindow ();
 }

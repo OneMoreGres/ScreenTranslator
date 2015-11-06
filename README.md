@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/OneMoreGres/ScreenTranslator.svg)](https://travis-ci.org/OneMoreGres/ScreenTranslator.svg)
+
 Screen Translator
 =================
 
@@ -14,7 +16,7 @@ Usage
 
 Features
 --------
-* Many OCR languages (can be modified dynamicly)
+* Many OCR languages (can be modified dynamically)
 * Global hotkeys for main actions
 * Copy last translation to clipboard
 * Repeat last translation
@@ -27,12 +29,13 @@ Limitations
 -----------
 * Works only on primary screen
 * Can not capture some dynamic web-pages
-* Not very precise OCR (need better preprocessing steps)
+* Not very precise OCR
+* Not all functions are cross-platform (may be bugged on some systems)
 
 Used software
 -------------
 * see [Qt 5](http://qt-project.org/)
 * see [Tesseract](https://code.google.com/p/tesseract-ocr/)
 * see [Leptonica](http://leptonica.com/) (Tesseract dependency)
-* Google Translate
+* several online translation services
 

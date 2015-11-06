@@ -10,11 +10,21 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ScreenTranslator
 TEMPLATE = app
+CONFIG += c++11
 
-INCLUDEPATH += ../include
+win32{
+    INCLUDEPATH += $$PWD/../build/mingw/deps/include
+    LIBS += -L$$PWD/../build/mingw/deps/lib -lws2_32
+}
+linux{
+    QT += x11extras
+    INCLUDEPATH += $$PWD/../build/linux/deps/include
+    LIBS += -L$$PWD/../build/linux/deps/lib -lX11 -Wl,-rpath,.
+}
 
-LIBS += -L../bin -ltesseract -llept -ltiff -lgif -ljpeg -lz
-LIBS += -lWs2_32
+LIBS += -ltesseract -llept
+
+include(3rd-party/qtsingleapplication/qtsingleapplication.pri)
 
 SOURCES += main.cpp\
     Manager.cpp \
@@ -22,12 +32,16 @@ SOURCES += main.cpp\
     SelectionDialog.cpp \
     GlobalActionHelper.cpp \
     Recognizer.cpp \
-    Translator.cpp \
     ResultDialog.cpp \
     ProcessingItem.cpp \
     ImageProcessing.cpp \
     LanguageHelper.cpp \
-    GoogleWebTranslator.cpp
+    WebTranslator.cpp \
+    WebTranslatorProxy.cpp \
+    TranslatorHelper.cpp \
+    RecognizerHelper.cpp \
+    Utils.cpp \
+    Updater.cpp
 
 HEADERS  += \
     Manager.h \
@@ -35,14 +49,18 @@ HEADERS  += \
     SelectionDialog.h \
     GlobalActionHelper.h \
     Recognizer.h \
-    Translator.h \
     Settings.h \
     ProcessingItem.h \
     ResultDialog.h \
     ImageProcessing.h \
     LanguageHelper.h \
-    GoogleWebTranslator.h \
-    StAssert.h
+    WebTranslator.h \
+    WebTranslatorProxy.h \
+    StAssert.h \
+    TranslatorHelper.h \
+    RecognizerHelper.h \
+    Utils.h \
+    Updater.h
 
 FORMS    += \
     SettingsEditor.ui \
@@ -56,11 +74,19 @@ TRANSLATIONS += \
     translations/translation_en.ts \
     translations/translation_ru.ts
 
-win32{
-RC_FILE = app.rc
-}
-
 OTHER_FILES += \
-    app.rc \
-    images/icon.ico \
-    README.md
+    images/* \
+    translators/* \
+    scripts/* \
+    distr/* \
+    version.json \
+    README.md \
+    uncrustify.cfg\
+    .travis.yml \
+    TODO.md
+
+QMAKE_TARGET_COMPANY = Gres
+QMAKE_TARGET_PRODUCT = Screen Translator
+QMAKE_TARGET_COPYRIGHT = Copyright (c) Gres
+VERSION = 2.0.0.0
+RC_ICONS = images/icon.ico

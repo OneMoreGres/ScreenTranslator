@@ -7,7 +7,7 @@
 #  if defined(ST_NO_ASSERT)
 #    define ST_ASSERT(CONDITION)
 #  else
-#    define ST_ASSERT(CONDITION) assert(CONDITION)
+#    define ST_ASSERT(CONDITION) assert (CONDITION)
 #  endif
 #endif
 
