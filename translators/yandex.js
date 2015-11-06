@@ -11,7 +11,7 @@ function checkFinished () {
             return res + i.innerText;
         }, '');
         st_wtp.translated (text);
-    }, 500); // wait for gui fill
+    }, 2000); // wait for gui fill
 }
 function onResourceLoad (url) {
 }

@@ -12,7 +12,7 @@ function checkFinished () {
         }, '');
         st_wtp.translated (text);
         isTranslationFinished = isScheduled = false;
-    }, 500); // wait for gui fill
+    }, 2000); // wait for gui fill
 }
 function onResourceLoad (url) {
     if (url.indexOf ('/translate_a/single') > -1) {
