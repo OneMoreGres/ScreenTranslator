@@ -10,6 +10,7 @@ branches:
   only:
     - master
     - develop
+    - /release.*/
     - /.*travis/
 os:
   - linux
