@@ -155,7 +155,7 @@ void Updater::parseAvailableVersion () {
     if (!installDir.isWritable ()) { // check dir because install = remove + make new
       inaccessible << installDir.absoluteFilePath ();
     }
-    if (current[_version].toInt () < available[_compatibleVersion].toInt ()) {
+    if (current[_version].toInt () < versionField (available, _compatibleVersion).toInt ()) {
       incompatible << component;
     }
     if (!QFile::exists (path) || current[_version].toInt () < available[_version].toInt ()) {
