@@ -4,12 +4,13 @@
     "Application": {
         "version": 1,
         "compatibleVersion": 1,
+        "compatibleVersion_linux": 999,
         "built_in": true,
         "versionString": "2.0.0",
         "permissions": "0x7755",
         "url_win": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/releases/2.0.0/ScreenTranslator.exe",
         "path_win": "ScreenTranslator.exe",
-        "url_linux": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/releases/2.0.0/ScreenTranslator",
+        "url_linux": "disabled",
         "path_linux": "ScreenTranslator"
     },
     "Bing translator": {

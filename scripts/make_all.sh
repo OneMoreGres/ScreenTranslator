@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ./options.sh $@
-cleanupDirInNeeded $WORK_DIR
+#cleanupDirInNeeded $WORK_DIR
 
 echo "Running all scripts for $PLATFORM"
 #./install_deps $@
