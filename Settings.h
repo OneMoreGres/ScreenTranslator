@@ -57,7 +57,11 @@ namespace settings_values {
   const QString lastUpdateCheck = "";
 
   //! Recognition
+#if defined(Q_OS_LINUX)
+  const QString tessDataPlace = "/usr/share/tesseract-ocr/";
+#else
   const QString tessDataPlace = "./";
+#endif
   const QString ocrLanguage = "eng";
   const int imageScale = 5;
 
