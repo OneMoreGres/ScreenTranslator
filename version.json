@@ -14,7 +14,7 @@
         "path_linux": "ScreenTranslator"
     },
     "Bing translator": {
-        "version": 1,
+        "version": 2,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js",
         "path": "translators/bing.js"
     },
@@ -24,7 +24,7 @@
         "path": "translators/google.js"
     },
     "Yandex translator": {
-        "version": 1,
+        "version": 2,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js",
         "path": "translators/yandex.js"
     }
