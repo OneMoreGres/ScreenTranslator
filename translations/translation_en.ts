@@ -34,7 +34,7 @@
     </message>
     <message>
         <location filename="../Manager.cpp" line="103"/>
-        <location filename="../Manager.cpp" line="365"/>
+        <location filename="../Manager.cpp" line="363"/>
         <location filename="../Manager.cpp" line="424"/>
         <source>Результат</source>
         <translation>Result</translation>
@@ -56,7 +56,7 @@
     </message>
     <message>
         <location filename="../Manager.cpp" line="109"/>
-        <location filename="../Manager.cpp" line="353"/>
+        <location filename="../Manager.cpp" line="351"/>
         <source>О программе</source>
         <translation>About</translation>
     </message>
@@ -73,12 +73,12 @@
 %1</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="288"/>
+        <location filename="../Manager.cpp" line="286"/>
         <source>Не найден подходящий язык распознавания.</source>
         <translation>Failed to find selected recognition language.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="334"/>
+        <location filename="../Manager.cpp" line="332"/>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)
@@ -86,7 +86,7 @@
         <translation>Screen text recognition and translation program. \n Uses Qt,  tesseract-ocr, Google Translate. \n Author: Gres (translator@gres.biz) \n Version: %1 from %2 %3</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="339"/>
+        <location filename="../Manager.cpp" line="337"/>
         <source>
 
 Подсказки.
@@ -113,17 +113,17 @@ Key modifiers what capturing :
 </translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="366"/>
+        <location filename="../Manager.cpp" line="364"/>
         <source>Последний результат был скопирован в буфер обмена.</source>
         <translation>Last result has been copied to clipboard.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="376"/>
+        <location filename="../Manager.cpp" line="374"/>
         <source>Правка</source>
         <translation>Correction</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="376"/>
+        <location filename="../Manager.cpp" line="374"/>
         <source>Исправьте распознанный текст</source>
         <translation>Correct recognized text</translation>
     </message>
@@ -736,27 +736,27 @@ Key modifiers what capturing :
         <translation>Result</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="49"/>
+        <location filename="../ResultDialog.cpp" line="50"/>
         <source>Распознать другой язык</source>
         <translation>Recognize another language</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="50"/>
+        <location filename="../ResultDialog.cpp" line="51"/>
         <source>Перевести на другой язык</source>
         <translation>Translate to another language</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="51"/>
+        <location filename="../ResultDialog.cpp" line="52"/>
         <source>Скопировать в буфер</source>
         <translation>Copy to clipboard</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="52"/>
+        <location filename="../ResultDialog.cpp" line="53"/>
         <source>Скопировать рисунок в буфер</source>
         <translation>Copy image to clibpoard</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="53"/>
+        <location filename="../ResultDialog.cpp" line="54"/>
         <source>Исправить распознанный текст</source>
         <translation>Correct recognized text</translation>
     </message>
@@ -846,7 +846,7 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="277"/>
-        <location filename="../SettingsEditor.cpp" line="153"/>
+        <location filename="../SettingsEditor.cpp" line="154"/>
         <source>Путь к tessdata</source>
         <translation>Tessdata path</translation>
     </message>
@@ -1001,36 +1001,41 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="394"/>
+        <source>Игнорировать ошибки SSL</source>
+        <translation>Ignore SSL errors</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="401"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max time of translation process.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="397"/>
+        <location filename="../SettingsEditor.ui" line="404"/>
         <source>Максимальное время перевода:</source>
         <translation>Max translation time:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="404"/>
+        <location filename="../SettingsEditor.ui" line="418"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Translated text language.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="407"/>
+        <location filename="../SettingsEditor.ui" line="421"/>
         <source>Язык результата:</source>
         <translation>Translation language:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="417"/>
+        <location filename="../SettingsEditor.ui" line="434"/>
         <source>Переводчики:</source>
         <translation>Translators:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="430"/>
+        <location filename="../SettingsEditor.ui" line="411"/>
         <source> сек.</source>
         <translation>secs.</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="437"/>
+        <location filename="../SettingsEditor.ui" line="444"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sorted by priority descending.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -1446,17 +1451,17 @@ Change dirs permissions and try again or perform manual update.</translation>
 <context>
     <name>WebTranslator</name>
     <message>
-        <location filename="../WebTranslator.cpp" line="81"/>
+        <location filename="../WebTranslator.cpp" line="88"/>
         <source>Перевод отменен по таймауту.</source>
         <translation>Translation timed out.</translation>
     </message>
     <message>
-        <location filename="../WebTranslator.cpp" line="89"/>
+        <location filename="../WebTranslator.cpp" line="96"/>
         <source>Ошибка загрузки страницы (%1) для перевода.</source>
         <translation>Page (%1) load failed.</translation>
     </message>
     <message>
-        <location filename="../WebTranslator.cpp" line="133"/>
+        <location filename="../WebTranslator.cpp" line="140"/>
         <source>Нет сценариев для перевода. Измените настройки.</source>
         <translation>Not found any translators. Change settings.</translation>
     </message>

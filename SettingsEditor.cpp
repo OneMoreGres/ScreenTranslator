@@ -128,6 +128,7 @@ void SettingsEditor::saveSettings () const {
 
   settings.beginGroup (translationGroup);
   settings.setValue (doTranslation, ui->doTranslationCheck->isChecked ());
+  settings.setValue (ignoreSslErrors, ui->ignoreSslCheck->isChecked ());
   settings.setValue (translationDebugMode, ui->translatorDebugCheck->isChecked ());
   QString trLanguage = dictionary_.translateUiToCode (ui->translateLangCombo->currentText ());
   settings.setValue (translationLanguage, trLanguage);
@@ -216,6 +217,7 @@ void SettingsEditor::loadSettings () {
 
   settings.beginGroup (settings_names::translationGroup);
   ui->doTranslationCheck->setChecked (GET (doTranslation).toBool ());
+  ui->ignoreSslCheck->setChecked (GET (ignoreSslErrors).toBool ());
   ui->translatorDebugCheck->setChecked (GET (translationDebugMode).toBool ());
   QString trLanguage = dictionary_.translateCodeToUi (GET (translationLanguage).toString ());
   ui->translateLangCombo->setCurrentText (trLanguage);

@@ -30,6 +30,7 @@ namespace settings_names {
   //! Translation
   const QString translationGroup = "Translation";
   const QString doTranslation = "doTranslation";
+  const QString ignoreSslErrors = "ignoreSslErrors";
   const QString sourceLanguage = "source_language";
   const QString translationLanguage = "translation_language";
   const QString translationTimeout = "translation_timeout";
@@ -67,6 +68,7 @@ namespace settings_values {
 
   //! Translation
   const bool doTranslation = true;
+  const bool ignoreSslErrors = false;
   const QString sourceLanguage = "auto";
   const QString translationLanguage = "ru";
   const int translationTimeout = 15; // secs

@@ -378,13 +378,20 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
+       <item row="0" column="1">
         <widget class="QCheckBox" name="translatorDebugCheck">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Режим отладки</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="ignoreSslCheck">
+         <property name="text">
+          <string>Игнорировать ошибки SSL</string>
          </property>
         </widget>
        </item>
@@ -395,6 +402,13 @@
          </property>
          <property name="text">
           <string>Максимальное время перевода:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QSpinBox" name="translateTimeoutSpin">
+         <property name="suffix">
+          <string> сек.</string>
          </property>
         </widget>
        </item>
@@ -411,6 +425,9 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QComboBox" name="translateLangCombo"/>
+       </item>
        <item row="3" column="0" colspan="3">
         <widget class="QLabel" name="label_10">
          <property name="text">
@@ -418,16 +435,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="2">
-        <widget class="QComboBox" name="translateLangCombo"/>
-       </item>
-       <item row="1" column="1" colspan="2">
-        <widget class="QSpinBox" name="translateTimeoutSpin">
-         <property name="suffix">
-          <string> сек.</string>
          </property>
         </widget>
        </item>
