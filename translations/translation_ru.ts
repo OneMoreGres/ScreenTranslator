@@ -34,7 +34,7 @@
     </message>
     <message>
         <location filename="../Manager.cpp" line="103"/>
-        <location filename="../Manager.cpp" line="365"/>
+        <location filename="../Manager.cpp" line="363"/>
         <location filename="../Manager.cpp" line="424"/>
         <source>Результат</source>
         <translation>Результат</translation>
@@ -56,7 +56,7 @@
     </message>
     <message>
         <location filename="../Manager.cpp" line="109"/>
-        <location filename="../Manager.cpp" line="353"/>
+        <location filename="../Manager.cpp" line="351"/>
         <source>О программе</source>
         <translation>О программе</translation>
     </message>
@@ -73,12 +73,12 @@
 %1</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="288"/>
+        <location filename="../Manager.cpp" line="286"/>
         <source>Не найден подходящий язык распознавания.</source>
         <translation>Не найден подходящий язык распознавания.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="334"/>
+        <location filename="../Manager.cpp" line="332"/>
         <source>Программа для распознавания текста на экране.
 Создана с использованием Qt, tesseract-ocr, Google Translate.
 Автор: Gres (translator@gres.biz)
@@ -89,7 +89,7 @@
 Версия: %1 от %2 %3</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="339"/>
+        <location filename="../Manager.cpp" line="337"/>
         <source>
 
 Подсказки.
@@ -116,17 +116,17 @@
 </translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="366"/>
+        <location filename="../Manager.cpp" line="364"/>
         <source>Последний результат был скопирован в буфер обмена.</source>
         <translation>Последний результат был скопирован в буфер обмена.</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="376"/>
+        <location filename="../Manager.cpp" line="374"/>
         <source>Правка</source>
         <translation>Правка</translation>
     </message>
     <message>
-        <location filename="../Manager.cpp" line="376"/>
+        <location filename="../Manager.cpp" line="374"/>
         <source>Исправьте распознанный текст</source>
         <translation>Исправьте распознанный текст</translation>
     </message>
@@ -741,27 +741,27 @@
         <translation>Результат</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="49"/>
+        <location filename="../ResultDialog.cpp" line="50"/>
         <source>Распознать другой язык</source>
         <translation>Распознать другой язык</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="50"/>
+        <location filename="../ResultDialog.cpp" line="51"/>
         <source>Перевести на другой язык</source>
         <translation>Перевести на другой язык</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="51"/>
+        <location filename="../ResultDialog.cpp" line="52"/>
         <source>Скопировать в буфер</source>
         <translation>Скопировать в буфер</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="52"/>
+        <location filename="../ResultDialog.cpp" line="53"/>
         <source>Скопировать рисунок в буфер</source>
         <translation>Скопировать рисунок в буфер</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="53"/>
+        <location filename="../ResultDialog.cpp" line="54"/>
         <source>Исправить распознанный текст</source>
         <translation>Исправить распознанный текст</translation>
     </message>
@@ -851,7 +851,7 @@
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="277"/>
-        <location filename="../SettingsEditor.cpp" line="153"/>
+        <location filename="../SettingsEditor.cpp" line="154"/>
         <source>Путь к tessdata</source>
         <translation>Путь к tessdata</translation>
     </message>
@@ -1006,36 +1006,41 @@
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="394"/>
+        <source>Игнорировать ошибки SSL</source>
+        <translation>Игнорировать ошибки SSL</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="401"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="397"/>
+        <location filename="../SettingsEditor.ui" line="404"/>
         <source>Максимальное время перевода:</source>
         <translation>Максимальное время перевода:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="404"/>
+        <location filename="../SettingsEditor.ui" line="418"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="407"/>
+        <location filename="../SettingsEditor.ui" line="421"/>
         <source>Язык результата:</source>
         <translation>Язык результата:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="417"/>
+        <location filename="../SettingsEditor.ui" line="434"/>
         <source>Переводчики:</source>
         <translation>Переводчики:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="430"/>
+        <location filename="../SettingsEditor.ui" line="411"/>
         <source> сек.</source>
         <translation> сек.</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="437"/>
+        <location filename="../SettingsEditor.ui" line="444"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -1455,17 +1460,17 @@
 <context>
     <name>WebTranslator</name>
     <message>
-        <location filename="../WebTranslator.cpp" line="81"/>
+        <location filename="../WebTranslator.cpp" line="88"/>
         <source>Перевод отменен по таймауту.</source>
         <translation>Перевод отменен по таймауту.</translation>
     </message>
     <message>
-        <location filename="../WebTranslator.cpp" line="89"/>
+        <location filename="../WebTranslator.cpp" line="96"/>
         <source>Ошибка загрузки страницы (%1) для перевода.</source>
         <translation>Ошибка загрузки страницы (%1) для перевода.</translation>
     </message>
     <message>
-        <location filename="../WebTranslator.cpp" line="133"/>
+        <location filename="../WebTranslator.cpp" line="140"/>
         <source>Нет сценариев для перевода. Измените настройки.</source>
         <translation>Нет сценариев для перевода. Измените настройки.</translation>
     </message>

@@ -9,6 +9,7 @@
 
 class QWebView;
 class QNetworkReply;
+class QSslError;
 
 class WebTranslatorProxy;
 class TranslatorHelper;
@@ -35,6 +36,7 @@ class WebTranslator : public QObject {
     void addProxyToView ();
     void abortTranslation ();
     void proxyTranslated (const QString &text);
+    void handleSslErrors (QNetworkReply *reply, const QList<QSslError> &errors);
 
   private:
     void translateQueued ();
@@ -47,6 +49,7 @@ class WebTranslator : public QObject {
     TranslatorHelper *translatorHelper_;
     QVector<ProcessingItem> queue_;
     bool isReady_;
+    bool ignoreSslErrors_;
     QTimer translationTimeout_;
 };
 

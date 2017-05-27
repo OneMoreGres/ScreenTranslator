@@ -7,6 +7,7 @@ CLEAN=false
 JOBS=""
 QT_CHOOSER="-qt=qt5"
 QMAKE=qmake
+QT_LRELEASE=lrelease
 QT_LIB_DIR=/usr/lib/x86_64-linux-gnu
 STRIP=strip
 
@@ -17,6 +18,7 @@ for arg in ${@}; do
     "clean" ) CLEAN=true;;
     "-j"* ) JOBS=$arg;;
     *"qmake" ) QMAKE=$arg
+      QT_LRELEASE=`readlink -e $(dirname $arg)/lrelease`
       QT_LIB_DIR=`readlink -e $(dirname $arg)/../lib`
       QT_CHOOSER=""
       ;;

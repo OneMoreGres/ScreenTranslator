@@ -14,7 +14,8 @@
 WebTranslator::WebTranslator ()
   : QObject (),
   proxy_ (new WebTranslatorProxy (this)), view_ (new QWebView),
-  translatorHelper_ (new TranslatorHelper), isReady_ (true) {
+  translatorHelper_ (new TranslatorHelper), isReady_ (true),
+  ignoreSslErrors_ (settings_values::ignoreSslErrors){
 
   view_->settings ()->setAttribute (QWebSettings::AutoLoadImages, false);
   view_->settings ()->setAttribute (QWebSettings::DeveloperExtrasEnabled, true);
@@ -25,6 +26,9 @@ WebTranslator::WebTranslator ()
            this, SLOT (addProxyToView ()));
   connect (view_->page ()->networkAccessManager (), SIGNAL (finished (QNetworkReply *)),
            this, SLOT (replyFinished (QNetworkReply *)));
+  connect (view_->page ()->networkAccessManager (),
+           SIGNAL (sslErrors (QNetworkReply *, QList<QSslError>)),
+           this, SLOT (handleSslErrors (QNetworkReply *, QList<QSslError>)));
 
   translationTimeout_.setSingleShot (true);
   connect (&translationTimeout_, SIGNAL (timeout ()), SLOT (abortTranslation ()));
@@ -74,6 +78,12 @@ void WebTranslator::proxyTranslated (const QString &text) {
     emit translated (item);
   }
   finishTranslation (false);
+}
+
+void WebTranslator::handleSslErrors (QNetworkReply *reply, const QList<QSslError> &) {
+  if (ignoreSslErrors_) {
+    reply->ignoreSslErrors ();
+  }
 }
 
 void WebTranslator::abortTranslation () {
@@ -134,6 +144,8 @@ void WebTranslator::applySettings () {
   }
   bool debugMode = GET (translationDebugMode).toBool ();
   setDebugMode (debugMode);
+
+  ignoreSslErrors_ = GET(ignoreSslErrors).toBool ();
 #undef GET
 }
 
