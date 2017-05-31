@@ -28,8 +28,8 @@ function onPageLoad () {
 window.onload = onPageLoad();
 
 function translate (){
-    var url = 'https://translate.yandex.ru/&lang=' + st_wtp.sourceLanguage + '-' +
-            st_wtp.resultLanguage + '?text=' + st_wtp.sourceText ;
+    var url = 'https://translate.yandex.ru/?lang=' + st_wtp.sourceLanguage + '-' +
+            st_wtp.resultLanguage + '&text=' + st_wtp.sourceText ;
     url = url.replace(new RegExp(' ','g') , '%20')
     window.location = (url);
 }
