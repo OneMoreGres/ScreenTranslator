@@ -24,7 +24,7 @@
         "path": "translators/google.js"
     },
     "Yandex translator": {
-        "version": 2,
+        "version": 3,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js",
         "path": "translators/yandex.js"
     }
