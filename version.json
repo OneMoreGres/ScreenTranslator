@@ -4,7 +4,6 @@
     "Application": {
         "version": 1,
         "compatibleVersion": 1,
-        "compatibleVersion_linux": 999,
         "built_in": true,
         "versionString": "2.0.0",
         "permissions": "0x7755",
