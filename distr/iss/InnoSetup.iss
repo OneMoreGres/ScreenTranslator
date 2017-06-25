@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
              
 #define MyAppName "Screen Translator"
-#define MyAppVersion "2.0.0"
+#define MyAppVersion "2.0.1"
 #define MyAppPublisher "Gres"
 #define MyAppURL "http://gres.biz/screen-translator/"
 #define MyAppExeName "ScreenTranslator.exe"    
@@ -64,10 +64,13 @@ Source: "content\*.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Lib
 Source: "content\platforms\*"; DestDir: "{app}\platforms"; Flags: ignoreversion; Components: Libraries  
 Source: "content\translators\*"; DestDir: "{app}\translators"; Flags: ignoreversion; Components: Translators
 
+[Types] 
+Name: "custom"; Description: "Custom installation"; Flags: iscustom
+
 [Components]
-Name: "Executable"; Description: "{cm:Executables}"; Types: compact custom full; Flags: fixed;
-Name: "Libraries"; Description: "{cm:Libraries}"; Types: compact custom full; Flags: fixed;   
-Name: "Translators"; Description: "{cm:Translators}"; Types: compact custom full; Flags: fixed;
+Name: "Executable"; Description: "{cm:Executables}"; Types: custom; Flags: fixed;
+Name: "Libraries"; Description: "{cm:Libraries}"; Types: custom; Flags: fixed;   
+Name: "Translators"; Description: "{cm:Translators}"; Types: custom; Flags: fixed;
 
 [CustomMessages]
 en.CreateStartupIcon=Create autostart icon

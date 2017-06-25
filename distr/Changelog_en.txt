@@ -1,4 +1,6 @@
 Changes.
+2.0.1:
+* Fixed installer.
 2.0.0:
 * Added a version for linux.
 * Added support for multiple monitors.
