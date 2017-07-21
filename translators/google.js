@@ -17,17 +17,31 @@ function checkFinished () {
 function onResourceLoad (url) {
     if (url.indexOf ('/translate_a/single') > -1) {
         isTranslationFinished = true;
-        checkFinished ();
+        if (isPageLoaded) {
+            checkFinished ();
+        }
     }
 }
 st_wtp.resourceLoaded.connect (onResourceLoad);
 function onPageLoad () {
+    if (window.location.href.indexOf('about:blank') === 0) {
+        translate ();
+        return;
+    }
+
     isPageLoaded = true;
-    checkFinished ();
+    if (isTranslationFinished) {
+        checkFinished ();
+    }
 }
 window.onload = onPageLoad();
 
 function translate (){
+    if (window.location.href.indexOf('https://translate.google') === 0) {
+        window.location = 'about:blank';
+        return;
+    }
+
     var url = 'https://translate.google.com/#auto/' +
             st_wtp.resultLanguage + '/' + st_wtp.sourceText;
     window.location = encodeURI (url);
