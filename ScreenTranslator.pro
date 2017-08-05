@@ -14,7 +14,7 @@ CONFIG += c++11
 
 win32{
     INCLUDEPATH += $$PWD/../build/mingw/deps/include
-    LIBS += -L$$PWD/../build/mingw/deps/lib -lws2_32
+    LIBS += -L$$PWD/../build/mingw/deps/lib -lUser32 -lws2_32
 }
 linux{
     QT += x11extras
