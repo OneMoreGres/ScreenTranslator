@@ -6,16 +6,9 @@ call %SELF_PATH%\env.bat
 rem choco install curl cmake
 
 mkdir download
-if not exist download\leptonica.zip (
-    curl -fsSLk -o download\leptonica.zip https://github.com/DanBloomberg/leptonica/archive/1.74.4.zip
-)
-if not exist download\tesseract.zip (
-    curl -fsSLk -o download\tesseract.zip https://github.com/tesseract-Ocr/tesseract/archive/3.05.01.zip
-) 
 
-
-if "%WITH_TESSDATA%" == ""  goto build
-
+if "%WITH_TESSDATA%" == ""  goto libs
+echo "Downloading tessdata"
 mkdir download\tessdata
 cd download\tessdata
 curl -fsSLk -O   https://github.com/tesseract-Ocr/tessdata/raw/3.04.00/ara.cube.bigrams
@@ -66,13 +59,31 @@ curl -fsSLk -O   https://github.com/tesseract-Ocr/tessdata/raw/3.04.00/spa.cube.
 curl -fsSLk -O   https://github.com/tesseract-Ocr/tessdata/raw/3.04.00/spa.traineddata
 curl -fsSLk -O   https://github.com/tesseract-Ocr/tessdata/raw/3.04.00/spa_old.traineddata
 cd ..\..
+:libs
 
 
-:build
-
-rmdir /s /q installed
-
+if "%CLEAR_CACHE%" == ""  goto build-libs
+echo "Clearing cache"
 rmdir /s /q leptonica
+rmdir /s /q leptonica-build
+rmdir /s /q tesseract
+rmdir /s /q leptonica-build
+rmdir /s /q installed
+:build-libs
+
+
+if exist installed\bin\tesseract*.dll goto end
+
+echo "Downloading dependencies"
+if not exist download\leptonica.zip (
+    curl -fsSLk -o download\leptonica.zip https://github.com/DanBloomberg/leptonica/archive/1.74.4.zip
+)
+if not exist download\tesseract.zip (
+    curl -fsSLk -o download\tesseract.zip https://github.com/tesseract-Ocr/tesseract/archive/3.05.01.zip
+) 
+
+
+echo "Building dependencies"
 unzip -qq download\leptonica.zip
 move leptonica* leptonica
 mkdir leptonica-build
@@ -85,7 +96,6 @@ copy /y /b installed\lib\leptonica*.lib installed\lib\lept.lib
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 
-rmdir /s /q tesseract
 unzip -qq download\tesseract.zip
 move tesseract* tesseract
 mkdir tesseract-build
@@ -97,5 +107,5 @@ cd ..
 copy /y /b installed\lib\tesseract*.lib installed\lib\tesseract.lib
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-
+:end
 
