@@ -2,18 +2,16 @@ image: Visual Studio 2015
 
 environment:
   ARCH: x86
-    
-clone_depth: 1
-
-platform:
-  - x64
-  
-environment:
   sf_secret:
     secure: 8QOHSPQLI/lmjgOhyGOsMA5MxOdeSnlFWWKjntqEfBMfW/XCuiEk5tHNjZiiAw8N
   sf_api:
     secure: S4qrbAdLq3Hw5yozC7XAavTGzpPPh8MleX+r8kaueBtPZUeJGt+8EoqaPw0P1PzV
-  
+
+clone_depth: 1
+
+platform:
+  - x64
+
 init:
   - if /i %APPVEYOR_REPO_TAG% == true    set WITH_TESSDATA=1
 
