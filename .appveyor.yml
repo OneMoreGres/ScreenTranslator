@@ -21,12 +21,10 @@ cache:
 install:
   - cinst winscp
   - nuget install secure-file -ExcludeVersion
-  - secure-file\tools\secure-file -decrypt scripts\win\sf_key.av -secret %sf_secret% -out scripts\win\sf_key
   - call "scripts\win\prepare.bat"
 
 build_script:
   - call "scripts\win\build.bat"
-  - call "scripts\win\deploy_sf.bat"
 
 artifacts:
   - path: 'screen-translator-*.exe'
@@ -42,3 +40,6 @@ deploy:
     on:
       appveyor_repo_tag: true
 
+after_deploy:
+  - secure-file\tools\secure-file -decrypt scripts\win\sf_key.av -secret %sf_secret% -out scripts\win\sf_key
+  - call "scripts\win\deploy_sf.bat"

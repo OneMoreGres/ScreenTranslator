@@ -10,20 +10,17 @@ for /f "delims=" %%i in ('findstr versionString %ROOT%\version.json') do set VER
 set UNQUOTED=%VERSION_LINE:"='%
 for /f "tokens=4 delims='" %%i in ("%UNQUOTED%") do set VERSION=%%i
 
-
 for /f "delims=" %%i in ('dir /b screen-translator-online*.exe') do set online=%%i
 for /f "delims=" %%i in ('dir /b screen-translator-offline*.exe') do set offline=%%i
 
 
-set VERSION="debug"
 winscp.com /keygen %SELF_PATH%\sf_key /output=key.ppk
 set folder="/home/frs/project/screen-translator/bin/v%VERSION%"
-::winscp.com /command "open sftp://onemoregres@frs.sourceforge.net/ -privatekey=key.ppk -hostkey=*" "mkdir %folder%" "put %online% %folder%/%online%" "put %offline% %folder%/%offline%" "exit"
-winscp.com /command "open sftp://onemoregres@frs.sourceforge.net/ -privatekey=key.ppk -hostkey=*" "mkdir %folder%" "put %online% %folder%/%online%" "exit"
+winscp.com /command "open sftp://onemoregres@frs.sourceforge.net/ -privatekey=key.ppk -hostkey=*" "mkdir %folder%" "put %online% %folder%/%online%" "put %offline% %folder%/%offline%" "exit"
 
 
 set url="https://sourceforge.net/projects/screen-translator/files/bin/v%VERSION%/%online%"
 curl --insecure -H "Accept: application/json" -X PUT -d "default=windows" -d "api_key=%sf_api%" %url%
 
-::set url="https://sourceforge.net/projects/screen-translator/files/bin/v%VERSION%/%offline%"
-::curl --insecure -H "Accept: application/json" -X PUT -d "default=windows" -d "api_key=%sf_api%" %url%
+set url="https://sourceforge.net/projects/screen-translator/files/bin/v%VERSION%/%offline%"
+curl --insecure -H "Accept: application/json" -X PUT -d "default=windows" -d "api_key=%sf_api%" %url%
