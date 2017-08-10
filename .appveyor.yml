@@ -7,7 +7,7 @@ environment:
   sf_api:
     secure: S4qrbAdLq3Hw5yozC7XAavTGzpPPh8MleX+r8kaueBtPZUeJGt+8EoqaPw0P1PzV
 
-clone_depth: 1
+clone_depth: 10
 
 platform:
   - x64
