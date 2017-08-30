@@ -13,17 +13,17 @@
         "path_linux": "ScreenTranslator"
     },
     "Bing translator": {
-        "version": 2,
+        "version": 3,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js",
         "path": "translators/bing.js"
     },
     "Google translator": {
-        "version": 2,
+        "version": 3,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js",
         "path": "translators/google.js"
     },
     "Yandex translator": {
-        "version": 3,
+        "version": 4,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js",
         "path": "translators/yandex.js"
     }

@@ -10,6 +10,7 @@ function checkFinished () {
         var text = spans.reduce (function (res, i) {
             return res + i.innerText;
         }, '');
+        console.log (text);
         st_wtp.translated (text);
         isTranslationFinished = isScheduled = false;
     }, 2000); // wait for gui fill
