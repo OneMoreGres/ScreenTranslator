@@ -50,6 +50,7 @@ class WebTranslator : public QObject {
     QVector<ProcessingItem> queue_;
     bool isReady_;
     bool ignoreSslErrors_;
+    bool forceRotateTranslators_;
     QTimer translationTimeout_;
 };
 

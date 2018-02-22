@@ -7,7 +7,7 @@
 #include "Settings.h"
 
 TranslatorHelper::TranslatorHelper ()
-  : translatorsDir_ ("translators"), currentIndex_ (0) {
+  : translatorsDir_ ("translators"), currentIndex_ (0), triesLeft_ (0) {
   translatorsDir_ = QApplication::applicationDirPath () + QDir::separator () + translatorsDir_;
 }
 
@@ -58,17 +58,23 @@ void TranslatorHelper::loadScripts () {
   scripts_ = enabledTranslatorScripts ();
 }
 
-void TranslatorHelper::newItem () {
-  currentIndex_ = 0;
-}
-
-QString TranslatorHelper::currentScript () const {
-  return (currentIndex_ < scripts_.size () ? scripts_.at (currentIndex_) : QString ());
+void TranslatorHelper::newItem (bool forceRotate) {
+  triesLeft_ = scripts_.size ();
+  currentIndex_ = forceRotate ? currentIndex_ + 1 : 0;
 }
 
 QString TranslatorHelper::nextScript () {
-  ++currentIndex_;
+  --triesLeft_;
+
+  if (++currentIndex_ >= scripts_.size ()) {
+    currentIndex_ = 0;
+  }
+
   return currentScript ();
+}
+
+QString TranslatorHelper::currentScript () const {
+  return (triesLeft_ > 0 ? scripts_.at (currentIndex_) : QString ());
 }
 
 bool TranslatorHelper::gotScripts () const {

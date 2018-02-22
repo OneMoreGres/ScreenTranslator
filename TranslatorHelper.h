@@ -13,15 +13,16 @@ class TranslatorHelper {
     void setEnabledTranslators (const QStringList &enabled) const;
 
     void loadScripts ();
-    void newItem ();
-    QString currentScript () const;
+    void newItem (bool forceRotate);
     QString nextScript ();
+    QString currentScript () const;
     bool gotScripts () const;
 
   private:
     QString translatorsDir_;
     QStringList scripts_;
     int currentIndex_;
+    int triesLeft_;
 };
 
 #endif // TRANSLATORHELPER_H

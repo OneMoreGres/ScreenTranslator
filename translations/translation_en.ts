@@ -736,27 +736,27 @@ Key modifiers what capturing :
         <translation>Result</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="50"/>
+        <location filename="../ResultDialog.cpp" line="49"/>
         <source>Распознать другой язык</source>
         <translation>Recognize another language</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="51"/>
+        <location filename="../ResultDialog.cpp" line="50"/>
         <source>Перевести на другой язык</source>
         <translation>Translate to another language</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="52"/>
+        <location filename="../ResultDialog.cpp" line="51"/>
         <source>Скопировать в буфер</source>
         <translation>Copy to clipboard</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="53"/>
+        <location filename="../ResultDialog.cpp" line="52"/>
         <source>Скопировать рисунок в буфер</source>
         <translation>Copy image to clibpoard</translation>
     </message>
     <message>
-        <location filename="../ResultDialog.cpp" line="54"/>
+        <location filename="../ResultDialog.cpp" line="53"/>
         <source>Исправить распознанный текст</source>
         <translation>Correct recognized text</translation>
     </message>
@@ -846,7 +846,7 @@ Key modifiers what capturing :
     </message>
     <message>
         <location filename="../SettingsEditor.ui" line="277"/>
-        <location filename="../SettingsEditor.cpp" line="154"/>
+        <location filename="../SettingsEditor.cpp" line="155"/>
         <source>Путь к tessdata</source>
         <translation>Tessdata path</translation>
     </message>
@@ -990,52 +990,57 @@ Key modifiers what capturing :
         <translation>Translate text</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="384"/>
+        <location filename="../SettingsEditor.ui" line="443"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays translator&apos;s window. Should me used only for new translators development.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="387"/>
+        <location filename="../SettingsEditor.ui" line="446"/>
         <source>Режим отладки</source>
         <translation>Debug mode</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="394"/>
+        <location filename="../SettingsEditor.ui" line="453"/>
         <source>Игнорировать ошибки SSL</source>
         <translation>Ignore SSL errors</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="401"/>
+        <location filename="../SettingsEditor.ui" line="460"/>
+        <source>Принудительно менять переводчики</source>
+        <translation>Force rotate translators</translation>
+    </message>
+    <message>
+        <location filename="../SettingsEditor.ui" line="384"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max time of translation process.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="404"/>
+        <location filename="../SettingsEditor.ui" line="387"/>
         <source>Максимальное время перевода:</source>
         <translation>Max translation time:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="418"/>
+        <location filename="../SettingsEditor.ui" line="404"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Translated text language.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="421"/>
+        <location filename="../SettingsEditor.ui" line="407"/>
         <source>Язык результата:</source>
         <translation>Translation language:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="434"/>
+        <location filename="../SettingsEditor.ui" line="417"/>
         <source>Переводчики:</source>
         <translation>Translators:</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="411"/>
+        <location filename="../SettingsEditor.ui" line="394"/>
         <source> сек.</source>
         <translation>secs.</translation>
     </message>
     <message>
-        <location filename="../SettingsEditor.ui" line="444"/>
+        <location filename="../SettingsEditor.ui" line="427"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sorted by priority descending.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -1451,17 +1456,17 @@ Change dirs permissions and try again or perform manual update.</translation>
 <context>
     <name>WebTranslator</name>
     <message>
-        <location filename="../WebTranslator.cpp" line="88"/>
+        <location filename="../WebTranslator.cpp" line="92"/>
         <source>Перевод отменен по таймауту.</source>
         <translation>Translation timed out.</translation>
     </message>
     <message>
-        <location filename="../WebTranslator.cpp" line="96"/>
+        <location filename="../WebTranslator.cpp" line="100"/>
         <source>Ошибка загрузки страницы (%1) для перевода.</source>
         <translation>Page (%1) load failed.</translation>
     </message>
     <message>
-        <location filename="../WebTranslator.cpp" line="140"/>
+        <location filename="../WebTranslator.cpp" line="144"/>
         <source>Нет сценариев для перевода. Измените настройки.</source>
         <translation>Not found any translators. Change settings.</translation>
     </message>

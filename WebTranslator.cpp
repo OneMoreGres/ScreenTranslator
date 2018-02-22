@@ -15,7 +15,8 @@ WebTranslator::WebTranslator ()
   : QObject (),
   proxy_ (new WebTranslatorProxy (this)), view_ (new QWebView),
   translatorHelper_ (new TranslatorHelper), isReady_ (true),
-  ignoreSslErrors_ (settings_values::ignoreSslErrors){
+  ignoreSslErrors_ (settings_values::ignoreSslErrors),
+  forceRotateTranslators_ (settings_values::forceRotateTranslators) {
 
   view_->settings ()->setAttribute (QWebSettings::AutoLoadImages, false);
   view_->settings ()->setAttribute (QWebSettings::DeveloperExtrasEnabled, true);
@@ -60,7 +61,7 @@ void WebTranslator::translate (ProcessingItem item) {
 
 void WebTranslator::translateQueued () {
   if (isReady_ && !queue_.isEmpty ()) {
-    translatorHelper_->newItem ();
+    translatorHelper_->newItem (forceRotateTranslators_);
     proxy_->setItem (queue_.first ());
     if (!tryNextTranslator (true)) {
       return;
@@ -145,7 +146,8 @@ void WebTranslator::applySettings () {
   bool debugMode = GET (translationDebugMode).toBool ();
   setDebugMode (debugMode);
 
-  ignoreSslErrors_ = GET(ignoreSslErrors).toBool ();
+  ignoreSslErrors_ = GET (ignoreSslErrors).toBool ();
+  forceRotateTranslators_ = GET (forceRotateTranslators).toBool ();
 #undef GET
 }
 
