@@ -29,8 +29,8 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
   ui->updateCombo->addItems (updateTypes);
 
   connect (ui->tessdataButton, SIGNAL (clicked ()), SLOT (openTessdataDialog ()));
-  connect (ui->tessdataEdit, SIGNAL (textChanged (const QString &)),
-           SLOT (initOcrLangCombo (const QString &)));
+  connect (ui->tessdataEdit, SIGNAL (textChanged (const QString&)),
+           SLOT (initOcrLangCombo (const QString&)));
 
   connect (ui->recognizerFixTable, SIGNAL (itemChanged (QTableWidgetItem *)),
            SLOT (recognizerFixTableItemChanged (QTableWidgetItem *)));
@@ -200,7 +200,7 @@ void SettingsEditor::loadSettings () {
     RecognizerHelper::Subs subs = recognizerHelper_->subs ();
     ui->recognizerFixTable->setRowCount (subs.size ());
     int row = 0;
-    foreach (const RecognizerHelper::Sub & sub, subs) {
+    foreach (const RecognizerHelper::Sub &sub, subs) {
       if (!initSubsTableRow (row, sub.language)) {
         continue;
       }

@@ -28,8 +28,8 @@ WebTranslator::WebTranslator ()
   connect (view_->page ()->networkAccessManager (), SIGNAL (finished (QNetworkReply *)),
            this, SLOT (replyFinished (QNetworkReply *)));
   connect (view_->page ()->networkAccessManager (),
-           SIGNAL (sslErrors (QNetworkReply *, QList<QSslError>)),
-           this, SLOT (handleSslErrors (QNetworkReply *, QList<QSslError>)));
+           SIGNAL (sslErrors (QNetworkReply *,QList<QSslError>)),
+           this, SLOT (handleSslErrors (QNetworkReply *,QList<QSslError>)));
 
   translationTimeout_.setSingleShot (true);
   connect (&translationTimeout_, SIGNAL (timeout ()), SLOT (abortTranslation ()));

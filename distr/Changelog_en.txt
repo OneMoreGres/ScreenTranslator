@@ -1,5 +1,9 @@
 Changes.
 
+2.0.2:
+
+* Added force translator rotation option.
+
 2.0.1:
 
 * Fixed installer.
