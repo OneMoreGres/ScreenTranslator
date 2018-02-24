@@ -4,6 +4,7 @@ CreateStartupIcon=Добавить в автозапуск
 Executables=Исполняемые файлы
 Libraries=Библиотеки
 Translators=Переводчики
+InstallRedist=Установить библиотеки Visual C++
 
 DwinsHs_PageCaption =Загрузка файлов
 DwinsHs_PageDescription =Пожалуйста, дождитесь окончания загрузки...

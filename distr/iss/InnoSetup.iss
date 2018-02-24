@@ -63,12 +63,14 @@ Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{tmp}\vcredist_x86.exe"; Description: "{cm:InstallRedist}"; Parameters: "/install"; Flags: postinstall skipifsilent
 
 [Files]
 Source: "content\ScreenTranslator.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: Executable  
 Source: "content\*.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Libraries
 Source: "content\platforms\*"; DestDir: "{app}\platforms"; Flags: ignoreversion; Components: Libraries  
 Source: "content\translators\*"; DestDir: "{app}\translators"; Flags: ignoreversion; Components: Translators
+Source: "content\vcredist_x86.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall;
 
 [Types] 
 Name: "custom"; Description: "Custom installation"; Flags: iscustom

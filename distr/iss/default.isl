@@ -4,6 +4,7 @@ CreateStartupIcon=Create autostart icon
 Executables=Executables
 Libraries=Libraries
 Translators=Translators
+InstallRedist=Install VC redistributable
 
 Languages=OCR Languages
 Afrikaans=Afrikaans
