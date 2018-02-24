@@ -28,6 +28,8 @@ copy /Y %ROOT%\images\icon.ico iss\icon.ico
 mkdir iss\content
 copy /Y build\release\ScreenTranslator.exe iss\content\ScreenTranslator.exe
 copy /Y installed\bin\*.dll iss\content
+copy /Y c:\OpenSSL-Win32\bin\libeay32.dll iss\content
+copy /Y c:\OpenSSL-Win32\bin\ssleay32.dll iss\content
 mkdir iss\content\translations
 copy /Y %ROOT%\translations\*.qm iss\content\translations
 mkdir iss\content\translators
