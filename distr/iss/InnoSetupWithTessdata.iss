@@ -46,8 +46,8 @@ InternalCompressLevel=ultra
 SolidCompression=yes     
 
 [Languages]
-Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "LICENSE_en.md"; InfoBeforeFile: "Changelog_en.txt"
-Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"; LicenseFile: "LICENSE_ru.md"; InfoBeforeFile: "Changelog_ru.txt"  
+Name: "en"; MessagesFile: "compiler:Default.isl,default.isl"; LicenseFile: "LICENSE_en.md"; InfoBeforeFile: "Changelog_en.txt"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl,russian.isl"; LicenseFile: "LICENSE_ru.md"; InfoBeforeFile: "Changelog_ru.txt"  
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked        
@@ -78,17 +78,6 @@ Name: "Executable"; Description: "{cm:Executables}"; Types: custom; Flags: fixed
 Name: "Libraries"; Description: "{cm:Libraries}"; Types: custom; Flags: fixed;   
 Name: "Translators"; Description: "{cm:Translators}"; Types: custom; Flags: fixed;
 
-[CustomMessages]
-en.CreateStartupIcon=Create autostart icon
-en.Executables=Executables 
-en.Libraries=Libraries     
-en.Translators=Translators
-
-ru.CreateStartupIcon=Добавить в автозапуск
-ru.Executables=Исполняемые файлы
-ru.Libraries=Библиотеки
-ru.Translators=Переводчики
-
 #include "tessdataBuiltin.iss"
 
 [UninstallDelete]
@@ -98,57 +87,3 @@ Type: files; Name: "{app}\st_subs.csv"
 [UninstallRun]
 Filename: "taskkill.exe"; Parameters: "/IM ScreenTranslator.exe /T /F"
 
-
-[Code]               
-#define DwinsHs_Use_Predefined_Downloading_WizardPage
-#define DwinsHs_Auto_Continue
-#include "dwinshs.iss"
-
-procedure InitializeWizard();
-begin
-  DwinsHs_InitializeWizard(wpPreparing);
-end;
-
-procedure CurPageChanged(CurPageID: Integer);
-begin
-  DwinsHs_CurPageChanged(CurPageID, nil, nil);
-end;
-
-function ShouldSkipPage(CurPageId: Integer): Boolean;
-begin
-  Result := False;
-  DwinsHs_ShouldSkipPage(CurPageId, Result);
-end;
-
-function BackButtonClick(CurPageID: Integer): Boolean;
-begin
-  Result := True;
-  DwinsHs_BackButtonClick(CurPageID);
-end;
-
-function NextButtonClick(CurPageID: Integer): Boolean;
-begin
-  Result := True;
-  DwinsHs_NextButtonClick(CurPageID, Result);
-end;
-
-procedure CancelButtonClick(CurPageID: Integer; var Cancel, Confirm: Boolean);
-begin
-  DwinsHs_CancelButtonClick(CurPageID, Cancel, Confirm);
-end;
-  
-[CustomMessages]
-ru.DwinsHs_PageCaption =Загрузка файлов
-ru.DwinsHs_PageDescription =Пожалуйста, дождитесь окончания загрузки...
-ru.DwinsHs_TotalProgress =Общий прогресс:
-ru.DwinsHs_CurrentFile =Текущий файл:
-ru.DwinsHs_File =Файл:
-ru.DwinsHs_Speed =Скорость:
-ru.DwinsHs_Status =Статус:
-ru.DwinsHs_ElapsedTime =Затраченное время:
-ru.DwinsHs_RemainingTime =Оставшееся время:
-
-ru.DwinsHs_Status_GetFileInformation =Получения размера файла
-ru.DwinsHs_Status_StartingDownload =Начало загрузки
-ru.DwinsHs_Status_Downloading =Загрузка
-ru.DwinsHs_Status_DownlaodComplete =Загрузка завершена          
