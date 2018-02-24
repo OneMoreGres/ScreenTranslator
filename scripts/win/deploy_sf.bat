@@ -16,7 +16,14 @@ for /f "delims=" %%i in ('dir /b screen-translator-offline*.exe') do set offline
 
 winscp.com /keygen %SELF_PATH%\sf_key /output=key.ppk
 set folder="/home/frs/project/screen-translator/bin/v%VERSION%"
-winscp.com /command "open sftp://onemoregres@frs.sourceforge.net/ -privatekey=key.ppk -hostkey=*" "mkdir %folder%" "put %online% %folder%/%online%" "put %offline% %folder%/%offline%" "exit"
+set bin_folder="/home/frs/project/screen-translator/bin"
+winscp.com /command "open sftp://onemoregres@frs.sourceforge.net/ -privatekey=key.ppk -hostkey=*" ^
+ "mkdir %folder%" ^
+ "put %online% %folder%/%online%" ^
+ "put %offline% %folder%/%offline%" ^
+ "put %ROOT%\distr\Changelog_en.txt %bin_folder%/readme.md" ^
+ "put %ROOT%\distr\Changelog_ru.txt %bin_folder%/readme_ru.md" ^
+ "exit"
 
 
 set url="https://sourceforge.net/projects/screen-translator/files/bin/v%VERSION%/%online%"
