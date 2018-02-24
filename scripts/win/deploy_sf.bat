@@ -21,8 +21,8 @@ winscp.com /command "open sftp://onemoregres@frs.sourceforge.net/ -privatekey=ke
  "mkdir %folder%" ^
  "put %online% %folder%/%online%" ^
  "put %offline% %folder%/%offline%" ^
- "put %ROOT%\distr\Changelog_en.txt %bin_folder%/readme.md" ^
  "put %ROOT%\distr\Changelog_ru.txt %bin_folder%/readme_ru.md" ^
+ "put %ROOT%\distr\Changelog_en.txt %bin_folder%/readme.md" ^
  "exit"
 
 
