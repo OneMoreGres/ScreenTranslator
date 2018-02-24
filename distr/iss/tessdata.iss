@@ -3,14 +3,14 @@ Source: "{tmp}\afr.traineddata"; DestDir: "{app}\tessdata"; Components: Language
 Source: "{tmp}\sqi.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Albanian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\sqi.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/sqi.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\amh.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Amharic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\amh.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/amh.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\grc.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Ancient_Greek; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\grc.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/grc.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ara.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.lm', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ara.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.params', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ara.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ara.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.size', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ara.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.bigrams', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ara.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ara.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.bigrams', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ara.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.word-freq', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ara.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.size', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ara.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ara.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.fold', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ara.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.traineddata', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ara.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Arabic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ara.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ara.cube.lm', 'ST_setup', 'Get', 0);
 Source: "{tmp}\asm.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Assamese; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\asm.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/asm.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\aze.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Azerbaijani; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\aze.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/aze.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\eus.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Basque; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eus.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eus.traineddata', 'ST_setup', 'Get', 0);
@@ -29,56 +29,56 @@ Source: "{tmp}\ces.traineddata"; DestDir: "{app}\tessdata"; Components: Language
 Source: "{tmp}\dan.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Danish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\dan.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/dan.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\nld.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Dutch; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\nld.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/nld.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\dzo.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Dzongkha; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\dzo.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/dzo.traineddata', 'ST_setup', 'Get', 0);
+Source: "{tmp}\eng.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.word-freq', 'ST_setup', 'Get', 0);
+Source: "{tmp}\eng.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.params', 'ST_setup', 'Get', 0);
+Source: "{tmp}\eng.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.bigrams', 'ST_setup', 'Get', 0);
+Source: "{tmp}\eng.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\eng.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.traineddata', 'ST_setup', 'Get', 0);
+Source: "{tmp}\eng.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.fold', 'ST_setup', 'Get', 0);
 Source: "{tmp}\eng.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.size', 'ST_setup', 'Get', 0);
 Source: "{tmp}\eng.tesseract_cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.tesseract_cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.tesseract_cube.nn', 'ST_setup', 'Get', 0);
 Source: "{tmp}\eng.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.lm', 'ST_setup', 'Get', 0);
-Source: "{tmp}\eng.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\eng.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.word-freq', 'ST_setup', 'Get', 0);
-Source: "{tmp}\eng.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.nn', 'ST_setup', 'Get', 0);
-Source: "{tmp}\eng.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.fold', 'ST_setup', 'Get', 0);
-Source: "{tmp}\eng.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.bigrams', 'ST_setup', 'Get', 0);
-Source: "{tmp}\eng.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\English; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\eng.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\epo.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Esperanto; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\epo.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/epo.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\est.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Estonian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\est.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/est.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\fin.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Finnish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fin.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fin.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\frk.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Frankish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\frk.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/frk.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\fra.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.size', 'ST_setup', 'Get', 0);
-Source: "{tmp}\fra.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.nn', 'ST_setup', 'Get', 0);
-Source: "{tmp}\fra.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\fra.tesseract_cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.tesseract_cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.tesseract_cube.nn', 'ST_setup', 'Get', 0);
-Source: "{tmp}\fra.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.fold', 'ST_setup', 'Get', 0);
+Source: "{tmp}\fra.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\fra.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.lm', 'ST_setup', 'Get', 0);
-Source: "{tmp}\fra.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.word-freq', 'ST_setup', 'Get', 0);
-Source: "{tmp}\fra.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.bigrams', 'ST_setup', 'Get', 0);
+Source: "{tmp}\fra.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.fold', 'ST_setup', 'Get', 0);
 Source: "{tmp}\fra.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.traineddata', 'ST_setup', 'Get', 0);
+Source: "{tmp}\fra.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.size', 'ST_setup', 'Get', 0);
+Source: "{tmp}\fra.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.bigrams', 'ST_setup', 'Get', 0);
+Source: "{tmp}\fra.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\fra.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\French; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\fra.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/fra.cube.word-freq', 'ST_setup', 'Get', 0);
 Source: "{tmp}\glg.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Galician; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\glg.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/glg.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\kat.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Georgian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\kat.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/kat.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\deu.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\German; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\deu.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/deu.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\guj.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Gujarati; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\guj.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/guj.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hat.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Haitian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hat.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hat.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\heb.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Hebrew; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\heb.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/heb.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\hin.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.fold', 'ST_setup', 'Get', 0);
-Source: "{tmp}\hin.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.lm', 'ST_setup', 'Get', 0);
-Source: "{tmp}\hin.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hin.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\hin.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.lm', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hin.tesseract_cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.tesseract_cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.tesseract_cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\hin.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hin.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hin.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.word-freq', 'ST_setup', 'Get', 0);
+Source: "{tmp}\hin.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.fold', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hin.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\Hindi; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hin.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hin.cube.bigrams', 'ST_setup', 'Get', 0);
 Source: "{tmp}\hun.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Hungarian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\hun.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/hun.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\isl.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Icelandic; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\isl.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/isl.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ind.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Indonesian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ind.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ind.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\iku.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Inuktitut; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\iku.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/iku.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\gle.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Irish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\gle.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/gle.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ita.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.fold', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ita.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.size', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ita.tesseract_cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.tesseract_cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.tesseract_cube.nn', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ita.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.word-freq', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ita.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.params', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ita.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.lm', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ita.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.fold', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ita.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.bigrams', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ita.tesseract_cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.tesseract_cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.tesseract_cube.nn', 'ST_setup', 'Get', 0);
-Source: "{tmp}\ita.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.nn', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ita.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.traineddata', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ita.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.size', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ita.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\ita.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Italian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ita.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ita.cube.lm', 'ST_setup', 'Get', 0);
 Source: "{tmp}\jpn.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Japanese; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\jpn.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/jpn.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\jav.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Javanese; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\jav.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/jav.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\kan.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Kannada; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\kan.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/kan.traineddata', 'ST_setup', 'Get', 0);
@@ -110,23 +110,23 @@ Source: "{tmp}\por.traineddata"; DestDir: "{app}\tessdata"; Components: Language
 Source: "{tmp}\pus.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Pushto; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\pus.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/pus.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\ron.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Romanian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\ron.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/ron.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\rus.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\rus.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\rus.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.size', 'ST_setup', 'Get', 0);
 Source: "{tmp}\rus.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.fold', 'ST_setup', 'Get', 0);
 Source: "{tmp}\rus.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.lm', 'ST_setup', 'Get', 0);
-Source: "{tmp}\rus.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.size', 'ST_setup', 'Get', 0);
-Source: "{tmp}\rus.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\rus.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.word-freq', 'ST_setup', 'Get', 0);
+Source: "{tmp}\rus.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.nn', 'ST_setup', 'Get', 0);
+Source: "{tmp}\rus.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Russian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\rus.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/rus.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\san.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Sanskrit; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\san.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/san.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\srp.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Serbian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\srp.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/srp.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\sin.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Sinhala; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\sin.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/sin.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\slk.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Slovak; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\slk.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/slk.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\slv.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Slovenian; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\slv.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/slv.traineddata', 'ST_setup', 'Get', 0);
-Source: "{tmp}\spa.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.fold', 'ST_setup', 'Get', 0);
-Source: "{tmp}\spa.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.nn', 'ST_setup', 'Get', 0);
-Source: "{tmp}\spa.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.lm', 'ST_setup', 'Get', 0);
-Source: "{tmp}\spa.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.bigrams', 'ST_setup', 'Get', 0);
-Source: "{tmp}\spa.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.size', 'ST_setup', 'Get', 0);
 Source: "{tmp}\spa.cube.word-freq"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.word-freq'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.word-freq', 'ST_setup', 'Get', 0);
+Source: "{tmp}\spa.cube.lm"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.lm'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.lm', 'ST_setup', 'Get', 0);
+Source: "{tmp}\spa.cube.fold"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.fold'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.fold', 'ST_setup', 'Get', 0);
+Source: "{tmp}\spa.cube.size"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.size'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.size', 'ST_setup', 'Get', 0);
+Source: "{tmp}\spa.cube.bigrams"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.bigrams'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.bigrams', 'ST_setup', 'Get', 0);
+Source: "{tmp}\spa.cube.nn"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.nn'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.nn', 'ST_setup', 'Get', 0);
 Source: "{tmp}\spa.cube.params"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.cube.params'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.cube.params', 'ST_setup', 'Get', 0);
 Source: "{tmp}\spa.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Spanish; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\spa.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/spa.traineddata', 'ST_setup', 'Get', 0);
 Source: "{tmp}\swa.traineddata"; DestDir: "{app}\tessdata"; Components: Languages\Swahili; Flags: external; Check: DwinsHs_Check(ExpandConstant('{tmp}\swa.traineddata'), 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/swa.traineddata', 'ST_setup', 'Get', 0);
@@ -174,7 +174,7 @@ Name: "Languages\Czech"; Description: "{cm:Czech}"; Languages: en; ExtraDiskSpac
 Name: "Languages\Danish"; Description: "{cm:Danish}"; Languages: en; ExtraDiskSpaceRequired: 7340575
 Name: "Languages\Dutch"; Description: "{cm:Dutch}"; Languages: en; ExtraDiskSpaceRequired: 17098919
 Name: "Languages\Dzongkha"; Description: "{cm:Dzongkha}"; Languages: en; ExtraDiskSpaceRequired: 3310882
-Name: "Languages\English"; Description: "{cm:English}"; Languages: en; ExtraDiskSpaceRequired: 38371506
+Name: "Languages\English"; Description: "{cm:English}"; Languages: en; Types: custom; ExtraDiskSpaceRequired: 38371506
 Name: "Languages\Esperanto"; Description: "{cm:Esperanto}"; Languages: en; ExtraDiskSpaceRequired: 6602178
 Name: "Languages\Estonian"; Description: "{cm:Estonian}"; Languages: en; ExtraDiskSpaceRequired: 9644486
 Name: "Languages\Finnish"; Description: "{cm:Finnish}"; Languages: en; ExtraDiskSpaceRequired: 13274908
@@ -223,7 +223,7 @@ Name: "Languages\Polish"; Description: "{cm:Polish}"; Languages: en; ExtraDiskSp
 Name: "Languages\Portuguese"; Description: "{cm:Portuguese}"; Languages: en; ExtraDiskSpaceRequired: 12914622
 Name: "Languages\Pushto"; Description: "{cm:Pushto}"; Languages: en; ExtraDiskSpaceRequired: 2493826
 Name: "Languages\Romanian"; Description: "{cm:Romanian}"; Languages: en; ExtraDiskSpaceRequired: 7957608
-Name: "Languages\Russian"; Description: "{cm:Russian}"; Languages: en; Types: custom; ExtraDiskSpaceRequired: 39371802
+Name: "Languages\Russian"; Description: "{cm:Russian}"; Languages: en; ExtraDiskSpaceRequired: 39371802
 Name: "Languages\Sanskrit"; Description: "{cm:Sanskrit}"; Languages: en; ExtraDiskSpaceRequired: 22747749
 Name: "Languages\Serbian"; Description: "{cm:Serbian}"; Languages: en; ExtraDiskSpaceRequired: 4611681
 Name: "Languages\Sinhala"; Description: "{cm:Sinhala}"; Languages: en; ExtraDiskSpaceRequired: 6793740
@@ -346,206 +346,3 @@ Name: "Languages\Esperanto"; Description: "{cm:Esperanto}"; Languages: ru; Extra
 Name: "Languages\Estonian"; Description: "{cm:Estonian}"; Languages: ru; ExtraDiskSpaceRequired: 9644486
 Name: "Languages\Javanese"; Description: "{cm:Javanese}"; Languages: ru; ExtraDiskSpaceRequired: 4404351
 Name: "Languages\Japanese"; Description: "{cm:Japanese}"; Languages: ru; ExtraDiskSpaceRequired: 33072615
-
-
-[CustomMessages]
-en.Languages=OCR Languages
-en.Afrikaans=Afrikaans
-en.Albanian=Albanian
-en.Amharic=Amharic
-en.Ancient_Greek=Ancient Greek
-en.Arabic=Arabic
-en.Assamese=Assamese
-en.Azerbaijani=Azerbaijani
-en.Basque=Basque
-en.Belarusian=Belarusian
-en.Bengali=Bengali
-en.Bosnian=Bosnian
-en.Bulgarian=Bulgarian
-en.Burmese=Burmese
-en.Catalan=Catalan
-en.Cebuano=Cebuano
-en.Cherokee=Cherokee
-en.Chineese_simplified=Chineese simplified
-en.Chineese_traditional=Chineese traditional
-en.Croatian=Croatian
-en.Czech=Czech
-en.Danish=Danish
-en.Dutch=Dutch
-en.Dzongkha=Dzongkha
-en.English=English
-en.Esperanto=Esperanto
-en.Estonian=Estonian
-en.Finnish=Finnish
-en.Frankish=Frankish
-en.French=French
-en.Galician=Galician
-en.Georgian=Georgian
-en.German=German
-en.Gujarati=Gujarati
-en.Haitian=Haitian
-en.Hebrew=Hebrew
-en.Hindi=Hindi
-en.Hungarian=Hungarian
-en.Icelandic=Icelandic
-en.Indonesian=Indonesian
-en.Inuktitut=Inuktitut
-en.Irish=Irish
-en.Italian=Italian
-en.Japanese=Japanese
-en.Javanese=Javanese
-en.Kannada=Kannada
-en.Kazakh=Kazakh
-en.Khmer=Khmer
-en.Kirghiz=Kirghiz
-en.Korean=Korean
-en.Kurdish=Kurdish
-en.Lao=Lao
-en.Latin=Latin
-en.Latvian=Latvian
-en.Lithuanian=Lithuanian
-en.Macedonian=Macedonian
-en.Malay=Malay
-en.Malayalam=Malayalam
-en.Maltese=Maltese
-en.Marathi=Marathi
-en.Math=Math
-en.Middle_English=Middle English
-en.Middle_French=Middle French
-en.Modern_Greek=Modern Greek
-en.Nepali=Nepali
-en.Norwegian=Norwegian
-en.Oriya=Oriya
-en.Panjabi=Panjabi
-en.Persian=Persian
-en.Polish=Polish
-en.Portuguese=Portuguese
-en.Pushto=Pushto
-en.Romanian=Romanian
-en.Russian=Russian
-en.Sanskrit=Sanskrit
-en.Serbian=Serbian
-en.Sinhala=Sinhala
-en.Slovak=Slovak
-en.Slovenian=Slovenian
-en.Spanish=Spanish
-en.Swahili=Swahili
-en.Swedish=Swedish
-en.Syriac=Syriac
-en.Tagalog=Tagalog
-en.Tajik=Tajik
-en.Tamil=Tamil
-en.Telugu=Telugu
-en.Thai=Thai
-en.Tibetan=Tibetan
-en.Tigrinya=Tigrinya
-en.Turkish=Turkish
-en.Uighur=Uighur
-en.Ukrainian=Ukrainian
-en.Urdu=Urdu
-en.Uzbek=Uzbek
-en.Vietnamese=Vietnamese
-en.Welsh=Welsh
-en.Yiddish=Yiddish
-
-
-[CustomMessages]
-ru.Languages=Языки распознавания
-ru.Afrikaans=Африкаанс
-ru.Albanian=Албанский
-ru.Amharic=Амхарский
-ru.Ancient_Greek=Древнегреческий
-ru.Arabic=Арабский
-ru.Assamese=Ассамский
-ru.Azerbaijani=Азербайджанский
-ru.Basque=Басков
-ru.Belarusian=Белорусский
-ru.Bengali=Бенгальский
-ru.Bosnian=Боснийский
-ru.Bulgarian=Болгарии
-ru.Burmese=Бирманский
-ru.Catalan=Каталонский
-ru.Cebuano=Кебуано
-ru.Cherokee=Чероки
-ru.Chineese_simplified=Китайский упрощенный
-ru.Chineese_traditional=Китайский традиционный
-ru.Croatian=Хорватский
-ru.Czech=Чешский
-ru.Danish=Датский
-ru.Dutch=Голландский
-ru.Dzongkha=Джонгкха
-ru.English=Английский
-ru.Esperanto=Эсперанто
-ru.Estonian=Эстонский
-ru.Finnish=Финский
-ru.Frankish=Франкский
-ru.French=Французский
-ru.Galician=Галисийский
-ru.Georgian=Грузинский
-ru.German=Немецкий
-ru.Gujarati=Гуджарати
-ru.Haitian=Гаити
-ru.Hebrew=Иврит
-ru.Hindi=Хинди
-ru.Hungarian=Венгерский
-ru.Icelandic=Исландский
-ru.Indonesian=Индонезийский
-ru.Inuktitut=Инуктитут
-ru.Irish=Ирландский
-ru.Italian=Итальянский
-ru.Japanese=Японский
-ru.Javanese=Яванский
-ru.Kannada=Каннада
-ru.Kazakh=Казахский
-ru.Khmer=Кхмерский
-ru.Kirghiz=Киргизский
-ru.Korean=Корейский
-ru.Kurdish=Курдский
-ru.Lao=Лао
-ru.Latin=Латинский
-ru.Latvian=Латышский
-ru.Lithuanian=Литовский
-ru.Macedonian=Македонский
-ru.Malay=Малайский
-ru.Malayalam=Малаялам
-ru.Maltese=Мальтийский
-ru.Marathi=Маратхи
-ru.Math=Математика
-ru.Middle_English=Средневековый английский
-ru.Middle_French=Средневековый французский
-ru.Modern_Greek=Новогреческий
-ru.Nepali=Непальский
-ru.Norwegian=Норвежский
-ru.Oriya=Ория
-ru.Panjabi=Панджаби
-ru.Persian=Персидский
-ru.Polish=Польский
-ru.Portuguese=Португальский
-ru.Pushto=Пушту
-ru.Romanian=Румынский
-ru.Russian=Русский
-ru.Sanskrit=Санскрит
-ru.Serbian=Сербский
-ru.Sinhala=Сингальский
-ru.Slovak=Словацкий
-ru.Slovenian=Словенский
-ru.Spanish=Испанский
-ru.Swahili=Суахили
-ru.Swedish=Шведский
-ru.Syriac=Сирийский
-ru.Tagalog=Тагальский
-ru.Tajik=Таджикиский
-ru.Tamil=Тамил
-ru.Telugu=Телугу
-ru.Thai=Тайский
-ru.Tibetan=Тибетский
-ru.Tigrinya=Тиграи
-ru.Turkish=Турецкий
-ru.Uighur=Уйгурский
-ru.Ukrainian=Украинский
-ru.Urdu=Урду
-ru.Uzbek=Узбекский
-ru.Vietnamese=Вьетнамский
-ru.Welsh=Валлийский
-ru.Yiddish=Идиш
-
