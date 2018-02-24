@@ -1,13 +1,13 @@
 {
     "version": 1,
-    "url": "https://cdn.rawgit.com/OneMoreGres/ScreenTranslator/master/version.json",
+    "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/version.json",
     "Application": {
-        "version": 1,
-        "compatibleVersion": 1,
+        "version": 2,
+        "compatibleVersion": 2,
         "built_in": true,
-        "versionString": "2.0.0",
+        "versionString": "2.0.2",
         "permissions": "0x7755",
-        "url_win": "https://github.com/OneMoreGres/ScreenTranslator/releases/download/2.0.0/ScreenTranslator.exe",
+        "url_win": "https://github.com/OneMoreGres/ScreenTranslator/releases/download/2.0.2/ScreenTranslator.exe",
         "path_win": "ScreenTranslator.exe",
         "url_linux": "disabled",
         "path_linux": "ScreenTranslator"
