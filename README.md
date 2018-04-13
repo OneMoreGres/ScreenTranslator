@@ -10,11 +10,22 @@ Introduction
 This software allows you to translate any text on screen.
 Basically it is a combination of screen capture, OCR and translation tools.
 
+Installation
+------------
+
+**Windows**: download and run the installer from [github releases](https://github.com/OneMoreGres/ScreenTranslator/releases) page.
+
+**Linux**: install dependencies and build from source (edit .pro, qmake && make).
+Also download [data files](https://github.com/tesseract-ocr/tessdata/tree/3.04.00) for tesseract.
+
+**OS X**: currently not supported.
+
 Usage
 -----
-1. Press capture hotkey.
-2. Select region on screen.
-3. Get translation of recognized text.
+1. Run program (note that it doesn't have main window).
+2. Press capture hotkey.
+3. Select region on screen.
+4. Get translation of recognized text.
 
 Features
 --------
@@ -34,10 +45,10 @@ Limitations
 * Not very precise OCR
 * Not all functions are cross-platform (may be bugged on some systems)
 
-Used software
--------------
+Dependencies
+------------
 * see [Qt 5](http://qt-project.org/)
 * see [Tesseract](https://code.google.com/p/tesseract-ocr/)
-* see [Leptonica](http://leptonica.com/) (Tesseract dependency)
+* see [Leptonica](http://leptonica.com/)
 * several online translation services
 
