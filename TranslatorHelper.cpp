@@ -61,6 +61,9 @@ void TranslatorHelper::loadScripts () {
 void TranslatorHelper::newItem (bool forceRotate) {
   triesLeft_ = scripts_.size ();
   currentIndex_ = forceRotate ? currentIndex_ + 1 : 0;
+  if (currentIndex_ >= scripts_.size ()) {
+    currentIndex_ = 0;
+  }
 }
 
 QString TranslatorHelper::nextScript () {
@@ -74,7 +77,10 @@ QString TranslatorHelper::nextScript () {
 }
 
 QString TranslatorHelper::currentScript () const {
-  return (triesLeft_ > 0 ? scripts_.at (currentIndex_) : QString ());
+  if (triesLeft_ > 0 && currentIndex_ < scripts_.size ()) {
+    return scripts_.at (currentIndex_);
+  }
+  return QString ();
 }
 
 bool TranslatorHelper::gotScripts () const {
