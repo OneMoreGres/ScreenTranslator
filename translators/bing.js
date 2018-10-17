@@ -6,9 +6,9 @@ function checkFinished () {
     if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
     isScheduled = true;
     setTimeout(function () {
-        var spans = [].slice.call (document.querySelectorAll ('#destText span'));
+        var spans = [].slice.call (document.querySelectorAll ('#t_txtoutblk textarea'));
         var text = spans.reduce (function (res, i) {
-            return res + i.innerText;
+            return res + i.value;
         }, '');
         console.log (text);
         st_wtp.translated (text);
@@ -16,15 +16,24 @@ function checkFinished () {
     }, 2000); // wait for gui fill
 }
 function onResourceLoad (url) {
-    if (url.indexOf ('/translator/api/Dictionary/Lookup?') > -1) {
+    if (url.indexOf ('bing.com/translator/?') > -1) {
         isTranslationFinished = true;
-        checkFinished ();
+        if (isPageLoaded) {
+            checkFinished ();
+        }
     }
 }
 st_wtp.resourceLoaded.connect (onResourceLoad);
 function onPageLoad () {
+    if (window.location.href.indexOf('about:blank') === 0) {
+        translate ();
+        return;
+    }
+
     isPageLoaded = true;
-    checkFinished ();
+    if (isTranslationFinished) {
+        checkFinished ();
+    }
 }
 window.onload = onPageLoad();
 
