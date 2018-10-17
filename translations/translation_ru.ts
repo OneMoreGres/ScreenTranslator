@@ -697,7 +697,7 @@
     <message>
         <location filename="../LanguageHelper.cpp" line="294"/>
         <source>Tajik</source>
-        <translation>Таджикиский</translation>
+        <translation>Таджикский</translation>
     </message>
     <message>
         <location filename="../LanguageHelper.cpp" line="295"/>
