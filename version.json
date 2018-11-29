@@ -18,7 +18,7 @@
         "path": "translators/bing.js"
     },
     "Google translator": {
-        "version": 3,
+        "version": 4,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js",
         "path": "translators/google.js"
     },

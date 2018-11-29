@@ -6,7 +6,8 @@ function checkFinished () {
     if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
     isScheduled = true;
     setTimeout(function () {
-        var spans = [].slice.call (document.querySelectorAll ('#result_box > span'));
+        var spans = [].slice.call (document.querySelectorAll (
+                                       'span.translation > span, #result_box > span'));
         var text = spans.reduce (function (res, i) {
             return res + ' ' + i.innerText;
         }, '');
