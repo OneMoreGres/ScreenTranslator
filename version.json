@@ -22,6 +22,11 @@
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js",
         "path": "translators/google.js"
     },
+    "Google API translator": {
+        "version": 1,
+        "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google_api.js",
+        "path": "translators/google_api.js"
+    },
     "Yandex translator": {
         "version": 4,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js",
