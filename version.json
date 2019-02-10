@@ -31,5 +31,10 @@
         "version": 4,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js",
         "path": "translators/yandex.js"
+    },
+    "DeepL translator": {
+        "version": 1,
+        "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js",
+        "path": "translators/deepl.js"
     }
 }
