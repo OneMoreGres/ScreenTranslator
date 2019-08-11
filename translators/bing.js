@@ -6,10 +6,7 @@ function checkFinished () {
     if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
     isScheduled = true;
     setTimeout(function () {
-        var spans = [].slice.call (document.querySelectorAll ('#t_txtoutblk textarea'));
-        var text = spans.reduce (function (res, i) {
-            return res + i.value;
-        }, '');
+        var text = document.querySelector ('#tta_output').value;
         console.log (text);
         st_wtp.translated (text);
         isTranslationFinished = isScheduled = false;
