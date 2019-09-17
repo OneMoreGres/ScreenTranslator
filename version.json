@@ -36,5 +36,10 @@
         "version": 1,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js",
         "path": "translators/deepl.js"
+    },
+    "Papago translator": {
+        "version": 1,
+        "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/papago.js",
+        "path": "translators/papago.js"
     }
 }
