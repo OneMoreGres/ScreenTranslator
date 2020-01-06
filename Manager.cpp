@@ -246,8 +246,18 @@ void Manager::capture () {
   QList<QScreen *> screens = QApplication::screens ();
   foreach (QScreen * screen, screens) {
     QRect geometry = screen->availableGeometry ();
-    QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
+    #if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+    QPixmap pixmap = screen->grabWindow (0, 0, 0,
                                          geometry.width (), geometry.height ());
+    #else
+        #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+        QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
+                                         geometry.width (), geometry.height ());
+        #else
+        assert c(0 && "Qt version is too small");
+    #endif
+    #endif
+
     QString name = screen->name ();
     if (!selections_.contains (name)) {
       SelectionDialog *selection = new SelectionDialog (*dictionary_);

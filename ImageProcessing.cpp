@@ -2,10 +2,10 @@
 
 #include <leptonica/allheaders.h>
 
-#include <tesseract/host.h>
-
 #include "ImageProcessing.h"
 #include "StAssert.h"
+
+#define MAX_INT16 32767
 
 #if defined(Q_OS_LINUX)
 #  include <fstream>
