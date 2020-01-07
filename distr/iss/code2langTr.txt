@@ -94,7 +94,7 @@ swe Swedish Шведский
 syr Syriac Сирийский 
 tam Tamil Тамил 
 tel Telugu Телугу 
-tgk Tajik Таджикиский 
+tgk Tajik Таджикский 
 tgl Tagalog Тагальский 
 tha Thai Тайский 
 tir Tigrinya Тиграи 
