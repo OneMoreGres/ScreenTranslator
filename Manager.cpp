@@ -250,12 +250,8 @@ void Manager::capture () {
     QPixmap pixmap = screen->grabWindow (0, 0, 0,
                                          geometry.width (), geometry.height ());
     #else
-        #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-        QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
+    QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
                                          geometry.width (), geometry.height ());
-        #else
-        assert c(0 && "Qt version is too small");
-    #endif
     #endif
 
     QString name = screen->name ();
