@@ -246,8 +246,14 @@ void Manager::capture () {
   QList<QScreen *> screens = QApplication::screens ();
   foreach (QScreen * screen, screens) {
     QRect geometry = screen->availableGeometry ();
+    #if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+    QPixmap pixmap = screen->grabWindow (0, 0, 0,
+                                         geometry.width (), geometry.height ());
+    #else
     QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
                                          geometry.width (), geometry.height ());
+    #endif
+
     QString name = screen->name ();
     if (!selections_.contains (name)) {
       SelectionDialog *selection = new SelectionDialog (*dictionary_);
