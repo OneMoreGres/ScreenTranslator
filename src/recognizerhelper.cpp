@@ -25,7 +25,7 @@ void RecognizerHelper::load () {
   QByteArray data = f.readAll ();
   f.close ();
   QStringList lines = QString::fromUtf8 (data).split ('\n', QString::SkipEmptyParts);
-  foreach (const QString &line, lines) {
+  for (const QString &line: lines) {
     QStringList parts = line.mid (1, line.size () - 2).split ("\",\""); // remove "
     if (parts.size () < 3) {
       continue;
@@ -39,7 +39,7 @@ void RecognizerHelper::save () {
   if (!f.open (QFile::WriteOnly)) {
     return;
   }
-  foreach (const Sub &sub, subs_) {
+  for (const Sub &sub: subs_) {
     QStringList parts = QStringList () << sub.language << sub.source << sub.target;
     QString line = "\"" + parts.join ("\",\"") + "\"\n";
     f.write (line.toUtf8 ());
@@ -53,7 +53,7 @@ QString RecognizerHelper::substitute (const QString &source, const QString &lang
     int bestMatchIndex = -1;
     int bestMatchLen = 0;
     int index = -1;
-    foreach (const Sub &sub, subs_) {
+    for (const Sub &sub: subs_) {
       ++index;
       if (sub.language != language || !result.contains (sub.source)) {
         continue;

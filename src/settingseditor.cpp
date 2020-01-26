@@ -43,7 +43,7 @@ SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *paren
   proxyTypeNames.insert (QNetworkProxy::Socks5Proxy, tr ("SOCKS 5"));
   proxyTypeNames.insert (QNetworkProxy::HttpProxy, tr ("HTTP"));
   QList<int> proxyOrder = proxyTypeOrder ();
-  foreach (int type, proxyOrder) {
+  for (int type: proxyOrder) {
     ui->proxyTypeCombo->addItem (proxyTypeNames.value (QNetworkProxy::ProxyType (type)));
   }
 
@@ -196,7 +196,7 @@ void SettingsEditor::loadSettings () {
     RecognizerHelper::Subs subs = recognizerHelper_->subs ();
     ui->recognizerFixTable->setRowCount (subs.size ());
     int row = 0;
-    foreach (const RecognizerHelper::Sub &sub, subs) {
+    for (const RecognizerHelper::Sub &sub: subs) {
       if (!initSubsTableRow (row, sub.language)) {
         continue;
       }

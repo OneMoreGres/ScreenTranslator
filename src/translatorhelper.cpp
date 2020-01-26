@@ -42,7 +42,7 @@ QStringList TranslatorHelper::enabledTranslatorScripts () const {
   QStringList enabled;
   possibleTranslators (enabled);
   QStringList scripts;
-  foreach (const QString &name, enabled) {
+  for (const QString &name: enabled) {
     QFile f (translatorsDir_ + QDir::separator () + name);
     if (f.open (QFile::ReadOnly)) {
       QString script = QString::fromUtf8 (f.readAll ());

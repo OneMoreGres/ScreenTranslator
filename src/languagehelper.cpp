@@ -11,7 +11,7 @@ LanguageHelper::LanguageHelper () {
 
 QStringList LanguageHelper::availableOcrLanguagesUi () const {
   QStringList uiItems;
-  foreach (const QString &item, availableOcrLanguages_) {
+  for (const QString &item: availableOcrLanguages_) {
     uiItems << ocrCodeToUi (item);
   }
   uiItems.sort ();
@@ -29,7 +29,7 @@ QStringList LanguageHelper::availableOcrLanguages (const QString &path) const {
   }
   QStringList items;
   QStringList files = dir.entryList ({"*.traineddata"}, QDir::Files);
-  foreach (const QString &file, files) {
+  for (const QString &file: files) {
     QString lang = file.left (file.indexOf ("."));
     items << lang;
   }
@@ -39,7 +39,7 @@ QStringList LanguageHelper::availableOcrLanguages (const QString &path) const {
 QStringList LanguageHelper::availableOcrLanguagesUi (const QString &path) const {
   QStringList uiItems, items;
   items = availableOcrLanguages (path);
-  foreach (const QString &item, items) {
+  for (const QString &item: items) {
     uiItems << ocrCodeToUi (item);
   }
   uiItems.sort ();
@@ -113,7 +113,7 @@ void LanguageHelper::updateMenu (QMenu *menu, const QStringList &languages, int 
   }
 
   if (languages.size () <= groupSize) {
-    foreach (const QString &language, languages) {
+    for (const QString &language: languages) {
       menu->addAction (language);
     }
   }
@@ -121,7 +121,7 @@ void LanguageHelper::updateMenu (QMenu *menu, const QStringList &languages, int 
     int subIndex = groupSize;
     QMenu *subMenu = NULL;
     QString prevLetter;
-    foreach (const QString &language, languages) {
+    for (const QString &language: languages) {
       QString curLetter = language.left (1);
       if (++subIndex >= groupSize && prevLetter != curLetter) {
         if (subMenu != NULL) {

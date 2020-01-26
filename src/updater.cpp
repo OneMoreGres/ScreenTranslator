@@ -94,7 +94,7 @@ void Updater::updateCurrentVersion () {
   }
   QJsonObject updated = QJsonDocument::fromJson (f.readAll ()).object ();
   f.close ();
-  foreach (const QString &component, updated.keys ()) {
+  for (const QString &component: updated.keys ()) {
     QJsonObject current = currentVersion_[component].toObject ();
     int updatedVersion = updated[component].toInt ();
     if (current[_built_in].toBool () || current[_version].toInt () >= updatedVersion) {
@@ -140,7 +140,7 @@ void Updater::parseAvailableVersion () {
   QStringList inaccessible, incompatible;
   QStringList updateList;
   QDir currentDir;
-  foreach (const QString &component, availableVersion_.keys ()) {
+  for (const QString &component: availableVersion_.keys ()) {
     QJsonObject available = availableVersion_[component].toObject ();
     QJsonObject current = currentVersion_[component].toObject ();
     QString path = versionField (available, _path);
@@ -190,7 +190,7 @@ void Updater::parseAvailableVersion () {
   int result = QMessageBox::question (NULL, tr ("Обновление"), message, buttons);
   if (result == QMessageBox::Yes) {
     componentsUpdating_ = updateList.size ();
-    foreach (const QString &component, updateList) {
+    for (const QString &component: updateList) {
       getComponent (component);
     }
   }

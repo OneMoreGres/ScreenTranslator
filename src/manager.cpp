@@ -117,7 +117,7 @@ void Manager::updateActionsState (bool isEnabled) {
   QList<QAction *> actions;
   actions << captureAction_ << repeatCaptureAction_ << repeatAction_ << clipboardAction_;
   QList<bool> states;
-  foreach (const QAction * action, actions) {
+  for (const QAction *action: actions) {
     states << action->isEnabled ();
   }
 #endif
@@ -230,13 +230,13 @@ void Manager::checkForUpdates () {
 }
 
 Manager::~Manager () {
-  foreach (SelectionDialog * selection, selections_.values ()) {
+  for (SelectionDialog *selection: selections_.values ()) {
     selection->hide ();
     delete selection;
   }
   trayIcon_->hide ();
   delete trayIcon_->contextMenu ();
-  foreach (QThread * thread, threads_) {
+  for (QThread *thread: threads_) {
     thread->quit ();
     thread->wait (1000000);
   }
@@ -244,7 +244,7 @@ Manager::~Manager () {
 
 void Manager::capture () {
   QList<QScreen *> screens = QApplication::screens ();
-  foreach (QScreen * screen, screens) {
+  for (QScreen *screen: screens) {
     QRect geometry = screen->availableGeometry ();
 #if QT_VERSION >= QT_VERSION_CHECK (5,10,0)
     QPixmap pixmap = screen->grabWindow (0, 0, 0,
@@ -309,7 +309,7 @@ void Manager::repeatCapture () {
     return;
   }
   QList<QScreen *> screens = QApplication::screens ();
-  foreach (QScreen * screen, screens) {
+  for (QScreen *screen: screens) {
     QString name = screen->name ();
     if (!selections_.contains (name)) {
       continue;
