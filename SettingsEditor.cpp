@@ -152,15 +152,11 @@ void SettingsEditor::saveSettings () const {
 }
 
 void SettingsEditor::openTessdataDialog () {
-  QString path = QFileDialog::getExistingDirectory (this, tr ("Путь к tessdata"));
+  QString path = QFileDialog::getExistingDirectory (this, tr ("Path to tessdata"));
   if (path.isEmpty ()) {
     return;
   }
-  QDir dir (path);
-  if (dir.dirName () == QString ("tessdata")) {
-    dir.cdUp ();
-  }
-  ui->tessdataEdit->setText (dir.path ());
+  ui->tessdataEdit->setText (path);
 }
 
 void SettingsEditor::loadSettings () {

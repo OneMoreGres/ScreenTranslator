@@ -24,9 +24,6 @@ void Recognizer::applySettings () {
 
   tessDataDir_ = settings.value (settings_names::tessDataPlace,
                                  settings_values::tessDataPlace).toString ();
-  if (tessDataDir_.right (1) != "/") {
-    tessDataDir_ += "/";
-  }
   ocrLanguage_ = settings.value (settings_names::ocrLanguage,
                                  settings_values::ocrLanguage).toString ();
   imageScale_ = settings.value (settings_names::imageScale,

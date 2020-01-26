@@ -270,11 +270,8 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
         <widget class="QLabel" name="label_2">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо для распознавания.&lt;/p&gt;&lt;p&gt;Скачивается отсюда: &lt;a href=&quot;https://github.com/tesseract-ocr/tessdata&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#7593bc;&quot;&gt;https://github.com/tesseract-ocr/tessdata&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;quot;./&amp;quot; означает, что папка &amp;quot;tessdata&amp;quot; находится в одной директории с исполняемым файлом программы.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
-          <string>Путь к tessdata</string>
+          <string>Path to tessdata</string>
          </property>
          <property name="buddy">
           <cstring>tessdataEdit</cstring>
@@ -282,7 +279,11 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="tessdataEdit"/>
+        <widget class="QLineEdit" name="tessdataEdit">
+         <property name="placeholderText">
+          <string>Enter path</string>
+         </property>
+        </widget>
        </item>
        <item row="0" column="2">
         <widget class="QToolButton" name="tessdataButton">

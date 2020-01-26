@@ -2,8 +2,6 @@
 
 #include <leptonica/allheaders.h>
 
-#include <tesseract/host.h>
-
 #include "ImageProcessing.h"
 #include "StAssert.h"
 
@@ -128,6 +126,7 @@ Pix * prepareImage (const QImage &image, int preferredScale) {
 
   Pix *scaled = gray;
   if (preferredScale > 0) {
+    const auto MAX_INT16 = 0x7fff;
     float maxScaleX = MAX_INT16 / double (gray->w);
     float scaleX = std::min (float (preferredScale), maxScaleX);
     float maxScaleY = MAX_INT16 / double (gray->h);

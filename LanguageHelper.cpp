@@ -23,12 +23,12 @@ const QStringList &LanguageHelper::availableOcrLanguages () const {
 }
 
 QStringList LanguageHelper::availableOcrLanguages (const QString &path) const {
-  QDir dir (path + "/tessdata/");
+  QDir dir (path);
   if (!dir.exists ()) {
     return QStringList ();
   }
   QStringList items;
-  QStringList files = dir.entryList (QStringList () << "*.traineddata", QDir::Files);
+  QStringList files = dir.entryList ({"*.traineddata"}, QDir::Files);
   foreach (const QString &file, files) {
     QString lang = file.left (file.indexOf ("."));
     items << lang;
