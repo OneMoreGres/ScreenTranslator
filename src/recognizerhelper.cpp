@@ -4,7 +4,7 @@
 #include <QSettings>
 #include <QApplication>
 
-#include "RecognizerHelper.h"
+#include "recognizerhelper.h"
 
 RecognizerHelper::RecognizerHelper ()
   : fileName_ ("st_subs.csv") {

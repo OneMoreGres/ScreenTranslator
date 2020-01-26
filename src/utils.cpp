@@ -1,6 +1,6 @@
 #include <QNetworkProxy>
 
-#include "Utils.h"
+#include "utils.h"
 
 QString encode (const QString &source) {
   if (source.isEmpty ()) {

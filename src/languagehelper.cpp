@@ -1,9 +1,9 @@
 #include <QDir>
 #include <QSettings>
 
-#include "LanguageHelper.h"
-#include "Settings.h"
-#include "StAssert.h"
+#include "languagehelper.h"
+#include "settings.h"
+#include "stassert.h"
 
 LanguageHelper::LanguageHelper () {
   init ();

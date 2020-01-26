@@ -1,4 +1,4 @@
-#include "GlobalActionHelper.h"
+#include "globalactionhelper.h"
 
 #include <QDebug>
 #include <QApplication>

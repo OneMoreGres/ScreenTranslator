@@ -3,8 +3,8 @@
 #include <QFile>
 #include <QApplication>
 
-#include "TranslatorHelper.h"
-#include "Settings.h"
+#include "translatorhelper.h"
+#include "settings.h"
 
 TranslatorHelper::TranslatorHelper ()
   : translatorsDir_ ("translators"), currentIndex_ (0), triesLeft_ (0) {

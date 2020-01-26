@@ -1,7 +1,7 @@
-#include "SelectionDialog.h"
-#include "ui_SelectionDialog.h"
-#include "LanguageHelper.h"
-#include "StAssert.h"
+#include "selectiondialog.h"
+#include "ui_selectiondialog.h"
+#include "languagehelper.h"
+#include "stassert.h"
 
 #include <QMouseEvent>
 #include <QPainter>

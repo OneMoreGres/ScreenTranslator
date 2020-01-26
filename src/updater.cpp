@@ -7,8 +7,8 @@
 #include <QMessageBox>
 #include <QApplication>
 
-#include "Updater.h"
-#include "StAssert.h"
+#include "updater.h"
+#include "stassert.h"
 
 namespace {
 #define FIELD(NAME) const QString _ ## NAME = #NAME
@@ -47,8 +47,8 @@ Updater::Updater (QObject *parent)
   componentsUpdating_ (0) {
   updatesFileName_ = QApplication::applicationDirPath () + QDir::separator () + "updates.json";
   backupSuffix_ = "_backup";
-  connect (network_, SIGNAL (finished (QNetworkReply *)),
-           SLOT (replyFinished (QNetworkReply *)));
+  connect (network_, SIGNAL (finished (QNetworkReply*)),
+           SLOT (replyFinished (QNetworkReply*)));
 
   getCurrentVersion ();
   updateCurrentVersion ();

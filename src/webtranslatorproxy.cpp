@@ -1,5 +1,5 @@
-#include "WebTranslatorProxy.h"
-#include "ProcessingItem.h"
+#include "webtranslatorproxy.h"
+#include "processingitem.h"
 
 WebTranslatorProxy::WebTranslatorProxy (QObject *parent)
   : QObject (parent) {

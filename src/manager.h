@@ -5,7 +5,7 @@
 #include <QSystemTrayIcon>
 #include <QMap>
 
-#include "ProcessingItem.h"
+#include "processingitem.h"
 
 class QAction;
 class QMenu;

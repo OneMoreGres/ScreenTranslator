@@ -1,4 +1,4 @@
-#include "ProcessingItem.h"
+#include "processingitem.h"
 
 ProcessingItem::ProcessingItem ()
   : swapLanguages_ (false) {

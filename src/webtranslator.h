@@ -5,7 +5,7 @@
 #include <QMap>
 #include <QTimer>
 
-#include "ProcessingItem.h"
+#include "processingitem.h"
 
 class QWebView;
 class QNetworkReply;

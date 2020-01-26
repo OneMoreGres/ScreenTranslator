@@ -2,8 +2,8 @@
 
 #include <leptonica/allheaders.h>
 
-#include "ImageProcessing.h"
-#include "StAssert.h"
+#include "imageprocessing.h"
+#include "stassert.h"
 
 #if defined(Q_OS_LINUX)
 #  include <fstream>

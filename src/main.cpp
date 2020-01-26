@@ -7,8 +7,8 @@
 
 #include <qtsingleapplication.h>
 
-#include <Manager.h>
-#include <Settings.h>
+#include <manager.h>
+#include <settings.h>
 
 int main (int argc, char *argv[]) {
   QtSingleApplication a (argc, argv);

@@ -1,7 +1,7 @@
-#include "ResultDialog.h"
-#include "ui_ResultDialog.h"
-#include "StAssert.h"
-#include "LanguageHelper.h"
+#include "resultdialog.h"
+#include "ui_resultdialog.h"
+#include "stassert.h"
+#include "languagehelper.h"
 
 #include <QDesktopWidget>
 #include <QMouseEvent>

@@ -26,49 +26,52 @@ LIBS += -ltesseract -llept
 
 include(3rd-party/qtsingleapplication/qtsingleapplication.pri)
 
-SOURCES += main.cpp\
-    Manager.cpp \
-    SettingsEditor.cpp \
-    SelectionDialog.cpp \
-    GlobalActionHelper.cpp \
-    Recognizer.cpp \
-    ResultDialog.cpp \
-    ProcessingItem.cpp \
-    ImageProcessing.cpp \
-    LanguageHelper.cpp \
-    WebTranslator.cpp \
-    WebTranslatorProxy.cpp \
-    TranslatorHelper.cpp \
-    RecognizerHelper.cpp \
-    Utils.cpp \
-    Updater.cpp
+INCLUDEPATH += src
 
-HEADERS  += \
-    Manager.h \
-    SettingsEditor.h \
-    SelectionDialog.h \
-    GlobalActionHelper.h \
-    Recognizer.h \
-    Settings.h \
-    ProcessingItem.h \
-    ResultDialog.h \
-    ImageProcessing.h \
-    LanguageHelper.h \
-    WebTranslator.h \
-    WebTranslatorProxy.h \
-    StAssert.h \
-    TranslatorHelper.h \
-    RecognizerHelper.h \
-    Utils.h \
-    Updater.h
+SOURCES += \
+    src/main.cpp \
+    src/manager.cpp \
+    src/settingseditor.cpp \
+    src/selectiondialog.cpp \
+    src/globalactionhelper.cpp \
+    src/recognizer.cpp \
+    src/resultdialog.cpp \
+    src/processingitem.cpp \
+    src/imageprocessing.cpp \
+    src/languagehelper.cpp \
+    src/webtranslator.cpp \
+    src/webtranslatorproxy.cpp \
+    src/translatorhelper.cpp \
+    src/recognizerhelper.cpp \
+    src/utils.cpp \
+    src/updater.cpp
 
-FORMS    += \
-    SettingsEditor.ui \
-    SelectionDialog.ui \
-    ResultDialog.ui
+HEADERS += \
+    src/manager.h \
+    src/settingseditor.h \
+    src/selectiondialog.h \
+    src/globalactionhelper.h \
+    src/recognizer.h \
+    src/settings.h \
+    src/processingitem.h \
+    src/resultdialog.h \
+    src/imageprocessing.h \
+    src/languagehelper.h \
+    src/webtranslator.h \
+    src/webtranslatorproxy.h \
+    src/stassert.h \
+    src/translatorhelper.h \
+    src/recognizerhelper.h \
+    src/utils.h \
+    src/updater.h
+
+FORMS += \
+    src/settingseditor.ui \
+    src/selectiondialog.ui \
+    src/resultdialog.ui
 
 RESOURCES += \
-    Recources.qrc
+    recources.qrc
 
 TRANSLATIONS += \
     translations/translation_en.ts \
@@ -81,7 +84,7 @@ OTHER_FILES += \
     distr/* \
     version.json \
     README.md \
-    uncrustify.cfg\
+    uncrustify.cfg \
     .travis.yml \
     TODO.md
 

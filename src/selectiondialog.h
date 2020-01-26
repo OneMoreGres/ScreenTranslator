@@ -5,7 +5,7 @@
 #include <QPixmap>
 #include <QMenu>
 
-#include "ProcessingItem.h"
+#include "processingitem.h"
 
 namespace Ui {
   class SelectionDialog;

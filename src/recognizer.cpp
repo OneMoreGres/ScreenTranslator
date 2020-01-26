@@ -1,14 +1,14 @@
-#include "Recognizer.h"
+#include "recognizer.h"
 
 #include <tesseract/baseapi.h>
 
 #include <QDebug>
 #include <QSettings>
 
-#include "Settings.h"
-#include "ImageProcessing.h"
-#include "StAssert.h"
-#include "RecognizerHelper.h"
+#include "settings.h"
+#include "imageprocessing.h"
+#include "stassert.h"
+#include "recognizerhelper.h"
 
 Recognizer::Recognizer (QObject *parent) :
   QObject (parent),

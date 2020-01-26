@@ -1,4 +1,4 @@
-#include "Manager.h"
+#include "manager.h"
 
 #include <QDebug>
 #include <QMenu>
@@ -13,17 +13,17 @@
 #include <QInputDialog>
 #include <QNetworkProxy>
 
-#include "Settings.h"
-#include "SettingsEditor.h"
-#include "SelectionDialog.h"
-#include "GlobalActionHelper.h"
-#include "Recognizer.h"
-#include "WebTranslator.h"
-#include "ResultDialog.h"
-#include "LanguageHelper.h"
-#include "StAssert.h"
-#include "Utils.h"
-#include "Updater.h"
+#include "settings.h"
+#include "settingseditor.h"
+#include "selectiondialog.h"
+#include "globalactionhelper.h"
+#include "recognizer.h"
+#include "webtranslator.h"
+#include "resultdialog.h"
+#include "languagehelper.h"
+#include "stassert.h"
+#include "utils.h"
+#include "updater.h"
 
 Manager::Manager (QObject *parent) :
   QObject (parent),
@@ -246,13 +246,13 @@ void Manager::capture () {
   QList<QScreen *> screens = QApplication::screens ();
   foreach (QScreen * screen, screens) {
     QRect geometry = screen->availableGeometry ();
-    #if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+#if QT_VERSION >= QT_VERSION_CHECK (5,10,0)
     QPixmap pixmap = screen->grabWindow (0, 0, 0,
                                          geometry.width (), geometry.height ());
-    #else
+#else
     QPixmap pixmap = screen->grabWindow (0, geometry.x (), geometry.y (),
                                          geometry.width (), geometry.height ());
-    #endif
+#endif
 
     QString name = screen->name ();
     if (!selections_.contains (name)) {

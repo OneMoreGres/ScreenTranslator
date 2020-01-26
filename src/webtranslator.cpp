@@ -4,12 +4,12 @@
 #include <QNetworkReply>
 #include <QFile>
 
-#include "WebTranslator.h"
-#include "ProcessingItem.h"
-#include "Settings.h"
-#include "StAssert.h"
-#include "WebTranslatorProxy.h"
-#include "TranslatorHelper.h"
+#include "webtranslator.h"
+#include "processingitem.h"
+#include "settings.h"
+#include "stassert.h"
+#include "webtranslatorproxy.h"
+#include "translatorhelper.h"
 
 WebTranslator::WebTranslator ()
   : QObject (),
@@ -25,11 +25,11 @@ WebTranslator::WebTranslator ()
   connect (view_, SIGNAL (loadFinished (bool)), SLOT (loadFinished (bool)));
   connect (view_->page ()->mainFrame (), SIGNAL (javaScriptWindowObjectCleared ()),
            this, SLOT (addProxyToView ()));
-  connect (view_->page ()->networkAccessManager (), SIGNAL (finished (QNetworkReply *)),
-           this, SLOT (replyFinished (QNetworkReply *)));
+  connect (view_->page ()->networkAccessManager (), SIGNAL (finished (QNetworkReply*)),
+           this, SLOT (replyFinished (QNetworkReply*)));
   connect (view_->page ()->networkAccessManager (),
-           SIGNAL (sslErrors (QNetworkReply *, QList<QSslError>)),
-           this, SLOT (handleSslErrors (QNetworkReply *, QList<QSslError>)));
+           SIGNAL (sslErrors (QNetworkReply*,QList<QSslError>)),
+           this, SLOT (handleSslErrors (QNetworkReply*,QList<QSslError>)));
 
   translationTimeout_.setSingleShot (true);
   connect (&translationTimeout_, SIGNAL (timeout ()), SLOT (abortTranslation ()));

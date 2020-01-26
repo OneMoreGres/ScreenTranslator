@@ -4,7 +4,7 @@
 #include <QObject>
 #include "QPixmap"
 
-#include "ProcessingItem.h"
+#include "processingitem.h"
 
 namespace tesseract {
   class TessBaseAPI;
