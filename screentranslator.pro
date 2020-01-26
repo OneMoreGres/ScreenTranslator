@@ -12,17 +12,18 @@ TARGET = ScreenTranslator
 TEMPLATE = app
 CONFIG += c++11
 
+INCLUDEPATH += $$(DEPS_DIR)/include
+LIBS += -L$$(DEPS_DIR)/lib
+
 win32{
-    INCLUDEPATH += $$PWD/../build/mingw/deps/include
-    LIBS += -L$$PWD/../build/mingw/deps/lib -lUser32 -lws2_32
+    LIBS += --lUser32 -lws2_32
 }
 linux{
     QT += x11extras
-    INCLUDEPATH += $$PWD/../build/linux/deps/include
-    LIBS += -L$$PWD/../build/linux/deps/lib -lX11 -Wl,-rpath,.
+    LIBS += -lX11 -Wl,-rpath,.
 }
 
-LIBS += -ltesseract -llept
+LIBS += -ltesseract -lleptonica
 
 include(3rd-party/qtsingleapplication/qtsingleapplication.pri)
 
