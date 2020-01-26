@@ -84,7 +84,7 @@ OTHER_FILES += \
     distr/* \
     version.json \
     README.md \
-    uncrustify.cfg \
+    share/uncrustify.cfg \
     .travis.yml \
     TODO.md
 
