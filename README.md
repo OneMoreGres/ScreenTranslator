@@ -26,6 +26,7 @@ Usage
 2. Press capture hotkey.
 3. Select region on screen.
 4. Get translation of recognized text.
+5. Check for updates if something not working.
 
 Features
 --------
@@ -40,7 +41,6 @@ Features
 
 Limitations
 -----------
-* Works only on primary screen
 * Can not capture some dynamic web-pages
 * Not very precise OCR
 * Not all functions are cross-platform (may be bugged on some systems)
@@ -51,4 +51,3 @@ Dependencies
 * see [Tesseract](https://code.google.com/p/tesseract-ocr/)
 * see [Leptonica](http://leptonica.com/)
 * several online translation services
-
