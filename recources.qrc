@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>translations/translation_en.qm</file>
-        <file>translations/translation_ru.qm</file>
-        <file>images/STIconBlue.png</file>
-        <file>images/STIconGreen.png</file>
-        <file>images/STIconOrange.png</file>
-        <file>images/STIconRed.png</file>
         <file>version.json</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="app.png">share/images/STIconBlue.png</file>
+        <file alias="st_success.png">share/images/STIconGreen.png</file>
+        <file alias="st_busy.png">share/images/STIconOrange.png</file>
+        <file alias="st_error.png">share/images/STIconRed.png</file>
     </qresource>
 </RCC>

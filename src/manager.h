@@ -1,84 +1,40 @@
-#ifndef MANAGER_H
-#define MANAGER_H
+#pragma once
 
-#include <QPixmap>
-#include <QSystemTrayIcon>
-#include <QMap>
+#include "stfwd.h"
 
-#include "processingitem.h"
+class QString;
 
-class QAction;
-class QMenu;
+class Manager
+{
+public:
+  Manager();
+  ~Manager();
 
-class SelectionDialog;
-class ResultDialog;
-class LanguageHelper;
-class Updater;
+  void captured(const TaskPtr &task);
+  void captureCanceled();
+  void recognized(const TaskPtr &task);
+  void corrected(const TaskPtr &task);
+  void translated(const TaskPtr &task);
 
-class Manager : public QObject {
-  Q_OBJECT
+  void fatalError(const QString &text);
+  void capture();
+  void repeatCapture();
+  void showLast();
+  void settings();
+  void copyLastToClipboard();
+  void about();
+  void quit();
 
-  enum IconType {
-    IconTypeNormal, IconTypeWorking, IconTypeError, IconTypeSuccess
-  };
+private:
+  void updateSettings(const Settings &settings);
+  void finishTask(const TaskPtr &task);
 
-  public:
-    explicit Manager (QObject *parent = 0);
-    ~Manager ();
-
-  signals:
-    void requestRecognize (ProcessingItem item);
-    void requestTranslate (ProcessingItem item);
-    void closeSelections ();
-    void settingsEdited ();
-
-  private slots:
-    void capture ();
-    void repeatCapture ();
-    void settings ();
-    void close ();
-    void about ();
-    void showLast ();
-    void copyLastToClipboard ();
-    void copyLastImageToClipboard ();
-
-    void applySettings ();
-    void checkForUpdates ();
-
-    void processTrayAction (QSystemTrayIcon::ActivationReason reason);
-
-    void editRecognized (ProcessingItem item);
-    void handleSelection (ProcessingItem item);
-    void showResult (ProcessingItem item);
-    void showError (QString text);
-
-    void updateNormalIcon ();
-
-  private:
-    QMenu * trayContextMenu ();
-    void updateActionsState (bool isEnabled = true);
-    void changeIcon (int iconType, int timeoutMsec = 3000);
-    void scheduleUpdate (bool justChecked = false);
-
-  private:
-    QSystemTrayIcon *trayIcon_;
-    LanguageHelper *dictionary_;
-    //! Selection dialogs for each screen. Key - screen name.
-    QMap<QString, SelectionDialog *> selections_;
-    ResultDialog *resultDialog_;
-    Updater *updater_;
-    QTimer *updateTimer_;
-    QAction *captureAction_;
-    QAction *repeatCaptureAction_;
-    QAction *repeatAction_;
-    QAction *clipboardAction_;
-    bool useResultDialog_;
-    //! Used threads. For proper termination.
-    QList<QThread *> threads_;
-    QString defaultTranslationLanguage_;
-    QString defaultOrcLanguage_;
-    bool doTranslation_;
-    int itemProcessingCount_;
+  std::unique_ptr<TrayIcon> tray_;
+  std::unique_ptr<Capturer> capturer_;
+  std::unique_ptr<Recognizer> recognizer_;
+  std::unique_ptr<Corrector> corrector_;
+  std::unique_ptr<Translator> translator_;
+  std::unique_ptr<Representer> representer_;
+  TaskPtr last_;
+  int activeTaskCount_{0};
 };
-
-#endif // MANAGER_H

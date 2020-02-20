@@ -1,288 +1,204 @@
 #include "settingseditor.h"
-#include "ui_settingseditor.h"
-#include "languagehelper.h"
-#include "translatorhelper.h"
-#include "recognizerhelper.h"
-#include "stassert.h"
-#include "utils.h"
-
-#include <QSettings>
-#include <QFileDialog>
-#include <QDir>
-#include <QRegExpValidator>
-#include <QNetworkProxy>
-
+#include "languagecodes.h"
 #include "settings.h"
+#include "ui_settingseditor.h"
+#include "widgetstate.h"
 
-SettingsEditor::SettingsEditor (const LanguageHelper &dictionary, QWidget *parent) :
-  QDialog (parent),
-  ui (new Ui::SettingsEditor), translatorHelper_ (new TranslatorHelper),
-  recognizerHelper_ (new RecognizerHelper), dictionary_ (dictionary),
-  buttonGroup_ (new QButtonGroup (this)) {
-  ui->setupUi (this);
+#include <QDir>
+#include <QFileDialog>
+#include <QNetworkProxy>
+#include <QRegExpValidator>
+#include <QSettings>
+#include <QStringListModel>
 
-  buttonGroup_->addButton (ui->trayRadio, 0);
-  buttonGroup_->addButton (ui->dialogRadio, 1);
-  connect (ui->updateButton, SIGNAL (clicked (bool)), SIGNAL (updateCheckRequested ()));
-  QStringList updateTypes = QStringList () << tr ("Никогда") << tr ("Ежедневно")
-                                           << tr ("Еженедельно") << tr ("Ежемесячно");
-  ui->updateCombo->addItems (updateTypes);
+SettingsEditor::SettingsEditor()
+  : ui(new Ui::SettingsEditor)
+{
+  ui->setupUi(this);
 
-  connect (ui->tessdataButton, SIGNAL (clicked ()), SLOT (openTessdataDialog ()));
-  connect (ui->tessdataEdit, SIGNAL (textChanged (const QString&)),
-           SLOT (initOcrLangCombo (const QString&)));
-
-  connect (ui->recognizerFixTable, SIGNAL (itemChanged (QTableWidgetItem*)),
-           SLOT (recognizerFixTableItemChanged (QTableWidgetItem*)));
-
-  ui->translateLangCombo->addItems (dictionary_.translateLanguagesUi ());
-
-  typedef QNetworkProxy::ProxyType ProxyType;
-  QMap<ProxyType, QString> proxyTypeNames;
-  proxyTypeNames.insert (QNetworkProxy::NoProxy, tr ("Нет"));
-  proxyTypeNames.insert (QNetworkProxy::Socks5Proxy, tr ("SOCKS 5"));
-  proxyTypeNames.insert (QNetworkProxy::HttpProxy, tr ("HTTP"));
-  QList<int> proxyOrder = proxyTypeOrder ();
-  for (int type: proxyOrder) {
-    ui->proxyTypeCombo->addItem (proxyTypeNames.value (QNetworkProxy::ProxyType (type)));
+  {
+    auto model = new QStringListModel(this);
+    model->setStringList({tr("General"), tr("Recognition"), tr("Correction"),
+                          tr("Translation"), tr("Representation"),
+                          tr("Update")});
+    ui->pagesList->setModel(model);
+    auto selection = ui->pagesList->selectionModel();
+    connect(selection, &QItemSelectionModel::currentRowChanged,  //
+            this, &SettingsEditor::updateCurrentPage);
   }
 
-  QRegExp urlRegexp (R"(^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$)");
-  ui->proxyHostEdit->setValidator (new QRegExpValidator (urlRegexp, ui->proxyHostEdit));
-  ui->proxyPassEdit->setEchoMode (QLineEdit::PasswordEchoOnEdit);
+  // general
+  //  QMap<QNetworkProxy::ProxyType, QString> proxyTypeNames;
+  //  proxyTypeNames.insert(QNetworkProxy::NoProxy, tr("No"));
+  //  proxyTypeNames.insert(QNetworkProxy::DefaultProxy, tr("System"));
+  //  proxyTypeNames.insert(QNetworkProxy::Socks5Proxy, tr("SOCKS 5"));
+  //  proxyTypeNames.insert(QNetworkProxy::HttpProxy, tr("HTTP"));
+  //  QList<int> proxyOrder = proxyTypeOrder();
+  //  for (int type : proxyOrder) {
+  //    ui->proxyTypeCombo->addItem(
+  //        proxyTypeNames.value(QNetworkProxy::ProxyType(type)));
+  //  }
 
-  loadSettings ();
-  loadState ();
+  //  QRegExp urlRegexp(
+  //      R"(^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$)");
+  //  ui->proxyHostEdit->setValidator(
+  //      new QRegExpValidator(urlRegexp, ui->proxyHostEdit));
+  //  ui->proxyPassEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+
+  // recognition
+  connect(ui->tessdataButton, &QPushButton::clicked,  //
+          this, &SettingsEditor::openTessdataDialog);
+  connect(ui->tessdataEdit, &QLineEdit::textChanged,  //
+          this, &SettingsEditor::updateTesseractLanguages);
+
+  //  connect(ui->recognizerFixTable, SIGNAL(itemChanged(QTableWidgetItem *)),
+  //          SLOT(recognizerFixTableItemChanged(QTableWidgetItem *)));
+
+  //  //  ui->translateLangCombo->addItems(dictionary_.translateLanguagesUi());
+
+  // translation
+
+  updateTranslationLanguages();
+
+  // updates
+  ui->updateCombo->addItems(
+      {tr("Never"), tr("Daily"), tr("Weekly"), tr("Monthly")});
+
+  new WidgetState(this);
 }
 
-SettingsEditor::~SettingsEditor () {
-  saveState ();
-  delete recognizerHelper_;
-  delete translatorHelper_;
+SettingsEditor::~SettingsEditor()
+{
   delete ui;
 }
 
-void SettingsEditor::done (int result) {
-  if (result == QDialog::Accepted) {
-    saveSettings ();
-    emit settingsEdited ();
+Settings SettingsEditor::settings() const
+{
+  Settings settings;
+  settings.captureHotkey = ui->captureEdit->keySequence().toString();
+  settings.repeatCaptureHotkey =
+      ui->repeatCaptureEdit->keySequence().toString();
+  settings.showLastHotkey = ui->repeatEdit->keySequence().toString();
+  settings.clipboardHotkey = ui->clipboardEdit->keySequence().toString();
+
+  settings.tessdataPath = ui->tessdataEdit->text();
+
+  settings.doTranslation = ui->doTranslationCheck->isChecked();
+  settings.ignoreSslErrors = ui->ignoreSslCheck->isChecked();
+  settings.debugMode = ui->translatorDebugCheck->isChecked();
+  settings.translationTimeout =
+      std::chrono::seconds(ui->translateTimeoutSpin->value());
+
+  settings.translators.clear();
+  for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
+    auto item = ui->translatorList->item(i);
+    if (item->checkState() == Qt::Checked)
+      settings.translators.append(item->text());
   }
-  QDialog::done (result);
+
+  settings.resultShowType =
+      ui->trayRadio->isChecked() ? ResultMode::Tooltip : ResultMode::Widget;
+  return settings;
 }
 
-void SettingsEditor::saveSettings () const {
-  using namespace settings_names;
-  QSettings settings;
-  settings.beginGroup (guiGroup);
-  settings.setValue (captureHotkey, ui->captureEdit->keySequence ().toString ());
-  settings.setValue (repeatCaptureHotkey, ui->repeatCaptureEdit->keySequence ().toString ());
-  settings.setValue (repeatHotkey, ui->repeatEdit->keySequence ().toString ());
-  settings.setValue (clipboardHotkey, ui->clipboardEdit->keySequence ().toString ());
-  settings.setValue (resultShowType, buttonGroup_->checkedId ());
-  settings.setValue (proxyType, ui->proxyTypeCombo->currentIndex ());
-  settings.setValue (proxyHostName, ui->proxyHostEdit->text ());
-  settings.setValue (proxyPort, ui->proxyPortSpin->value ());
-  settings.setValue (proxyUser, ui->proxyUserEdit->text ());
-  if (ui->proxySaveCheck->isChecked ()) {
-    settings.setValue (proxyPassword, encode (ui->proxyPassEdit->text ()));
-  }
-  else {
-    settings.remove (proxyPassword);
-    QNetworkProxy proxy = QNetworkProxy::applicationProxy ();
-    proxy.setPassword (ui->proxyPassEdit->text ());
-    QNetworkProxy::setApplicationProxy (proxy);
-  }
-  settings.setValue (proxySavePassword, ui->proxySaveCheck->isChecked ());
-  settings.setValue (autoUpdateType, ui->updateCombo->currentIndex ());
-  settings.endGroup ();
+void SettingsEditor::setSettings(const Settings &settings)
+{
+  ui->captureEdit->setKeySequence(settings.captureHotkey);
+  ui->repeatCaptureEdit->setKeySequence(settings.repeatCaptureHotkey);
+  ui->repeatEdit->setKeySequence(settings.showLastHotkey);
+  ui->clipboardEdit->setKeySequence(settings.clipboardHotkey);
 
+  ui->tessdataEdit->setText(settings.tessdataPath);
+  updateTesseractLanguages();
 
-  settings.beginGroup (recogntionGroup);
-  settings.setValue (tessDataPlace, ui->tessdataEdit->text ());
-  QString ocrLanguageVal = dictionary_.ocrUiToCode (ui->ocrLangCombo->currentText ());
-  settings.setValue (ocrLanguage, ocrLanguageVal);
-  settings.setValue (imageScale, ui->imageScaleSpin->value ());
+  ui->doTranslationCheck->setChecked(settings.doTranslation);
+  ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
+  ui->translatorDebugCheck->setChecked(settings.debugMode);
+  ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
+  translatorsDir_ = settings.translatorsDir;
+  updateTranslators(settings.translators);
 
-  {  //Recognizer substitutions
-    RecognizerHelper::Subs subs;
-    QTableWidget *t = ui->recognizerFixTable; // Shortcut
-    for (int i = 0, end = t->rowCount () - 1; i < end; ++i) {
-      QComboBox *combo = static_cast<QComboBox *>(t->cellWidget (i, SubsColLanguage));
-      QString langUi = combo->currentText ();
-      RecognizerHelper::Sub sub;
-      sub.language = dictionary_.ocrUiToCode (langUi);
-#define GET(COL) (t->item (i, COL) ? t->item (i, COL)->text () : QString ())
-      sub.source = GET (SubsColSource);
-      sub.target = GET (SubsColTarget);
-#undef GET
-      if (langUi.isEmpty () || sub.language == langUi || sub.source.isEmpty ()) {
-        continue;
-      }
-      subs.append (sub);
-    }
-    recognizerHelper_->setSubs (subs);
-    recognizerHelper_->save ();
-  }
-
-  settings.endGroup ();
-
-  settings.beginGroup (translationGroup);
-  settings.setValue (doTranslation, ui->doTranslationCheck->isChecked ());
-  settings.setValue (ignoreSslErrors, ui->ignoreSslCheck->isChecked ());
-  settings.setValue (forceRotateTranslators, ui->forceRotateCheck->isChecked ());
-  settings.setValue (translationDebugMode, ui->translatorDebugCheck->isChecked ());
-  QString trLanguage = dictionary_.translateUiToCode (ui->translateLangCombo->currentText ());
-  settings.setValue (translationLanguage, trLanguage);
-  QString sourceLanguageVal = dictionary_.ocrToTranslateCodes (ocrLanguage);
-  settings.setValue (sourceLanguage, sourceLanguageVal);
-  settings.setValue (translationTimeout, ui->translateTimeoutSpin->value ());
-
-  {//Translators
-    QStringList enabled;
-    for (int i = 0, end = ui->translatorList->count (); i < end; ++i) {
-      QListWidgetItem *item = ui->translatorList->item (i);
-      if (item->checkState () == Qt::Checked) {
-        enabled << item->text ();
-      }
-    }
-    translatorHelper_->setEnabledTranslators (enabled);
-  }
-
-  settings.endGroup ();
+  ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
+  ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
 }
 
-void SettingsEditor::openTessdataDialog () {
-  QString path = QFileDialog::getExistingDirectory (this, tr ("Path to tessdata"));
-  if (path.isEmpty ()) {
+void SettingsEditor::updateCurrentPage()
+{
+  ui->pagesView->setCurrentIndex(ui->pagesList->currentIndex().row());
+}
+
+void SettingsEditor::openTessdataDialog()
+{
+  const auto path =
+      QFileDialog::getExistingDirectory(this, tr("Path to tessdata"));
+
+  if (path.isEmpty())
     return;
-  }
-  ui->tessdataEdit->setText (path);
+
+  ui->tessdataEdit->setText(path);
 }
 
-void SettingsEditor::loadSettings () {
-#define GET(FIELD) settings.value (settings_names::FIELD, settings_values::FIELD)
-  QSettings settings;
+void SettingsEditor::updateTesseractLanguages()
+{
+  ui->tesseractLangCombo->clear();
+  ui->correctLangCombo->clear();
 
-  settings.beginGroup (settings_names::guiGroup);
-  ui->captureEdit->setKeySequence (QKeySequence (GET (captureHotkey).toString ()));
-  ui->repeatCaptureEdit->setKeySequence (QKeySequence (GET (repeatCaptureHotkey).toString ()));
-  ui->repeatEdit->setKeySequence (QKeySequence (GET (repeatHotkey).toString ()));
-  ui->clipboardEdit->setKeySequence (QKeySequence (GET (clipboardHotkey).toString ()));
-  QAbstractButton *button = buttonGroup_->button (GET (resultShowType).toInt ());
-  Q_CHECK_PTR (button);
-  button->setChecked (true);
-  ui->proxyTypeCombo->setCurrentIndex (GET (proxyType).toInt ());
-  ui->proxyHostEdit->setText (GET (proxyHostName).toString ());
-  ui->proxyPortSpin->setValue (GET (proxyPort).toInt ());
-  ui->proxyUserEdit->setText (GET (proxyUser).toString ());
-  ui->proxySaveCheck->setChecked (GET (proxySavePassword).toBool ());
-  if (ui->proxySaveCheck->isChecked ()) {
-    ui->proxyPassEdit->setText (encode (GET (proxyPassword).toString ()));
-  }
-  else {
-    ui->proxyPassEdit->setText (QNetworkProxy::applicationProxy ().password ());
-  }
-  ui->updateCombo->setCurrentIndex (GET (autoUpdateType).toInt ());
-  settings.endGroup ();
+  QDir dir(ui->tessdataEdit->text());
+  if (!dir.exists())
+    return;
 
-  settings.beginGroup (settings_names::recogntionGroup);
-  ui->tessdataEdit->setText (GET (tessDataPlace).toString ());
-  QString ocrLanguage = dictionary_.ocrCodeToUi (GET (ocrLanguage).toString ());
-  ui->ocrLangCombo->setCurrentText (ocrLanguage);
-  ui->imageScaleSpin->setValue (GET (imageScale).toInt ());
+  LanguageIds names;
+  LanguageCodes languages;
 
-  {//Recognizer substitutions
-    recognizerHelper_->load ();
-    RecognizerHelper::Subs subs = recognizerHelper_->subs ();
-    ui->recognizerFixTable->setRowCount (subs.size ());
-    int row = 0;
-    for (const RecognizerHelper::Sub &sub: subs) {
-      if (!initSubsTableRow (row, sub.language)) {
-        continue;
-      }
-      ui->recognizerFixTable->setItem (row, SubsColSource, new QTableWidgetItem (sub.source));
-      ui->recognizerFixTable->setItem (row, SubsColTarget, new QTableWidgetItem (sub.target));
-      ++row;
-    }
-    ui->recognizerFixTable->setRowCount (row + 1);
-    initSubsTableRow (row);
-    ui->recognizerFixTable->resizeColumnsToContents ();
+  const auto files = dir.entryList({"*.traineddata"}, QDir::Files);
+  for (const auto &file : files) {
+    const auto lang = file.left(file.indexOf("."));
+    if (const auto bundle = languages.findByTesseract(lang))
+      names.append(bundle->name);
   }
 
-  settings.endGroup ();
+  if (names.isEmpty())
+    return;
 
-
-  settings.beginGroup (settings_names::translationGroup);
-  ui->doTranslationCheck->setChecked (GET (doTranslation).toBool ());
-  ui->ignoreSslCheck->setChecked (GET (ignoreSslErrors).toBool ());
-  ui->forceRotateCheck->setChecked (GET (forceRotateTranslators).toBool ());
-  ui->translatorDebugCheck->setChecked (GET (translationDebugMode).toBool ());
-  QString trLanguage = dictionary_.translateCodeToUi (GET (translationLanguage).toString ());
-  ui->translateLangCombo->setCurrentText (trLanguage);
-  ui->translateTimeoutSpin->setValue (GET (translationTimeout).toInt ());
-
-  {// Translators
-    QStringList enabled;
-    ui->translatorList->addItems (translatorHelper_->possibleTranslators (enabled));
-    for (int i = 0, end = ui->translatorList->count (); i < end; ++i) {
-      QListWidgetItem *item = ui->translatorList->item (i);
-      Qt::CheckState state = enabled.contains (item->text ()) ? Qt::Checked : Qt::Unchecked;
-      item->setCheckState (state);
-    }
-  }
-
-  settings.endGroup ();
-#undef GET
+  std::sort(names.begin(), names.end());
+  ui->tesseractLangCombo->addItems(names);
+  ui->correctLangCombo->addItems(names);
 }
 
-bool SettingsEditor::initSubsTableRow (int row, const QString &languageCode) {
-  QString lang = dictionary_.ocrCodeToUi (languageCode);
-  if (!languageCode.isEmpty () && lang == languageCode) {
-    return false;
-  }
-  QComboBox *langCombo = new QComboBox (ui->recognizerFixTable);
-  langCombo->setModel (ui->ocrLangCombo->model ());
-  if (!languageCode.isEmpty ()) {
-    langCombo->setCurrentText (lang);
-  }
-  else {
-    langCombo->setCurrentIndex (ui->ocrLangCombo->currentIndex ());
-  }
-  ui->recognizerFixTable->setCellWidget (row, SubsColLanguage, langCombo);
-  return true;
+void SettingsEditor::updateCorrectionsTable()
+{
 }
 
-void SettingsEditor::saveState () const {
-  QSettings settings;
-  settings.beginGroup (settings_names::guiGroup);
-  settings.setValue (objectName () + "_" + settings_names::geometry, saveGeometry ());
-}
+void SettingsEditor::updateTranslators(const QStringList &enabled)
+{
+  ui->translatorList->clear();
 
-void SettingsEditor::loadState () {
-  QSettings settings;
-  settings.beginGroup (settings_names::guiGroup);
-  restoreGeometry (settings.value (objectName () + "_" + settings_names::geometry).toByteArray ());
-}
+  QDir dir(translatorsDir_);
+  if (!dir.exists())
+    return;
 
-void SettingsEditor::initOcrLangCombo (const QString &path) {
-  ui->ocrLangCombo->clear ();
-  ui->ocrLangCombo->addItems (dictionary_.availableOcrLanguagesUi (path));
-}
+  auto files = dir.entryList({"*.js"}, QDir::Files);
+  std::sort(files.begin(), files.end());
+  ui->translatorList->addItems(files);
 
-void SettingsEditor::recognizerFixTableItemChanged (QTableWidgetItem *item) {
-  ST_ASSERT (item->column () < 3);
-  int row = item->row ();
-  QTableWidget *t = ui->recognizerFixTable;
-#define CHECK(COL) (!t->item (row, COL) || t->item (row, COL)->text ().isEmpty ())
-  bool isRowEmpty = CHECK (SubsColSource) && CHECK (SubsColTarget);
-#undef CHECK
-  int lastRow = ui->recognizerFixTable->rowCount () - 1;
-  if (isRowEmpty && row != lastRow) {
-    ui->recognizerFixTable->removeRow (row);
+  for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
+    auto item = ui->translatorList->item(i);
+    item->setCheckState(enabled.contains(item->text()) ? Qt::Checked
+                                                       : Qt::Unchecked);
   }
-  else if (!isRowEmpty && row == lastRow) {
-    int newRow = lastRow + 1;
-    ui->recognizerFixTable->insertRow (newRow);
-    initSubsTableRow (newRow);
+}
+
+void SettingsEditor::updateTranslationLanguages()
+{
+  LanguageIds names;
+  LanguageCodes languages;
+
+  for (const auto &bundle : languages.all()) {
+    if (!bundle.second.iso639_1.isEmpty())
+      names.append(bundle.second.name);
   }
+
+  ui->translateLangCombo->clear();
+  std::sort(names.begin(), names.end());
+  ui->translateLangCombo->addItems(names);
 }

@@ -1,81 +1,54 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
-#include <QString>
+#include "stfwd.h"
 
-namespace settings_names {
-  //! UI
-  const QString guiGroup = "GUI";
-  const QString geometry = "geometry";
-  const QString captureHotkey = "captureHotkey";
-  const QString repeatCaptureHotkey = "repeatCaptureHotkey";
-  const QString repeatHotkey = "repeatHotkey";
-  const QString clipboardHotkey = "clipboardHotkey";
-  const QString resultShowType = "resultShowType";
-  const QString proxyType = "proxyType";
-  const QString proxyHostName = "proxyHostName";
-  const QString proxyPort = "proxyPort";
-  const QString proxyUser = "proxyUser";
-  const QString proxyPassword = "proxyPassword";
-  const QString proxySavePassword = "proxySavePassword";
-  const QString autoUpdateType = "autoUpdateType";
-  const QString lastUpdateCheck = "lastUpdateCheck";
+#include <QStringList>
 
-  //! Recognition
-  const QString recogntionGroup = "Recognition";
-  const QString tessDataPlace = "tessdata_dir";
-  const QString ocrLanguage = "language";
-  const QString imageScale = "image_scale";
+#include <chrono>
 
-  //! Translation
-  const QString translationGroup = "Translation";
-  const QString doTranslation = "doTranslation";
-  const QString ignoreSslErrors = "ignoreSslErrors";
-  const QString forceRotateTranslators = "forceRotateTranslators";
-  const QString sourceLanguage = "source_language";
-  const QString translationLanguage = "translation_language";
-  const QString translationTimeout = "translation_timeout";
-  const QString translationDebugMode = "translation_debug";
-  const QString translators = "translators";
-}
+enum class ResultMode { Widget, Tooltip };
 
-namespace settings_values {
-  const QString appName = "ScreenTranslator";
-  const QString companyName = "Gres";
+struct Substitution {
+  QString source;
+  QString target;
+};
+using Substitutions = std::unordered_multimap<LanguageId, Substitution>;
 
-  //! UI
-  const QString captureHotkey = "Ctrl+Alt+Z";
-  const QString repeatCaptureHotkey = "Ctrl+Alt+S";
-  const QString repeatHotkey = "Ctrl+Alt+X";
-  const QString clipboardHotkey = "Ctrl+Alt+C";
-  const QString resultShowType = "1";//dialog
-  const int proxyType = 0;
-  const QString proxyHostName = "";
-  const int proxyPort = 8080;
-  const QString proxyUser = "";
-  const QString proxyPassword = "";
-  const bool proxySavePassword = false;
-  const int autoUpdateType = 0; //Never
-  const QString lastUpdateCheck = "";
+class Settings
+{
+public:
+  void save();
+  void load();
 
-  //! Recognition
-#if defined(Q_OS_LINUX)
-  const QString tessDataPlace = "/usr/share/tesseract-ocr/";
-#else
-  const QString tessDataPlace = "./";
-#endif
-  const QString ocrLanguage = "eng";
-  const int imageScale = 5;
+  QString captureHotkey{"Ctrl+Alt+Z"};
+  QString repeatCaptureHotkey{"Ctrl+Alt+S"};
+  QString showLastHotkey{"Ctrl+Alt+X"};
+  QString clipboardHotkey{"Ctrl+Alt+C"};
 
-  //! Translation
-  const bool doTranslation = true;
-  const bool ignoreSslErrors = false;
-  const bool forceRotateTranslators = false;
-  const QString sourceLanguage = "auto";
-  const QString translationLanguage = "ru";
-  const int translationTimeout = 15; // secs
-  const bool translationDebugMode = false;
-  const QString translators = "";
-}
+  int proxyType{0};
+  QString proxyHostName{""};
+  int proxyPort{8080};
+  QString proxyUser{""};
+  QString proxyPassword{""};
+  bool proxySavePassword{false};
 
-#endif // SETTINGS_H
+  int autoUpdateType{0};  // Never
+  QString lastUpdateCheck{""};
+  Substitutions userSubstitutions;
+
+  bool debugMode{false};
+
+  QString tessdataPath{"tessdata"};
+  QString sourceLanguage{"eng"};
+  LanguageIds availableOcrLanguages_;
+
+  bool doTranslation{true};
+  bool ignoreSslErrors{false};
+  bool forceRotateTranslators{false};
+  LanguageId targetLanguage{"rus"};
+  std::chrono::seconds translationTimeout{15};
+  QString translatorsDir{"translators"};
+  QStringList translators{"google.js"};
+
+  ResultMode resultShowType{ResultMode::Widget};  // dialog
+};

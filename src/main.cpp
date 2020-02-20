@@ -1,35 +1,48 @@
 #ifdef Q_OS_LINUX
-#  include <locale.h>
+#include <locale.h>
 #endif
+
+#include "apptranslator.h"
+#include "manager.h"
+#include "singleapplication.h"
 
 #include <QApplication>
-#include <QTranslator>
+#include <QCommandLineParser>
 
-#include <qtsingleapplication.h>
+#define STR2(XXX) #XXX
+#define STR(XXX) STR2(XXX)
 
-#include <manager.h>
-#include <settings.h>
+int main(int argc, char *argv[])
+{
+  QApplication a(argc, argv);
+  a.setApplicationName("ScreenTranslator");
+  a.setOrganizationName("Gres");
+  a.setApplicationVersion(STR(VERSION));
 
-int main (int argc, char *argv[]) {
-  QtSingleApplication a (argc, argv);
-  if (a.sendMessage (QString ())) {
-    return 0;
+  a.setQuitOnLastWindowClosed(false);
+
+  {
+    AppTranslator appTranslator({"screentranslator"});
+    appTranslator.retranslate();
   }
-#ifdef Q_OS_LINUX
-  setlocale (LC_NUMERIC, "C");
-#endif
-  a.setQuitOnLastWindowClosed (false);
-  a.setApplicationName (settings_values::appName);
-  a.setOrganizationName (settings_values::companyName);
 
-  QTranslator translator;
-  // Set default to english.
-  if (translator.load (QLocale::system (), "translation", "_", ":/translations") ||
-      translator.load (":/translations/translation_en")) {
-    a.installTranslator (&translator);
+  {
+    QCommandLineParser parser;
+    parser.setApplicationDescription(QObject::tr("OCR and translation tool"));
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    parser.process(a);
   }
+
+  SingleApplication guard;
+  if (!guard.isValid())
+    return 1;
+
+  // tesseract recomments
+  setlocale(LC_NUMERIC, "C");
 
   Manager manager;
 
-  return a.exec ();
+  return a.exec();
 }

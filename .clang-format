@@ -1,0 +1,16 @@
+﻿---
+BasedOnStyle: Google
+AccessModifierOffset: '-2'
+AllowShortCaseLabelsOnASingleLine: 'true'
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortIfStatementsOnASingleLine: 'false'
+BreakBeforeBraces: Linux
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'false'
+ConstructorInitializerIndentWidth: '2'
+Standard: Cpp11
+TabWidth: '2'
+UseTab: Never
+IncludeBlocks: Preserve
+
+...

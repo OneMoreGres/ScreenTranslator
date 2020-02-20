@@ -1,54 +1,33 @@
-#ifndef SETTINGSEDITOR_H
-#define SETTINGSEDITOR_H
+#pragma once
 
 #include <QDialog>
-#include <QButtonGroup>
-#include <QMap>
 
-class QTableWidgetItem;
-namespace Ui {
-  class SettingsEditor;
+#include "settings.h"
+
+namespace Ui
+{
+class SettingsEditor;
 }
-class LanguageHelper;
-class TranslatorHelper;
-class RecognizerHelper;
 
-class SettingsEditor : public QDialog {
+class SettingsEditor : public QDialog
+{
   Q_OBJECT
 
-  enum SubsCol {
-    SubsColLanguage = 0, SubsColSource, SubsColTarget
-  };
+public:
+  explicit SettingsEditor();
+  ~SettingsEditor();
 
-  public:
-    explicit SettingsEditor (const LanguageHelper &dictionary, QWidget *parent = 0);
-    ~SettingsEditor ();
+  Settings settings() const;
+  void setSettings(const Settings &settings);
 
-  signals:
-    void settingsEdited ();
-    void updateCheckRequested ();
+private:
+  void updateCurrentPage();
+  void openTessdataDialog();
+  void updateTesseractLanguages();
+  void updateCorrectionsTable();
+  void updateTranslators(const QStringList &enabled);
+  void updateTranslationLanguages();
 
-  public slots:
-    void done (int result);
-
-  private slots:
-    void saveSettings () const;
-    void openTessdataDialog ();
-    void initOcrLangCombo (const QString &path);
-    void recognizerFixTableItemChanged (QTableWidgetItem *item);
-
-  private:
-    void loadSettings ();
-    void saveState () const;
-    void loadState ();
-    bool initSubsTableRow (int row, const QString &languageCode = QString ());
-
-  private:
-    Ui::SettingsEditor *ui;
-    TranslatorHelper *translatorHelper_;
-    RecognizerHelper *recognizerHelper_;
-    const LanguageHelper &dictionary_;
-    QButtonGroup *buttonGroup_;
+  Ui::SettingsEditor *ui;
+  QString translatorsDir_;
 };
-
-#endif // SETTINGSEDITOR_H

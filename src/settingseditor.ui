@@ -6,15 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>483</height>
+    <width>889</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Настройки</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
-   <item row="1" column="0" colspan="2">
+   <item row="0" column="0">
+    <widget class="QListView" name="pagesList">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -24,20 +34,23 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QTabWidget" name="tabWidget">
+   <item row="0" column="1" colspan="3">
+    <widget class="QStackedWidget" name="pagesView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="commonTab">
-      <attribute name="title">
-       <string>Общее</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_8">
-       <item row="0" column="0">
+     <widget class="QWidget" name="pageGeneral">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Горячие клавиши</string>
+          <string>Shortcuts</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
@@ -46,7 +59,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>Захватить</string>
+             <string>Capture</string>
             </property>
            </widget>
           </item>
@@ -59,7 +72,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата, но с использованием последнего использованного, а не текущего, изображения.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>Захватить повторно</string>
+             <string>Repeat capture</string>
             </property>
            </widget>
           </item>
@@ -72,7 +85,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для повторного отображения последнего результата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>Показать</string>
+             <string>Show last result</string>
             </property>
            </widget>
           </item>
@@ -85,7 +98,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для копирования последнего результата в буфер обмена.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>Скопировать</string>
+             <string>Copy result to clipboard</string>
             </property>
            </widget>
           </item>
@@ -95,16 +108,16 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Прокси</string>
+          <string>Proxy</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
            <widget class="QLabel" name="label_12">
             <property name="text">
-             <string>Тип:</string>
+             <string>Type:</string>
             </property>
            </widget>
           </item>
@@ -114,7 +127,7 @@
           <item row="0" column="2">
            <widget class="QLabel" name="label_15">
             <property name="text">
-             <string>Пользователь:</string>
+             <string>User:</string>
             </property>
            </widget>
           </item>
@@ -124,7 +137,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_13">
             <property name="text">
-             <string>Адрес:</string>
+             <string>Address:</string>
             </property>
            </widget>
           </item>
@@ -134,7 +147,7 @@
           <item row="1" column="2">
            <widget class="QLabel" name="label_16">
             <property name="text">
-             <string>Пароль:</string>
+             <string>Password:</string>
             </property>
            </widget>
           </item>
@@ -144,7 +157,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>Порт:</string>
+             <string>Port:</string>
             </property>
            </widget>
           </item>
@@ -161,113 +174,63 @@
           <item row="2" column="2" colspan="2">
            <widget class="QCheckBox" name="proxySaveCheck">
             <property name="text">
-             <string>Сохранять пароль (небезопасно)</string>
+             <string>save password (unsafe)</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QGroupBox" name="resultGroup">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="title">
-            <string>Вывод результата</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_4">
-            <item row="0" column="0">
-             <widget class="QRadioButton" name="trayRadio">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Трей</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QRadioButton" name="dialogRadio">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Окно</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_3">
-           <property name="title">
-            <string>Обновление</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_5">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_17">
-              <property name="text">
-               <string>Проверять обновления:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QComboBox" name="updateCombo"/>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="updateButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Проверить</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="0">
-        <spacer name="verticalSpacer">
+       <item>
+        <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>270</height>
+           <height>40</height>
           </size>
          </property>
         </spacer>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="recognizeTab">
-      <attribute name="title">
-       <string>Распознавание</string>
-      </attribute>
+     <widget class="QWidget" name="pageRecognize">
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Language</string>
+         </property>
+         <property name="buddy">
+          <cstring>tesseractLangCombo</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QToolButton" name="tessdataButton">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
@@ -278,66 +241,50 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="0" column="1" colspan="2">
         <widget class="QLineEdit" name="tessdataEdit">
          <property name="placeholderText">
           <string>Enter path</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="tessdataButton">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
+       <item row="1" column="1" colspan="3">
+        <widget class="QComboBox" name="tesseractLangCombo"/>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_4">
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageCorrect">
+      <layout class="QGridLayout" name="gridLayout_10">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_18">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>Язык распознавания</string>
+          <string>Language:</string>
          </property>
          <property name="buddy">
-          <cstring>ocrLangCombo</cstring>
+          <cstring>tesseractLangCombo</cstring>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" colspan="2">
-        <widget class="QComboBox" name="ocrLangCombo"/>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="correctLangCombo"/>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масштабирование изображения для улучшения распознания. Больше - лучше (до определенных пределов), но медленнее и потребляет больше памяти.&lt;/p&gt;&lt;p&gt;Рекомендуемые значения от 5 до 10.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Увеличение масштаба</string>
-         </property>
-         <property name="buddy">
-          <cstring>imageScaleSpin</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="2">
-        <widget class="QSpinBox" name="imageScaleSpin"/>
-       </item>
-       <item row="3" column="0" colspan="3">
+       <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="label_11">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Символы, регулярно распознаваемые с ошибками. При обнаружении будут заменены на указанные.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>Исправления:</string>
+          <string>Corrections</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="3">
+       <item row="2" column="0" colspan="2">
         <widget class="QTableWidget" name="recognizerFixTable">
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
@@ -345,59 +292,45 @@
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
-         <column>
-          <property name="text">
-           <string>Язык</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Исходный текст</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Исправление</string>
-          </property>
-         </column>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="translateTab">
-      <attribute name="title">
-       <string>Перевод</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_7">
+     <widget class="QWidget" name="pageTranslate">
+      <layout class="QGridLayout" name="gridLayout_9">
        <item row="0" column="0">
-        <widget class="QCheckBox" name="doTranslationCheck">
+        <widget class="QCheckBox" name="translatorDebugCheck">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>Переводить текст</string>
+          <string>Debug mode</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Максимальное время перевода:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" colspan="2">
+       <item row="3" column="2">
         <widget class="QSpinBox" name="translateTimeoutSpin">
          <property name="suffix">
-          <string> сек.</string>
+          <string> secs</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1" colspan="2">
-        <widget class="QComboBox" name="translateLangCombo"/>
+       <item row="2" column="0" colspan="2">
+        <widget class="QCheckBox" name="ignoreSslCheck">
+         <property name="text">
+          <string>Ignore SSL errors</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="3">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Translators</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_6">
@@ -405,20 +338,10 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>Язык результата:</string>
+          <string>Language:</string>
          </property>
          <property name="buddy">
           <cstring>translateLangCombo</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="3">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Переводчики:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -438,29 +361,148 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QCheckBox" name="translatorDebugCheck">
+       <item row="1" column="0" colspan="2">
+        <widget class="QCheckBox" name="doTranslationCheck">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>Режим отладки</string>
+          <string>Translate text</string>
          </property>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="2">
+        <widget class="QComboBox" name="translateLangCombo"/>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="label_9">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Single translator timeout:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageRepresent">
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="resultGroup">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Result type</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="trayRadio">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Tray</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QRadioButton" name="dialogRadio">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Window</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QCheckBox" name="ignoreSslCheck">
-         <property name="text">
-          <string>Игнорировать ошибки SSL</string>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageUpdate">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QWidget" name="widget_3" native="true">
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Check for updates:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="updateCombo"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="updateButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Check now</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="1" column="1" colspan="2">
-        <widget class="QCheckBox" name="forceRotateCheck">
-         <property name="text">
-          <string>Принудительно менять переводчики</string>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>389</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -469,29 +511,16 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
   <tabstop>captureEdit</tabstop>
   <tabstop>repeatCaptureEdit</tabstop>
   <tabstop>repeatEdit</tabstop>
   <tabstop>clipboardEdit</tabstop>
-  <tabstop>trayRadio</tabstop>
-  <tabstop>dialogRadio</tabstop>
   <tabstop>proxyTypeCombo</tabstop>
   <tabstop>proxyHostEdit</tabstop>
   <tabstop>proxyPortSpin</tabstop>
   <tabstop>proxyUserEdit</tabstop>
   <tabstop>proxyPassEdit</tabstop>
   <tabstop>proxySaveCheck</tabstop>
-  <tabstop>tessdataEdit</tabstop>
-  <tabstop>tessdataButton</tabstop>
-  <tabstop>ocrLangCombo</tabstop>
-  <tabstop>imageScaleSpin</tabstop>
-  <tabstop>recognizerFixTable</tabstop>
-  <tabstop>doTranslationCheck</tabstop>
-  <tabstop>translatorDebugCheck</tabstop>
-  <tabstop>translateTimeoutSpin</tabstop>
-  <tabstop>translateLangCombo</tabstop>
-  <tabstop>translatorList</tabstop>
  </tabstops>
  <resources/>
  <connections>
