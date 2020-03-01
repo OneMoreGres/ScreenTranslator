@@ -1,0 +1,118 @@
+name: Build
+
+on: [push]
+
+jobs:
+  release:
+    name: Create release
+    if: contains(github.ref, '/tags/')
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Store release url
+        run: echo "${{ steps.create_release.outputs.upload_url }}" > ./release_upload_url
+
+      - name: Upload release url
+        uses: actions/upload-artifact@v1
+        with:
+          path: ./release_upload_url
+          name: release_upload_url
+
+  build:
+    name: Build ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    env:
+      OS: ${{ matrix.config.name }}
+      MSVC_VERSION: 2019/Enterprise
+    strategy:
+      matrix:
+        config:
+          - { name: "win64", os: windows-latest }
+          - { name: "win32", os: windows-latest }
+          - { name: "linux", os: ubuntu-16.04 }
+          - { name: "macos", os: macos-latest }
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+
+      - name: Setup python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+
+      - name: Install system libs
+        if: runner.os == 'Linux'
+        run: sudo apt install libgl1-mesa-dev libxkbcommon-x11-0
+
+      - name: Get Qt
+        run: python ./share/ci/get_qt.py
+
+      - name: Get dependencies
+        run: |
+          python ./share/ci/get_leptonica.py
+          python ./share/ci/get_tesseract.py
+
+      - name: Build
+        run: python ./share/ci/build.py
+
+      - name: Create AppImage
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          python ./share/ci/appimage.py
+          echo ::set-env name=artifact::`python ./share/ci/appimage.py artifact_name`
+
+      - name: Create win deploy
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          python ./share/ci/windeploy.py
+          echo ::set-env name=artifact::`python ./share/ci/windeploy.py artifact_name`
+
+      - name: Create mac deploy
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          python ./share/ci/macdeploy.py
+          echo ::set-env name=artifact::`python ./share/ci/macdeploy.py artifact_name`
+
+      - name: Upload build artifact
+        if: env.artifact != ''
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ env.artifact }}
+          path: ./${{ env.artifact }}
+
+      - name: Download release url
+        if: contains(github.ref, '/tags/')
+        uses: actions/download-artifact@v1
+        with:
+          name: release_upload_url
+          path: ./
+
+      - name: Set release env
+        if: contains(github.ref, '/tags/')
+        shell: bash
+        run: echo ::set-env name=upload_url::`cat ./release_upload_url`
+
+      - name: Upload release artifacts
+        if: contains(github.ref, '/tags/')
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ env.upload_url }}
+          asset_path: ./${{ env.artifact }}
+          asset_name: ${{ env.artifact }}
+          asset_content_type: application/zip

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Comment=OCR and translation tool
+Exec=screen-translator
+GenericName=Screen Translator
+Name=ScreenTranslator
+Icon=screentranslator
+Terminal=false
+Type=Application
+Categories=Utility;Core;Qt;

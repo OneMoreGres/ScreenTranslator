@@ -87,6 +87,35 @@ OTHER_FILES += \
   translators/*.js \
   version.json
 
-#TRANSLATIONS += \
-#    translations/translation_en.ts \
-#    translations/translation_ru.ts
+TRANSLATIONS += \
+    share/translations/screentranslator_ru.ts
+
+translations.files = $$PWD/share/translations/screentranslator_ru.qm
+
+translators.files = $$PWD/translators/*.js
+
+linux {
+    PREFIX = /usr
+
+    target.path = $$PREFIX/bin
+
+    shortcuts.files = $$PWD/share/screentranslator.desktop
+    shortcuts.path = $$PREFIX/share/applications/
+    pixmaps.files += $$PWD/share/images/screentranslator.png
+    pixmaps.path = $$PREFIX/share/icons/hicolor/128x128/apps/
+    translations.path = $$PREFIX/translations
+
+    INSTALLS += target shortcuts pixmaps translations
+}
+win32 {
+    RC_ICONS = $$PWD/share/images/icon.ico
+    translations.path = /translations
+    target.path = /
+    translators.path = /translators
+    INSTALLS += target translations translators
+}
+mac {
+    translations.path = Contents/Translations
+    QMAKE_BUNDLE_DATA += translations
+    ICON = $$PWD/share/images/icon.icns
+}
