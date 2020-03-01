@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1
-Name=Screen Translator
-Comment=Screen capture, OCR and translation tool.
-Exec=/opt/ScreenTranslator/ScreenTranslator
-Icon=ScreenTranslator.png
-Terminal=false
-Type=Application
-Categories=Graphics;
