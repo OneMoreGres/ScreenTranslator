@@ -196,8 +196,6 @@ def apply_cmd_env(cmd):
     env = sub.run('{} && {}'.format(cmd, env_cmd), shell=True, universal_newlines=True,
                   stdout=sub.PIPE)
 
-    is_mingw = 'MINGW_CHOST' in os.environ
-
     lines = env.stdout.split('\n')
     for line in lines:
         match = re.match(r"^([a-zA-Z0-9_-]+)=(.*)$", line)
@@ -206,10 +204,11 @@ def apply_cmd_env(cmd):
         key, value = match.groups()
         if key in os.environ and os.environ[key] == value:
             continue
-        if key in os.environ:
-            print('Changing', key, '\nfrom\n', os.environ[key], '\nto\n', value)
-        if is_mingw and key.find('PATH') != -1 and value.find('/') != -1:
+        if key.lower().find('PATH') != -1 and value.find('/') != -1:
             value = value.replace(':', ';')
             value = re.sub(r'/(\w)/', r'\1:\\', value)
             value = value.replace('/', '\\')
+        if key in os.environ:
+            print('>>> Changing env', key, '\nfrom\n',
+                  os.environ[key], '\nto\n', value)
         os.environ[key] = value
