@@ -72,3 +72,7 @@ c.set_make_threaded()
 c.run('cmake {}'.format(cmake_args))
 c.run('cmake --build . --config Release')
 c.run('cmake --build . --target install --config Release')
+
+if not check_existing(): # create links
+    c.print('>> Build failed')
+    exit(1)

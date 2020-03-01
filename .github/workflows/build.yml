@@ -58,10 +58,11 @@ jobs:
       - name: Get Qt
         run: python ./share/ci/get_qt.py
 
-      - name: Get dependencies
-        run: |
-          python ./share/ci/get_leptonica.py
-          python ./share/ci/get_tesseract.py
+      - name: Get leptonica
+        run: python ./share/ci/get_leptonica.py
+
+      - name: Get tesseract
+        run: python ./share/ci/get_tesseract.py
 
       - name: Build
         run: python ./share/ci/build.py
