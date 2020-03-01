@@ -204,7 +204,7 @@ def apply_cmd_env(cmd):
         key, value = match.groups()
         if key in os.environ and os.environ[key] == value:
             continue
-        if key.lower().find('PATH') != -1 and value.find('/') != -1:
+        if key.upper().find('PATH') != -1 and value.find('/') != -1:
             value = value.replace(':', ';')
             value = re.sub(r'/(\w)/', r'\1:\\', value)
             value = value.replace('/', '\\')
