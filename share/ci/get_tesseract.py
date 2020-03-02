@@ -58,10 +58,9 @@ c.ensure_got_path(install_dir)
 c.recreate_dir(build_dir)
 os.chdir(build_dir)
 
-os.environ['PKG_CONFIG_PATH'] = install_dir + '/lib/pkgconfig'
-
-cmake_args = '"{}" -DCMAKE_INSTALL_PREFIX="{}" -DBUILD_TRAINING_TOOLS=OFF \
-    -DBUILD_TESTS=OFF'.format(src_dir, install_dir)
+cmake_args = '"{}" -DCMAKE_PREFIX_PATH="{}" -DCMAKE_INSTALL_PREFIX="{}" \
+-DBUILD_TRAINING_TOOLS=OFF -DBUILD_TESTS=OFF'.format(
+    src_dir, install_dir + '/lib/pkgconfig', install_dir)
 
 if platform.system() == "Windows":
     env_cmd = c.get_msvc_env_cmd(bitness=bitness, msvc_version=msvc_version)
@@ -73,6 +72,6 @@ c.run('cmake {}'.format(cmake_args))
 c.run('cmake --build . --config Release')
 c.run('cmake --build . --target install --config Release')
 
-if not check_existing(): # create links
+if not check_existing():  # create links
     c.print('>> Build failed')
     exit(1)
