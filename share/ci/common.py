@@ -9,6 +9,7 @@ import shutil
 import multiprocessing
 import platform
 import re
+import ast
 
 
 print = functools.partial(print, flush=True)
@@ -192,22 +193,17 @@ def ensure_got_path(path):
 def apply_cmd_env(cmd):
     """Run cmd and apply its modified environment"""
     print('>> Applying env after', cmd)
-    env_cmd = 'env' if which('env') else 'set'
-    env = sub.run('{} && {}'.format(cmd, env_cmd), shell=True, universal_newlines=True,
-                  stdout=sub.PIPE)
+    separator = 'env follows'
+    script = 'import os,sys;sys.stdout.buffer.write(str(dict(os.environ)).encode(\\\"utf-8\\\"))'
+    env = sub.run('{} && echo "{}" && python -c "{}"'.format(cmd, separator, script),
+                  shell=True, stdout=sub.PIPE, encoding='utf-8')
 
-    lines = env.stdout.split('\n')
-    for line in lines:
-        match = re.match(r"^([a-zA-Z0-9_-]+)=(.*)$", line)
-        if not match:
-            continue
-        key, value = match.groups()
+    stringed = env.stdout[env.stdout.index(separator) + len(separator) + 1:]
+    parsed = ast.literal_eval(stringed)
+
+    for key, value in parsed.items():
         if key in os.environ and os.environ[key] == value:
             continue
-        if key.upper().find('PATH') != -1 and value.find('/') != -1:
-            value = value.replace(':', ';')
-            value = re.sub(r'/(\w)/', r'\1:\\', value)
-            value = value.replace('/', '\\')
         if key in os.environ:
             print('>>> Changing env', key, '\nfrom\n',
                   os.environ[key], '\nto\n', value)
