@@ -58,9 +58,8 @@ c.ensure_got_path(install_dir)
 c.recreate_dir(build_dir)
 os.chdir(build_dir)
 
-cmake_args = '"{}" -DCMAKE_PREFIX_PATH="{}" -DCMAKE_INSTALL_PREFIX="{}" \
--DBUILD_TRAINING_TOOLS=OFF -DBUILD_TESTS=OFF'.format(
-    src_dir, install_dir, install_dir)
+cmake_args = '"{0}" -DCMAKE_INSTALL_PREFIX="{1}" -DLeptonica_DIR="{1}/cmake" \
+-DBUILD_TRAINING_TOOLS=OFF -DBUILD_TESTS=OFF'.format(src_dir, install_dir)
 
 if platform.system() == "Windows":
     env_cmd = c.get_msvc_env_cmd(bitness=bitness, msvc_version=msvc_version)
