@@ -56,7 +56,7 @@ jobs:
         run: |
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo apt-get update
-          sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 g++-9
+          sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 libxcb-util-dev g++-9
           echo ::set-env name=QMAKE_FLAGS::QMAKE_CXX=g++-9 QMAKE_CC=gcc-9
 
       - name: Get Qt
