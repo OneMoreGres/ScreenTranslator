@@ -56,7 +56,8 @@ jobs:
         run: |
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo apt-get update
-          sudo apt install libgl1-mesa-dev libxkbcommon-x11-0 gcc-9
+          sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 g++-9
+          echo ::set-env name=QMAKE_FLAGS::QMAKE_CXX=g++-9 QMAKE_CC=gcc-9
 
       - name: Get Qt
         run: python ./share/ci/get_qt.py

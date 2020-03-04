@@ -19,6 +19,6 @@ c.run('lupdate "{}"'.format(pro_file))
 c.run('lrelease "{}"'.format(pro_file))
 
 c.set_make_threaded()
-c.run('qmake "{}"'.format(pro_file))
+c.run('qmake {} "{}"'.format(os.environ.get('QMAKE_FLAGS',''), pro_file))
 make_cmd = c.get_make_cmd()
 c.run(make_cmd)
