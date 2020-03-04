@@ -40,7 +40,7 @@ jobs:
           - { name: "win64", os: windows-latest }
           - { name: "win32", os: windows-latest }
           - { name: "linux", os: ubuntu-16.04 }
-          - { name: "macos", os: macos-latest }
+          # - { name: "macos", os: macos-latest }
     steps:
       - uses: actions/checkout@v2
         with:
