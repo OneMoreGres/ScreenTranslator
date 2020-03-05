@@ -30,4 +30,5 @@ private:
   LanguageId sourceLanguage_;
   LanguageId targetLanguage_;
   QStringList translators_;
+  bool doTranslation_{false};
 };

@@ -26,6 +26,7 @@ void Capturer::updateSettings(const Settings &settings)
   sourceLanguage_ = settings.sourceLanguage;
   targetLanguage_ = settings.targetLanguage;
   translators_ = settings.translators;
+  doTranslation_ = settings.doTranslation;
 }
 
 void Capturer::captured(const TaskPtr &task)
@@ -35,7 +36,8 @@ void Capturer::captured(const TaskPtr &task)
   // TODO process modifiers
   task->translators = translators_;
   task->sourceLanguage = sourceLanguage_;
-  task->targetLanguage = targetLanguage_;
+  if (doTranslation_)
+    task->targetLanguage = targetLanguage_;
   manager_.captured(task);
 }
 
