@@ -9,22 +9,18 @@ class Task
 public:
   bool isNull() const { return captured.isNull() && !sourceLanguage.isEmpty(); }
   bool isValid() const { return error.isEmpty(); }
-  //  void trace(const QString& message);
 
   QPoint capturePoint;
   QPixmap captured;
   QString recognized;
-  QString translated{"sample"};
+  QString translated;
 
-  LanguageId sourceLanguage{"eng"};
-  LanguageId targetLanguage;  //{"ru"};
+  LanguageId sourceLanguage;
+  LanguageId targetLanguage;
 
-  QStringList translators{"google.js"};
+  QStringList translators;
 
   QString error;
-  //  QStringList traceLog;
-
-  //  bool swapLanguages;
 };
 
 using TaskPtr = std::shared_ptr<Task>;

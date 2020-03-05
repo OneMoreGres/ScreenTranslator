@@ -25,7 +25,6 @@ WebPage::WebPage(Translator &translator, const QString &script,
   scheduleTranslatorScript(script, scriptName);
 
   settings()->setAttribute(QWebEngineSettings::AutoLoadImages, false);
-  //  settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
 
   auto channel = new QWebChannel(this);
   channel->registerObject("proxy", proxy_.get());

@@ -1,14 +1,10 @@
 #include "settingseditor.h"
 #include "languagecodes.h"
-#include "settings.h"
 #include "ui_settingseditor.h"
 #include "widgetstate.h"
 
-#include <QDir>
 #include <QFileDialog>
 #include <QNetworkProxy>
-#include <QRegExpValidator>
-#include <QSettings>
 #include <QStringListModel>
 
 SettingsEditor::SettingsEditor()

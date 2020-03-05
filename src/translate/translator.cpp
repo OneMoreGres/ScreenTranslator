@@ -4,18 +4,13 @@
 #include "settings.h"
 #include "task.h"
 #include "webpage.h"
-#include "webpageproxy.h"
 #include "widgetstate.h"
 
 #include <QBoxLayout>
 #include <QCloseEvent>
-#include <QFile>
 #include <QSplitter>
 #include <QTabWidget>
-#include <QTcpSocket>
 #include <QTextEdit>
-#include <QWebChannel>
-#include <QWebEngineView>
 
 #include <unordered_set>
 
