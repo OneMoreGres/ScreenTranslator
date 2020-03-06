@@ -111,8 +111,9 @@ void Settings::load()
   clipboardHotkey =
       settings.value(qs_clipboardHotkey, clipboardHotkey).toString();
 
-  resultShowType = ResultMode(std::clamp(
-      settings.value(qs_resultShowType, int(resultShowType)).toInt(), 0, 1));
+  resultShowType = ResultMode(
+      std::clamp(settings.value(qs_resultShowType, int(resultShowType)).toInt(),
+                 int(ResultMode::Widget), int(ResultMode::Tooltip)));
 
   proxyType = settings.value(qs_proxyType, proxyType).toInt();
   proxyHostName = settings.value(qs_proxyHostName, proxyHostName).toString();
