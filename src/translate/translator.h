@@ -6,6 +6,7 @@
 
 class QWebEngineView;
 class QTabWidget;
+class QLineEdit;
 
 class WebPage;
 
@@ -25,12 +26,17 @@ protected:
   void closeEvent(QCloseEvent *event) override;
 
 private:
-  void changeCurrentPage(int tabIndex);
+  WebPage *currentPage() const;
+  void udpateCurrentPage();
+  void updateUrl();
+  void setPageLoadImages(bool isOn);
   void processQueue();
   void markTranslated(const TaskPtr &task);
 
   Manager &manager_;
   QWebEngineView *view_;
+  QLineEdit *url_;
+  QAction *loadImages_;
   QTabWidget *tabs_;
   std::vector<TaskPtr> queue_;
   std::map<QString, std::unique_ptr<WebPage>> pages_;

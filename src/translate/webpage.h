@@ -24,6 +24,9 @@ public:
   bool isBusy() const;
   TaskPtr task() const;
 
+  bool isLoadImages() const;
+  void setLoadImages(bool isOn);
+
 signals:
   void log(const QString &text);
 

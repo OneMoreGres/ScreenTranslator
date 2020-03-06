@@ -24,7 +24,7 @@ WebPage::WebPage(Translator &translator, const QString &script,
   scheduleWebchannelInitScript();
   scheduleTranslatorScript(script, scriptName);
 
-  settings()->setAttribute(QWebEngineSettings::AutoLoadImages, false);
+  setLoadImages(false);
 
   auto channel = new QWebChannel(this);
   channel->registerObject("proxy", proxy_.get());
@@ -138,6 +138,16 @@ void WebPage::setFailed(const QString &error)
 TaskPtr WebPage::task() const
 {
   return task_;
+}
+
+bool WebPage::isLoadImages() const
+{
+  return settings()->testAttribute(QWebEngineSettings::AutoLoadImages);
+}
+
+void WebPage::setLoadImages(bool isOn)
+{
+  settings()->setAttribute(QWebEngineSettings::AutoLoadImages, isOn);
 }
 
 void WebPage::javaScriptConsoleMessage(

@@ -8,9 +8,12 @@
 
 #include <QBoxLayout>
 #include <QCloseEvent>
+#include <QLabel>
+#include <QLineEdit>
 #include <QSplitter>
 #include <QTabWidget>
 #include <QTextEdit>
+#include <QToolBar>
 
 #include <unordered_set>
 
@@ -32,6 +35,9 @@ static std::map<QString, QString> loadScripts(const QString &dir,
 Translator::Translator(Manager &manager)
   : manager_(manager)
   , view_(nullptr)
+  , url_(new QLineEdit(this))
+  , loadImages_(
+        new QAction(QIcon(":/icons/loadImages.png"), tr("Load images"), this))
   , tabs_(new QTabWidget(this))
 {
 #ifdef DEVELOP
@@ -50,17 +56,35 @@ Translator::Translator(Manager &manager)
 
   view_ = new QWebEngineView(this);
 
+  auto detailsFrame = new QWidget(this);
+  {
+    auto toolBar = new QToolBar(this);
+    toolBar->addWidget(new QLabel(tr("Url:"), this));
+    toolBar->addWidget(url_);
+    toolBar->addAction(loadImages_);
+
+    auto layout = new QVBoxLayout(detailsFrame);
+    layout->addWidget(toolBar);
+    layout->addWidget(tabs_);
+  }
+
   auto splitter = new QSplitter(Qt::Vertical, this);
   splitter->addWidget(view_);
-  splitter->addWidget(tabs_);
+  splitter->addWidget(detailsFrame);
 
   auto layout = new QVBoxLayout(this);
   layout->addWidget(splitter);
 
   startTimer(1000);
 
+  url_->setReadOnly(true);
+
+  loadImages_->setCheckable(true);
+  connect(loadImages_, &QAction::toggled,  //
+          this, &Translator::setPageLoadImages);
+
   connect(tabs_, &QTabWidget::currentChanged,  //
-          this, &Translator::changeCurrentPage);
+          this, &Translator::udpateCurrentPage);
 
   view_->setMinimumSize(200, 200);
 
@@ -80,6 +104,7 @@ void Translator::updateSettings(const Settings &settings)
 {
   view_->setPage(nullptr);
   pages_.clear();
+  url_->clear();
 
   tabs_->blockSignals(true);
   for (auto i = 0, end = tabs_->count(); i < end; ++i) {
@@ -114,6 +139,8 @@ void Translator::updateSettings(const Settings &settings)
 
     connect(page.get(), &WebPage::log,  //
             log, &QTextEdit::append);
+    connect(page.get(), &WebPage::urlChanged,  //
+            this, &Translator::updateUrl);
 
     SOFT_ASSERT(log->document(), continue)
     log->document()->setMaximumBlockCount(1000);
@@ -126,11 +153,46 @@ void Translator::updateSettings(const Settings &settings)
   }
 }
 
-void Translator::changeCurrentPage(int tabIndex)
+WebPage *Translator::currentPage() const
 {
-  const auto name = tabs_->tabText(tabIndex);
-  SOFT_ASSERT(pages_.count(name), return );
-  view_->setPage(pages_[name].get());
+  const auto index = tabs_->currentIndex();
+  if (index == -1)
+    return nullptr;
+
+  const auto name = tabs_->tabText(index);
+  SOFT_ASSERT(pages_.count(name), return nullptr);
+
+  return pages_.at(name).get();
+}
+
+void Translator::udpateCurrentPage()
+{
+  auto page = currentPage();
+  if (!page)
+    return;
+
+  view_->setPage(page);
+  QSignalBlocker blocker(loadImages_);
+  loadImages_->setChecked(page->isLoadImages());
+  url_->setText(page->url().toString());
+}
+
+void Translator::updateUrl()
+{
+  auto page = currentPage();
+  if (!page)
+    return;
+
+  url_->setText(page->url().toString());
+}
+
+void Translator::setPageLoadImages(bool isOn)
+{
+  auto page = currentPage();
+  if (!page)
+    return;
+
+  page->setLoadImages(isOn);
 }
 
 void Translator::processQueue()

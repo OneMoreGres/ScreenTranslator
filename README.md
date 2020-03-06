@@ -44,3 +44,8 @@ Also download [data files](https://github.com/tesseract-ocr/tessdata/tree/3.04.0
 * see [Tesseract](https://code.google.com/p/tesseract-ocr/)
 * see [Leptonica](http://leptonica.com/)
 * several online translation services
+
+## Attributions
+
+* icons made by [Smashicons](https://www.flaticon.com/authors/smashicons)
+from [Flaticon](https://www.flaticon.com/)
