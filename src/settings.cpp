@@ -62,7 +62,7 @@ void Settings::save()
 
   settings.setValue(qs_resultShowType, int(resultShowType));
 
-  settings.setValue(qs_proxyType, proxyType);
+  settings.setValue(qs_proxyType, int(proxyType));
   settings.setValue(qs_proxyHostName, proxyHostName);
   settings.setValue(qs_proxyPort, proxyPort);
   settings.setValue(qs_proxyUser, proxyUser);
@@ -115,7 +115,9 @@ void Settings::load()
       std::clamp(settings.value(qs_resultShowType, int(resultShowType)).toInt(),
                  int(ResultMode::Widget), int(ResultMode::Tooltip)));
 
-  proxyType = settings.value(qs_proxyType, proxyType).toInt();
+  proxyType =
+      ProxyType(std::clamp(settings.value(qs_proxyType, int(proxyType)).toInt(),
+                           int(ProxyType::Disabled), int(ProxyType::Http)));
   proxyHostName = settings.value(qs_proxyHostName, proxyHostName).toString();
   proxyPort = settings.value(qs_proxyPort, proxyPort).toInt();
   proxyUser = settings.value(qs_proxyUser, proxyUser).toString();

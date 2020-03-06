@@ -27,6 +27,7 @@ public:
 
 private:
   void updateSettings(const Settings &settings);
+  void setupProxy(const Settings &settings);
   void finishTask(const TaskPtr &task);
 
   std::unique_ptr<TrayIcon> tray_;

@@ -23,23 +23,21 @@ SettingsEditor::SettingsEditor()
             this, &SettingsEditor::updateCurrentPage);
   }
 
-  // general
-  //  QMap<QNetworkProxy::ProxyType, QString> proxyTypeNames;
-  //  proxyTypeNames.insert(QNetworkProxy::NoProxy, tr("No"));
-  //  proxyTypeNames.insert(QNetworkProxy::DefaultProxy, tr("System"));
-  //  proxyTypeNames.insert(QNetworkProxy::Socks5Proxy, tr("SOCKS 5"));
-  //  proxyTypeNames.insert(QNetworkProxy::HttpProxy, tr("HTTP"));
-  //  QList<int> proxyOrder = proxyTypeOrder();
-  //  for (int type : proxyOrder) {
-  //    ui->proxyTypeCombo->addItem(
-  //        proxyTypeNames.value(QNetworkProxy::ProxyType(type)));
-  //  }
+  {
+    QMap<ProxyType, QString> proxyTypes;
+    proxyTypes.insert(ProxyType::Disabled, tr("Disabled"));
+    proxyTypes.insert(ProxyType::System, tr("System"));
+    proxyTypes.insert(ProxyType::Socks5, tr("SOCKS 5"));
+    proxyTypes.insert(ProxyType::Http, tr("HTTP"));
+    ui->proxyTypeCombo->addItems(proxyTypes.values());
 
-  //  QRegExp urlRegexp(
-  //      R"(^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$)");
-  //  ui->proxyHostEdit->setValidator(
-  //      new QRegExpValidator(urlRegexp, ui->proxyHostEdit));
-  //  ui->proxyPassEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+    QRegExp urlRegexp(
+        R"(^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$)");
+    ui->proxyHostEdit->setValidator(
+        new QRegExpValidator(urlRegexp, ui->proxyHostEdit));
+
+    ui->proxyPassEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+  }
 
   // recognition
   connect(ui->tessdataButton, &QPushButton::clicked,  //
@@ -77,6 +75,13 @@ Settings SettingsEditor::settings() const
   settings.showLastHotkey = ui->repeatEdit->keySequence().toString();
   settings.clipboardHotkey = ui->clipboardEdit->keySequence().toString();
 
+  settings.proxyType = ProxyType(ui->proxyTypeCombo->currentIndex());
+  settings.proxyHostName = ui->proxyHostEdit->text();
+  settings.proxyPort = ui->proxyPortSpin->value();
+  settings.proxyUser = ui->proxyUserEdit->text();
+  settings.proxyPassword = ui->proxyPassEdit->text();
+  settings.proxySavePassword = ui->proxySaveCheck->isChecked();
+
   settings.tessdataPath = ui->tessdataEdit->text();
 
   settings.doTranslation = ui->doTranslationCheck->isChecked();
@@ -103,6 +108,13 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->repeatCaptureEdit->setKeySequence(settings.repeatCaptureHotkey);
   ui->repeatEdit->setKeySequence(settings.showLastHotkey);
   ui->clipboardEdit->setKeySequence(settings.clipboardHotkey);
+
+  ui->proxyTypeCombo->setCurrentIndex(int(settings.proxyType));
+  ui->proxyHostEdit->setText(settings.proxyHostName);
+  ui->proxyPortSpin->setValue(settings.proxyPort);
+  ui->proxyUserEdit->setText(settings.proxyUser);
+  ui->proxyPassEdit->setText(settings.proxyPassword);
+  ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
   ui->tessdataEdit->setText(settings.tessdataPath);
   updateTesseractLanguages();

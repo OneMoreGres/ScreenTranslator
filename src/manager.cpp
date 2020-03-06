@@ -12,6 +12,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMessageBox>
+#include <QNetworkProxy>
 
 Manager::Manager()
 {
@@ -34,12 +35,39 @@ Manager::~Manager() = default;
 void Manager::updateSettings(const Settings &settings)
 {
   LTRACE() << "updateSettings";
+  setupProxy(settings);
+
   tray_->updateSettings(settings);
   capturer_->updateSettings(settings);
   recognizer_->updateSettings(settings);
   translator_->updateSettings(settings);
   corrector_->updateSettings(settings);
   representer_->updateSettings(settings);
+}
+
+void Manager::setupProxy(const Settings &settings)
+{
+  if (settings.proxyType == ProxyType::System) {
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
+    return;
+  }
+
+  QNetworkProxyFactory::setUseSystemConfiguration(false);
+
+  if (settings.proxyType == ProxyType::Disabled) {
+    QNetworkProxy::setApplicationProxy({});
+    return;
+  }
+
+  QNetworkProxy proxy;
+  using T = QNetworkProxy::ProxyType;
+  proxy.setType(settings.proxyType == ProxyType::Socks5 ? T::Socks5Proxy
+                                                        : T::HttpProxy);
+  proxy.setHostName(settings.proxyHostName);
+  proxy.setPort(settings.proxyPort);
+  proxy.setUser(settings.proxyUser);
+  proxy.setPassword(settings.proxyPassword);
+  QNetworkProxy::setApplicationProxy(proxy);
 }
 
 void Manager::finishTask(const TaskPtr &task)

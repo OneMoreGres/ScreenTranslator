@@ -14,6 +14,8 @@ struct Substitution {
 };
 using Substitutions = std::unordered_multimap<LanguageId, Substitution>;
 
+enum class ProxyType { Disabled, System, Socks5, Http };
+
 class Settings
 {
 public:
@@ -25,11 +27,11 @@ public:
   QString showLastHotkey{"Ctrl+Alt+X"};
   QString clipboardHotkey{"Ctrl+Alt+C"};
 
-  int proxyType{0};
-  QString proxyHostName{""};
+  ProxyType proxyType{ProxyType::System};
+  QString proxyHostName;
   int proxyPort{8080};
-  QString proxyUser{""};
-  QString proxyPassword{""};
+  QString proxyUser;
+  QString proxyPassword;
   bool proxySavePassword{false};
 
   int autoUpdateType{0};  // Never
