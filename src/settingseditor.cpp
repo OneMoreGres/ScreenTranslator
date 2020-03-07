@@ -82,13 +82,18 @@ Settings SettingsEditor::settings() const
   settings.proxyPassword = ui->proxyPassEdit->text();
   settings.proxySavePassword = ui->proxySaveCheck->isChecked();
 
+  LanguageCodes langs;
   settings.tessdataPath = ui->tessdataEdit->text();
+  if (auto lang = langs.findByName(ui->tesseractLangCombo->currentText()))
+    settings.sourceLanguage = lang->id;
 
   settings.doTranslation = ui->doTranslationCheck->isChecked();
   settings.ignoreSslErrors = ui->ignoreSslCheck->isChecked();
   settings.debugMode = ui->translatorDebugCheck->isChecked();
   settings.translationTimeout =
       std::chrono::seconds(ui->translateTimeoutSpin->value());
+  if (auto lang = langs.findByName(ui->translateLangCombo->currentText()))
+    settings.targetLanguage = lang->id;
 
   settings.translators.clear();
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
@@ -116,13 +121,18 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxyPassEdit->setText(settings.proxyPassword);
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
+  LanguageCodes langs;
   ui->tessdataEdit->setText(settings.tessdataPath);
+  if (auto lang = langs.findById(settings.sourceLanguage))
+    ui->tesseractLangCombo->setCurrentText(lang->name);
 
   ui->doTranslationCheck->setChecked(settings.doTranslation);
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translatorDebugCheck->setChecked(settings.debugMode);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
   updateTranslators(settings.translatorsDir, settings.translators);
+  if (auto lang = langs.findById(settings.targetLanguage))
+    ui->translateLangCombo->setCurrentText(lang->name);
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
