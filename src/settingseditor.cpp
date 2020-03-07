@@ -117,7 +117,6 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
   ui->tessdataEdit->setText(settings.tessdataPath);
-  updateTesseractLanguages();
 
   ui->doTranslationCheck->setChecked(settings.doTranslation);
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
