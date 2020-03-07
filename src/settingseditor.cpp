@@ -123,8 +123,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translatorDebugCheck->setChecked(settings.debugMode);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
-  translatorsDir_ = settings.translatorsDir;
-  updateTranslators(settings.translators);
+  updateTranslators(settings.translatorsDir, settings.translators);
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
@@ -177,11 +176,12 @@ void SettingsEditor::updateCorrectionsTable()
 {
 }
 
-void SettingsEditor::updateTranslators(const QStringList &enabled)
+void SettingsEditor::updateTranslators(const QString &path,
+                                       const QStringList &enabled)
 {
   ui->translatorList->clear();
 
-  QDir dir(translatorsDir_);
+  QDir dir(path);
   if (!dir.exists())
     return;
 

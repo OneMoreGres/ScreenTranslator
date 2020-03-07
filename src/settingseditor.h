@@ -25,9 +25,8 @@ private:
   void openTessdataDialog();
   void updateTesseractLanguages();
   void updateCorrectionsTable();
-  void updateTranslators(const QStringList &enabled);
+  void updateTranslators(const QString &path, const QStringList &enabled);
   void updateTranslationLanguages();
 
   Ui::SettingsEditor *ui;
-  QString translatorsDir_;
 };
