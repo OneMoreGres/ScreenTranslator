@@ -45,13 +45,13 @@ SettingsEditor::SettingsEditor()
   connect(ui->tessdataEdit, &QLineEdit::textChanged,  //
           this, &SettingsEditor::updateTesseractLanguages);
 
-  //  connect(ui->recognizerFixTable, SIGNAL(itemChanged(QTableWidgetItem *)),
-  //          SLOT(recognizerFixTableItemChanged(QTableWidgetItem *)));
+  // correction
 
-  //  //  ui->translateLangCombo->addItems(dictionary_.translateLanguagesUi());
+  ui->userSubstitutionsTable->setEnabled(ui->useUserSubstitutions->isChecked());
+  connect(ui->useUserSubstitutions, &QCheckBox::toggled,  //
+          ui->userSubstitutionsTable, &QTableWidget::setEnabled);
 
   // translation
-
   updateTranslationLanguages();
 
   // updates
@@ -86,6 +86,9 @@ Settings SettingsEditor::settings() const
   settings.tessdataPath = ui->tessdataEdit->text();
   if (auto lang = langs.findByName(ui->tesseractLangCombo->currentText()))
     settings.sourceLanguage = lang->id;
+
+  settings.useUserSubstitutions = ui->useUserSubstitutions->isChecked();
+  settings.userSubstitutions = ui->userSubstitutionsTable->substitutions();
 
   settings.doTranslation = ui->doTranslationCheck->isChecked();
   settings.ignoreSslErrors = ui->ignoreSslCheck->isChecked();
@@ -126,6 +129,9 @@ void SettingsEditor::setSettings(const Settings &settings)
   if (auto lang = langs.findById(settings.sourceLanguage))
     ui->tesseractLangCombo->setCurrentText(lang->name);
 
+  ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
+  ui->userSubstitutionsTable->setSubstitutions(settings.userSubstitutions);
+
   ui->doTranslationCheck->setChecked(settings.doTranslation);
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translatorDebugCheck->setChecked(settings.debugMode);
@@ -157,7 +163,6 @@ void SettingsEditor::openTessdataDialog()
 void SettingsEditor::updateTesseractLanguages()
 {
   ui->tesseractLangCombo->clear();
-  ui->correctLangCombo->clear();
 
   QDir dir(ui->tessdataEdit->text());
   if (!dir.exists())
@@ -178,11 +183,6 @@ void SettingsEditor::updateTesseractLanguages()
 
   std::sort(names.begin(), names.end());
   ui->tesseractLangCombo->addItems(names);
-  ui->correctLangCombo->addItems(names);
-}
-
-void SettingsEditor::updateCorrectionsTable()
-{
 }
 
 void SettingsEditor::updateTranslators(const QString &path,

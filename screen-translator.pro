@@ -47,6 +47,7 @@ HEADERS += \
   src/settings.h \
   src/settingseditor.h \
   src/stfwd.h \
+  src/substitutionstable.h \
   src/task.h \
   src/translate/translator.h \
   src/translate/webpage.h \
@@ -72,6 +73,7 @@ SOURCES += \
   src/service/widgetstate.cpp \
   src/settings.cpp \
   src/settingseditor.cpp \
+  src/substitutionstable.cpp \
   src/translate/translator.cpp \
   src/translate/webpage.cpp \
   src/translate/webpageproxy.cpp \

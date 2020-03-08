@@ -36,7 +36,9 @@ public:
 
   int autoUpdateType{0};  // Never
   QString lastUpdateCheck{""};
+
   Substitutions userSubstitutions;
+  bool useUserSubstitutions{true};
 
   bool debugMode{false};
 

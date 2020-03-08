@@ -22,7 +22,10 @@ const QString qs_lastUpdateCheck = "lastUpdateCheck";
 const QString qs_recogntionGroup = "Recognition";
 const QString qs_tessDataPlace = "tessdata_dir";
 const QString qs_ocrLanguage = "language";
-const QString qs_imageScale = "image_scale";
+
+const QString qs_correctionGroup = "Correction";
+const QString qs_userSubstitutions = "userSubstitutions";
+const QString qs_useUserSubstitutions = "useUserSubstitutions";
 
 const QString qs_translationGroup = "Translation";
 const QString qs_doTranslation = "doTranslation";
@@ -34,7 +37,7 @@ const QString qs_translationTimeout = "translation_timeout";
 const QString qs_debugMode = "translation_debug";
 const QString qs_translators = "translators";
 
-QString shuffle(const QString &source)
+QString shuffle(const QString& source)
 {
   if (source.isEmpty()) {
     return source;
@@ -45,6 +48,28 @@ QString shuffle(const QString &source)
     result[i] = result[i] ^ encKeys[i % sizeof(encKeys)];
   }
   return QString::fromUtf8(result.data());
+}
+
+QStringList packSubstitutions(const Substitutions& source)
+{
+  QStringList result;
+  for (const auto& i : source) {
+    result << i.first << i.second.source << i.second.target;
+  }
+  return result;
+}
+
+Substitutions unpackSubstitutions(const QStringList& raw)
+{
+  const auto count = raw.size();
+  if (count < 3)
+    return {};
+
+  Substitutions result;
+  for (auto i = 0, end = raw.size(); i < end; i += 3) {
+    result.emplace(raw[i], Substitution{raw[i + 1], raw[i + 2]});
+  }
+  return result;
 }
 
 }  // namespace
@@ -82,8 +107,11 @@ void Settings::save()
   settings.setValue(qs_tessDataPlace, tessdataPath);
   settings.setValue(qs_ocrLanguage, sourceLanguage);
 
-  // TODO corrector
+  settings.endGroup();
 
+  settings.beginGroup(qs_correctionGroup);
+  settings.setValue(qs_useUserSubstitutions, useUserSubstitutions);
+  settings.setValue(qs_userSubstitutions, packSubstitutions(userSubstitutions));
   settings.endGroup();
 
   settings.beginGroup(qs_translationGroup);
@@ -134,6 +162,13 @@ void Settings::load()
   tessdataPath = settings.value(qs_tessDataPlace, tessdataPath).toString();
   sourceLanguage = settings.value(qs_ocrLanguage, sourceLanguage).toString();
 
+  settings.endGroup();
+
+  settings.beginGroup(qs_correctionGroup);
+  useUserSubstitutions =
+      settings.value(qs_useUserSubstitutions, useUserSubstitutions).toBool();
+  userSubstitutions =
+      unpackSubstitutions(settings.value(qs_userSubstitutions).toStringList());
   settings.endGroup();
 
   settings.beginGroup(qs_translationGroup);
