@@ -39,6 +39,8 @@ QString Corrector::substituteUser(const QString &source,
 
     for (auto it = range.first; it != range.second; ++it) {
       const auto &sub = it->second;
+      if (!result.contains(sub.source))
+        continue;
       const auto len = sub.source.length();
       if (len > bestMatchLen) {
         bestMatchLen = len;
