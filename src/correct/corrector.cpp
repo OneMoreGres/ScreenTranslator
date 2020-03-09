@@ -13,6 +13,11 @@ void Corrector::correct(const TaskPtr &task)
   SOFT_ASSERT(task, return );
   SOFT_ASSERT(task->isValid(), return );
 
+  if (task->recognized.isEmpty()) {
+    manager_.corrected(task);
+    return;
+  }
+
   if (!userSubstitutions_.empty())
     task->corrected = substituteUser(task->recognized, task->sourceLanguage);
 

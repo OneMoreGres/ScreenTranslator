@@ -96,6 +96,12 @@ Translator::~Translator() = default;
 void Translator::translate(const TaskPtr &task)
 {
   SOFT_ASSERT(task, return );
+
+  if (task->corrected.isEmpty()) {
+    manager_.translated(task);
+    return;
+  }
+
   queue_.push_back(task);
   processQueue();
 }
