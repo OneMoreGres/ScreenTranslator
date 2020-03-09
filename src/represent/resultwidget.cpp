@@ -54,7 +54,13 @@ void ResultWidget::show(const TaskPtr &task)
 {
   SOFT_ASSERT(task->isValid(), return );
   image_->setPixmap(task->captured);
-  recognized_->setText(task->recognized);
+
+  recognized_->setText(task->corrected);
+  const auto tooltip = task->recognized == task->corrected
+                           ? ""
+                           : tr("Without correction:\n") + task->recognized;
+  recognized_->setToolTip(tooltip);
+
   translated_->setText(task->translated);
 
   const auto gotTranslation = !task->translated.isEmpty();
