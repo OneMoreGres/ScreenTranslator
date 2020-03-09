@@ -13,6 +13,7 @@ public:
   QPoint capturePoint;
   QPixmap captured;
   QString recognized;
+  QString corrected;
   QString translated;
 
   LanguageId sourceLanguage;

@@ -102,8 +102,7 @@ void WebPage::start(const TaskPtr &task)
   isBusy_ = true;
   nextIdleTime_ = QDateTime::currentDateTime().addSecs(timeout_.count());
 
-  proxy_->translate(task->recognized, task->sourceLanguage,
-                    langCodes->iso639_1);
+  proxy_->translate(task->corrected, task->sourceLanguage, langCodes->iso639_1);
 }
 
 bool WebPage::isBusy() const
