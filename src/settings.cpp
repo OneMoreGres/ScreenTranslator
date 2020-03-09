@@ -31,8 +31,6 @@ const QString qs_useUserSubstitutions = "useUserSubstitutions";
 const QString qs_translationGroup = "Translation";
 const QString qs_doTranslation = "doTranslation";
 const QString qs_ignoreSslErrors = "ignoreSslErrors";
-const QString qs_forceRotateTranslators = "forceRotateTranslators";
-const QString qs_sourceLanguage = "source_language";
 const QString qs_translationLanguage = "translation_language";
 const QString qs_translationTimeout = "translation_timeout";
 const QString qs_debugMode = "translation_debug";
@@ -71,6 +69,25 @@ Substitutions unpackSubstitutions(const QStringList& raw)
     result.emplace(raw[i], Substitution{raw[i + 1], raw[i + 2]});
   }
   return result;
+}
+
+void cleanupOutdated(QSettings& settings)
+{
+  if (!settings.contains(qs_recogntionGroup + "/image_scale"))
+    return;
+
+  settings.beginGroup(qs_guiGroup);
+  settings.remove("geometry");
+  settings.endGroup();
+
+  settings.beginGroup(qs_recogntionGroup);
+  settings.remove("image_scale");
+  settings.endGroup();
+
+  settings.beginGroup(qs_translationGroup);
+  settings.remove("source_language");
+  settings.remove("forceRotateTranslators");
+  settings.endGroup();
 }
 
 }  // namespace
@@ -127,6 +144,8 @@ void Settings::save()
   settings.setValue(qs_translators, translators);
 
   settings.endGroup();
+
+  cleanupOutdated(settings);
 }
 
 void Settings::load()
