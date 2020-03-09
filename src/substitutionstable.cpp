@@ -3,6 +3,7 @@
 #include "languagecodes.h"
 
 #include <QComboBox>
+#include <QLineEdit>
 #include <QPainter>
 #include <QStringListModel>
 #include <QStyledItemDelegate>
@@ -22,7 +23,52 @@ public:
   {
     painter->drawText(option.rect, Qt::AlignCenter, index.data().toString());
   }
-};
+
+  QWidget *createEditor(QWidget *parent,
+                        const QStyleOptionViewItem & /*option*/,
+                        const QModelIndex & /*index*/) const override
+  {
+    return new QLineEdit(parent);
+  }
+
+  void setEditorData(QWidget *editor, const QModelIndex &index) const override
+  {
+    auto casted = qobject_cast<QLineEdit *>(editor);
+    SOFT_ASSERT(casted, return );
+    auto text = index.data(Qt::EditRole).toString();
+
+    text.replace('\\', "\\\\");
+    text.replace('\n', "\\n");
+
+    casted->setText(text);
+  }
+
+  void setModelData(QWidget *editor, QAbstractItemModel *model,
+                    const QModelIndex &index) const override
+  {
+    auto casted = qobject_cast<QLineEdit *>(editor);
+    SOFT_ASSERT(casted, return );
+    auto text = casted->text();
+
+    if (!text.isEmpty()) {
+      const QMap<QString, QString> replacements{
+          {"\\\\", "\\"},
+          {"\\n", "\n"},
+      };
+      for (auto i = 0, end = text.size() - 1; i < end; ++i) {
+        const auto pair = text.mid(i, 2);
+        const auto replaced = replacements.value(pair);
+        if (replaced.isEmpty())
+          continue;
+
+        text.replace(i, 2, replaced);
+        --end;
+      }
+    }
+
+    model->setData(index, text);
+  }
+};  // namespace
 
 }  // namespace
 

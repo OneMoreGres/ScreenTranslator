@@ -298,6 +298,9 @@
        </item>
        <item row="4" column="0" colspan="2">
         <widget class="SubstitutionsTable" name="userSubstitutionsTable">
+         <property name="toolTip">
+          <string>\\ for \ symbol, \n for newline</string>
+         </property>
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
