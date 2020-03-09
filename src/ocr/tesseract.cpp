@@ -8,6 +8,8 @@
 
 #include <QBuffer>
 
+#include <limits>
+
 #if defined(Q_OS_LINUX)
 #include <fstream>
 static qint64 getFreeMemory()
@@ -68,14 +70,13 @@ static double getScale(Pix *source)
   if (xRes * yRes == 0)
     return -1.0;
 
-  const auto preferredScale = std::max(300.0 / std::min(xRes, yRes), 1.0);
+  const auto preferredScale = std::max(500.0 / std::min(xRes, yRes), 1.0);
   if (preferredScale <= 1.0)
     return -1.0;
 
-  const auto MAX_INT16 = 0x7fff;
-  const auto maxScaleX = MAX_INT16 / double(source->w);
+  const auto maxScaleX = std::numeric_limits<int>::max() / double(source->w);
   const auto scaleX = std::min(preferredScale, maxScaleX);
-  const auto maxScaleY = MAX_INT16 / double(source->h);
+  const auto maxScaleY = std::numeric_limits<int>::max() / double(source->h);
   const auto scaleY = std::min(preferredScale, maxScaleY);
   auto scale = std::min(scaleX, scaleY);
 
