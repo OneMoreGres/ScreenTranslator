@@ -28,6 +28,9 @@ Manager::Manager()
   Settings settings;
   settings.load();
   updateSettings(settings);
+
+  if (settings.showMessageOnStart)
+    tray_->showInformation(QObject::tr("Screen translator started"));
 }
 
 Manager::~Manager() = default;

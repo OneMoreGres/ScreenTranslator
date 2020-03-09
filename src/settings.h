@@ -27,6 +27,8 @@ public:
   QString showLastHotkey{"Ctrl+Alt+X"};
   QString clipboardHotkey{"Ctrl+Alt+C"};
 
+  bool showMessageOnStart{true};
+
   ProxyType proxyType{ProxyType::System};
   QString proxyHostName;
   int proxyPort{8080};

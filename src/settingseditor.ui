@@ -182,6 +182,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="showOnStart">
+         <property name="text">
+          <string>Show message on program start</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

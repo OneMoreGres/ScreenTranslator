@@ -75,6 +75,8 @@ Settings SettingsEditor::settings() const
   settings.showLastHotkey = ui->repeatEdit->keySequence().toString();
   settings.clipboardHotkey = ui->clipboardEdit->keySequence().toString();
 
+  settings.showMessageOnStart = ui->showOnStart->isChecked();
+
   settings.proxyType = ProxyType(ui->proxyTypeCombo->currentIndex());
   settings.proxyHostName = ui->proxyHostEdit->text();
   settings.proxyPort = ui->proxyPortSpin->value();
@@ -116,6 +118,8 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->repeatCaptureEdit->setKeySequence(settings.repeatCaptureHotkey);
   ui->repeatEdit->setKeySequence(settings.showLastHotkey);
   ui->clipboardEdit->setKeySequence(settings.clipboardHotkey);
+
+  ui->showOnStart->setChecked(settings.showMessageOnStart);
 
   ui->proxyTypeCombo->setCurrentIndex(int(settings.proxyType));
   ui->proxyHostEdit->setText(settings.proxyHostName);

@@ -18,6 +18,7 @@ const QString qs_proxyPassword = "proxyPassword";
 const QString qs_proxySavePassword = "proxySavePassword";
 const QString qs_autoUpdateType = "autoUpdateType";
 const QString qs_lastUpdateCheck = "lastUpdateCheck";
+const QString qs_showMessageOnStart = "showMessageOnStart";
 
 const QString qs_recogntionGroup = "Recognition";
 const QString qs_tessDataPlace = "tessdata_dir";
@@ -85,6 +86,8 @@ void Settings::save()
   settings.setValue(qs_repeatHotkey, showLastHotkey);
   settings.setValue(qs_clipboardHotkey, clipboardHotkey);
 
+  settings.setValue(qs_showMessageOnStart, showMessageOnStart);
+
   settings.setValue(qs_resultShowType, int(resultShowType));
 
   settings.setValue(qs_proxyType, int(proxyType));
@@ -138,6 +141,9 @@ void Settings::load()
   showLastHotkey = settings.value(qs_repeatHotkey, showLastHotkey).toString();
   clipboardHotkey =
       settings.value(qs_clipboardHotkey, clipboardHotkey).toString();
+
+  showMessageOnStart =
+      settings.value(qs_showMessageOnStart, showMessageOnStart).toBool();
 
   resultShowType = ResultMode(
       std::clamp(settings.value(qs_resultShowType, int(resultShowType)).toInt(),
