@@ -108,43 +108,58 @@ static QImage convertImage(Pix &image)
   return result;
 }
 
+static double getScale(Pix *source)
+{
+  SOFT_ASSERT(source, return -1.0);
+
+  const auto xRes = pixGetXRes(source);
+  const auto yRes = pixGetYRes(source);
+  if (xRes * yRes == 0)
+    return -1.0;
+
+  const auto preferredScale = std::max(300.0 / std::min(xRes, yRes), 1.0);
+  if (preferredScale <= 1.0)
+    return -1.0;
+
+  const auto MAX_INT16 = 0x7fff;
+  const auto maxScaleX = MAX_INT16 / double(source->w);
+  const auto scaleX = std::min(preferredScale, maxScaleX);
+  const auto maxScaleY = MAX_INT16 / double(source->h);
+  const auto scaleY = std::min(preferredScale, maxScaleY);
+  auto scale = std::min(scaleX, scaleY);
+
+  const auto availableMemory = getFreeMemory() * 0.95;
+  if (availableMemory < 1)
+    return -1.0;
+
+  const auto actualSize = source->w * source->h * source->d / 8;
+  const auto maxScaleMemory = availableMemory / actualSize;
+  scale = std::min(scale, maxScaleMemory);
+
+  return scale;
+}
+
 static Pix *prepareImage(const QImage &image)
 {
-  Pix *pix = convertImage(image);
-  SOFT_ASSERT(pix != NULL, return nullptr);
+  auto pix = convertImage(image);
+  SOFT_ASSERT(pix, return nullptr);
 
-  Pix *gray = pixConvertRGBToGray(pix, 0.0, 0.0, 0.0);
-  SOFT_ASSERT(gray != NULL, return nullptr);
+  auto gray = pixConvertRGBToGray(pix, 0.0, 0.0, 0.0);
+  SOFT_ASSERT(gray, return nullptr);
   pixDestroy(&pix);
 
-  Pix *scaled = gray;
-  const auto xRes = pixGetXRes(gray);
-  const auto yRes = pixGetYRes(gray);
-  if (xRes * yRes != 0) {
-    const auto preferredScale = std::max(300.0 / std::min(xRes, yRes), 1.0);
-    if (preferredScale > 1.0) {
-      const auto MAX_INT16 = 0x7fff;
-      float maxScaleX = MAX_INT16 / double(gray->w);
-      float scaleX = std::min(float(preferredScale), maxScaleX);
-      float maxScaleY = MAX_INT16 / double(gray->h);
-      float scaleY = std::min(float(preferredScale), maxScaleY);
-      float scale = std::min(scaleX, scaleY);
+  auto scaleSource = gray;
+  auto scaled = scaleSource;
 
-      qint64 availableMemory = getFreeMemory() * 0.95;
-      if (availableMemory > 0) {
-        qint32 actualSize = gray->w * gray->h * gray->d / 8;
-        float maxScaleMemory = float(availableMemory) / actualSize;
-        scale = std::min(scale, maxScaleMemory);
-      }
-      scaled = pixScale(gray, scale, scale);
-      if (scaled == NULL) {
-        scaled = gray;
-      }
-    }
+  if (const auto scale = getScale(scaleSource); scale > 1.0) {
+    scaled = pixScale(scaleSource, scale, scale);
+    if (!scaled)
+      scaled = scaleSource;
   }
-  if (scaled != gray) {
-    pixDestroy(&gray);
-  }
+
+  if (scaled != scaleSource)
+    pixDestroy(&scaleSource);
+
   return scaled;
 }
 
