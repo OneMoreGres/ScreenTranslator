@@ -6,6 +6,8 @@
 #include <leptonica/allheaders.h>
 #include <tesseract/baseapi.h>
 
+#include <QBuffer>
+
 #if defined(Q_OS_LINUX)
 #include <fstream>
 static qint64 getFreeMemory()
@@ -38,73 +40,22 @@ static qint64 getFreeMemory()
 
 static Pix *convertImage(const QImage &image)
 {
-  PIX *pix;
-
-  int width = image.width();
-  int height = image.height();
-  int depth = image.depth();
-  int bytesPerLine = image.bytesPerLine();
-  int wpl = bytesPerLine / 4;
-
-  pix = pixCreate(width, height, depth);
-  pixSetWpl(pix, wpl);
-  pixSetColormap(pix, nullptr);
-  memmove(pix->data, image.bits(), bytesPerLine * height);
-
-  const qreal toDPM = 1.0 / 0.0254;
-  int resolutionX = image.dotsPerMeterX() / toDPM;
-  int resolutionY = image.dotsPerMeterY() / toDPM;
-  pixSetResolution(pix, resolutionX, resolutionY);
-  return pix;
+  QBuffer buffer;
+  buffer.open(QIODevice::WriteOnly);
+  image.save(&buffer, "BMP");
+  const auto &data = buffer.data();
+  return pixReadMemBmp(reinterpret_cast<const l_uint8 *>(data.constData()),
+                       data.size());
 }
 
 static QImage convertImage(Pix &image)
 {
-  int width = pixGetWidth(&image);
-  int height = pixGetHeight(&image);
-  int depth = pixGetDepth(&image);
-  int bytesPerLine = pixGetWpl(&image) * 4;
-  l_uint32 *datas = pixGetData(&image);
+  l_uint8 *buffer = nullptr;
+  size_t len = 0;
+  pixWriteMemBmp(&buffer, &len, &image);
 
-  QImage::Format format;
-  if (depth == 1) {
-    format = QImage::Format_Mono;
-  } else if (depth == 8) {
-    format = QImage::Format_Indexed8;
-  } else {
-    format = QImage::Format_RGB32;
-  }
-
-  QImage result((uchar *)datas, width, height, bytesPerLine, format);
-
-  // Set resolution
-  l_int32 xres, yres;
-  pixGetResolution(&image, &xres, &yres);
-  const qreal toDPM = 1.0 / 0.0254;
-  result.setDotsPerMeterX(xres * toDPM);
-  result.setDotsPerMeterY(yres * toDPM);
-
-  // Handle palette
-  QVector<QRgb> _bwCT;
-  _bwCT.append(qRgb(255, 255, 255));
-  _bwCT.append(qRgb(0, 0, 0));
-
-  QVector<QRgb> _grayscaleCT(256);
-  for (int i = 0; i < 256; i++) {
-    _grayscaleCT.append(qRgb(i, i, i));
-  }
-  switch (depth) {
-    case 1: result.setColorTable(_bwCT); break;
-    case 8: result.setColorTable(_grayscaleCT); break;
-    default: result.setColorTable(_grayscaleCT);
-  }
-
-  if (result.isNull()) {
-    static QImage none(0, 0, QImage::Format_Invalid);
-    qDebug("Invalid format!!!\n");
-    return none;
-  }
-
+  QImage result;
+  result.loadFromData(static_cast<uchar *>(buffer), len);
   return result;
 }
 
