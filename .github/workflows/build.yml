@@ -57,6 +57,12 @@ jobs:
           sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 libxcb-util-dev
           echo ::set-env name=QMAKE_FLAGS::QMAKE_CXX=g++-9 QMAKE_CC=gcc-9
 
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: deps
+          key: ${{ runner.os }}-deps
+
       - name: Get Qt
         run: python ./share/ci/get_qt.py
 
