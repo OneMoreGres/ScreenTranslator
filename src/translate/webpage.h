@@ -21,7 +21,7 @@ public:
   void start(const TaskPtr &task);
   void setTranslated(const QString &text);
   void setFailed(const QString &error);
-  bool isBusy() const;
+  bool checkBusy();
   TaskPtr task() const;
 
   bool isLoadImages() const;
@@ -40,10 +40,11 @@ private:
   void authenticateProxy(const QUrl &requestUrl, QAuthenticator *authenticator,
                          const QString &proxyHost);
   void scheduleWebchannelInitScript();
-  void scheduleTranslatorScript(const QString &script,
-                                const QString &scriptName);
+  void scheduleTranslatorScript(const QString &script);
+  void addErrorToTask(const QString &text) const;
 
   Translator &translator_;
+  QString scriptName_;
   std::unique_ptr<WebPageProxy> proxy_;
   TaskPtr task_;
   bool ignoreSslErrors_{false};

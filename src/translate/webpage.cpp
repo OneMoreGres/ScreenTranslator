@@ -14,6 +14,7 @@ WebPage::WebPage(Translator &translator, const QString &script,
                  const QString &scriptName)
   : QWebEnginePage(new QWebEngineProfile)
   , translator_(translator)
+  , scriptName_(scriptName)
   , proxy_(new WebPageProxy(*this))
 {
   profile()->setParent(this);
@@ -22,7 +23,7 @@ WebPage::WebPage(Translator &translator, const QString &script,
           &WebPage::authenticateProxy);
 
   scheduleWebchannelInitScript();
-  scheduleTranslatorScript(script, scriptName);
+  scheduleTranslatorScript(script);
 
   setLoadImages(false);
 
@@ -62,19 +63,25 @@ if (typeof init === "function") init ();
   profile()->scripts()->insert(js);
 }
 
-void WebPage::scheduleTranslatorScript(const QString &script,
-                                       const QString &scriptName)
+void WebPage::scheduleTranslatorScript(const QString &script)
 {
   QWebEngineScript js;
 
   js.setSourceCode(script);
-  js.setName(scriptName);
+  js.setName(scriptName_);
   js.setWorldId(QWebEngineScript::UserWorld);
   js.setInjectionPoint(QWebEngineScript::Deferred);
   js.setRunsOnSubFrames(false);
 
   SOFT_ASSERT(profile(), return );
   profile()->scripts()->insert(js);
+}
+
+void WebPage::addErrorToTask(const QString &text) const
+{
+  if (!task_)
+    return;
+  task_->translatorErrors.append(QString("%1: %2").arg(scriptName_, text));
 }
 
 void WebPage::setIgnoreSslErrors(bool ignoreSslErrors)
@@ -105,14 +112,23 @@ void WebPage::start(const TaskPtr &task)
   proxy_->translate(task->corrected, task->sourceLanguage, langCodes->iso639_1);
 }
 
-bool WebPage::isBusy() const
+bool WebPage::checkBusy()
 {
-  return task_ && isBusy_ && QDateTime::currentDateTime() < nextIdleTime_;
+  if (!task_ || !isBusy_)
+    return false;
+
+  if (QDateTime::currentDateTime() < nextIdleTime_)
+    return true;
+
+  addErrorToTask(tr("timed out"));
+  isBusy_ = false;
+
+  return false;
 }
 
 void WebPage::setTranslated(const QString &text)
 {
-  if (!isBusy())
+  if (!checkBusy())
     return;
 
   isBusy_ = false;
@@ -124,14 +140,12 @@ void WebPage::setTranslated(const QString &text)
 
 void WebPage::setFailed(const QString &error)
 {
-  if (!isBusy())
+  if (!checkBusy())
     return;
 
   isBusy_ = false;
 
-  SOFT_ASSERT(task_, return )
-  //  task_->error = error;
-  translator_.finish(task_);
+  addErrorToTask(error);
 }
 
 TaskPtr WebPage::task() const

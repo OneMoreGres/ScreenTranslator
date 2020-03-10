@@ -22,6 +22,7 @@ public:
   QStringList translators;
 
   QString error;
+  QStringList translatorErrors;
 };
 
 using TaskPtr = std::shared_ptr<Task>;

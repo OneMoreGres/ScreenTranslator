@@ -210,7 +210,7 @@ void Translator::processQueue()
   std::unordered_set<Task *> busyTasks;
 
   for (auto &i : pages_) {
-    if (i.second->isBusy())
+    if (i.second->checkBusy())
       busyTasks.insert(i.second->task().get());
     else
       idlePages.insert(i.first);
@@ -228,7 +228,8 @@ void Translator::processQueue()
       continue;
 
     if (task->translators.isEmpty()) {
-      task->error = tr("All translators failed");
+      task->error = tr("All translators failed (%1)")
+                        .arg(task->translatorErrors.join(", "));
       finishedTasks.push_back(task);
       continue;
     }
