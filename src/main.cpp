@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   if (!guard.isValid())
     return 1;
 
-  // tesseract recomments
+  // tesseract recommends
   setlocale(LC_NUMERIC, "C");
 
   Manager manager;
