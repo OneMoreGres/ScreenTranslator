@@ -168,7 +168,11 @@ void SettingsEditor::updateTesseractLanguages()
 {
   ui->tesseractLangCombo->clear();
 
-  QDir dir(ui->tessdataEdit->text());
+  const auto path = ui->tessdataEdit->text();
+  if (path.isEmpty())
+    return;
+
+  QDir dir(path);
   if (!dir.exists())
     return;
 
