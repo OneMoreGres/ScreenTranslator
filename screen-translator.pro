@@ -44,6 +44,7 @@ HEADERS += \
   src/service/debug.h \
   src/service/globalaction.h \
   src/service/singleapplication.h \
+  src/service/updates.h \
   src/service/widgetstate.h \
   src/settings.h \
   src/settingseditor.h \
@@ -71,6 +72,7 @@ SOURCES += \
   src/service/debug.cpp \
   src/service/globalaction.cpp \
   src/service/singleapplication.cpp \
+  src/service/updates.cpp \
   src/service/widgetstate.cpp \
   src/settings.cpp \
   src/settingseditor.cpp \

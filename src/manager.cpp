@@ -8,13 +8,26 @@
 #include "task.h"
 #include "translator.h"
 #include "trayicon.h"
+#include "updates.h"
 
 #include <QApplication>
 #include <QClipboard>
 #include <QMessageBox>
 #include <QNetworkProxy>
 
+namespace
+{
+#ifdef DEVELOP
+const auto updatesUrl = "http://localhost:8081/updates.json";
+#else
+const auto updatesUrl =
+    "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/"
+    "updates.json";
+#endif
+}  // namespace
+
 Manager::Manager()
+  : updater_(std::make_unique<update::Loader>(QUrl(updatesUrl)))
 {
   tray_ = std::make_unique<TrayIcon>(*this);
   capturer_ = std::make_unique<Capturer>(*this);
@@ -31,6 +44,16 @@ Manager::Manager()
 
   if (settings.showMessageOnStart)
     tray_->showInformation(QObject::tr("Screen translator started"));
+
+  QObject::connect(updater_.get(), &update::Loader::error,  //
+                   tray_.get(), &TrayIcon::showError);
+  QObject::connect(updater_.get(), &update::Loader::updated,  //
+                   tray_.get(), [this] {
+                     tray_->showInformation(QObject::tr("Update completed"));
+                   });
+#ifdef DEVELOP
+  updater_->checkForUpdates();
+#endif
 }
 
 Manager::~Manager() = default;
@@ -39,6 +62,11 @@ void Manager::updateSettings(const Settings &settings)
 {
   LTRACE() << "updateSettings";
   setupProxy(settings);
+
+  updater_->model()->setExpansions({
+      {"$translators$", settings.translatorsDir},
+      {"$tessdata$", settings.tessdataPath},
+  });
 
   tray_->updateSettings(settings);
   capturer_->updateSettings(settings);
@@ -188,7 +216,7 @@ void Manager::showLast()
 
 void Manager::settings()
 {
-  SettingsEditor editor;
+  SettingsEditor editor(*updater_);
 
   Settings settings;
   settings.load();

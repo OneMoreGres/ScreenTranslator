@@ -16,6 +16,11 @@ class Translator;
 class Corrector;
 class Recognizer;
 
+namespace update
+{
+class Loader;
+}
+
 using TaskPtr = std::shared_ptr<Task>;
 using LanguageId = QString;
 using LanguageIds = QStringList;

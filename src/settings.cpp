@@ -118,7 +118,7 @@ void Settings::save()
     settings.remove(qs_proxyPassword);
   }
 
-  settings.setValue(qs_autoUpdateType, autoUpdateType);
+  settings.setValue(qs_autoUpdateType, int(autoUpdateType));
 
   settings.endGroup();
 
@@ -178,7 +178,9 @@ void Settings::load()
       settings.value(qs_proxySavePassword, proxySavePassword).toBool();
   proxyPassword = shuffle(settings.value(qs_proxyPassword).toString());
 
-  autoUpdateType = settings.value(qs_autoUpdateType, autoUpdateType).toInt();
+  autoUpdateType = AutoUpdate(
+      std::clamp(settings.value(qs_autoUpdateType, int(autoUpdateType)).toInt(),
+                 int(AutoUpdate::Disabled), int(AutoUpdate::Monthly)));
 
   settings.endGroup();
 

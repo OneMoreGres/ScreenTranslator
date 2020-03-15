@@ -16,6 +16,8 @@ using Substitutions = std::unordered_multimap<LanguageId, Substitution>;
 
 enum class ProxyType { Disabled, System, Socks5, Http };
 
+enum class AutoUpdate { Disabled, Daily, Weekly, Monthly };
+
 class Settings
 {
 public:
@@ -36,7 +38,7 @@ public:
   QString proxyPassword;
   bool proxySavePassword{false};
 
-  int autoUpdateType{0};  // Never
+  AutoUpdate autoUpdateType{AutoUpdate::Disabled};
   QString lastUpdateCheck{""};
 
   Substitutions userSubstitutions;

@@ -1,7 +1,4 @@
 <RCC>
-    <qresource prefix="/">
-        <file>version.json</file>
-    </qresource>
     <qresource prefix="/icons">
         <file alias="app.png">share/images/STIconBlue.png</file>
         <file alias="st_success.png">share/images/STIconGreen.png</file>

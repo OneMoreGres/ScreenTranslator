@@ -14,7 +14,7 @@ class SettingsEditor : public QDialog
   Q_OBJECT
 
 public:
-  explicit SettingsEditor();
+  explicit SettingsEditor(update::Loader &updater);
   ~SettingsEditor();
 
   Settings settings() const;
@@ -24,8 +24,12 @@ private:
   void updateCurrentPage();
   void openTessdataDialog();
   void updateTesseractLanguages();
-  void updateTranslators(const QString &path, const QStringList &enabled);
+  void updateTranslators();
   void updateTranslationLanguages();
+  void adjustUpdatesView();
 
   Ui::SettingsEditor *ui;
+  update::Loader &updater_;
+  QString translatorsPath_;
+  QStringList enabledTranslators_;
 };

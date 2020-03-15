@@ -1,14 +1,17 @@
 #include "settingseditor.h"
 #include "languagecodes.h"
 #include "ui_settingseditor.h"
+#include "updates.h"
 #include "widgetstate.h"
 
 #include <QFileDialog>
 #include <QNetworkProxy>
+#include <QSortFilterProxyModel>
 #include <QStringListModel>
 
-SettingsEditor::SettingsEditor()
+SettingsEditor::SettingsEditor(update::Loader &updater)
   : ui(new Ui::SettingsEditor)
+  , updater_(updater)
 {
   ui->setupUi(this);
 
@@ -55,8 +58,30 @@ SettingsEditor::SettingsEditor()
   updateTranslationLanguages();
 
   // updates
-  ui->updateCombo->addItems(
-      {tr("Never"), tr("Daily"), tr("Weekly"), tr("Monthly")});
+  QMap<AutoUpdate, QString> updateTypes;
+  updateTypes.insert(AutoUpdate::Disabled, tr("Disabled"));
+  updateTypes.insert(AutoUpdate::Daily, tr("Daily"));
+  updateTypes.insert(AutoUpdate::Weekly, tr("Weekly"));
+  updateTypes.insert(AutoUpdate::Monthly, tr("Monthly"));
+  ui->updateCombo->addItems(updateTypes.values());
+
+  auto updatesProxy = new QSortFilterProxyModel(this);
+  updatesProxy->setSourceModel(updater_.model());
+  ui->updatesView->setModel(updatesProxy);
+  ui->updatesView->setItemDelegateForColumn(int(update::Model::Column::Action),
+                                            new update::ActionDelegate(this));
+#ifndef DEVELOP
+  ui->updatesView->hideColumn(int(update::Model::Column::Files));
+#endif
+  adjustUpdatesView();
+  connect(updater_.model(), &QAbstractItemModel::modelReset,  //
+          this, &SettingsEditor::adjustUpdatesView);
+  connect(&updater_, &update::Loader::updated,  //
+          this, &SettingsEditor::adjustUpdatesView);
+  connect(ui->checkUpdates, &QPushButton::clicked,  //
+          &updater_, &update::Loader::checkForUpdates);
+  connect(ui->applyUpdates, &QPushButton::clicked,  //
+          &updater_, &update::Loader::applyUserActions);
 
   new WidgetState(this);
 }
@@ -140,7 +165,9 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translatorDebugCheck->setChecked(settings.debugMode);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
-  updateTranslators(settings.translatorsDir, settings.translators);
+  translatorsPath_ = settings.translatorsDir;
+  enabledTranslators_ = settings.translators;
+  updateTranslators();
   if (auto lang = langs.findById(settings.targetLanguage))
     ui->translateLangCombo->setCurrentText(lang->name);
 
@@ -193,12 +220,11 @@ void SettingsEditor::updateTesseractLanguages()
   ui->tesseractLangCombo->addItems(names);
 }
 
-void SettingsEditor::updateTranslators(const QString &path,
-                                       const QStringList &enabled)
+void SettingsEditor::updateTranslators()
 {
   ui->translatorList->clear();
 
-  QDir dir(path);
+  QDir dir(translatorsPath_);
   if (!dir.exists())
     return;
 
@@ -208,8 +234,9 @@ void SettingsEditor::updateTranslators(const QString &path,
 
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
     auto item = ui->translatorList->item(i);
-    item->setCheckState(enabled.contains(item->text()) ? Qt::Checked
-                                                       : Qt::Unchecked);
+    item->setCheckState(enabledTranslators_.contains(item->text())
+                            ? Qt::Checked
+                            : Qt::Unchecked);
   }
 }
 
@@ -226,4 +253,11 @@ void SettingsEditor::updateTranslationLanguages()
   ui->translateLangCombo->clear();
   std::sort(names.begin(), names.end());
   ui->translateLangCombo->addItems(names);
+}
+
+void SettingsEditor::adjustUpdatesView()
+{
+  ui->updatesView->resizeColumnToContents(int(update::Model::Column::Name));
+  updateTesseractLanguages();
+  updateTranslators();
 }
