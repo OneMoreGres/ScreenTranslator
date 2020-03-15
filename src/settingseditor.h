@@ -22,7 +22,6 @@ public:
 
 private:
   void updateCurrentPage();
-  void openTessdataDialog();
   void updateTesseractLanguages();
   void updateTranslators();
   void updateTranslationLanguages();
@@ -30,6 +29,5 @@ private:
 
   Ui::SettingsEditor *ui;
   update::Loader &updater_;
-  QString translatorsPath_;
   QStringList enabledTranslators_;
 };

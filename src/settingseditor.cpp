@@ -42,12 +42,6 @@ SettingsEditor::SettingsEditor(update::Loader &updater)
     ui->proxyPassEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
   }
 
-  // recognition
-  connect(ui->tessdataButton, &QPushButton::clicked,  //
-          this, &SettingsEditor::openTessdataDialog);
-  connect(ui->tessdataEdit, &QLineEdit::textChanged,  //
-          this, &SettingsEditor::updateTesseractLanguages);
-
   // correction
 
   ui->userSubstitutionsTable->setEnabled(ui->useUserSubstitutions->isChecked());
@@ -110,7 +104,6 @@ Settings SettingsEditor::settings() const
   settings.proxySavePassword = ui->proxySaveCheck->isChecked();
 
   LanguageCodes langs;
-  settings.tessdataPath = ui->tessdataEdit->text();
   if (auto lang = langs.findByName(ui->tesseractLangCombo->currentText()))
     settings.sourceLanguage = lang->id;
 
@@ -154,7 +147,8 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
   LanguageCodes langs;
-  ui->tessdataEdit->setText(settings.tessdataPath);
+  ui->tessdataPath->setText(settings.tessdataPath);
+  updateTesseractLanguages();
   if (auto lang = langs.findById(settings.sourceLanguage))
     ui->tesseractLangCombo->setCurrentText(lang->name);
 
@@ -165,7 +159,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translatorDebugCheck->setChecked(settings.debugMode);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
-  translatorsPath_ = settings.translatorsDir;
+  ui->translatorsPath->setText(settings.translatorsDir);
   enabledTranslators_ = settings.translators;
   updateTranslators();
   if (auto lang = langs.findById(settings.targetLanguage))
@@ -180,22 +174,11 @@ void SettingsEditor::updateCurrentPage()
   ui->pagesView->setCurrentIndex(ui->pagesList->currentIndex().row());
 }
 
-void SettingsEditor::openTessdataDialog()
-{
-  const auto path =
-      QFileDialog::getExistingDirectory(this, tr("Path to tessdata"));
-
-  if (path.isEmpty())
-    return;
-
-  ui->tessdataEdit->setText(path);
-}
-
 void SettingsEditor::updateTesseractLanguages()
 {
   ui->tesseractLangCombo->clear();
 
-  const auto path = ui->tessdataEdit->text();
+  const auto path = ui->tessdataPath->text();
   if (path.isEmpty())
     return;
 
@@ -224,7 +207,11 @@ void SettingsEditor::updateTranslators()
 {
   ui->translatorList->clear();
 
-  QDir dir(translatorsPath_);
+  const auto path = ui->translatorsPath->text();
+  if (path.isEmpty())
+    return;
+
+  QDir dir(path);
   if (!dir.exists())
     return;
 

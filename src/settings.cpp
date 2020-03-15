@@ -1,6 +1,7 @@
 #include "settings.h"
 
 #include <QSettings>
+#include <QStandardPaths>
 
 namespace
 {
@@ -21,7 +22,6 @@ const QString qs_lastUpdateCheck = "lastUpdateCheck";
 const QString qs_showMessageOnStart = "showMessageOnStart";
 
 const QString qs_recogntionGroup = "Recognition";
-const QString qs_tessDataPlace = "tessdata_dir";
 const QString qs_ocrLanguage = "language";
 
 const QString qs_correctionGroup = "Correction";
@@ -82,6 +82,7 @@ void cleanupOutdated(QSettings& settings)
 
   settings.beginGroup(qs_recogntionGroup);
   settings.remove("image_scale");
+  settings.remove("tessdata_dir");
   settings.endGroup();
 
   settings.beginGroup(qs_translationGroup);
@@ -91,6 +92,14 @@ void cleanupOutdated(QSettings& settings)
 }
 
 }  // namespace
+
+Settings::Settings()
+{
+  const auto baseDataPath =
+      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+  tessdataPath = baseDataPath + "/tessdata";
+  translatorsDir = baseDataPath + "/translators";
+}
 
 void Settings::save()
 {
@@ -123,10 +132,7 @@ void Settings::save()
   settings.endGroup();
 
   settings.beginGroup(qs_recogntionGroup);
-
-  settings.setValue(qs_tessDataPlace, tessdataPath);
   settings.setValue(qs_ocrLanguage, sourceLanguage);
-
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);
@@ -185,10 +191,7 @@ void Settings::load()
   settings.endGroup();
 
   settings.beginGroup(qs_recogntionGroup);
-
-  tessdataPath = settings.value(qs_tessDataPlace, tessdataPath).toString();
   sourceLanguage = settings.value(qs_ocrLanguage, sourceLanguage).toString();
-
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);

@@ -21,6 +21,8 @@ enum class AutoUpdate { Disabled, Daily, Weekly, Monthly };
 class Settings
 {
 public:
+  Settings();
+
   void save();
   void load();
 
@@ -46,7 +48,7 @@ public:
 
   bool debugMode{false};
 
-  QString tessdataPath{"tessdata"};
+  QString tessdataPath;
   QString sourceLanguage{"eng"};
   LanguageIds availableOcrLanguages_;
 
@@ -55,7 +57,7 @@ public:
   bool forceRotateTranslators{false};
   LanguageId targetLanguage{"rus"};
   std::chrono::seconds translationTimeout{15};
-  QString translatorsDir{"translators"};
+  QString translatorsDir;
   QStringList translators{"google.js"};
 
   ResultMode resultShowType{ResultMode::Widget};  // dialog
