@@ -21,9 +21,7 @@ enum class AutoUpdate { Disabled, Daily, Weekly, Monthly };
 class Settings
 {
 public:
-  Settings();
-
-  void save();
+  void save() const;
   void load();
 
   QString captureHotkey{"Ctrl+Alt+Z"};

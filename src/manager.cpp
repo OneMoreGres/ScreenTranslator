@@ -185,6 +185,12 @@ void Manager::translated(const TaskPtr &task)
   representer_->represent(task);
 }
 
+void Manager::applySettings(const Settings &settings)
+{
+  updateSettings(settings);
+  settings.save();
+}
+
 void Manager::fatalError(const QString &text)
 {
   tray_->blockActions(false);
@@ -216,7 +222,7 @@ void Manager::showLast()
 
 void Manager::settings()
 {
-  SettingsEditor editor(*updater_);
+  SettingsEditor editor(*this, *updater_);
 
   Settings settings;
   settings.load();

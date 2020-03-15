@@ -16,6 +16,7 @@ public:
   void corrected(const TaskPtr &task);
   void translated(const TaskPtr &task);
 
+  void applySettings(const Settings &settings);
   void fatalError(const QString &text);
   void capture();
   void repeatCapture();

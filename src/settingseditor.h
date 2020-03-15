@@ -8,13 +8,14 @@ namespace Ui
 {
 class SettingsEditor;
 }
+class QAbstractButton;
 
 class SettingsEditor : public QDialog
 {
   Q_OBJECT
 
 public:
-  explicit SettingsEditor(update::Loader &updater);
+  SettingsEditor(Manager &manager, update::Loader &updater);
   ~SettingsEditor();
 
   Settings settings() const;
@@ -26,8 +27,10 @@ private:
   void updateTranslators();
   void updateTranslationLanguages();
   void adjustUpdatesView();
+  void handleButtonBoxClicked(QAbstractButton *button);
 
   Ui::SettingsEditor *ui;
+  Manager &manager_;
   update::Loader &updater_;
   QStringList enabledTranslators_;
 };

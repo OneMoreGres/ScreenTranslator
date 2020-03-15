@@ -93,7 +93,7 @@ void cleanupOutdated(QSettings& settings)
 
 }  // namespace
 
-Settings::Settings()
+void Settings::save() const
 {
   const auto baseDataPath =
       QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);

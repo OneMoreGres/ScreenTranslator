@@ -1,5 +1,7 @@
 #include "settingseditor.h"
+#include "debug.h"
 #include "languagecodes.h"
+#include "manager.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
 #include "widgetstate.h"
@@ -9,11 +11,15 @@
 #include <QSortFilterProxyModel>
 #include <QStringListModel>
 
-SettingsEditor::SettingsEditor(update::Loader &updater)
+SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   : ui(new Ui::SettingsEditor)
+  , manager_(manager)
   , updater_(updater)
 {
   ui->setupUi(this);
+
+  connect(ui->buttonBox, &QDialogButtonBox::clicked,  //
+          this, &SettingsEditor::handleButtonBoxClicked);
 
   {
     auto model = new QStringListModel(this);
@@ -247,4 +253,23 @@ void SettingsEditor::adjustUpdatesView()
   ui->updatesView->resizeColumnToContents(int(update::Model::Column::Name));
   updateTesseractLanguages();
   updateTranslators();
+}
+
+void SettingsEditor::handleButtonBoxClicked(QAbstractButton *button)
+{
+  if (!button)
+    return;
+
+  if (button == ui->buttonBox->button(QDialogButtonBox::Ok)) {
+    accept();
+    return;
+  }
+  if (button == ui->buttonBox->button(QDialogButtonBox::Cancel)) {
+    reject();
+    return;
+  }
+  if (button == ui->buttonBox->button(QDialogButtonBox::Apply)) {
+    manager_.applySettings(settings());
+    return;
+  }
 }
