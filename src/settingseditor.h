@@ -28,9 +28,11 @@ private:
   void updateTranslationLanguages();
   void adjustUpdatesView();
   void handleButtonBoxClicked(QAbstractButton *button);
+  void handlePortableChanged();
 
   Ui::SettingsEditor *ui;
   Manager &manager_;
   update::Loader &updater_;
   QStringList enabledTranslators_;
+  bool wasPortable_{false};
 };

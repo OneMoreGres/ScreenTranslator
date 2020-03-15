@@ -1,5 +1,4 @@
 #include "settingseditor.h"
-#include "debug.h"
 #include "languagecodes.h"
 #include "manager.h"
 #include "ui_settingseditor.h"
@@ -21,6 +20,8 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   connect(ui->buttonBox, &QDialogButtonBox::clicked,  //
           this, &SettingsEditor::handleButtonBoxClicked);
 
+  connect(ui->portable, &QCheckBox::toggled,  //
+          this, &SettingsEditor::handlePortableChanged);
   {
     auto model = new QStringListModel(this);
     model->setStringList({tr("General"), tr("Recognition"), tr("Correction"),
@@ -94,6 +95,8 @@ SettingsEditor::~SettingsEditor()
 Settings SettingsEditor::settings() const
 {
   Settings settings;
+  settings.setPortable(ui->portable->isChecked());
+
   settings.captureHotkey = ui->captureEdit->keySequence().toString();
   settings.repeatCaptureHotkey =
       ui->repeatCaptureEdit->keySequence().toString();
@@ -138,6 +141,9 @@ Settings SettingsEditor::settings() const
 
 void SettingsEditor::setSettings(const Settings &settings)
 {
+  wasPortable_ = settings.isPortable();
+  ui->portable->setChecked(settings.isPortable());
+
   ui->captureEdit->setKeySequence(settings.captureHotkey);
   ui->repeatCaptureEdit->setKeySequence(settings.repeatCaptureHotkey);
   ui->repeatEdit->setKeySequence(settings.showLastHotkey);
@@ -269,7 +275,28 @@ void SettingsEditor::handleButtonBoxClicked(QAbstractButton *button)
     return;
   }
   if (button == ui->buttonBox->button(QDialogButtonBox::Apply)) {
-    manager_.applySettings(settings());
+    const auto settings = this->settings();
+    manager_.applySettings(settings);
+    if (settings.isPortable() != wasPortable_) {
+      wasPortable_ = settings.isPortable();
+      handlePortableChanged();
+    }
     return;
   }
+}
+
+void SettingsEditor::handlePortableChanged()
+{
+  Settings settings;
+  settings.setPortable(ui->portable->isChecked());
+  ui->tessdataPath->setText(settings.tessdataPath);
+  ui->translatorsPath->setText(settings.translatorsDir);
+  updateTesseractLanguages();
+  updateTranslators();
+
+  const auto portableChanged = wasPortable_ != settings.isPortable();
+  ui->pageUpdate->setEnabled(!portableChanged);
+  ui->pageUpdate->setToolTip(portableChanged
+                                 ? tr("Portable changed. Apply settings first")
+                                 : QString());
 }

@@ -24,6 +24,9 @@ public:
   void save() const;
   void load();
 
+  bool isPortable() const;
+  void setPortable(bool isPortable);
+
   QString captureHotkey{"Ctrl+Alt+Z"};
   QString repeatCaptureHotkey{"Ctrl+Alt+S"};
   QString showLastHotkey{"Ctrl+Alt+X"};
@@ -59,4 +62,7 @@ public:
   QStringList translators{"google.js"};
 
   ResultMode resultShowType{ResultMode::Widget};  // dialog
+
+private:
+  bool isPortable_{false};
 };

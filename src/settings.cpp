@@ -1,10 +1,13 @@
 #include "settings.h"
 
+#include <QFile>
 #include <QSettings>
 #include <QStandardPaths>
 
 namespace
 {
+const QString iniFileName = "settings.ini";
+
 const QString qs_guiGroup = "GUI";
 const QString qs_captureHotkey = "captureHotkey";
 const QString qs_repeatCaptureHotkey = "repeatCaptureHotkey";
@@ -95,15 +98,14 @@ void cleanupOutdated(QSettings& settings)
 
 void Settings::save() const
 {
-  const auto baseDataPath =
-      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-  tessdataPath = baseDataPath + "/tessdata";
-  translatorsDir = baseDataPath + "/translators";
-}
-
-void Settings::save()
-{
-  QSettings settings;
+  std::unique_ptr<QSettings> ptr;
+  if (isPortable_) {
+    ptr = std::make_unique<QSettings>(iniFileName, QSettings::IniFormat);
+  } else {
+    ptr = std::make_unique<QSettings>();
+    QFile::remove(iniFileName);
+  }
+  auto& settings = *ptr;
 
   settings.beginGroup(qs_guiGroup);
 
@@ -156,7 +158,15 @@ void Settings::save()
 
 void Settings::load()
 {
-  QSettings settings;
+  std::unique_ptr<QSettings> ptr;
+  if (QFile::exists(iniFileName)) {
+    ptr = std::make_unique<QSettings>(iniFileName, QSettings::IniFormat);
+    setPortable(true);
+  } else {
+    ptr = std::make_unique<QSettings>();
+    setPortable(false);
+  }
+  auto& settings = *ptr;
 
   settings.beginGroup(qs_guiGroup);
 
@@ -217,4 +227,21 @@ void Settings::load()
     translators = translators.first().split('|');
 
   settings.endGroup();
+}
+
+bool Settings::isPortable() const
+{
+  return isPortable_;
+}
+
+void Settings::setPortable(bool isPortable)
+{
+  isPortable_ = isPortable;
+
+  const auto baseDataPath =
+      isPortable
+          ? "."
+          : QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+  tessdataPath = baseDataPath + "/tessdata";
+  translatorsDir = baseDataPath + "/translators";
 }
