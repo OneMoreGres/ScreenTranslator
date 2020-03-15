@@ -58,9 +58,6 @@
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
            <widget class="QLabel" name="label">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
             <property name="text">
              <string>Capture</string>
             </property>
@@ -71,9 +68,6 @@
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_8">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для перехода в режим захвата, но с использованием последнего использованного, а не текущего, изображения.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
             <property name="text">
              <string>Repeat capture</string>
             </property>
@@ -84,9 +78,6 @@
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_3">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для повторного отображения последнего результата.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
             <property name="text">
              <string>Show last result</string>
             </property>
@@ -97,9 +88,6 @@
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_7">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сочетание клавиш для копирования последнего результата в буфер обмена.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
             <property name="text">
              <string>Copy result to clipboard</string>
             </property>
@@ -216,9 +204,6 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Заполняется на основании содержания tessdata&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>Default language:</string>
          </property>
@@ -269,9 +254,6 @@
       <layout class="QGridLayout" name="gridLayout_10">
        <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="label_11">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Символы, регулярно распознаваемые с ошибками. При обнаружении будут заменены на указанные.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>Substitutions</string>
          </property>
@@ -310,9 +292,6 @@
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QCheckBox" name="doTranslationCheck">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Необходимо ли переводить (вкл) распознанный текст.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>Translate text</string>
          </property>
@@ -327,9 +306,6 @@
        </item>
        <item row="3" column="0" colspan="2">
         <widget class="QLabel" name="label_9">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Максимальное время, которое может быть затрачено на перевод, чтобы он не считался &amp;quot;зависшим&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>Single translator timeout:</string>
          </property>
@@ -337,9 +313,6 @@
        </item>
        <item row="0" column="0">
         <widget class="QCheckBox" name="translatorDebugCheck">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображает окно переводчика. Следует использовать только для разработки переводчиков.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>Debug mode</string>
          </property>
@@ -347,9 +320,6 @@
        </item>
        <item row="7" column="0" colspan="3">
         <widget class="QListWidget" name="translatorList">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отображены в порядке убывания приоритета.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
@@ -363,9 +333,6 @@
        </item>
        <item row="5" column="0">
         <widget class="QLabel" name="label_6">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык, на который осуществляется перевод.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>Language:</string>
          </property>
