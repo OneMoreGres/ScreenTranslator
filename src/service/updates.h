@@ -47,6 +47,7 @@ public:
   void setExpansions(const std::map<QString, QString>& expansions);
   UserActions userActions() const;
   void updateStates();
+  bool hasUpdates() const;
 
   QModelIndex index(int row, int column,
                     const QModelIndex& parent) const override;
@@ -74,6 +75,7 @@ private:
 
   std::unique_ptr<Component> parse(const QJsonObject& json) const;
   void updateState(Component& component);
+  bool hasUpdates(const Component& component) const;
   void fillUserActions(UserActions& actions, Component& component) const;
   State currentState(const File& file) const;
   QString expanded(const QString& source) const;
@@ -108,6 +110,7 @@ public:
   Model* model() const;
 
 signals:
+  void updatesAvailable();
   void updated();
   void error(const QString& error);
 

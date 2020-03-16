@@ -51,6 +51,10 @@ Manager::Manager()
                    tray_.get(), [this] {
                      tray_->showInformation(QObject::tr("Update completed"));
                    });
+  QObject::connect(updater_.get(), &update::Loader::updatesAvailable,  //
+                   tray_.get(), [this] {
+                     tray_->showInformation(QObject::tr("Updates available"));
+                   });
 #ifdef DEVELOP
   updater_->checkForUpdates();
 #endif

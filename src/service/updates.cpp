@@ -133,6 +133,8 @@ void Loader::handleReply(QNetworkReply *reply)
   if (isUpdatesReply) {
     SOFT_ASSERT(model_, return );
     model_->parse(replyData);
+    if (model_->hasUpdates())
+      emit updatesAvailable();
     return;
   }
 
@@ -307,6 +309,22 @@ void Model::updateStates()
 
   updateState(*root_);
   emitColumnsChanged(QModelIndex());
+}
+
+bool Model::hasUpdates() const
+{
+  if (!root_)
+    return false;
+  return hasUpdates(*root_);
+}
+
+bool Model::hasUpdates(const Model::Component &component) const
+{
+  for (const auto &i : component.children) {
+    if (i->state == State::UpdateAvailable || hasUpdates(*i))
+      return true;
+  }
+  return false;
 }
 
 void Model::updateState(Model::Component &component)
