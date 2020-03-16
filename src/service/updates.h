@@ -68,6 +68,7 @@ private:
     Action action{Action::NoAction};
     QString version;
     std::vector<File> files;
+    bool checkOnly{false};
     std::vector<std::unique_ptr<Component>> children;
     Component* parent{nullptr};
     int index{-1};

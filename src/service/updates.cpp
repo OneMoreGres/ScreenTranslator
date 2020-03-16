@@ -243,6 +243,8 @@ std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const
       const auto object = fileInfo.toObject();
       File file;
       file.url = object["url"].toString();
+      if (!file.url.isValid())
+        result->checkOnly = true;
       file.rawPath = object["path"].toString();
       file.md5 = object["md5"].toString();
       file.versionDate =
@@ -351,7 +353,7 @@ void Model::updateState(Model::Component &component)
 
 State Model::currentState(const File &file) const
 {
-  if (!file.url.isValid() || file.expandedPath.isEmpty() ||
+  if (file.expandedPath.isEmpty() ||
       (file.md5.isEmpty() && !file.versionDate.isValid()))
     return State::NotAvailable;
 
@@ -505,11 +507,14 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const
 {
   auto ptr = static_cast<Component *>(index.internalPointer());
   SOFT_ASSERT(ptr, return {});
-  auto result = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-  if (index.column() != int(Column::Action))
+  auto result = Qt::NoItemFlags | Qt::ItemIsSelectable;
+
+  if (ptr->checkOnly)
     return result;
 
-  if (ptr->state == State::NotAvailable)
+  result |= Qt::ItemIsEnabled;
+  if (index.column() != int(Column::Action) ||
+      ptr->state == State::NotAvailable)
     return result;
 
   result |= Qt::ItemIsEditable;
