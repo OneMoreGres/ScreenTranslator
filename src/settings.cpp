@@ -74,6 +74,27 @@ Substitutions unpackSubstitutions(const QStringList& raw)
   return result;
 }
 
+Substitutions loadLegacySubstitutions()
+{
+  Substitutions result;
+
+  QFile f("st_subs.csv");
+  if (!f.open(QFile::ReadOnly))
+    return result;
+
+  const auto data = f.readAll();
+
+  const auto lines =
+      QString::fromUtf8(data).split('\n', QString::SkipEmptyParts);
+  for (const auto& line : lines) {
+    const auto parts = line.mid(1, line.size() - 2).split("\",\"");  // remove "
+    if (parts.size() < 3)
+      continue;
+    result.emplace(parts[0], Substitution{parts[1], parts[2]});
+  }
+  return result;
+}
+
 void cleanupOutdated(QSettings& settings)
 {
   if (!settings.contains(qs_recogntionGroup + "/image_scale"))
@@ -209,6 +230,8 @@ void Settings::load()
       settings.value(qs_useUserSubstitutions, useUserSubstitutions).toBool();
   userSubstitutions =
       unpackSubstitutions(settings.value(qs_userSubstitutions).toStringList());
+  if (userSubstitutions.empty())
+    userSubstitutions = loadLegacySubstitutions();
   settings.endGroup();
 
   settings.beginGroup(qs_translationGroup);
