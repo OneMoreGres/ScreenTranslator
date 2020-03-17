@@ -94,6 +94,10 @@ public:
   QString errorString() const;
 
 private:
+  void remove(const File& file);
+  void install(const File& file);
+  void checkRemove(const File& file);
+  void checkInstall(const File& file);
   bool checkIsPossible();
 
   UserActions actions_;

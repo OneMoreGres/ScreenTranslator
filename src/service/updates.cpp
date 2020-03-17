@@ -566,53 +566,10 @@ bool Installer::commit()
   for (const auto &action : actions_) {
     const auto &file = action.second;
 
-    if (action.first == Action::Remove) {
-      QFile f(file.expandedPath);
-      if (!f.exists())
-        continue;
-      if (!f.remove()) {
-        errors_.append(QObject::tr("Failed to remove file %1. Error %2")
-                           .arg(f.fileName(), f.errorString()));
-      }
-      continue;
-    }
-
-    if (action.first == Action::Install) {
-      auto installDir = QFileInfo(file.expandedPath).absoluteDir();
-      if (!installDir.exists() && !installDir.mkpath(".")) {
-        errors_.append(QObject::tr("Failed to create path %1")
-                           .arg(installDir.absolutePath()));
-        continue;
-      }
-      {
-        QFile existing(file.expandedPath);
-        if (existing.exists() && !existing.remove()) {
-          errors_.append(QObject::tr("Failed to remove file %1. Error %2")
-                             .arg(existing.fileName(), existing.errorString()));
-          continue;
-        }
-      }
-      QFile f(file.downloadPath);
-      if (!f.rename(file.expandedPath)) {
-        errors_.append(
-            QObject::tr("Failed to move file %1 to %2. Error %3")
-                .arg(f.fileName(), file.expandedPath, f.errorString()));
-        continue;
-      }
-      if (!file.versionDate.isValid())
-        continue;
-
-      if (!f.open(QFile::WriteOnly | QFile::Append) ||
-          !f.setFileTime(file.versionDate,
-                         QFile::FileTime::FileModificationTime)) {
-        errors_.append(QObject::tr("Failed to set modification time of "
-                                   "file %1 to %2. Error %3")
-                           .arg(f.fileName(),
-                                file.versionDate.toString(Qt::ISODate),
-                                f.errorString()));
-        continue;
-      }
-    }
+    if (action.first == Action::Remove)
+      remove(file);
+    else if (action.first == Action::Install)
+      install(file);
   }
 
   return errors_.isEmpty();
@@ -624,32 +581,90 @@ bool Installer::checkIsPossible()
 
   for (const auto &action : actions_) {
     const auto &file = action.second;
-    QFileInfo installDir(QFileInfo(file.expandedPath).absolutePath());
 
-    if (action.first == Action::Remove) {
-      if (!QFile::exists(file.expandedPath))
-        continue;
-      if (installDir.exists() && !installDir.isWritable()) {
-        errors_.append(QObject::tr("Directory is not writable %1")
-                           .arg(installDir.absolutePath()));
-      }
-      continue;
-    }
-
-    if (action.first == Action::Install) {
-      if (!QFileInfo::exists(file.downloadPath)) {
-        errors_.append(QObject::tr("Downloaded file not exists %1")
-                           .arg(file.downloadPath));
-      }
-      if (installDir.exists() && !installDir.isWritable()) {
-        errors_.append(QObject::tr("Directory is not writable %1")
-                           .arg(installDir.absolutePath()));
-      }
-    }
+    if (action.first == Action::Remove)
+      checkRemove(file);
+    else if (action.first == Action::Install)
+      checkInstall(file);
   }
   errors_.removeDuplicates();
 
   return errors_.isEmpty();
+}
+
+void Installer::checkRemove(const File &file)
+{
+  QFileInfo installDir(QFileInfo(file.expandedPath).absolutePath());
+  if (!QFile::exists(file.expandedPath))
+    return;
+
+  if (installDir.exists() && !installDir.isWritable()) {
+    errors_.append(QObject::tr("Directory is not writable %1")
+                       .arg(installDir.absolutePath()));
+  }
+}
+
+void Installer::checkInstall(const File &file)
+{
+  if (!QFileInfo::exists(file.downloadPath)) {
+    errors_.append(
+        QObject::tr("Downloaded file not exists %1").arg(file.downloadPath));
+    // no return
+  }
+
+  QFileInfo installDir(QFileInfo(file.expandedPath).absolutePath());
+  if (installDir.exists() && !installDir.isWritable()) {
+    errors_.append(QObject::tr("Directory is not writable %1")
+                       .arg(installDir.absolutePath()));
+  }
+}
+
+void Installer::remove(const File &file)
+{
+  QFile f(file.expandedPath);
+  if (!f.exists())
+    return;
+
+  if (!f.remove()) {
+    errors_.append(QObject::tr("Failed to remove file %1. Error %2")
+                       .arg(f.fileName(), f.errorString()));
+  }
+}
+
+void Installer::install(const File &file)
+{
+  auto installDir = QFileInfo(file.expandedPath).absoluteDir();
+  if (!installDir.exists() && !installDir.mkpath(".")) {
+    errors_.append(
+        QObject::tr("Failed to create path %1").arg(installDir.absolutePath()));
+    return;
+  }
+
+  QFile existing(file.expandedPath);
+  if (existing.exists() && !existing.remove()) {
+    errors_.append(QObject::tr("Failed to remove file %1. Error %2")
+                       .arg(existing.fileName(), existing.errorString()));
+    return;
+  }
+
+  QFile f(file.downloadPath);
+  if (!f.rename(file.expandedPath)) {
+    errors_.append(QObject::tr("Failed to move file %1 to %2. Error %3")
+                       .arg(f.fileName(), file.expandedPath, f.errorString()));
+    return;
+  }
+
+  if (!file.versionDate.isValid())
+    return;
+
+  if (!f.open(QFile::WriteOnly | QFile::Append) ||
+      !f.setFileTime(file.versionDate, QFile::FileTime::FileModificationTime)) {
+    errors_.append(QObject::tr("Failed to set modification time of "
+                               "file %1 to %2. Error %3")
+                       .arg(f.fileName(),
+                            file.versionDate.toString(Qt::ISODate),
+                            f.errorString()));
+  }
 }
 
 QString Installer::errorString() const
