@@ -158,7 +158,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->tessdataPath->setText(settings.tessdataPath);
   updateTesseractLanguages();
   if (auto lang = langs.findById(settings.sourceLanguage))
-    ui->tesseractLangCombo->setCurrentText(lang->name);
+    ui->tesseractLangCombo->setCurrentText(QObject::tr(lang->name));
 
   ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
   ui->userSubstitutionsTable->setSubstitutions(settings.userSubstitutions);
@@ -171,7 +171,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   enabledTranslators_ = settings.translators;
   updateTranslators();
   if (auto lang = langs.findById(settings.targetLanguage))
-    ui->translateLangCombo->setCurrentText(lang->name);
+    ui->translateLangCombo->setCurrentText(QObject::tr(lang->name));
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
@@ -203,7 +203,7 @@ void SettingsEditor::updateTesseractLanguages()
   for (const auto &file : files) {
     const auto lang = file.left(file.indexOf("."));
     if (const auto bundle = languages.findByTesseract(lang))
-      names.append(bundle->name);
+      names.append(QObject::tr(bundle->name));
   }
 
   if (names.isEmpty())
@@ -244,7 +244,7 @@ void SettingsEditor::updateTranslationLanguages()
 
   for (const auto &bundle : languages.all()) {
     if (!bundle.second.iso639_1.isEmpty())
-      names.append(bundle.second.name);
+      names.append(QObject::tr(bundle.second.name));
   }
 
   ui->translateLangCombo->clear();

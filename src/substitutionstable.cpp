@@ -19,8 +19,9 @@ QStringList allSourceLanguages()
   for (const auto &i : allLangs) {
     if (i.second.tesseract.isEmpty())
       continue;
-    result.append(i.second.name);
+    result.append(QObject::tr(i.second.name));
   }
+  std::sort(result.begin(), result.end());
   return result;
 }
 
@@ -86,7 +87,7 @@ void SubstitutionsTable::addRow(const LanguageId &language,
   if (!language.isEmpty()) {
     LanguageCodes langs;
     if (auto lang = langs.findById(language))
-      combo->setCurrentText(lang->name);
+      combo->setCurrentText(QObject::tr(lang->name));
   } else if (rowCount() > 1) {
     const auto previousRow = rowCount() - 2;
     auto previousCombo =

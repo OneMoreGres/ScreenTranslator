@@ -14,7 +14,7 @@ public:
     LanguageId id;
     QString iso639_1;
     QString tesseract;
-    QString name;
+    const char* name;
   };
 
   std::optional<Bundle> findById(const LanguageId& id) const;
