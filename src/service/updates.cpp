@@ -467,7 +467,7 @@ QVariant Model::data(const QModelIndex &index, int role) const
   SOFT_ASSERT(ptr, return {});
 
   switch (index.column()) {
-    case int(Column::Name): return ptr->name;
+    case int(Column::Name): return QObject::tr(qPrintable(ptr->name));
     case int(Column::State): return toString(ptr->state);
     case int(Column::Action): return toString(ptr->action);
     case int(Column::Version): return ptr->version;
