@@ -8,43 +8,43 @@
 }
 
 ,"recognizers": {
-  "mal":{"files":[
+  "Malayalam":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mal.traineddata", "path":"$tessdata$/mal.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "guj":{"files":[
+  , "Gujarati":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/guj.traineddata", "path":"$tessdata$/guj.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "isl":{"files":[
+  , "Icelandic":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/isl.traineddata", "path":"$tessdata$/isl.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "san":{"files":[
+  , "Sanskrit":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/san.traineddata", "path":"$tessdata$/san.traineddata", "date":"2017-09-15T18:37:50+05:30"}
   ]}
-  , "afr":{"files":[
+  , "Afrikaans":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/afr.traineddata", "path":"$tessdata$/afr.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "pol":{"files":[
+  , "Polish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/pol.traineddata", "path":"$tessdata$/pol.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "fil":{"files":[
+  , "Filipino":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fil.traineddata", "path":"$tessdata$/fil.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "por":{"files":[
+  , "Portuguese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/por.traineddata", "path":"$tessdata$/por.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "bos":{"files":[
+  , "Bosnian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bos.traineddata", "path":"$tessdata$/bos.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "mlt":{"files":[
+  , "Maltese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mlt.traineddata", "path":"$tessdata$/mlt.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "sin":{"files":[
+  , "Sinhala, Sinhalese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/sin.traineddata", "path":"$tessdata$/sin.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "rus":{"files":[
+  , "Russian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/rus.traineddata", "path":"$tessdata$/rus.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ori":{"files":[
+  , "Oriya":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ori.traineddata", "path":"$tessdata$/ori.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "chi_tra_vert":{"files":[
@@ -56,259 +56,259 @@
   , "osd":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/osd.traineddata", "path":"$tessdata$/osd.traineddata", "date":"2017-09-15T11:44:08-07:00"}
   ]}
-  , "srp":{"files":[
+  , "Serbian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/srp.traineddata", "path":"$tessdata$/srp.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "dan":{"files":[
+  , "Danish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/dan.traineddata", "path":"$tessdata$/dan.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tam":{"files":[
+  , "Tamil":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tam.traineddata", "path":"$tessdata$/tam.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "syr":{"files":[
+  , "Syriac":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/syr.traineddata", "path":"$tessdata$/syr.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "gle":{"files":[
+  , "Irish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/gle.traineddata", "path":"$tessdata$/gle.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "vie":{"files":[
+  , "Vietnamese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/vie.traineddata", "path":"$tessdata$/vie.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "oci":{"files":[
+  , "Occitan":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/oci.traineddata", "path":"$tessdata$/oci.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tur":{"files":[
+  , "Turkish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tur.traineddata", "path":"$tessdata$/tur.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "bel":{"files":[
+  , "Belarusian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bel.traineddata", "path":"$tessdata$/bel.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "bre":{"files":[
+  , "Breton":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bre.traineddata", "path":"$tessdata$/bre.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tir":{"files":[
+  , "Tigrinya":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tir.traineddata", "path":"$tessdata$/tir.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "bul":{"files":[
+  , "Bulgarian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bul.traineddata", "path":"$tessdata$/bul.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "chi_sim":{"files":[
+  , "Chinese (Simplified)":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata", "path":"$tessdata$/chi_sim.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "que":{"files":[
+  , "Quechua":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/que.traineddata", "path":"$tessdata$/que.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "deu":{"files":[
+  , "German":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/deu.traineddata", "path":"$tessdata$/deu.traineddata", "date":"2018-02-01T15:29:03+01:00"}
   ]}
-  , "swa":{"files":[
+  , "Swahili":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/swa.traineddata", "path":"$tessdata$/swa.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "sqi":{"files":[
+  , "Albanian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/sqi.traineddata", "path":"$tessdata$/sqi.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "yid":{"files":[
+  , "Yiddish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/yid.traineddata", "path":"$tessdata$/yid.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "aze_cyrl":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/aze_cyrl.traineddata", "path":"$tessdata$/aze_cyrl.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ben":{"files":[
+  , "Bengali":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ben.traineddata", "path":"$tessdata$/ben.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "uig":{"files":[
+  , "Uighur, Uyghur":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/uig.traineddata", "path":"$tessdata$/uig.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tha":{"files":[
+  , "Thai":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tha.traineddata", "path":"$tessdata$/tha.traineddata", "date":"2019-05-21T17:50:06+02:00"}
   ]}
   , "spa_old":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/spa_old.traineddata", "path":"$tessdata$/spa_old.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "div":{"files":[
+  , "Divehi, Dhivehi, Maldivian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/div.traineddata", "path":"$tessdata$/div.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "fin":{"files":[
+  , "Finnish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fin.traineddata", "path":"$tessdata$/fin.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "eng":{"files":[
+  , "English":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata", "path":"$tessdata$/eng.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "slk":{"files":[
+  , "Slovak":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/slk.traineddata", "path":"$tessdata$/slk.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ltz":{"files":[
+  , "Luxembourgish, Letzeburgesch":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ltz.traineddata", "path":"$tessdata$/ltz.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "gla":{"files":[
+  , "Gaelic, Scottish Gaelic":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/gla.traineddata", "path":"$tessdata$/gla.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "nld":{"files":[
+  , "Dutch, Flemish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/nld.traineddata", "path":"$tessdata$/nld.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "eus":{"files":[
+  , "Basque":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/eus.traineddata", "path":"$tessdata$/eus.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "cat":{"files":[
+  , "Catalan, Valencian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/cat.traineddata", "path":"$tessdata$/cat.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "amh":{"files":[
+  , "Amharic":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/amh.traineddata", "path":"$tessdata$/amh.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "lit":{"files":[
+  , "Lithuanian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lit.traineddata", "path":"$tessdata$/lit.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "fao":{"files":[
+  , "Faroese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fao.traineddata", "path":"$tessdata$/fao.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ind":{"files":[
+  , "Indonesian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ind.traineddata", "path":"$tessdata$/ind.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "pus":{"files":[
+  , "Pashto, Pushto":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/pus.traineddata", "path":"$tessdata$/pus.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "aze":{"files":[
+  , "Azerbaijani":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/aze.traineddata", "path":"$tessdata$/aze.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "kat":{"files":[
+  , "Georgian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kat.traineddata", "path":"$tessdata$/kat.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tat":{"files":[
+  , "Tatar":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tat.traineddata", "path":"$tessdata$/tat.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "chi_sim_vert":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim_vert.traineddata", "path":"$tessdata$/chi_sim_vert.traineddata", "date":"2019-05-21T17:48:52+02:00"}
   ]}
-  , "ton":{"files":[
+  , "Tonga (Tonga Islands)":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ton.traineddata", "path":"$tessdata$/ton.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "mya":{"files":[
+  , "Burmese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mya.traineddata", "path":"$tessdata$/mya.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "kor":{"files":[
+  , "Korean":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kor.traineddata", "path":"$tessdata$/kor.traineddata", "date":"2018-04-09T19:58:26+05:30"}
   ]}
-  , "nor":{"files":[
+  , "Norwegian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/nor.traineddata", "path":"$tessdata$/nor.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "grc":{"files":[
+  , "Greek, Ancient (to 1453)":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/grc.traineddata", "path":"$tessdata$/grc.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "jpn":{"files":[
+  , "Japanese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn.traineddata", "path":"$tessdata$/jpn.traineddata", "date":"2019-05-21T17:49:35+02:00"}
   ]}
-  , "fas":{"files":[
+  , "Persian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fas.traineddata", "path":"$tessdata$/fas.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "kan":{"files":[
+  , "Kannada":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kan.traineddata", "path":"$tessdata$/kan.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "mkd":{"files":[
+  , "Macedonian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mkd.traineddata", "path":"$tessdata$/mkd.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tgk":{"files":[
+  , "Tajik":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tgk.traineddata", "path":"$tessdata$/tgk.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "hye":{"files":[
+  , "Armenian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hye.traineddata", "path":"$tessdata$/hye.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "fra":{"files":[
+  , "French":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fra.traineddata", "path":"$tessdata$/fra.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "urd":{"files":[
+  , "Urdu":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/urd.traineddata", "path":"$tessdata$/urd.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "hin":{"files":[
+  , "Hindi":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hin.traineddata", "path":"$tessdata$/hin.traineddata", "date":"2017-09-15T18:37:50+05:30"}
   ]}
-  , "heb":{"files":[
+  , "Hebrew":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.traineddata", "path":"$tessdata$/heb.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "kat_old":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kat_old.traineddata", "path":"$tessdata$/kat_old.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "yor":{"files":[
+  , "Yoruba":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/yor.traineddata", "path":"$tessdata$/yor.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "msa":{"files":[
+  , "Malay":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/msa.traineddata", "path":"$tessdata$/msa.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "hat":{"files":[
+  , "Haitian, Haitian Creole":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hat.traineddata", "path":"$tessdata$/hat.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "ita_old":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ita_old.traineddata", "path":"$tessdata$/ita_old.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "swe":{"files":[
+  , "Swedish":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/swe.traineddata", "path":"$tessdata$/swe.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "srp_latn":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/srp_latn.traineddata", "path":"$tessdata$/srp_latn.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "jav":{"files":[
+  , "Javanese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/jav.traineddata", "path":"$tessdata$/jav.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "bod":{"files":[
+  , "Tibetan":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bod.traineddata", "path":"$tessdata$/bod.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "mar":{"files":[
+  , "Marathi":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mar.traineddata", "path":"$tessdata$/mar.traineddata", "date":"2017-09-15T21:22:28+05:30"}
   ]}
-  , "chi_tra":{"files":[
+  , "Chinese (Traditional)":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra.traineddata", "path":"$tessdata$/chi_tra.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ita":{"files":[
+  , "Italian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ita.traineddata", "path":"$tessdata$/ita.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "mon":{"files":[
+  , "Mongolian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mon.traineddata", "path":"$tessdata$/mon.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "fry":{"files":[
+  , "Western Frisian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fry.traineddata", "path":"$tessdata$/fry.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ces":{"files":[
+  , "Czech":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ces.traineddata", "path":"$tessdata$/ces.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "asm":{"files":[
+  , "Assamese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/asm.traineddata", "path":"$tessdata$/asm.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "tel":{"files":[
+  , "Telugu":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tel.traineddata", "path":"$tessdata$/tel.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "kir":{"files":[
+  , "Kirghiz, Kyrgyz":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kir.traineddata", "path":"$tessdata$/kir.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "cym":{"files":[
+  , "Welsh":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/cym.traineddata", "path":"$tessdata$/cym.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ceb":{"files":[
+  , "Cebuano":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ceb.traineddata", "path":"$tessdata$/ceb.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "sun":{"files":[
+  , "Sundanese":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/sun.traineddata", "path":"$tessdata$/sun.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "cos":{"files":[
+  , "Corsican":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/cos.traineddata", "path":"$tessdata$/cos.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "hrv":{"files":[
+  , "Croatian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hrv.traineddata", "path":"$tessdata$/hrv.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "iku":{"files":[
+  , "Inuktitut":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/iku.traineddata", "path":"$tessdata$/iku.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "hun":{"files":[
+  , "Hungarian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hun.traineddata", "path":"$tessdata$/hun.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "snd":{"files":[
+  , "Sindhi":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/snd.traineddata", "path":"$tessdata$/snd.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "pan":{"files":[
+  , "Punjabi, Panjabi":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/pan.traineddata", "path":"$tessdata$/pan.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "dzo":{"files":[
+  , "Dzongkha":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/dzo.traineddata", "path":"$tessdata$/dzo.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "nep":{"files":[
+  , "Nepali":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/nep.traineddata", "path":"$tessdata$/nep.traineddata", "date":"2017-09-15T21:22:28+05:30"}
   ]}
   , "uzb_cyrl":{"files":[
@@ -317,67 +317,67 @@
   , "kor_vert":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kor_vert.traineddata", "path":"$tessdata$/kor_vert.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "slv":{"files":[
+  , "Slovenian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/slv.traineddata", "path":"$tessdata$/slv.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "est":{"files":[
+  , "Estonian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/est.traineddata", "path":"$tessdata$/est.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "lat":{"files":[
+  , "Latin":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lat.traineddata", "path":"$tessdata$/lat.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "epo":{"files":[
+  , "Esperanto":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/epo.traineddata", "path":"$tessdata$/epo.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "spa":{"files":[
+  , "Spanish, Castilian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/spa.traineddata", "path":"$tessdata$/spa.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "jpn_vert":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn_vert.traineddata", "path":"$tessdata$/jpn_vert.traineddata", "date":"2019-05-21T17:49:35+02:00"}
   ]}
-  , "mri":{"files":[
+  , "Maori":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mri.traineddata", "path":"$tessdata$/mri.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ron":{"files":[
+  , "Romanian, Moldavian, Moldovan":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ron.traineddata", "path":"$tessdata$/ron.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "khm":{"files":[
+  , "Central Khmer":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/khm.traineddata", "path":"$tessdata$/khm.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "frm":{"files":[
+  , "French, Middle (ca.1400-1600)":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/frm.traineddata", "path":"$tessdata$/frm.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ukr":{"files":[
+  , "Ukrainian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ukr.traineddata", "path":"$tessdata$/ukr.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
   , "frk":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/frk.traineddata", "path":"$tessdata$/frk.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "glg":{"files":[
+  , "Galician":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/glg.traineddata", "path":"$tessdata$/glg.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "lav":{"files":[
+  , "Latvian":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lav.traineddata", "path":"$tessdata$/lav.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ara":{"files":[
+  , "Arabic":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ara.traineddata", "path":"$tessdata$/ara.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "kaz":{"files":[
+  , "Kazakh":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kaz.traineddata", "path":"$tessdata$/kaz.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "enm":{"files":[
+  , "English, Middle (1100-1500)":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/enm.traineddata", "path":"$tessdata$/enm.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "uzb":{"files":[
+  , "Uzbek":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/uzb.traineddata", "path":"$tessdata$/uzb.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "ell":{"files":[
+  , "Greek":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ell.traineddata", "path":"$tessdata$/ell.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "lao":{"files":[
+  , "Lao":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lao.traineddata", "path":"$tessdata$/lao.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
-  , "chr":{"files":[
+  , "Cherokee":{"files":[
    {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chr.traineddata", "path":"$tessdata$/chr.traineddata", "date":"2017-09-14T14:45:10-07:00"}
   ]}
  }

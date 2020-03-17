@@ -1,6 +1,22 @@
 import sys
 import os
 import subprocess
+import re
+
+
+def parse_language_names():
+    root = os.path.abspath(os.path.basename(__file__) + '/..')
+    lines = []
+    with open(root + '/src/languagecodes.cpp', 'r') as f:
+        lines = f.readlines()
+    result = {}
+    for line in lines:
+        all = re.findall(r'"(.*?)"', line)
+        if len(all) != 6:
+            continue
+        result[all[3]] = all[5]
+    return result
+
 
 if len(sys.argv) < 2:
     print("Usage:", sys.argv[0], "<tessdata_dir> [<download_url>]")
@@ -8,10 +24,11 @@ if len(sys.argv) < 2:
 
 tessdata_dir = sys.argv[1]
 
-
 download_url = "https://github.com/tesseract-ocr/tessdata_best/raw/master"
 if len(sys.argv) > 2:
     download_url = sys.argv[2]
+
+language_names = parse_language_names()
 
 files = {}
 with os.scandir(tessdata_dir) as it:
@@ -23,7 +40,12 @@ with os.scandir(tessdata_dir) as it:
 
 print(',"recognizers": {')
 comma = ''
+unknown_names = []
 for name, file_names in files.items():
+    if not name in language_names:
+        unknown_names.append(name)
+    else:
+        name = language_names[name]
     print(' {}"{}":{{"files":['.format(comma, name))
     comma = ', '
     for file_name in file_names:
@@ -34,3 +56,5 @@ for name, file_names in files.items():
             download_url, file_name, file_name, date))
     print(' ]}')
 print('}')
+
+print('unknown names', unknown_names)
