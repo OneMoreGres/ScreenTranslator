@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QNetworkReply>
 #include <QStandardPaths>
+#include <QTimer>
 
 namespace update
 {
@@ -670,6 +671,71 @@ void Installer::install(const File &file)
 QString Installer::errorString() const
 {
   return errors_.join('\n');
+}
+
+AutoChecker::AutoChecker(Loader &loader, QObject *parent)
+  : QObject(parent)
+  , loader_(loader)
+{
+  SOFT_ASSERT(loader.model(), return );
+  connect(loader.model(), &Model::modelReset,  //
+          this, &AutoChecker::handleModelReset);
+}
+
+AutoChecker::~AutoChecker() = default;
+
+bool AutoChecker::isLastCheckDateChanged() const
+{
+  return isLastCheckDateChanged_;
+}
+
+QDateTime AutoChecker::lastCheckDate() const
+{
+  return lastCheckDate_;
+}
+
+void AutoChecker::setCheckIntervalDays(int days)
+{
+  checkIntervalDays_ = days;
+  scheduleNextCheck();
+}
+
+void AutoChecker::setLastCheckDate(const QDateTime &dt)
+{
+  isLastCheckDateChanged_ = false;
+
+  lastCheckDate_ = dt;
+  if (!lastCheckDate_.isValid())
+    lastCheckDate_ = QDateTime::currentDateTime();
+
+  scheduleNextCheck();
+}
+
+void AutoChecker::scheduleNextCheck()
+{
+  if (checkIntervalDays_ < 1 || !lastCheckDate_.isValid())
+    return;
+
+  if (!timer_) {
+    timer_ = std::make_unique<QTimer>();
+    timer_->setSingleShot(true);
+    connect(timer_.get(), &QTimer::timeout,  //
+            &loader_, &Loader::checkForUpdates);
+  }
+
+  auto nextTime = lastCheckDate_.addDays(checkIntervalDays_);
+  const auto now = QDateTime::currentDateTime();
+  if (nextTime < now)
+    nextTime = now.addSecs(5);
+
+  timer_->start(now.msecsTo(nextTime));
+}
+
+void AutoChecker::handleModelReset()
+{
+  lastCheckDate_ = QDateTime::currentDateTime();
+  isLastCheckDateChanged_ = true;
+  scheduleNextCheck();
 }
 
 }  // namespace update

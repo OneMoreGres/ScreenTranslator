@@ -485,12 +485,19 @@
           <item>
            <widget class="QLabel" name="label_17">
             <property name="text">
-             <string>Check for updates:</string>
+             <string>Update check interval (days):</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="updateCombo"/>
+           <widget class="QSpinBox" name="autoUpdateInterval">
+            <property name="toolTip">
+             <string>0 - disabled</string>
+            </property>
+            <property name="maximum">
+             <number>360</number>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="checkUpdates">

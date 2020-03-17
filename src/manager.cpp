@@ -60,7 +60,15 @@ Manager::Manager()
 #endif
 }
 
-Manager::~Manager() = default;
+Manager::~Manager()
+{
+  if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged()) {
+    Settings settings;
+    settings.load();
+    settings.lastUpdateCheck = updateAutoChecker_->lastCheckDate();
+    settings.save();
+  }
+}
 
 void Manager::updateSettings(const Settings &settings)
 {
@@ -71,6 +79,13 @@ void Manager::updateSettings(const Settings &settings)
       {"$translators$", settings.translatorsDir},
       {"$tessdata$", settings.tessdataPath},
   });
+  if (settings.autoUpdateIntervalDays > 0) {
+    updateAutoChecker_ = std::make_unique<update::AutoChecker>(*updater_);
+    updateAutoChecker_->setLastCheckDate(settings.lastUpdateCheck);
+    updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
+  } else {
+    updateAutoChecker_.reset();
+  }
 
   tray_->updateSettings(settings);
   capturer_->updateSettings(settings);

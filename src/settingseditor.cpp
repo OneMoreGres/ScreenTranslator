@@ -59,13 +59,6 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   updateTranslationLanguages();
 
   // updates
-  QMap<AutoUpdate, QString> updateTypes;
-  updateTypes.insert(AutoUpdate::Disabled, tr("Disabled"));
-  updateTypes.insert(AutoUpdate::Daily, tr("Daily"));
-  updateTypes.insert(AutoUpdate::Weekly, tr("Weekly"));
-  updateTypes.insert(AutoUpdate::Monthly, tr("Monthly"));
-  ui->updateCombo->addItems(updateTypes.values());
-
   auto updatesProxy = new QSortFilterProxyModel(this);
   updatesProxy->setSourceModel(updater_.model());
   ui->updatesView->setModel(updatesProxy);
@@ -136,6 +129,9 @@ Settings SettingsEditor::settings() const
 
   settings.resultShowType =
       ui->trayRadio->isChecked() ? ResultMode::Tooltip : ResultMode::Widget;
+
+  settings.autoUpdateIntervalDays = ui->autoUpdateInterval->value();
+
   return settings;
 }
 
@@ -179,6 +175,8 @@ void SettingsEditor::setSettings(const Settings &settings)
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
+
+  ui->autoUpdateInterval->setValue(settings.autoUpdateIntervalDays);
 }
 
 void SettingsEditor::updateCurrentPage()

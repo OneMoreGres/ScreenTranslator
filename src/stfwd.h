@@ -19,7 +19,8 @@ class Recognizer;
 namespace update
 {
 class Loader;
-}
+class AutoChecker;
+}  // namespace update
 
 using TaskPtr = std::shared_ptr<Task>;
 using LanguageId = QString;

@@ -150,7 +150,8 @@ void Settings::save() const
     settings.remove(qs_proxyPassword);
   }
 
-  settings.setValue(qs_autoUpdateType, int(autoUpdateType));
+  settings.setValue(qs_autoUpdateType, autoUpdateIntervalDays);
+  settings.setValue(qs_lastUpdateCheck, lastUpdateCheck);
 
   settings.endGroup();
 
@@ -215,9 +216,10 @@ void Settings::load()
       settings.value(qs_proxySavePassword, proxySavePassword).toBool();
   proxyPassword = shuffle(settings.value(qs_proxyPassword).toString());
 
-  autoUpdateType = AutoUpdate(
-      std::clamp(settings.value(qs_autoUpdateType, int(autoUpdateType)).toInt(),
-                 int(AutoUpdate::Disabled), int(AutoUpdate::Monthly)));
+  autoUpdateIntervalDays =
+      settings.value(qs_autoUpdateType, autoUpdateIntervalDays).toInt();
+  lastUpdateCheck =
+      settings.value(qs_lastUpdateCheck, lastUpdateCheck).toDateTime();
 
   settings.endGroup();
 

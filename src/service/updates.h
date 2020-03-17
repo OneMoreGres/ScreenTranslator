@@ -133,4 +133,27 @@ private:
   std::unique_ptr<Installer> installer_;
 };
 
+class AutoChecker : public QObject
+{
+  Q_OBJECT
+public:
+  explicit AutoChecker(Loader& loader, QObject* parent = nullptr);
+  ~AutoChecker();
+
+  bool isLastCheckDateChanged() const;
+  QDateTime lastCheckDate() const;
+  void setCheckIntervalDays(int days);
+  void setLastCheckDate(const QDateTime& dt);
+
+private:
+  void handleModelReset();
+  void scheduleNextCheck();
+
+  Loader& loader_;
+  bool isLastCheckDateChanged_{false};
+  int checkIntervalDays_{0};
+  QDateTime lastCheckDate_;
+  std::unique_ptr<QTimer> timer_;
+};
+
 }  // namespace update

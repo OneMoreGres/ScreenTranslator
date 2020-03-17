@@ -2,6 +2,7 @@
 
 #include "stfwd.h"
 
+#include <QDateTime>
 #include <QStringList>
 
 #include <chrono>
@@ -15,8 +16,6 @@ struct Substitution {
 using Substitutions = std::unordered_multimap<LanguageId, Substitution>;
 
 enum class ProxyType { Disabled, System, Socks5, Http };
-
-enum class AutoUpdate { Disabled, Daily, Weekly, Monthly };
 
 class Settings
 {
@@ -41,8 +40,8 @@ public:
   QString proxyPassword;
   bool proxySavePassword{false};
 
-  AutoUpdate autoUpdateType{AutoUpdate::Disabled};
-  QString lastUpdateCheck{""};
+  int autoUpdateIntervalDays{0};
+  QDateTime lastUpdateCheck;
 
   Substitutions userSubstitutions;
   bool useUserSubstitutions{true};
