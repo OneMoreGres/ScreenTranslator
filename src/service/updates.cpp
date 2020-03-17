@@ -599,6 +599,19 @@ bool Installer::commit()
                 .arg(f.fileName(), file.expandedPath, f.errorString()));
         continue;
       }
+      if (!file.versionDate.isValid())
+        continue;
+
+      if (!f.open(QFile::WriteOnly | QFile::Append) ||
+          !f.setFileTime(file.versionDate,
+                         QFile::FileTime::FileModificationTime)) {
+        errors_.append(QObject::tr("Failed to set modification time of "
+                                   "file %1 to %2. Error %3")
+                           .arg(f.fileName(),
+                                file.versionDate.toString(Qt::ISODate),
+                                f.errorString()));
+        continue;
+      }
     }
   }
 
