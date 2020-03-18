@@ -1,12 +1,12 @@
 #include "settingseditor.h"
 #include "languagecodes.h"
 #include "manager.h"
+#include "tesseract.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
 #include "widgetstate.h"
 
 #include <QFileDialog>
-#include <QNetworkProxy>
 #include <QSortFilterProxyModel>
 #include <QStringListModel>
 
@@ -161,6 +161,7 @@ void SettingsEditor::setSettings(const Settings &settings)
     ui->tesseractLangCombo->setCurrentText(QObject::tr(lang->name));
 
   ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
+  ui->userSubstitutionsTable->setTessdataPath(settings.tessdataPath);
   ui->userSubstitutionsTable->setSubstitutions(settings.userSubstitutions);
 
   ui->doTranslationCheck->setChecked(settings.doTranslation);
@@ -188,24 +189,7 @@ void SettingsEditor::updateTesseractLanguages()
 {
   ui->tesseractLangCombo->clear();
 
-  const auto path = ui->tessdataPath->text();
-  if (path.isEmpty())
-    return;
-
-  QDir dir(path);
-  if (!dir.exists())
-    return;
-
-  LanguageIds names;
-  LanguageCodes languages;
-
-  const auto files = dir.entryList({"*.traineddata"}, QDir::Files);
-  for (const auto &file : files) {
-    const auto lang = file.left(file.indexOf("."));
-    if (const auto bundle = languages.findByTesseract(lang))
-      names.append(QObject::tr(bundle->name));
-  }
-
+  auto names = Tesseract::availableLanguageNames(ui->tessdataPath->text());
   if (names.isEmpty())
     return;
 
@@ -289,6 +273,7 @@ void SettingsEditor::handlePortableChanged()
   settings.setPortable(ui->portable->isChecked());
   ui->tessdataPath->setText(settings.tessdataPath);
   ui->translatorsPath->setText(settings.translatorsDir);
+  ui->userSubstitutionsTable->setTessdataPath(settings.tessdataPath);
   updateTesseractLanguages();
   updateTranslators();
 

@@ -23,6 +23,8 @@ public:
   bool isValid() const;
   const QString& error() const;
 
+  static QStringList availableLanguageNames(const QString& path);
+
 private:
   void init(const LanguageId& language, const QString& tessdataPath);
 

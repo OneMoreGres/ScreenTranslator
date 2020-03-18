@@ -1,6 +1,7 @@
 #include "substitutionstable.h"
 #include "debug.h"
 #include "languagecodes.h"
+#include "tesseract.h"
 
 #include <QComboBox>
 #include <QPainter>
@@ -9,22 +10,6 @@
 
 namespace
 {
-QStringList allSourceLanguages()
-{
-  LanguageCodes langs;
-  const auto &allLangs = langs.all();
-
-  QStringList result;
-  result.reserve(allLangs.size());
-  for (const auto &i : allLangs) {
-    if (i.second.tesseract.isEmpty())
-      continue;
-    result.append(QObject::tr(i.second.name));
-  }
-  std::sort(result.begin(), result.end());
-  return result;
-}
-
 class SubstitutionDelegate : public QStyledItemDelegate
 {
 public:
@@ -44,7 +29,7 @@ public:
 
 SubstitutionsTable::SubstitutionsTable(QWidget *parent)
   : QTableWidget(parent)
-  , languagesModel_(new QStringListModel(allSourceLanguages(), this))
+  , languagesModel_(new QStringListModel(this))
 {
   setItemDelegate(new SubstitutionDelegate(this));
   setColumnCount(int(Column::Count));
@@ -55,9 +40,42 @@ SubstitutionsTable::SubstitutionsTable(QWidget *parent)
 
 void SubstitutionsTable::setSubstitutions(const Substitutions &substitutions)
 {
+  setRowCount(0);
+
+  updateModel(substitutions);
+
   for (const auto &i : substitutions) addRow(i.first, i.second);
+
   addRow();  // for editing
   resizeColumnsToContents();
+}
+
+void SubstitutionsTable::setTessdataPath(const QString &tessdataPath)
+{
+  tessdataPath_ = tessdataPath;
+  if (rowCount() == 0)  // must be at least 1 if inited
+    return;
+  setSubstitutions(substitutions());
+}
+
+void SubstitutionsTable::updateModel(const Substitutions &substitutions)
+{
+  auto strings = Tesseract::availableLanguageNames(tessdataPath_);
+
+  if (!substitutions.empty()) {
+    LanguageCodes languages;
+    for (const auto &i : substitutions) {
+      auto name = i.first;
+      if (const auto bundle = languages.findByTesseract(name))
+        name = QObject::tr(bundle->name);
+
+      if (!strings.contains(name))
+        strings.append(name);
+    }
+  }
+
+  std::sort(strings.begin(), strings.end());
+  languagesModel_->setStringList(strings);
 }
 
 Substitutions SubstitutionsTable::substitutions() const
@@ -88,6 +106,8 @@ void SubstitutionsTable::addRow(const LanguageId &language,
     LanguageCodes langs;
     if (auto lang = langs.findById(language))
       combo->setCurrentText(QObject::tr(lang->name));
+    else
+      combo->setCurrentText(language);
   } else if (rowCount() > 1) {
     const auto previousRow = rowCount() - 2;
     auto previousCombo =

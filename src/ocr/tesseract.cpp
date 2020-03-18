@@ -7,8 +7,7 @@
 #include <tesseract/baseapi.h>
 
 #include <QBuffer>
-
-#include <limits>
+#include <QDir>
 
 #if defined(Q_OS_LINUX)
 #include <fstream>
@@ -157,6 +156,33 @@ void Tesseract::init(const LanguageId &language, const QString &tessdataPath)
 const QString &Tesseract::error() const
 {
   return error_;
+}
+
+QStringList Tesseract::availableLanguageNames(const QString &path)
+{
+  if (path.isEmpty())
+    return {};
+
+  QDir dir(path);
+  if (!dir.exists())
+    return {};
+
+  LanguageIds names;
+  LanguageCodes languages;
+
+  const auto files = dir.entryList({"*.traineddata"}, QDir::Files);
+  for (const auto &file : files) {
+    const auto lang = file.left(file.indexOf("."));
+    if (const auto bundle = languages.findByTesseract(lang))
+      names.append(QObject::tr(bundle->name));
+    else
+      names.append(lang);
+  }
+
+  if (names.isEmpty())
+    return {};
+
+  return names;
 }
 
 QString Tesseract::recognize(const QPixmap &source)
