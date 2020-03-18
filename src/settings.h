@@ -23,6 +23,8 @@ public:
   void save() const;
   void load();
 
+  static void saveLastUpdateCheck(const QDateTime& dt);
+
   bool isPortable() const;
   void setPortable(bool isPortable);
 

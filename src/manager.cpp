@@ -62,12 +62,8 @@ Manager::Manager()
 
 Manager::~Manager()
 {
-  if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged()) {
-    Settings settings;
-    settings.load();
-    settings.lastUpdateCheck = updateAutoChecker_->lastCheckDate();
-    settings.save();
-  }
+  if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged())
+    Settings::saveLastUpdateCheck(updateAutoChecker_->lastCheckDate());
 }
 
 void Manager::updateSettings(const Settings &settings)

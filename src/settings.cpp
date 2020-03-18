@@ -254,6 +254,21 @@ void Settings::load()
   settings.endGroup();
 }
 
+void Settings::saveLastUpdateCheck(const QDateTime& dt)
+{
+  std::unique_ptr<QSettings> ptr;
+  if (QFile::exists(iniFileName)) {
+    ptr = std::make_unique<QSettings>(iniFileName, QSettings::IniFormat);
+  } else {
+    ptr = std::make_unique<QSettings>();
+  }
+  auto& settings = *ptr;
+
+  settings.beginGroup(qs_guiGroup);
+  settings.setValue(qs_lastUpdateCheck, dt);
+  settings.endGroup();
+}
+
 bool Settings::isPortable() const
 {
   return isPortable_;
