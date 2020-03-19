@@ -61,7 +61,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: deps
-          key: ${{ runner.os }}-deps
+          key: ${{ env.OS }}-deps
 
       - name: Get Qt
         run: python ./share/ci/get_qt.py
