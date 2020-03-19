@@ -49,8 +49,8 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="pageGeneral">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
+      <layout class="QGridLayout" name="gridLayout_11">
+       <item row="0" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>Shortcuts</string>
@@ -99,7 +99,7 @@
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
           <string>Proxy</string>
@@ -172,21 +172,28 @@
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="2" column="0">
         <widget class="QCheckBox" name="showOnStart">
          <property name="text">
           <string>Show message on program start</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="runAtSystemStart">
+         <property name="text">
+          <string>Run at system start</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <widget class="QCheckBox" name="portable">
          <property name="text">
           <string>Portable (store data in same folder)</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="4" column="1">
         <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

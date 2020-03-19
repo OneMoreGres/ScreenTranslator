@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "runatsystemstart.h"
 
 #include <QFile>
 #include <QSettings>
@@ -190,6 +191,11 @@ void Settings::save() const
 
   settings.endGroup();
 
+  if (service::RunAtSystemStart::isAvailable()) {
+    if (runAtSystemStart != service::RunAtSystemStart::isEnabled())
+      service::RunAtSystemStart::setEnabled(runAtSystemStart);
+  }
+
   cleanupOutdated(settings);
 }
 
@@ -274,6 +280,8 @@ void Settings::load()
   fontSize = std::clamp(settings.value(qs_fontSize, fontSize).toInt(), 6, 24);
   showRecognized = settings.value(qs_showRecognized, showRecognized).toBool();
   showCaptured = settings.value(qs_showCaptured, showCaptured).toBool();
+
+  runAtSystemStart = service::RunAtSystemStart::isEnabled();
 
   settings.endGroup();
 }

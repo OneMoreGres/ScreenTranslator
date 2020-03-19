@@ -43,6 +43,7 @@ HEADERS += \
   src/service/apptranslator.h \
   src/service/debug.h \
   src/service/globalaction.h \
+  src/service/runatsystemstart.h \
   src/service/singleapplication.h \
   src/service/updates.h \
   src/service/widgetstate.h \
@@ -71,6 +72,7 @@ SOURCES += \
   src/service/apptranslator.cpp \
   src/service/debug.cpp \
   src/service/globalaction.cpp \
+  src/service/runatsystemstart.cpp \
   src/service/singleapplication.cpp \
   src/service/updates.cpp \
   src/service/widgetstate.cpp \

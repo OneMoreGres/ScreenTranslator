@@ -34,6 +34,7 @@ public:
   QString clipboardHotkey{"Ctrl+Alt+C"};
 
   bool showMessageOnStart{true};
+  bool runAtSystemStart{false};
 
   ProxyType proxyType{ProxyType::System};
   QString proxyHostName;

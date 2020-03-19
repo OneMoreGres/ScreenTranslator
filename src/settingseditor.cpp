@@ -1,6 +1,7 @@
 #include "settingseditor.h"
 #include "languagecodes.h"
 #include "manager.h"
+#include "runatsystemstart.h"
 #include "tesseract.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
@@ -22,6 +23,9 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
 
   connect(ui->portable, &QCheckBox::toggled,  //
           this, &SettingsEditor::handlePortableChanged);
+
+  ui->runAtSystemStart->setEnabled(service::RunAtSystemStart::isAvailable());
+
   {
     auto model = new QStringListModel(this);
     model->setStringList({tr("General"), tr("Recognition"), tr("Correction"),
@@ -97,6 +101,8 @@ Settings SettingsEditor::settings() const
   Settings settings;
   settings.setPortable(ui->portable->isChecked());
 
+  settings.runAtSystemStart = ui->runAtSystemStart->isChecked();
+
   settings.captureHotkey = ui->captureEdit->keySequence().toString();
   settings.repeatCaptureHotkey =
       ui->repeatCaptureEdit->keySequence().toString();
@@ -150,6 +156,8 @@ void SettingsEditor::setSettings(const Settings &settings)
 {
   wasPortable_ = settings.isPortable();
   ui->portable->setChecked(settings.isPortable());
+
+  ui->runAtSystemStart->setChecked(settings.runAtSystemStart);
 
   ui->captureEdit->setKeySequence(settings.captureHotkey);
   ui->repeatCaptureEdit->setKeySequence(settings.repeatCaptureHotkey);
