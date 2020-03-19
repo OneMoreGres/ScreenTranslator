@@ -138,6 +138,8 @@ Settings SettingsEditor::settings() const
       ui->trayRadio->isChecked() ? ResultMode::Tooltip : ResultMode::Widget;
   settings.fontFamily = ui->resultFont->currentFont().family();
   settings.fontSize = ui->resultFontSize->value();
+  settings.showRecognized = ui->showRecognized->isChecked();
+  settings.showCaptured = ui->showCaptured->isChecked();
 
   settings.autoUpdateIntervalDays = ui->autoUpdateInterval->value();
 
@@ -187,6 +189,8 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
   ui->resultFont->setCurrentFont(QFont(settings.fontFamily));
   ui->resultFontSize->setValue(settings.fontSize);
+  ui->showRecognized->setChecked(settings.showRecognized);
+  ui->showCaptured->setChecked(settings.showCaptured);
 
   ui->autoUpdateInterval->setValue(settings.autoUpdateIntervalDays);
 }

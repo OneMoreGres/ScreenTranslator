@@ -25,4 +25,6 @@ private:
   std::unique_ptr<ResultWidget> widget_;
   ResultMode mode_;
   QFont font_;
+  bool showRecognized_{true};
+  bool showCaptured_{true};
 };

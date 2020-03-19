@@ -65,6 +65,8 @@ public:
   ResultMode resultShowType{ResultMode::Widget};  // dialog
   QString fontFamily;
   int fontSize{11};
+  bool showRecognized{true};
+  bool showCaptured{true};
 
 private:
   bool isPortable_{false};

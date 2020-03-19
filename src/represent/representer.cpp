@@ -26,8 +26,10 @@ void Representer::updateSettings(const Settings &settings)
 {
   mode_ = settings.resultShowType;
   font_ = QFont(settings.fontFamily, settings.fontSize);
+  showRecognized_ = settings.showRecognized;
+  showCaptured_ = settings.showCaptured;
   if (widget_)
-    widget_->changeFont(font_);
+    widget_->updateSettings(font_, showRecognized_, showCaptured_);
 }
 
 void Representer::showTooltip(const TaskPtr &task)
@@ -40,7 +42,7 @@ void Representer::showWidget(const TaskPtr &task)
 {
   if (!widget_) {
     widget_ = std::make_unique<ResultWidget>();
-    widget_->changeFont(font_);
+    widget_->updateSettings(font_, showRecognized_, showCaptured_);
   }
 
   widget_->show(task);

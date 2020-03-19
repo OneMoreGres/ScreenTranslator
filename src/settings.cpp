@@ -42,6 +42,8 @@ const QString qs_translators = "translators";
 const QString qs_representationGroup = "Representation";
 const QString qs_fontFamily = "fontFamily";
 const QString qs_fontSize = "fontSize";
+const QString qs_showRecognized = "showRecognized";
+const QString qs_showCaptured = "showCaptured";
 
 QString shuffle(const QString& source)
 {
@@ -183,6 +185,8 @@ void Settings::save() const
 
   settings.setValue(qs_fontFamily, fontFamily);
   settings.setValue(qs_fontSize, fontSize);
+  settings.setValue(qs_showRecognized, showRecognized);
+  settings.setValue(qs_showCaptured, showCaptured);
 
   settings.endGroup();
 
@@ -268,6 +272,8 @@ void Settings::load()
 
   fontFamily = settings.value(qs_fontFamily, fontFamily).toString();
   fontSize = std::clamp(settings.value(qs_fontSize, fontSize).toInt(), 6, 24);
+  showRecognized = settings.value(qs_showRecognized, showRecognized).toBool();
+  showCaptured = settings.value(qs_showCaptured, showCaptured).toBool();
 
   settings.endGroup();
 }

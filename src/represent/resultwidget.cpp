@@ -66,6 +66,9 @@ void ResultWidget::show(const TaskPtr &task)
   const auto gotTranslation = !task->translated.isEmpty();
   translated_->setVisible(gotTranslation);
 
+  const auto mustShowRecognized = showRecognized_ || !gotTranslation;
+  recognized_->setVisible(mustShowRecognized);
+
   show();
   adjustSize();
 
@@ -83,11 +86,15 @@ void ResultWidget::show(const TaskPtr &task)
   activateWindow();
 }
 
-void ResultWidget::changeFont(const QFont &font)
+void ResultWidget::updateSettings(const QFont &font, bool showRecognized,
+                                  bool showCaptured)
 {
-  // because of stylesheet
+  // explicit font change because of stylesheet
   recognized_->setFont(font);
   translated_->setFont(font);
+
+  image_->setVisible(showCaptured);
+  showRecognized_ = showRecognized;
 }
 
 bool ResultWidget::eventFilter(QObject *watched, QEvent *event)
