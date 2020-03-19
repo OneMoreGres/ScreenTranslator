@@ -2,6 +2,8 @@
 
 #include "stfwd.h"
 
+#include <QFont>
+
 enum class ResultMode;
 class ResultWidget;
 
@@ -22,4 +24,5 @@ private:
   TrayIcon &tray_;
   std::unique_ptr<ResultWidget> widget_;
   ResultMode mode_;
+  QFont font_;
 };

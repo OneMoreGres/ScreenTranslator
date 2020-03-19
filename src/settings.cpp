@@ -39,6 +39,10 @@ const QString qs_translationTimeout = "translation_timeout";
 const QString qs_debugMode = "translation_debug";
 const QString qs_translators = "translators";
 
+const QString qs_representationGroup = "Representation";
+const QString qs_fontFamily = "fontFamily";
+const QString qs_fontSize = "fontSize";
+
 QString shuffle(const QString& source)
 {
   if (source.isEmpty()) {
@@ -175,6 +179,13 @@ void Settings::save() const
 
   settings.endGroup();
 
+  settings.beginGroup(qs_representationGroup);
+
+  settings.setValue(qs_fontFamily, fontFamily);
+  settings.setValue(qs_fontSize, fontSize);
+
+  settings.endGroup();
+
   cleanupOutdated(settings);
 }
 
@@ -250,6 +261,13 @@ void Settings::load()
   translators = settings.value(qs_translators, translators).toStringList();
   if (translators.size() == 1 && translators.first().contains('|'))  // legacy
     translators = translators.first().split('|');
+
+  settings.endGroup();
+
+  settings.beginGroup(qs_representationGroup);
+
+  fontFamily = settings.value(qs_fontFamily, fontFamily).toString();
+  fontSize = std::clamp(settings.value(qs_fontSize, fontSize).toInt(), 6, 24);
 
   settings.endGroup();
 }

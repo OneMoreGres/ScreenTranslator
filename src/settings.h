@@ -63,6 +63,8 @@ public:
   QStringList translators{"google.js"};
 
   ResultMode resultShowType{ResultMode::Widget};  // dialog
+  QString fontFamily;
+  int fontSize{11};
 
 private:
   bool isPortable_{false};

@@ -50,13 +50,20 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   }
 
   // correction
-
   ui->userSubstitutionsTable->setEnabled(ui->useUserSubstitutions->isChecked());
   connect(ui->useUserSubstitutions, &QCheckBox::toggled,  //
           ui->userSubstitutionsTable, &QTableWidget::setEnabled);
 
   // translation
   updateTranslationLanguages();
+
+  // representation
+  connect(ui->dialogRadio, &QRadioButton::toggled,  //
+          ui->resultWindow, &QTableWidget::setEnabled);
+  connect(ui->resultFont, &QFontComboBox::currentFontChanged,  //
+          this, &SettingsEditor::updateResultFont);
+  connect(ui->resultFontSize, qOverload<int>(&QSpinBox::valueChanged),  //
+          this, &SettingsEditor::updateResultFont);
 
   // updates
   auto updatesProxy = new QSortFilterProxyModel(this);
@@ -129,6 +136,8 @@ Settings SettingsEditor::settings() const
 
   settings.resultShowType =
       ui->trayRadio->isChecked() ? ResultMode::Tooltip : ResultMode::Widget;
+  settings.fontFamily = ui->resultFont->currentFont().family();
+  settings.fontSize = ui->resultFontSize->value();
 
   settings.autoUpdateIntervalDays = ui->autoUpdateInterval->value();
 
@@ -176,6 +185,8 @@ void SettingsEditor::setSettings(const Settings &settings)
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
+  ui->resultFont->setCurrentFont(QFont(settings.fontFamily));
+  ui->resultFontSize->setValue(settings.fontSize);
 
   ui->autoUpdateInterval->setValue(settings.autoUpdateIntervalDays);
 }
@@ -282,4 +293,11 @@ void SettingsEditor::handlePortableChanged()
   ui->pageUpdate->setToolTip(portableChanged
                                  ? tr("Portable changed. Apply settings first")
                                  : QString());
+}
+
+void SettingsEditor::updateResultFont()
+{
+  auto font = ui->resultFont->currentFont();
+  font.setPointSize(ui->resultFontSize->value());
+  ui->resultFont->setFont(font);
 }

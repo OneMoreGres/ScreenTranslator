@@ -29,6 +29,7 @@ private:
   void adjustUpdatesView();
   void handleButtonBoxClicked(QAbstractButton *button);
   void handlePortableChanged();
+  void updateResultFont();
 
   Ui::SettingsEditor *ui;
   Manager &manager_;

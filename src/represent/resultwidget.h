@@ -14,6 +14,7 @@ public:
 
   void show(const TaskPtr& task);
   using QWidget::show;
+  void changeFont(const QFont& font);
 
   bool eventFilter(QObject* watched, QEvent* event) override;
 

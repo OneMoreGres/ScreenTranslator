@@ -83,6 +83,13 @@ void ResultWidget::show(const TaskPtr &task)
   activateWindow();
 }
 
+void ResultWidget::changeFont(const QFont &font)
+{
+  // because of stylesheet
+  recognized_->setFont(font);
+  translated_->setFont(font);
+}
+
 bool ResultWidget::eventFilter(QObject *watched, QEvent *event)
 {
   if (event->type() == QEvent::MouseButtonPress) {
