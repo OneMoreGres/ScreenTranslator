@@ -384,22 +384,22 @@
 
 ,"translators":{
  "bing": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js", "path":"$translators$/bing.js", "md5":"23178a0a19f54c8dc6befd18c67decf7"}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js", "path":"$translators$/bing.js", "md5":"fc69c1e05a3462a88131ee0a8422ad89"}
  ]}
  ,"google": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js", "path":"$translators$/google.js", "md5":"232ffcfff1ab743d295e6c8a04695272"}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js", "path":"$translators$/google.js", "md5":"58128258211838ac23c84d18edc9c268"}
  ]}
  ,"google_api": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google_api.js", "path":"$translators$/google_api.js", "md5":"7fa9fb03d4cfc3e69cd0120c51d82c95"}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google_api.js", "path":"$translators$/google_api.js", "md5":"087dfe395c6ee803bf0e69693a27a41a"}
  ]}
  ,"yandex": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js", "path":"$translators$/yandex.js", "md5":"2c4d64c30fa74b875f48dc99f2745c1f"}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js", "path":"$translators$/yandex.js", "md5":"931306b7cf54c529638a730ad2ada0ef"}
  ]}
  ,"deepl": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js", "path":"$translators$/deepl.js", "md5":"05ac33e02469710bc69fc20c55773c91"}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js", "path":"$translators$/deepl.js", "md5":"eb333c2e210dc955d523e68339e68b84"}
  ]}
  ,"papago": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/papago.js", "path":"$translators$/papago.js", "md5":"c3c6bb456a48a47f50e634ee43862434"}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/papago.js", "path":"$translators$/papago.js", "md5":"27d8031bcab27cf2f14c815c60785f0b"}
  ]}
 }
 }

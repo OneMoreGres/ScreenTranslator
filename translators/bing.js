@@ -1,41 +1,42 @@
-var isPageLoaded = false;
-var isTranslationFinished = false; // async translation request
-var isScheduled = false;
+var lastText = '';
+var active = window.location.href !== "about:blank";
 
-function checkFinished () {
-    if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
-    isScheduled = true;
-    setTimeout(function () {
-        var text = document.querySelector ('#tta_output_ta').value;
-        console.log (text);
-        st_wtp.translated (text);
-        isTranslationFinished = isScheduled = false;
-    }, 2000); // wait for gui fill
+function checkFinished() {
+    if (!active) return;
+
+    let area = document.querySelector('#tta_output_ta')
+    if (!area)
+        return;
+
+    let text = area.value.trim();
+    if (text === lastText || text === lastText + ' ...' || text === '' || text === '...')
+        return;
+
+    console.log('translated text', text, 'old', lastText, 'size', text.length, lastText.length);
+    lastText = text;
+    active = false;
+    proxy.setTranslated(text);
 }
-function onResourceLoad (url) {
-    if (url.indexOf ('bing.com/translator/?') > -1) {
-        isTranslationFinished = true;
-        if (isPageLoaded) {
-            checkFinished ();
-        }
-    }
-}
-st_wtp.resourceLoaded.connect (onResourceLoad);
-function onPageLoad () {
-    if (window.location.href.indexOf('about:blank') === 0) {
-        translate ();
+
+function translate(text, from, to) {
+    console.log('start translate', text, from, to)
+    active = true;
+
+    if (window.location.href.indexOf('bing.com/translator') !== -1
+        && window.location.href.indexOf('&to=' + to + '&') !== -1) {
+        document.querySelector('textarea#tta_input_ta').value = text;
+        document.querySelector('textarea#tta_input_ta').dispatchEvent(
+            new Event("input", { bubbles: true, cancelable: true }));
         return;
     }
 
-    isPageLoaded = true;
-    if (isTranslationFinished) {
-        checkFinished ();
-    }
-}
-window.onload = onPageLoad();
+    let url = 'https://www.bing.com/translator/?from=auto&to=' + to + '&text=' + text;
+    console.log("setting url", url);
+    window.location = encodeURI(url);
 
-function translate (){
-    var url = 'https://bing.com/translator/?from=auto&to=' + st_wtp.resultLanguage +
-            '&text=' + st_wtp.sourceText;
-    window.location = encodeURI (url);
+}
+
+function init() {
+    proxy.translate.connect(translate);
+    setInterval(checkFinished, 300);
 }

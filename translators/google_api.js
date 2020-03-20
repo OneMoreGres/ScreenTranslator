@@ -1,27 +1,30 @@
-function httpGetAsync(theUrl, callback)
-{
-  console.log(theUrl);
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true);
-    xmlHttp.send(null);
+function httpGetAsync(url, callback) {
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function () {
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+      callback(xmlHttp.responseText);
+  }
+  xmlHttp.open("GET", url, true);
+  xmlHttp.send(null);
 }
 
-function translate (){
-    var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl='
-    + st_wtp.resultLanguage + '&dt=t&q=' + st_wtp.sourceText;
-    
-    httpGetAsync(url, function(responce) {
-      console.log(responce);
-      var object = JSON.parse(responce);
-      var result = '';
-      object[0].forEach(function(element) {
-        result += element[0] + ' ';
-      });
-      console.log(object);
-      st_wtp.translated (result);
+function translate(text, from, to) {
+  console.log('start translate', text, from, to)
+
+  let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=' + to + '&dt=t&q=' + text;
+  console.log("loading url", url);
+
+  httpGetAsync(url, function (response) {
+    console.log('received', response);
+    let object = JSON.parse(response);
+    let result = '';
+    object[0].forEach(function (element) {
+      result += element[0] + ' ';
     });
+    proxy.setTranslated(result);
+  });
+}
+
+function init() {
+  proxy.translate.connect(translate);
 }

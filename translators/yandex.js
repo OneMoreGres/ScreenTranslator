@@ -1,42 +1,43 @@
 var lastText = '';
 var active = window.location.href !== "about:blank";
 
-function checkFinished () {
+function checkFinished() {
     if (!active) return;
 
-    var spans = [].slice.call (document.querySelectorAll ('span.translation-chunk'));
-    let text = spans.reduce (function (res, i) {
+    let spans = [].slice.call(document.querySelectorAll('span.translation-chunk'));
+    let text = spans.reduce(function (res, i) {
         return res + ' ' + i.innerText;
     }, '');
 
     if (text === lastText || text === '')
         return;
 
-    console.log ('translated text', text, 'old', lastText, 'size', text.length, lastText.length);
+    console.log('translated text', text, 'old', lastText, 'size', text.length, lastText.length);
     lastText = text;
     active = false;
-    proxy.setTranslated (text);
+    proxy.setTranslated(text);
 }
 
-function translate (text, from, to){
+function translate(text, from, to) {
     console.log('start translate', text, from, to)
     active = true;
 
-    var langs = 'lang=' + from + '-' + to;
+    let langs = 'lang=' + from + '-' + to;
     if (window.location.href.indexOf('//translate.yandex') !== -1
-            && window.location.href.indexOf(langs) !== -1) {
-        document.querySelector('textarea#textarea').value=text
+        && window.location.href.indexOf(langs) !== -1) {
+        document.querySelector('textarea#textarea').value = text
         document.querySelector('div#textbox').dispatchEvent(
-                    new Event("input", {bubbles: true, cancelable: true}));
+            new Event("input", { bubbles: true, cancelable: true }));
         return;
     }
 
-    var url = 'https://translate.yandex.ru/?' + langs + '&text=' + text;
-    url = url.replace(new RegExp(' ','g') , '%20')
+    let url = 'https://translate.yandex.ru/?' + langs + '&text=' + text;
+    url = url.replace(new RegExp(' ', 'g'), '%20')
+    console.log("setting url", url);
     window.location = url;
 }
 
 function init() {
-    proxy.translate.connect (translate);
+    proxy.translate.connect(translate);
     setInterval(checkFinished, 300);
 }

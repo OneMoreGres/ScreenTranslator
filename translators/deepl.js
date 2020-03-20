@@ -1,71 +1,54 @@
-var isPageLoaded = false;
-var isTranslationFinished = false; // async translation request
-var isScheduled = false;
+var lastText = '';
+var active = window.location.href !== "about:blank";
 
 function checkFinished() {
-  if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
-  isScheduled = true;
-  setTimeout(function () {
-    var area = document.querySelector('.lmt__target_textarea');
-    var text = area ? area.value : '';
-    console.log('result text', text);
-    st_wtp.translated(text);
-    isTranslationFinished = isScheduled = false;
-  }, 2000); // wait for gui fill
+  if (!active) return;
+
+  let area = document.querySelector('textarea[dl-test=translator-target-input]');
+  let text = area ? area.value : '';
+
+  if (text === lastText || text === '')
+    return;
+
+  console.log('translated text', text, 'old', lastText, 'size', text.length, lastText.length);
+  lastText = text;
+  active = false;
+  proxy.setTranslated(text);
 }
 
-var timeout = null;
-function onResourceLoad(url) {
-  if (url.indexOf('www2.deepl.com/jsonrpc') > -1) {
-    if (timeout !== null) {
-      console.log('clear resource timeout');
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(function () {
-      console.log('last resource loaded');
-      isTranslationFinished = true;
-      if (isPageLoaded) {
-        checkFinished();
-      }
-    }, 500);
-  }
-}
-st_wtp.resourceLoaded.connect(onResourceLoad);
+function translate(text, from, to) {
+  console.log('start translate', text, from, to)
+  from = from == 'zh-CN' ? 'zh' : from;
+  to = to == 'zh-CN' ? 'zh' : to;
 
-function onPageLoad() {
-  console.log('page loaded');
-  isPageLoaded = true;
-  if (isTranslationFinished) {
-    checkFinished();
+  let supported = ['ru', 'en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ja', 'zh']
+  if (supported.indexOf(from) == -1) {
+    proxy.setFailed('Source language not supported');
+    return;
   }
-}
-window.onload = onPageLoad();
-
-function translate() {
-  var langs = {
-    'eng': 'en',
-    "rus": 'ru',
-    "deu": 'de',
-    "spa": 'es',
-    "por": 'pt',
-    "ita": 'it',
-    "pol": 'pl'
-  }
-
-  if (langs[st_wtp.sourceLanguage] == undefined) {
-    st_wtp.translated('');
+  if (supported.indexOf(to) == -1) {
+    proxy.setFailed('Target language not supported');
     return;
   }
 
-  if (window.location.href.indexOf('www.deepl.com/translator') === -1) {
-    var url = 'https://www.deepl.com/translator#' +
-      langs[st_wtp.sourceLanguage] + '/' + st_wtp.resultLanguage + '/' +
-      st_wtp.sourceText.replace("\n", " ");
-    window.location = encodeURI(url);
+  active = true;
+
+  let langs = from + '/' + to + '/';
+  if (window.location.href.indexOf('www.deepl.com/translator') !== -1
+    && window.location.href.indexOf(langs) !== -1) {
+    document.querySelector('textarea[dl-test=translator-source-input]').value = text;
+    document.querySelector('textarea[dl-test=translator-source-input]').dispatchEvent(
+      new Event("input", { bubbles: true, cancelable: true }));
     return;
   }
 
-  var input = document.querySelector('.lmt__source_textarea');
-  input.value = st_wtp.sourceText.replace("\n", " ");
-  input.dispatchEvent(new Event('change'));
+  let url = 'https://www.deepl.com/translator#' + langs +
+    text.replace('\n', ' ').replace('|', '');
+  console.log("setting url", url);
+  window.location = encodeURI(url);
+}
+
+function init() {
+  proxy.translate.connect(translate);
+  setInterval(checkFinished, 300);
 }

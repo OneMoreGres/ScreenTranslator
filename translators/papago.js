@@ -1,69 +1,65 @@
-var isPageLoaded = false;
-var isTranslationFinished = false; // async translation request
-var isScheduled = false;
+var lastText = '';
+var active = window.location.href !== "about:blank";
+
+function getText() {
+    let spans = [].slice.call(document.querySelectorAll('#txtTarget span'));
+    let text = spans.reduce(function (res, i) {
+        return res + i.innerText + ' ';
+    }, '');
+
+    return text.trim()
+}
 
 function checkFinished() {
-    if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
-    isScheduled = true;
-    setTimeout(function () {
-        var spans = [].slice.call (document.querySelectorAll ('#txtTarget span'));
-        var text = spans.reduce (function (res, i) {
-            return res + i.innerText + ' ';
-        }, '');
-        console.log('result text', text);
-        st_wtp.translated(text);
-        isTranslationFinished = isScheduled = false;
-    }, 2000); // wait for gui fill
+    if (!active) return;
+
+    let text = getText()
+    if (text === lastText || text === lastText + '...' || text === '')
+        return;
+
+    active = false;
+    // maybe translation will be updated
+    setTimeout(function() {
+        text = getText();
+        console.log('translated text', text, 'old', lastText, 'size', text.length, lastText.length);
+        lastText = text;
+        active = false;
+        proxy.setTranslated(text);
+    }, 1000);
+
 }
 
-var timeout = null;
-function onResourceLoad(url) {
-    console.log(url);
-    if (url.indexOf('apis/n2mt/translate') > -1) {
-        if (timeout !== null) {
-            console.log('clear resource timeout');
-            clearTimeout(timeout);
-        }
-        timeout = setTimeout(function () {
-            console.log('last resource loaded');
-            isTranslationFinished = true;
-            if (isPageLoaded) {
-                checkFinished();
-            }
-        }, 1000);
-    }
-}
-st_wtp.resourceLoaded.connect(onResourceLoad);
+function translate(text, from, to) {
+    console.log('start translate', text, from, to)
+    let supported = ['ko', 'ru', 'en', 'fr', 'pt', 'th', 'ja',
+        'zh-CN', 'zh-TW', 'de', 'it', 'id', 'es', 'vi', 'hi'];
 
-function onPageLoad() {
-    if (window.location.href.indexOf('about:blank') === 0) {
-        translate ();
+    if (supported.indexOf(from) == -1) {
+        proxy.setFailed('Source language not supported');
         return;
     }
-    isPageLoaded = true;
-    if (isTranslationFinished) {
-        checkFinished();
-    }
-}
-window.onload = onPageLoad();
-
-function translate() {
-    console.log(st_wtp.resultLanguage)
-    var langs = ['ko', 'ru', 'en', 'fr', 'pt', 'th', 'ja',
-                 'zb-CN', 'zn-TW', 'de', 'it', 'id', 'es', 'vi', 'hi'];
-
-    if (langs.indexOf(st_wtp.resultLanguage) === -1) {
-        st_wtp.translated('');
-        console.log('language not supported by this translator ', st_wtp.resultLanguage);
+    if (supported.indexOf(to) == -1) {
+        proxy.setFailed('Target language not supported');
         return;
     }
 
-    if (window.location.href.indexOf('https://papago.naver.com/') === -1) {
-        var url = 'https://papago.naver.com/?sk=auto&tk='+st_wtp.resultLanguage+'&st=' +
-                st_wtp.sourceText.replace("\n", " ");
-        window.location = encodeURI(url);
+    lastText = getText(); // because it can be updated after previous translation
+    active = true;
+    let langs = '?sk=auto&tk=' + to + '&';
+    if (window.location.href.indexOf('//papago.naver.com/') !== -1
+        && window.location.href.indexOf(langs) !== -1) {
+        document.querySelector('textarea#txtSource').value = text
+        document.querySelector('textarea#txtSource').dispatchEvent(
+            new Event("input", { bubbles: true, cancelable: true }));
+        return;
     }
-    else {
-        window.location = 'about:blank';
-    }
+
+    let url = 'https://papago.naver.com/?sk=auto&tk=' + to + '&st=' +
+        text.replace("\n", " ");
+    window.location = encodeURI(url);
+}
+
+function init() {
+    proxy.translate.connect(translate);
+    setInterval(checkFinished, 300);
 }
