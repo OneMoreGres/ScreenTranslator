@@ -11,7 +11,7 @@ class CaptureAreaSelector : public QWidget
   Q_OBJECT
 
 public:
-  explicit CaptureAreaSelector(Capturer &capturer);
+  CaptureAreaSelector(Capturer &capturer, const Settings &settings);
 
   void setScreen(QScreen &screen);
 
@@ -24,8 +24,14 @@ protected:
   void paintEvent(QPaintEvent *event) override;
 
 private:
+  void updateHelp();
+
   Capturer &capturer_;
+  const Settings &settings_;
   QPixmap pixmap_;
   QPoint startSelectPos_;
   QPoint currentSelectPos_;
+  QString help_;
+  QRect currentHelpRect_;
+  std::vector<QRect> helpRects_;
 };

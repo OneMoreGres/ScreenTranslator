@@ -54,7 +54,7 @@ void Capturer::showOverlays(bool capturePixmap)
 
   for (auto i = 0, end = screensSize; i < end; ++i) {
     if (i == overlaysSize) {
-      selectors_.push_back(new CaptureAreaSelector(*this));
+      selectors_.push_back(new CaptureAreaSelector(*this, settings_));
       ++overlaysSize;
     }
 
