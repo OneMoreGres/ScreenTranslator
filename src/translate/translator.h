@@ -32,6 +32,7 @@ private:
   void setPageLoadImages(bool isOn);
   void processQueue();
   void markTranslated(const TaskPtr &task);
+  void createPage(const QString &scriptName, const QString &scriptText);
 
   Manager &manager_;
   const Settings &settings_;

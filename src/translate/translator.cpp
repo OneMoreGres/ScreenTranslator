@@ -130,34 +130,44 @@ void Translator::updateSettings()
     return;
   }
 
-  for (const auto &script : loaded) {
-    const auto &scriptName = script.first;
-    const auto &scriptText = script.second;
-    const auto pageIt = pages_.emplace(
-        scriptName, std::make_unique<WebPage>(*this, scriptText, scriptName));
-    SOFT_ASSERT(pageIt.second, continue);
-
-    const auto &page = pageIt.first->second;
-    page->setIgnoreSslErrors(settings_.ignoreSslErrors);
-    page->setTimeout(settings_.translationTimeout);
-
-    auto log = new QTextEdit(tabs_);
-    tabs_->addTab(log, scriptName);
-
-    connect(page.get(), &WebPage::log,  //
-            log, &QTextEdit::append);
-    connect(page.get(), &WebPage::urlChanged,  //
-            this, &Translator::updateUrl);
-
-    SOFT_ASSERT(log->document(), continue)
-    log->document()->setMaximumBlockCount(1000);
-  }
+  for (const auto &script : loaded) createPage(script.first, script.second);
 
   if (settings_.debugMode) {
     show();
   } else {
     hide();
   }
+}
+
+void Translator::createPage(const QString &scriptName,
+                            const QString &scriptText)
+{
+  pages_.erase(scriptName);
+  const auto pageIt = pages_.emplace(
+      scriptName, std::make_unique<WebPage>(*this, scriptText, scriptName));
+  SOFT_ASSERT(pageIt.second, return );
+
+  const auto &page = pageIt.first->second;
+  page->setIgnoreSslErrors(settings_.ignoreSslErrors);
+  page->setTimeout(settings_.translationTimeout);
+
+  auto log = new QTextEdit(tabs_);
+  tabs_->addTab(log, scriptName);
+
+  connect(page.get(), &WebPage::log,  //
+          log, &QTextEdit::append);
+  connect(page.get(), &WebPage::urlChanged,  //
+          this, &Translator::updateUrl);
+  connect(page.get(), &WebPage::renderProcessTerminated,  //
+          this,
+          [this, scriptName,
+           scriptText](WebPage::RenderProcessTerminationStatus status) {
+            if (status != WebPage::NormalTerminationStatus)
+              createPage(scriptName, scriptText);
+          });
+
+  SOFT_ASSERT(log->document(), return )
+  log->document()->setMaximumBlockCount(1000);
 }
 
 WebPage *Translator::currentPage() const
