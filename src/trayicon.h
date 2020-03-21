@@ -10,10 +10,10 @@ class TrayIcon : public QObject
 {
   Q_OBJECT
 public:
-  explicit TrayIcon(Manager &manager);
+  TrayIcon(Manager &manager, const Settings &settings);
   ~TrayIcon();
 
-  void updateSettings(const Settings &settings);
+  void updateSettings();
 
   void blockActions(bool block);
   void setTaskActionsEnabled(bool isEnabled);
@@ -36,6 +36,7 @@ private:
   void updateActions();
 
   Manager &manager_;
+  const Settings &settings_;
   std::unique_ptr<QSystemTrayIcon> tray_;
 
   QAction *captureAction_{nullptr};

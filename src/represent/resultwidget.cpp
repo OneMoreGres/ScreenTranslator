@@ -1,5 +1,6 @@
 #include "resultwidget.h"
 #include "debug.h"
+#include "settings.h"
 #include "task.h"
 
 #include <QApplication>
@@ -8,8 +9,9 @@
 #include <QLabel>
 #include <QMouseEvent>
 
-ResultWidget::ResultWidget(QWidget *parent)
+ResultWidget::ResultWidget(const Settings &settings, QWidget *parent)
   : QFrame(parent)
+  , settings_(settings)
   , image_(new QLabel(this))
   , recognized_(new QLabel(this))
   , translated_(new QLabel(this))
@@ -66,7 +68,7 @@ void ResultWidget::show(const TaskPtr &task)
   const auto gotTranslation = !task->translated.isEmpty();
   translated_->setVisible(gotTranslation);
 
-  const auto mustShowRecognized = showRecognized_ || !gotTranslation;
+  const auto mustShowRecognized = settings_.showRecognized || !gotTranslation;
   recognized_->setVisible(mustShowRecognized);
 
   show();
@@ -86,15 +88,14 @@ void ResultWidget::show(const TaskPtr &task)
   activateWindow();
 }
 
-void ResultWidget::updateSettings(const QFont &font, bool showRecognized,
-                                  bool showCaptured)
+void ResultWidget::updateSettings()
 {
   // explicit font change because of stylesheet
+  QFont font(settings_.fontFamily, settings_.fontSize);
   recognized_->setFont(font);
   translated_->setFont(font);
 
-  image_->setVisible(showCaptured);
-  showRecognized_ = showRecognized;
+  image_->setVisible(settings_.showCaptured);
 }
 
 bool ResultWidget::eventFilter(QObject *watched, QEvent *event)

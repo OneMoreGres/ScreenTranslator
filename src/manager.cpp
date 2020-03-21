@@ -27,22 +27,24 @@ const auto updatesUrl =
 }  // namespace
 
 Manager::Manager()
-  : updater_(std::make_unique<update::Loader>(QUrl(updatesUrl)))
+  : settings_(std::make_unique<Settings>())
+  , updater_(std::make_unique<update::Loader>(QUrl(updatesUrl)))
 {
-  tray_ = std::make_unique<TrayIcon>(*this);
-  capturer_ = std::make_unique<Capturer>(*this);
-  recognizer_ = std::make_unique<Recognizer>(*this);
-  translator_ = std::make_unique<Translator>(*this);
-  corrector_ = std::make_unique<Corrector>(*this);
-  representer_ = std::make_unique<Representer>(*this, *tray_);
+  SOFT_ASSERT(settings_, return );
+
+  tray_ = std::make_unique<TrayIcon>(*this, *settings_);
+  capturer_ = std::make_unique<Capturer>(*this, *settings_);
+  recognizer_ = std::make_unique<Recognizer>(*this, *settings_);
+  translator_ = std::make_unique<Translator>(*this, *settings_);
+  corrector_ = std::make_unique<Corrector>(*this, *settings_);
+  representer_ = std::make_unique<Representer>(*this, *tray_, *settings_);
 
   qRegisterMetaType<TaskPtr>();
 
-  Settings settings;
-  settings.load();
-  updateSettings(settings);
+  settings_->load();
+  updateSettings();
 
-  if (settings.showMessageOnStart)
+  if (settings_->showMessageOnStart)
     tray_->showInformation(QObject::tr("Screen translator started"));
 
   QObject::connect(updater_.get(), &update::Loader::error,  //
@@ -62,33 +64,37 @@ Manager::Manager()
 
 Manager::~Manager()
 {
-  if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged())
-    Settings::saveLastUpdateCheck(updateAutoChecker_->lastCheckDate());
+  SOFT_ASSERT(settings_, return );
+  if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged()) {
+    settings_->lastUpdateCheck = updateAutoChecker_->lastCheckDate();
+    settings_->saveLastUpdateCheck();
+  }
 }
 
-void Manager::updateSettings(const Settings &settings)
+void Manager::updateSettings()
 {
   LTRACE() << "updateSettings";
-  setupProxy(settings);
+  SOFT_ASSERT(settings_, return );
+  setupProxy(*settings_);
 
   updater_->model()->setExpansions({
-      {"$translators$", settings.translatorsDir},
-      {"$tessdata$", settings.tessdataPath},
+      {"$translators$", settings_->translatorsDir},
+      {"$tessdata$", settings_->tessdataPath},
   });
-  if (settings.autoUpdateIntervalDays > 0) {
+  if (settings_->autoUpdateIntervalDays > 0) {
     updateAutoChecker_ = std::make_unique<update::AutoChecker>(*updater_);
-    updateAutoChecker_->setLastCheckDate(settings.lastUpdateCheck);
-    updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
+    updateAutoChecker_->setLastCheckDate(settings_->lastUpdateCheck);
+    updateAutoChecker_->setCheckIntervalDays(settings_->autoUpdateIntervalDays);
   } else {
     updateAutoChecker_.reset();
   }
 
-  tray_->updateSettings(settings);
-  capturer_->updateSettings(settings);
-  recognizer_->updateSettings(settings);
-  translator_->updateSettings(settings);
-  corrector_->updateSettings(settings);
-  representer_->updateSettings(settings);
+  tray_->updateSettings();
+  capturer_->updateSettings();
+  recognizer_->updateSettings();
+  translator_->updateSettings();
+  corrector_->updateSettings();
+  representer_->updateSettings();
 }
 
 void Manager::setupProxy(const Settings &settings)
@@ -202,8 +208,10 @@ void Manager::translated(const TaskPtr &task)
 
 void Manager::applySettings(const Settings &settings)
 {
-  updateSettings(settings);
-  settings.save();
+  SOFT_ASSERT(settings_, return );
+  *settings_ = settings;
+  settings_->save();
+  updateSettings();
 }
 
 void Manager::fatalError(const QString &text)
@@ -239,9 +247,8 @@ void Manager::settings()
 {
   SettingsEditor editor(*this, *updater_);
 
-  Settings settings;
-  settings.load();
-  editor.setSettings(settings);
+  SOFT_ASSERT(settings_, return );
+  editor.setSettings(*settings_);
 
   tray_->blockActions(true);
   auto result = editor.exec();
@@ -252,9 +259,8 @@ void Manager::settings()
 
   tray_->resetFatalError();
 
-  settings = editor.settings();
-  settings.save();
-  updateSettings(settings);
+  const auto edited = editor.settings();
+  applySettings(edited);
 }
 
 void Manager::copyLastToClipboard()

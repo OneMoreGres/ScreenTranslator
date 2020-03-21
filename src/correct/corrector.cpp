@@ -1,10 +1,12 @@
 #include "corrector.h"
 #include "debug.h"
 #include "manager.h"
+#include "settings.h"
 #include "task.h"
 
-Corrector::Corrector(Manager &manager)
+Corrector::Corrector(Manager &manager, const Settings &settings)
   : manager_(manager)
+  , settings_(settings)
 {
 }
 
@@ -18,15 +20,14 @@ void Corrector::correct(const TaskPtr &task)
     return;
   }
 
-  if (!userSubstitutions_.empty())
+  if (!settings_.userSubstitutions.empty())
     task->corrected = substituteUser(task->recognized, task->sourceLanguage);
 
   manager_.corrected(task);
 }
 
-void Corrector::updateSettings(const Settings &settings)
+void Corrector::updateSettings()
 {
-  userSubstitutions_ = settings.userSubstitutions;
 }
 
 QString Corrector::substituteUser(const QString &source,
@@ -34,8 +35,8 @@ QString Corrector::substituteUser(const QString &source,
 {
   auto result = source;
 
-  const auto range = userSubstitutions_.equal_range(language);
-  if (range.first == userSubstitutions_.cend())
+  const auto range = settings_.userSubstitutions.equal_range(language);
+  if (range.first == settings_.userSubstitutions.cend())
     return result;
 
   while (true) {

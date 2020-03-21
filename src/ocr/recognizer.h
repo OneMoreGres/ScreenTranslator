@@ -8,10 +8,10 @@ class Recognizer : public QObject
 {
   Q_OBJECT
 public:
-  explicit Recognizer(Manager &manager);
+  Recognizer(Manager &manager, const Settings &settings);
   ~Recognizer();
 
-  void updateSettings(const Settings &settings);
+  void updateSettings();
 
 signals:
   void recognize(const TaskPtr &task);
@@ -21,5 +21,6 @@ private:
   void recognized(const TaskPtr &task);
 
   Manager &manager_;
+  const Settings &settings_;
   QThread *workerThread_;
 };

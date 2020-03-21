@@ -286,7 +286,7 @@ void Settings::load()
   settings.endGroup();
 }
 
-void Settings::saveLastUpdateCheck(const QDateTime& dt)
+void Settings::saveLastUpdateCheck()
 {
   std::unique_ptr<QSettings> ptr;
   if (QFile::exists(iniFileName)) {
@@ -297,7 +297,7 @@ void Settings::saveLastUpdateCheck(const QDateTime& dt)
   auto& settings = *ptr;
 
   settings.beginGroup(qs_guiGroup);
-  settings.setValue(qs_lastUpdateCheck, dt);
+  settings.setValue(qs_lastUpdateCheck, lastUpdateCheck);
   settings.endGroup();
 }
 

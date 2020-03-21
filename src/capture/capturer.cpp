@@ -6,8 +6,9 @@
 
 #include <QApplication>
 
-Capturer::Capturer(Manager &manager)
+Capturer::Capturer(Manager &manager, const Settings &settings)
   : manager_(manager)
+  , settings_(settings)
 {
 }
 
@@ -21,12 +22,8 @@ void Capturer::repeatCapture()
   showOverlays(false);
 }
 
-void Capturer::updateSettings(const Settings &settings)
+void Capturer::updateSettings()
 {
-  sourceLanguage_ = settings.sourceLanguage;
-  targetLanguage_ = settings.targetLanguage;
-  translators_ = settings.translators;
-  doTranslation_ = settings.doTranslation;
 }
 
 void Capturer::captured(const TaskPtr &task)
@@ -34,10 +31,10 @@ void Capturer::captured(const TaskPtr &task)
   hideOverlays();
   // TODO respect more overlay's options
   // TODO process modifiers
-  task->translators = translators_;
-  task->sourceLanguage = sourceLanguage_;
-  if (doTranslation_)
-    task->targetLanguage = targetLanguage_;
+  task->translators = settings_.translators;
+  task->sourceLanguage = settings_.sourceLanguage;
+  if (settings_.doTranslation)
+    task->targetLanguage = settings_.targetLanguage;
   manager_.captured(task);
 }
 

@@ -2,8 +2,6 @@
 
 #include "stfwd.h"
 
-#include <QStringList>
-
 #include <vector>
 
 class CaptureOverlay;
@@ -11,11 +9,11 @@ class CaptureOverlay;
 class Capturer
 {
 public:
-  explicit Capturer(Manager &manager);
+  Capturer(Manager &manager, const Settings &settings);
 
   void capture();
   void repeatCapture();
-  void updateSettings(const Settings &settings);
+  void updateSettings();
 
   void captured(const TaskPtr &task);
   void canceled();
@@ -25,10 +23,6 @@ private:
   void hideOverlays();
 
   Manager &manager_;
+  const Settings &settings_;
   std::vector<CaptureOverlay *> overlays_;
-
-  LanguageId sourceLanguage_;
-  LanguageId targetLanguage_;
-  QStringList translators_;
-  bool doTranslation_{false};
 };

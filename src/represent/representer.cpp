@@ -5,10 +5,11 @@
 #include "task.h"
 #include "trayicon.h"
 
-Representer::Representer(Manager &manager, TrayIcon &tray)
+Representer::Representer(Manager &manager, TrayIcon &tray,
+                         const Settings &settings)
   : manager_(manager)
   , tray_(tray)
-  , mode_{ResultMode::Widget}
+  , settings_(settings)
 {
 }
 
@@ -16,20 +17,16 @@ Representer::~Representer() = default;
 
 void Representer::represent(const TaskPtr &task)
 {
-  if (mode_ == ResultMode::Tooltip)
+  if (settings_.resultShowType == ResultMode::Tooltip)
     showTooltip(task);
   else
     showWidget(task);
 }
 
-void Representer::updateSettings(const Settings &settings)
+void Representer::updateSettings()
 {
-  mode_ = settings.resultShowType;
-  font_ = QFont(settings.fontFamily, settings.fontSize);
-  showRecognized_ = settings.showRecognized;
-  showCaptured_ = settings.showCaptured;
   if (widget_)
-    widget_->updateSettings(font_, showRecognized_, showCaptured_);
+    widget_->updateSettings();
 }
 
 void Representer::showTooltip(const TaskPtr &task)
@@ -40,10 +37,8 @@ void Representer::showTooltip(const TaskPtr &task)
 
 void Representer::showWidget(const TaskPtr &task)
 {
-  if (!widget_) {
-    widget_ = std::make_unique<ResultWidget>();
-    widget_->updateSettings(font_, showRecognized_, showCaptured_);
-  }
+  if (!widget_)
+    widget_ = std::make_unique<ResultWidget>(settings_);
 
   widget_->show(task);
 }

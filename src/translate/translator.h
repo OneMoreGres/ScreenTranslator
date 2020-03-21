@@ -14,11 +14,11 @@ class Translator : public QWidget
 {
   Q_OBJECT
 public:
-  explicit Translator(Manager &manager);
+  Translator(Manager &manager, const Settings &settings);
   ~Translator();
 
   void translate(const TaskPtr &task);
-  void updateSettings(const Settings &settings);
+  void updateSettings();
   void finish(const TaskPtr &task);
 
 protected:
@@ -34,6 +34,7 @@ private:
   void markTranslated(const TaskPtr &task);
 
   Manager &manager_;
+  const Settings &settings_;
   QWebEngineView *view_;
   QLineEdit *url_;
   QAction *loadImages_;

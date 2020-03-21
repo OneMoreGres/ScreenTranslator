@@ -27,10 +27,11 @@ public:
   void quit();
 
 private:
-  void updateSettings(const Settings &settings);
+  void updateSettings();
   void setupProxy(const Settings &settings);
   void finishTask(const TaskPtr &task);
 
+  std::unique_ptr<Settings> settings_;
   std::unique_ptr<TrayIcon> tray_;
   std::unique_ptr<Capturer> capturer_;
   std::unique_ptr<Recognizer> recognizer_;

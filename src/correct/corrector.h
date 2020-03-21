@@ -1,20 +1,19 @@
 #pragma once
 
-#include "settings.h"
 #include "stfwd.h"
 
 class Corrector
 {
 public:
-  explicit Corrector(Manager &manager);
+  Corrector(Manager &manager, const Settings &settings);
 
   void correct(const TaskPtr &task);
-  void updateSettings(const Settings &settings);
+  void updateSettings();
 
 private:
   QString substituteUser(const QString &source,
                          const LanguageId &language) const;
 
   Manager &manager_;
-  Substitutions userSubstitutions_;
+  const Settings &settings_;
 };

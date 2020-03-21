@@ -7,8 +7,9 @@
 #include <QMenu>
 #include <QTimer>
 
-TrayIcon::TrayIcon(Manager &manager)
+TrayIcon::TrayIcon(Manager &manager, const Settings &settings)
   : manager_(manager)
+  , settings_(settings)
   , tray_(std::make_unique<QSystemTrayIcon>())
   , iconUpdateTimer_(std::make_unique<QTimer>())
 {
@@ -29,17 +30,18 @@ TrayIcon::TrayIcon(Manager &manager)
 
 TrayIcon::~TrayIcon() = default;
 
-void TrayIcon::updateSettings(const Settings &settings)
+void TrayIcon::updateSettings()
 {
   QStringList failedActions;
-  if (!GlobalAction::update(captureAction_, settings.captureHotkey))
-    failedActions << settings.captureHotkey;
-  if (!GlobalAction::update(repeatCaptureAction_, settings.repeatCaptureHotkey))
-    failedActions << settings.repeatCaptureHotkey;
-  if (!GlobalAction::update(showLastAction_, settings.showLastHotkey))
-    failedActions << settings.showLastHotkey;
-  if (!GlobalAction::update(clipboardAction_, settings.clipboardHotkey))
-    failedActions << settings.clipboardHotkey;
+  if (!GlobalAction::update(captureAction_, settings_.captureHotkey))
+    failedActions << settings_.captureHotkey;
+  if (!GlobalAction::update(repeatCaptureAction_,
+                            settings_.repeatCaptureHotkey))
+    failedActions << settings_.repeatCaptureHotkey;
+  if (!GlobalAction::update(showLastAction_, settings_.showLastHotkey))
+    failedActions << settings_.showLastHotkey;
+  if (!GlobalAction::update(clipboardAction_, settings_.clipboardHotkey))
+    failedActions << settings_.clipboardHotkey;
 
   if (!failedActions.isEmpty()) {
     showError(tr("Failed to register global shortcuts:\n%1")

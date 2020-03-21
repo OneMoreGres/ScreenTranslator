@@ -6,8 +6,9 @@
 
 #include <QThread>
 
-Recognizer::Recognizer(Manager &manager)
+Recognizer::Recognizer(Manager &manager, const Settings &settings)
   : manager_(manager)
+  , settings_(settings)
   , workerThread_(new QThread(this))
 {
   auto worker = new RecognizeWorker;
@@ -37,12 +38,12 @@ Recognizer::~Recognizer()
     workerThread_->terminate();
 }
 
-void Recognizer::updateSettings(const Settings &settings)
+void Recognizer::updateSettings()
 {
-  if (settings.tessdataPath.isEmpty()) {
+  if (settings_.tessdataPath.isEmpty()) {
     manager_.fatalError(tr("Tessdata path is empty"));
     return;
   }
 
-  emit reset(settings.tessdataPath);
+  emit reset(settings_.tessdataPath);
 }

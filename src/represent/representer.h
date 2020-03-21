@@ -2,19 +2,17 @@
 
 #include "stfwd.h"
 
-#include <QFont>
-
 enum class ResultMode;
 class ResultWidget;
 
 class Representer
 {
 public:
-  Representer(Manager &manager, TrayIcon &tray);
+  Representer(Manager &manager, TrayIcon &tray, const Settings &settings);
   ~Representer();
 
   void represent(const TaskPtr &task);
-  void updateSettings(const Settings &settings);
+  void updateSettings();
 
 private:
   void showTooltip(const TaskPtr &task);
@@ -22,9 +20,6 @@ private:
 
   Manager &manager_;
   TrayIcon &tray_;
+  const Settings &settings_;
   std::unique_ptr<ResultWidget> widget_;
-  ResultMode mode_;
-  QFont font_;
-  bool showRecognized_{true};
-  bool showCaptured_{true};
 };

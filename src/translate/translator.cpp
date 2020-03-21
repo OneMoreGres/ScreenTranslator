@@ -32,8 +32,9 @@ static std::map<QString, QString> loadScripts(const QString &dir,
   return result;
 }
 
-Translator::Translator(Manager &manager)
+Translator::Translator(Manager &manager, const Settings &settings)
   : manager_(manager)
+  , settings_(settings)
   , view_(nullptr)
   , url_(new QLineEdit(this))
   , loadImages_(
@@ -106,7 +107,7 @@ void Translator::translate(const TaskPtr &task)
   processQueue();
 }
 
-void Translator::updateSettings(const Settings &settings)
+void Translator::updateSettings()
 {
   view_->setPage(nullptr);
   pages_.clear();
@@ -121,11 +122,11 @@ void Translator::updateSettings(const Settings &settings)
   tabs_->blockSignals(false);
 
   const auto loaded =
-      loadScripts(settings.translatorsDir, settings.translators);
+      loadScripts(settings_.translatorsDir, settings_.translators);
   if (loaded.empty()) {
     manager_.fatalError(
         tr("No translators loaded from %1 (named %2)")
-            .arg(settings.translatorsDir, settings.translators.join(", ")));
+            .arg(settings_.translatorsDir, settings_.translators.join(", ")));
     return;
   }
 
@@ -137,8 +138,8 @@ void Translator::updateSettings(const Settings &settings)
     SOFT_ASSERT(pageIt.second, continue);
 
     const auto &page = pageIt.first->second;
-    page->setIgnoreSslErrors(settings.ignoreSslErrors);
-    page->setTimeout(settings.translationTimeout);
+    page->setIgnoreSslErrors(settings_.ignoreSslErrors);
+    page->setTimeout(settings_.translationTimeout);
 
     auto log = new QTextEdit(tabs_);
     tabs_->addTab(log, scriptName);
@@ -152,7 +153,7 @@ void Translator::updateSettings(const Settings &settings)
     log->document()->setMaximumBlockCount(1000);
   }
 
-  if (settings.debugMode) {
+  if (settings_.debugMode) {
     show();
   } else {
     hide();
