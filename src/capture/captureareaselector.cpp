@@ -123,8 +123,10 @@ void CaptureAreaSelector::mouseMoveEvent(QMouseEvent *event)
 
 void CaptureAreaSelector::mouseReleaseEvent(QMouseEvent *event)
 {
-  if (startSelectPos_.isNull() || pixmap_.isNull())
+  if (startSelectPos_.isNull() || pixmap_.isNull()) {
+    capturer_.canceled();
     return;
+  }
 
   const auto endPos = event->pos();
   const auto selection = QRect(startSelectPos_, endPos).normalized();
