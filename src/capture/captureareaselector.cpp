@@ -1,4 +1,4 @@
-#include "captureoverlay.h"
+#include "captureareaselector.h"
 #include "capturer.h"
 #include "task.h"
 
@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QScreen>
 
-CaptureOverlay::CaptureOverlay(Capturer &capturer)
+CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer)
   : capturer_(capturer)
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
@@ -14,7 +14,7 @@ CaptureOverlay::CaptureOverlay(Capturer &capturer)
   setCursor(Qt::CrossCursor);
 }
 
-void CaptureOverlay::setScreen(QScreen &screen)
+void CaptureAreaSelector::setScreen(QScreen &screen)
 {
   const auto geometry = screen.availableGeometry();
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
@@ -32,18 +32,18 @@ void CaptureOverlay::setScreen(QScreen &screen)
   setGeometry(geometry);
 }
 
-void CaptureOverlay::showEvent(QShowEvent * /*event*/)
+void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
 {
   startSelectPos_ = currentSelectPos_ = QPoint();
 }
 
-void CaptureOverlay::keyPressEvent(QKeyEvent *event)
+void CaptureAreaSelector::keyPressEvent(QKeyEvent *event)
 {
   if (event->key() == Qt::Key_Escape)
     capturer_.canceled();
 }
 
-void CaptureOverlay::paintEvent(QPaintEvent * /*event*/)
+void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
 {
   auto selection = QRect(startSelectPos_, currentSelectPos_).normalized();
   if (!selection.isValid())
@@ -54,13 +54,13 @@ void CaptureOverlay::paintEvent(QPaintEvent * /*event*/)
   painter.drawRect(selection);
 }
 
-void CaptureOverlay::mousePressEvent(QMouseEvent *event)
+void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
 {
   if (startSelectPos_.isNull())
     startSelectPos_ = event->pos();
 }
 
-void CaptureOverlay::mouseMoveEvent(QMouseEvent *event)
+void CaptureAreaSelector::mouseMoveEvent(QMouseEvent *event)
 {
   if (startSelectPos_.isNull())
     return;
@@ -69,7 +69,7 @@ void CaptureOverlay::mouseMoveEvent(QMouseEvent *event)
   repaint();
 }
 
-void CaptureOverlay::mouseReleaseEvent(QMouseEvent *event)
+void CaptureAreaSelector::mouseReleaseEvent(QMouseEvent *event)
 {
   if (startSelectPos_.isNull() || pixmap_.isNull())
     return;

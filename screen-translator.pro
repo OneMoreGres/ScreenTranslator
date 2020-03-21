@@ -30,7 +30,7 @@ INCLUDEPATH += src src/service src/capture src/ocr \
   src/represent src/translate src/correct
 
 HEADERS += \
-  src/capture/captureoverlay.h \
+  src/capture/captureareaselector.h \
   src/capture/capturer.h \
   src/correct/corrector.h \
   src/languagecodes.h \
@@ -58,7 +58,7 @@ HEADERS += \
   src/trayicon.h
 
 SOURCES += \
-  src/capture/captureoverlay.cpp \
+  src/capture/captureareaselector.cpp \
   src/capture/capturer.cpp \
   src/correct/corrector.cpp \
   src/languagecodes.cpp \

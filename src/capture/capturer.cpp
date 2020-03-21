@@ -1,5 +1,5 @@
 #include "capturer.h"
-#include "captureoverlay.h"
+#include "captureareaselector.h"
 #include "manager.h"
 #include "settings.h"
 #include "task.h"
@@ -48,18 +48,18 @@ void Capturer::showOverlays(bool capturePixmap)
 {
   const auto screens = QApplication::screens();
   const auto screensSize = screens.size();
-  int overlaysSize = overlays_.size();
+  int overlaysSize = selectors_.size();
   if (screensSize > overlaysSize)
-    overlays_.reserve(screensSize);
+    selectors_.reserve(screensSize);
 
   for (auto i = 0, end = screensSize; i < end; ++i) {
     if (i == overlaysSize) {
-      overlays_.push_back(new CaptureOverlay(*this));
+      selectors_.push_back(new CaptureAreaSelector(*this));
       ++overlaysSize;
     }
 
     const auto screen = screens[i];
-    auto &overlay = overlays_[i];
+    auto &overlay = selectors_[i];
     overlay->hide();
     if (capturePixmap)
       overlay->setScreen(*screen);
@@ -69,11 +69,11 @@ void Capturer::showOverlays(bool capturePixmap)
 
   if (screensSize < overlaysSize) {
     for (auto i = overlaysSize - 1; i >= screensSize; --i)
-      overlays_[i]->deleteLater();
+      selectors_[i]->deleteLater();
   }
 }
 
 void Capturer::hideOverlays()
 {
-  for (const auto &overlay : overlays_) overlay->hide();
+  for (const auto &overlay : selectors_) overlay->hide();
 }

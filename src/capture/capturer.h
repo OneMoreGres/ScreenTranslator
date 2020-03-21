@@ -4,8 +4,6 @@
 
 #include <vector>
 
-class CaptureOverlay;
-
 class Capturer
 {
 public:
@@ -24,5 +22,5 @@ private:
 
   Manager &manager_;
   const Settings &settings_;
-  std::vector<CaptureOverlay *> overlays_;
+  std::vector<CaptureAreaSelector *> selectors_;
 };

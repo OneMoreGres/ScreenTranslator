@@ -1,16 +1,17 @@
 #pragma once
 
+#include "stfwd.h"
+
 #include <QWidget>
 
-class Capturer;
 class QScreen;
 
-class CaptureOverlay : public QWidget
+class CaptureAreaSelector : public QWidget
 {
   Q_OBJECT
 
 public:
-  explicit CaptureOverlay(Capturer &capturer);
+  explicit CaptureAreaSelector(Capturer &capturer);
 
   void setScreen(QScreen &screen);
 
