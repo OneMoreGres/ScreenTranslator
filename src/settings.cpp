@@ -1,7 +1,9 @@
 #include "settings.h"
 #include "runatsystemstart.h"
 
+#include <QApplication>
 #include <QFile>
+#include <QFont>
 #include <QSettings>
 #include <QStandardPaths>
 
@@ -276,7 +278,8 @@ void Settings::load()
 
   settings.beginGroup(qs_representationGroup);
 
-  fontFamily = settings.value(qs_fontFamily, fontFamily).toString();
+  const auto defaultFont = QApplication::font().family();
+  fontFamily = settings.value(qs_fontFamily, defaultFont).toString();
   fontSize = std::clamp(settings.value(qs_fontSize, fontSize).toInt(), 6, 24);
   showRecognized = settings.value(qs_showRecognized, showRecognized).toBool();
   showCaptured = settings.value(qs_showCaptured, showCaptured).toBool();
