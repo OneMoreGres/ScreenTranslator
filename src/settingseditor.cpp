@@ -88,7 +88,7 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   connect(ui->applyUpdates, &QPushButton::clicked,  //
           &updater_, &update::Loader::applyUserActions);
 
-  new WidgetState(this);
+  new service::WidgetState(this);
 }
 
 SettingsEditor::~SettingsEditor()

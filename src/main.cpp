@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   a.setQuitOnLastWindowClosed(false);
 
   {
-    AppTranslator appTranslator({"screentranslator"});
+    service::AppTranslator appTranslator({"screentranslator"});
     appTranslator.retranslate();
   }
 
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     parser.process(a);
   }
 
-  SingleApplication guard;
+  service::SingleApplication guard;
   if (!guard.isValid())
     return 1;
 

@@ -2,6 +2,8 @@
 
 #include <QStringList>
 
+namespace service
+{
 class AppTranslator
 {
 public:
@@ -13,3 +15,5 @@ private:
   QStringList searchPaths() const;
   QStringList translationFiles_;
 };
+
+}  // namespace service

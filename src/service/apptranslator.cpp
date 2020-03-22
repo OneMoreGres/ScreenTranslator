@@ -4,6 +4,8 @@
 #include <QLibraryInfo>
 #include <QTranslator>
 
+namespace service
+{
 AppTranslator::AppTranslator(const QStringList &translationFiles)
   : translationFiles_(translationFiles)
 {
@@ -49,3 +51,5 @@ QStringList AppTranslator::searchPaths() const
       QLatin1String(":/translations"),
   };
 }
+
+}  // namespace service

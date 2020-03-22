@@ -3,6 +3,8 @@
 
 #include <QApplication>
 
+namespace service
+{
 QHash<QPair<quint32, quint32>, QAction *> GlobalAction::actions_;
 
 void GlobalAction::init()
@@ -70,12 +72,15 @@ void GlobalAction::triggerHotKey(quint32 nativeKey, quint32 nativeMods)
   if (action && action->isEnabled())
     action->activate(QAction::Trigger);
 }
+}  // namespace service
 
 #ifdef Q_OS_LINUX
 #include <X11/Xlib.h>
 #include <xcb/xcb_event.h>
 #include <QX11Info>
 
+namespace service
+{
 static bool error = false;
 
 static int customHandler(Display *display, XErrorEvent *event)
@@ -169,6 +174,8 @@ quint32 GlobalAction::nativeModifiers(Qt::KeyboardModifiers modifiers)
 #ifdef Q_OS_WIN
 #include <qt_windows.h>
 
+namespace service
+{
 bool GlobalAction::registerHotKey(quint32 nativeKey, quint32 nativeMods)
 {
   return RegisterHotKey(0, nativeMods ^ nativeKey, nativeMods, nativeKey);
@@ -319,6 +326,8 @@ quint32 GlobalAction::nativeModifiers(Qt::KeyboardModifiers modifiers)
 #ifdef Q_OS_MAC
 #include <Carbon/Carbon.h>
 
+namespace service
+{
 static bool isInited = false;
 static QHash<QPair<quint32, quint32>, EventHotKeyRef> hotkeyRefs;
 
@@ -479,3 +488,5 @@ quint32 GlobalAction::nativeModifiers(Qt::KeyboardModifiers modifiers)
 }
 
 #endif  // ifdef Q_OS_MAC
+
+}  // namespace service

@@ -89,7 +89,7 @@ Translator::Translator(Manager &manager, const Settings &settings)
 
   view_->setMinimumSize(200, 200);
 
-  new WidgetState(this);
+  new service::WidgetState(this);
 }
 
 Translator::~Translator() = default;

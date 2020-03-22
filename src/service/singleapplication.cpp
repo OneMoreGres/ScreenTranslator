@@ -15,6 +15,8 @@ static QString fileName(const QString &baseName)
          QDir::separator() + name + QLatin1String(".lock");
 }
 
+namespace service
+{
 SingleApplication::SingleApplication(const QString &baseName)
   : lockFile_(fileName(baseName))
 {
@@ -29,3 +31,5 @@ bool SingleApplication::isValid() const
 {
   return lockFile_.isLocked();
 }
+
+}  // namespace service

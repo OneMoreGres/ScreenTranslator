@@ -2,6 +2,8 @@
 
 #include <QLockFile>
 
+namespace service
+{
 class SingleApplication
 {
 public:
@@ -12,3 +14,5 @@ public:
 private:
   QLockFile lockFile_;
 };
+
+}  // namespace service

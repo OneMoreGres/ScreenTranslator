@@ -2,6 +2,8 @@
 
 #include <QObject>
 
+namespace service
+{
 class WidgetState : public QObject
 {
 public:
@@ -12,3 +14,5 @@ public:
   static void save(QWidget *widget);
   static void restore(QWidget *widget);
 };
+
+}  // namespace service

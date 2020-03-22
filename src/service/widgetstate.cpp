@@ -8,6 +8,8 @@
 #include <QSplitter>
 #include <QTableView>
 
+namespace service
+{
 namespace
 {
 enum class Action { Save, Restore };
@@ -116,3 +118,5 @@ void WidgetState::restore(QWidget *widget)
   SOFT_ASSERT(!widget->objectName().isEmpty(), return );
   apply(widget, Action::Restore);
 }
+
+}  // namespace service

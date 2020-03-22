@@ -7,6 +7,8 @@
 #include <QMenu>
 #include <QTimer>
 
+using GlobalAction = service::GlobalAction;
+
 TrayIcon::TrayIcon(Manager &manager, const Settings &settings)
   : manager_(manager)
   , settings_(settings)

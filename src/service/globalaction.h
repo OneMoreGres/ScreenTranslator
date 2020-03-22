@@ -5,6 +5,8 @@
 #include <QAbstractNativeEventFilter>
 #include <QAction>
 
+namespace service
+{
 class GlobalAction : public QAbstractNativeEventFilter
 {
 public:
@@ -27,3 +29,5 @@ private:
 
   friend struct ActionAdapter;
 };
+
+}  // namespace service
