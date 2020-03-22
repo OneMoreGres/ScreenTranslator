@@ -58,9 +58,11 @@ void CaptureAreaSelector::updateSettings()
   const auto targetName =
       target ? QObject::tr(target->name) : settings_.targetLanguage;
 
+  const auto translationState = settings_.doTranslation ? tr("on") : tr("off");
+
   help_ = tr(R"(Recognition language: %1
-Translation language: %2)")
-              .arg(sourceName, targetName);
+Translation language: %2 (%3))")
+              .arg(sourceName, targetName, translationState);
 }
 
 void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
