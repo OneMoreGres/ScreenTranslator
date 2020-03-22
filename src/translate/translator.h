@@ -21,6 +21,9 @@ public:
   void updateSettings();
   void finish(const TaskPtr &task);
 
+  static QStringList availableTranslators(const QString &path);
+  static QStringList availableLanguageNames();
+
 protected:
   void timerEvent(QTimerEvent *event) override;
   void closeEvent(QCloseEvent *event) override;

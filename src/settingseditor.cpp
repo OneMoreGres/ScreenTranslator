@@ -3,6 +3,7 @@
 #include "manager.h"
 #include "runatsystemstart.h"
 #include "tesseract.h"
+#include "translator.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
 #include "widgetstate.h"
@@ -224,17 +225,12 @@ void SettingsEditor::updateTranslators()
 {
   ui->translatorList->clear();
 
-  const auto path = ui->translatorsPath->text();
-  if (path.isEmpty())
+  auto names = Translator::availableTranslators(ui->translatorsPath->text());
+  if (names.isEmpty())
     return;
 
-  QDir dir(path);
-  if (!dir.exists())
-    return;
-
-  auto files = dir.entryList({"*.js"}, QDir::Files);
-  std::sort(files.begin(), files.end());
-  ui->translatorList->addItems(files);
+  std::sort(names.begin(), names.end());
+  ui->translatorList->addItems(names);
 
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
     auto item = ui->translatorList->item(i);
@@ -246,15 +242,12 @@ void SettingsEditor::updateTranslators()
 
 void SettingsEditor::updateTranslationLanguages()
 {
-  LanguageIds names;
-  LanguageCodes languages;
-
-  for (const auto &bundle : languages.all()) {
-    if (!bundle.second.iso639_1.isEmpty())
-      names.append(QObject::tr(bundle.second.name));
-  }
-
   ui->translateLangCombo->clear();
+
+  auto names = Translator::availableLanguageNames();
+  if (names.isEmpty())
+    return;
+
   std::sort(names.begin(), names.end());
   ui->translateLangCombo->addItems(names);
 }

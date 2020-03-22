@@ -1,5 +1,6 @@
 #include "translator.h"
 #include "debug.h"
+#include "languagecodes.h"
 #include "manager.h"
 #include "settings.h"
 #include "task.h"
@@ -8,6 +9,7 @@
 
 #include <QBoxLayout>
 #include <QCloseEvent>
+#include <QDir>
 #include <QLabel>
 #include <QLineEdit>
 #include <QSplitter>
@@ -272,6 +274,32 @@ void Translator::finish(const TaskPtr &task)
 {
   markTranslated(task);
   processQueue();
+}
+
+QStringList Translator::availableTranslators(const QString &path)
+{
+  if (path.isEmpty())
+    return {};
+
+  QDir dir(path);
+  if (!dir.exists())
+    return {};
+
+  const auto names = dir.entryList({"*.js"}, QDir::Files);
+  return names;
+}
+
+QStringList Translator::availableLanguageNames()
+{
+  QStringList names;
+  LanguageCodes languages;
+
+  for (const auto &bundle : languages.all()) {
+    if (!bundle.second.iso639_1.isEmpty())
+      names.append(QObject::tr(bundle.second.name));
+  }
+
+  return names;
 }
 
 void Translator::timerEvent(QTimerEvent * /*event*/)
