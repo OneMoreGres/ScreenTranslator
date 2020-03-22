@@ -57,9 +57,6 @@ Manager::Manager()
                    tray_.get(), [this] {
                      tray_->showInformation(QObject::tr("Updates available"));
                    });
-#ifdef DEVELOP
-  updater_->checkForUpdates();
-#endif
 }
 
 Manager::~Manager()

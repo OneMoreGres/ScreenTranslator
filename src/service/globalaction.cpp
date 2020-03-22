@@ -94,6 +94,7 @@ static int customHandler(Display *display, XErrorEvent *event)
           event->request_code == 34 /* X_UngrabKey */) {
         error = true;
       }
+      [[fallthrough]];
     default: return 0;
   }
 }

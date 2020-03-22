@@ -150,7 +150,6 @@ void Tesseract::init(const LanguageId &language, const QString &tessdataPath)
 
   error_ = QObject::tr("troubles with tessdata");
   engine_.reset();
-  return;
 }
 
 const QString &Tesseract::error() const

@@ -32,7 +32,7 @@ void Capturer::updatePixmap()
   screenRects.reserve(screens.size());
   QRect rect;
 
-  for (const auto screen : screens) {
+  for (const QScreen *screen : screens) {
     const auto geometry = screen->geometry();
     screenRects.push_back(geometry);
     rect |= geometry;
