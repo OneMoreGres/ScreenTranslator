@@ -1,4 +1,5 @@
 #include "capturer.h"
+#include "capturearea.h"
 #include "captureareaselector.h"
 #include "debug.h"
 #include "manager.h"
@@ -65,16 +66,17 @@ void Capturer::updateSettings()
   selector_->updateSettings();
 }
 
-void Capturer::captured(const TaskPtr &task)
+void Capturer::selected(const CaptureArea &area)
 {
-  SOFT_ASSERT(selector_, return );
+  SOFT_ASSERT(selector_, return manager_.captureCanceled())
   selector_->hide();
 
-  task->translators = settings_.translators;
-  task->sourceLanguage = settings_.sourceLanguage;
-  if (settings_.doTranslation)
-    task->targetLanguage = settings_.targetLanguage;
-  manager_.captured(task);
+  SOFT_ASSERT(!pixmap_.isNull(), return manager_.captureCanceled())
+  auto task = area.task(pixmap_);
+  if (task)
+    manager_.captured(task);
+  else
+    manager_.captureCanceled();
 }
 
 void Capturer::canceled()

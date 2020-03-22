@@ -15,6 +15,7 @@ class Representer;
 class Translator;
 class Corrector;
 class Recognizer;
+class CaptureArea;
 class CaptureAreaSelector;
 
 namespace update

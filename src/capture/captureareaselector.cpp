@@ -149,18 +149,9 @@ void CaptureAreaSelector::mouseReleaseEvent(QMouseEvent *event)
 
   const auto endPos = event->pos();
   const auto selection = QRect(startSelectPos_, endPos).normalized();
-  const auto selectedPixmap = pixmap_.copy(selection);
 
-  startSelectPos_ = currentSelectPos_ = QPoint();
+  startSelectPos_ = currentSelectPos_ = {};
 
-  if (selectedPixmap.width() < 3 || selectedPixmap.height() < 3) {
-    capturer_.canceled();
-    return;
-  }
-
-  auto task = std::make_shared<Task>();
-  task->captured = selectedPixmap;
-  task->capturePoint = pos() + selection.topLeft();
-  // TODO add customization menus
-  capturer_.captured(task);
+  const auto area = CaptureArea(selection, settings_);
+  capturer_.selected(area);
 }

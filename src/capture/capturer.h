@@ -14,7 +14,7 @@ public:
   void repeatCapture();
   void updateSettings();
 
-  void captured(const TaskPtr &task);
+  void selected(const CaptureArea &area);
   void canceled();
 
 private:
