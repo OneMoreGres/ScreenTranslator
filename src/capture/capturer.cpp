@@ -12,7 +12,7 @@
 Capturer::Capturer(Manager &manager, const Settings &settings)
   : manager_(manager)
   , settings_(settings)
-  , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_))
+  , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_, pixmap_))
 {
 }
 
@@ -49,7 +49,7 @@ void Capturer::updatePixmap()
   }
 
   SOFT_ASSERT(selector_, return );
-  selector_->setPixmap(combined);
+  pixmap_ = combined;
   selector_->setScreenRects(screenRects);
 }
 

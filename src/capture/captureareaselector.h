@@ -9,10 +9,10 @@ class CaptureAreaSelector : public QWidget
   Q_OBJECT
 
 public:
-  CaptureAreaSelector(Capturer &capturer, const Settings &settings);
+  CaptureAreaSelector(Capturer &capturer, const Settings &settings,
+                      const QPixmap &pixmap);
 
   void activate();
-  void setPixmap(const QPixmap &pixmap);
   void setScreenRects(const std::vector<QRect> &screens);
   void updateSettings();
 
@@ -31,10 +31,11 @@ private:
   };
 
   bool updateCurrentHelpRects();
+  void drawHelpRects(QPainter &painter, const HelpRect &rect) const;
 
   Capturer &capturer_;
   const Settings &settings_;
-  QPixmap pixmap_;
+  const QPixmap &pixmap_;
   QPoint startSelectPos_;
   QPoint currentSelectPos_;
   QString help_;

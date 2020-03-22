@@ -1,36 +1,31 @@
 #include "captureareaselector.h"
+#include "capturearea.h"
 #include "capturer.h"
 #include "languagecodes.h"
 #include "settings.h"
-#include "task.h"
 
 #include <QMouseEvent>
 #include <QPainter>
 
 CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
-                                         const Settings &settings)
+                                         const Settings &settings,
+                                         const QPixmap &pixmap)
   : capturer_(capturer)
   , settings_(settings)
+  , pixmap_(pixmap)
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
   setCursor(Qt::CrossCursor);
   setMouseTracking(true);
+  setAttribute(Qt::WA_OpaquePaintEvent);
 }
 
 void CaptureAreaSelector::activate()
 {
+  setGeometry(pixmap_.rect());
   show();
   activateWindow();
-}
-
-void CaptureAreaSelector::setPixmap(const QPixmap &pixmap)
-{
-  pixmap_ = pixmap;
-  auto palette = this->palette();
-  palette.setBrush(backgroundRole(), pixmap);
-  setPalette(palette);
-  setGeometry(pixmap_.rect());
 }
 
 void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
@@ -79,16 +74,9 @@ void CaptureAreaSelector::keyPressEvent(QKeyEvent *event)
 void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
 {
   QPainter painter(this);
+  painter.drawPixmap(rect(), pixmap_);
 
-  for (auto &screenHelp : helpRects_) {
-    painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
-    painter.setPen(Qt::NoPen);
-    painter.drawRect(screenHelp.current);
-
-    painter.setBrush({});
-    painter.setPen(Qt::black);
-    painter.drawText(screenHelp.current, Qt::AlignCenter, help_);
-  }
+  for (const auto &rect : helpRects_) drawHelpRects(painter, rect);
 
   auto selection = QRect(startSelectPos_, currentSelectPos_).normalized();
   if (!selection.isValid())
@@ -119,6 +107,18 @@ bool CaptureAreaSelector::updateCurrentHelpRects()
   }
 
   return changed;
+}
+
+void CaptureAreaSelector::drawHelpRects(QPainter &painter,
+                                        const HelpRect &rect) const
+{
+  painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
+  painter.setPen(Qt::NoPen);
+  painter.drawRect(rect.current);
+
+  painter.setBrush({});
+  painter.setPen(Qt::black);
+  painter.drawText(rect.current, Qt::AlignCenter, help_);
 }
 
 void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)

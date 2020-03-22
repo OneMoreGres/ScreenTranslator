@@ -2,7 +2,7 @@
 
 #include "stfwd.h"
 
-#include <vector>
+#include <QPixmap>
 
 class Capturer
 {
@@ -22,5 +22,6 @@ private:
 
   Manager &manager_;
   const Settings &settings_;
+  QPixmap pixmap_;
   std::unique_ptr<CaptureAreaSelector> selector_;
 };
