@@ -8,6 +8,7 @@ class Capturer
 {
 public:
   Capturer(Manager &manager, const Settings &settings);
+  ~Capturer();
 
   void capture();
   void repeatCapture();
@@ -17,10 +18,9 @@ public:
   void canceled();
 
 private:
-  void showOverlays(bool capturePixmap);
-  void hideOverlays();
+  void updatePixmap();
 
   Manager &manager_;
   const Settings &settings_;
-  std::vector<CaptureAreaSelector *> selectors_;
+  std::unique_ptr<CaptureAreaSelector> selector_;
 };

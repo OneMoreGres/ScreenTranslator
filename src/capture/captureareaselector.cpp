@@ -6,7 +6,6 @@
 
 #include <QMouseEvent>
 #include <QPainter>
-#include <QScreen>
 
 CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
                                          const Settings &settings)
@@ -19,27 +18,37 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
   setMouseTracking(true);
 }
 
-void CaptureAreaSelector::setScreen(QScreen &screen)
+void CaptureAreaSelector::activate()
 {
-  const auto geometry = screen.availableGeometry();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-  const auto pixmap =
-      screen.grabWindow(0, 0, 0, geometry.width(), geometry.height());
-#else
-  const auto pixmap = screen.grabWindow(0, geometry.x(), geometry.y(),
-                                        geometry.width(), geometry.height());
-#endif
-  pixmap_ = pixmap;
+  show();
+  activateWindow();
+}
 
+void CaptureAreaSelector::setPixmap(const QPixmap &pixmap)
+{
+  pixmap_ = pixmap;
   auto palette = this->palette();
   palette.setBrush(backgroundRole(), pixmap);
   setPalette(palette);
-  setGeometry(geometry);
-
-  updateHelp();
+  setGeometry(pixmap_.rect());
 }
 
-void CaptureAreaSelector::updateHelp()
+void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
+{
+  auto helpRect = fontMetrics().boundingRect({}, 0, help_);
+  helpRect.setSize(helpRect.size() * 1.4);
+
+  helpRects_.clear();
+  helpRects_.reserve(screens.size());
+  for (const auto &screen : screens) {
+    auto possible = std::vector<QRect>(2, helpRect);
+    possible[0].moveTopLeft(screen.topLeft());
+    possible[1].moveTopRight(screen.topRight());
+    helpRects_.push_back({possible[0], possible});
+  }
+}
+
+void CaptureAreaSelector::updateSettings()
 {
   LanguageCodes languages;
   const auto source = languages.findById(settings_.sourceLanguage);
@@ -52,14 +61,6 @@ void CaptureAreaSelector::updateHelp()
   help_ = tr(R"(Recognition language: %1
 Translation language: %2)")
               .arg(sourceName, targetName);
-
-  const auto rect = this->rect();
-  auto helpRect = fontMetrics().boundingRect({}, 0, help_);
-  helpRect.setSize(helpRect.size() * 1.4);
-  helpRects_ = std::vector<QRect>(2, helpRect);
-  helpRects_[0].moveTopLeft(rect.topLeft());
-  helpRects_[1].moveTopRight(rect.topRight());
-  currentHelpRect_ = helpRects_[0];
 }
 
 void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
@@ -77,22 +78,15 @@ void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
 {
   QPainter painter(this);
 
-  const auto cursor = mapFromGlobal(QCursor::pos());
-  if (currentHelpRect_.contains(cursor)) {
-    for (const auto &rect : helpRects_) {
-      if (!rect.contains(cursor)) {
-        currentHelpRect_ = rect;
-        break;
-      }
-    }
-  }
+  for (auto &screenHelp : helpRects_) {
+    painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
+    painter.setPen(Qt::NoPen);
+    painter.drawRect(screenHelp.current);
 
-  painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
-  painter.setPen(Qt::NoPen);
-  painter.drawRect(currentHelpRect_);
-  painter.setBrush({});
-  painter.setPen(Qt::black);
-  painter.drawText(currentHelpRect_, Qt::AlignCenter, help_);
+    painter.setBrush({});
+    painter.setPen(Qt::black);
+    painter.drawText(screenHelp.current, Qt::AlignCenter, help_);
+  }
 
   auto selection = QRect(startSelectPos_, currentSelectPos_).normalized();
   if (!selection.isValid())
@@ -101,6 +95,28 @@ void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
   painter.setBrush({});
   painter.setPen(Qt::red);
   painter.drawRect(selection);
+}
+
+bool CaptureAreaSelector::updateCurrentHelpRects()
+{
+  const auto cursor = mapFromGlobal(QCursor::pos());
+  auto changed = false;
+
+  for (auto &screenHelp : helpRects_) {
+    if (!screenHelp.current.contains(cursor))
+      continue;
+
+    for (const auto &screenPossible : screenHelp.possible) {
+      if (screenPossible.contains(cursor))
+        continue;
+
+      screenHelp.current = screenPossible;
+      changed = true;
+      break;
+    }
+  }
+
+  return changed;
 }
 
 void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
@@ -112,12 +128,13 @@ void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
 void CaptureAreaSelector::mouseMoveEvent(QMouseEvent *event)
 {
   if (startSelectPos_.isNull()) {
-    if (currentHelpRect_.contains(event->pos()))
+    if (updateCurrentHelpRects())
       update();
     return;
   }
 
   currentSelectPos_ = event->pos();
+  updateCurrentHelpRects();
   update();
 }
 

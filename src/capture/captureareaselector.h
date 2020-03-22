@@ -4,8 +4,6 @@
 
 #include <QWidget>
 
-class QScreen;
-
 class CaptureAreaSelector : public QWidget
 {
   Q_OBJECT
@@ -13,7 +11,10 @@ class CaptureAreaSelector : public QWidget
 public:
   CaptureAreaSelector(Capturer &capturer, const Settings &settings);
 
-  void setScreen(QScreen &screen);
+  void activate();
+  void setPixmap(const QPixmap &pixmap);
+  void setScreenRects(const std::vector<QRect> &screens);
+  void updateSettings();
 
 protected:
   void showEvent(QShowEvent *event) override;
@@ -24,7 +25,12 @@ protected:
   void paintEvent(QPaintEvent *event) override;
 
 private:
-  void updateHelp();
+  struct HelpRect {
+    QRect current;
+    std::vector<QRect> possible;
+  };
+
+  bool updateCurrentHelpRects();
 
   Capturer &capturer_;
   const Settings &settings_;
@@ -32,6 +38,5 @@ private:
   QPoint startSelectPos_;
   QPoint currentSelectPos_;
   QString help_;
-  QRect currentHelpRect_;
-  std::vector<QRect> helpRects_;
+  std::vector<HelpRect> helpRects_;
 };
