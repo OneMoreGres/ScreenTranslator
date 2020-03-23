@@ -6,7 +6,7 @@ function checkFinished () {
     if (!isPageLoaded || !isTranslationFinished || isScheduled) return;
     isScheduled = true;
     setTimeout(function () {
-        var text = document.querySelector ('#tta_output').value;
+        var text = document.querySelector ('#tta_output_ta').value;
         console.log (text);
         st_wtp.translated (text);
         isTranslationFinished = isScheduled = false;

@@ -13,7 +13,7 @@
         "path_linux": "ScreenTranslator"
     },
     "Bing translator": {
-        "version": 5,
+        "version": 6,
         "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js",
         "path": "translators/bing.js"
     },
