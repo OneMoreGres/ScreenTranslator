@@ -13,7 +13,7 @@ CaptureArea::CaptureArea(const QRect &rect, const Settings &settings)
 
 TaskPtr CaptureArea::task(const QPixmap &pixmap) const
 {
-  if (pixmap.isNull() || rect_.width() < 3 || rect_.height() < 3)
+  if (pixmap.isNull() || !isValid())
     return {};
 
   auto task = std::make_shared<Task>();
@@ -26,4 +26,19 @@ TaskPtr CaptureArea::task(const QPixmap &pixmap) const
   }
 
   return task;
+}
+
+bool CaptureArea::isValid() const
+{
+  return !(rect_.width() < 3 || rect_.height() < 3);
+}
+
+const QRect &CaptureArea::rect() const
+{
+  return rect_;
+}
+
+void CaptureArea::setRect(const QRect &rect)
+{
+  rect_ = rect;
 }

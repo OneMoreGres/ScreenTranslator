@@ -31,6 +31,7 @@ INCLUDEPATH += src src/service src/capture src/ocr \
 
 HEADERS += \
   src/capture/capturearea.h \
+  src/capture/captureareaeditor.h \
   src/capture/captureareaselector.h \
   src/capture/capturer.h \
   src/correct/corrector.h \
@@ -60,6 +61,7 @@ HEADERS += \
 
 SOURCES += \
   src/capture/capturearea.cpp \
+  src/capture/captureareaeditor.cpp \
   src/capture/captureareaselector.cpp \
   src/capture/capturer.cpp \
   src/correct/corrector.cpp \

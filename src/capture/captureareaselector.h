@@ -11,6 +11,7 @@ class CaptureAreaSelector : public QWidget
 public:
   CaptureAreaSelector(Capturer &capturer, const Settings &settings,
                       const QPixmap &pixmap);
+  ~CaptureAreaSelector();
 
   void activate();
   void setScreenRects(const std::vector<QRect> &screens);
@@ -18,6 +19,7 @@ public:
 
 protected:
   void showEvent(QShowEvent *event) override;
+  void hideEvent(QHideEvent *event) override;
   void keyPressEvent(QKeyEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
   void mouseMoveEvent(QMouseEvent *event) override;
@@ -33,6 +35,10 @@ private:
   bool updateCurrentHelpRects();
   void drawHelpRects(QPainter &painter, const HelpRect &rect) const;
 
+  void customize(const CaptureArea &area);
+  void applyEditor();
+  void drawCaptureArea(QPainter &painter, const CaptureArea &area) const;
+
   Capturer &capturer_;
   const Settings &settings_;
   const QPixmap &pixmap_;
@@ -40,4 +46,6 @@ private:
   QPoint currentSelectPos_;
   QString help_;
   std::vector<HelpRect> helpRects_;
+  std::unique_ptr<CaptureArea> area_;
+  std::unique_ptr<CaptureAreaEditor> editor_;
 };

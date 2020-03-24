@@ -17,6 +17,7 @@ class Corrector;
 class Recognizer;
 class CaptureArea;
 class CaptureAreaSelector;
+class CaptureAreaEditor;
 
 namespace update
 {

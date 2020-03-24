@@ -13,7 +13,13 @@ public:
   CaptureArea(const QRect& rect, const Settings& settings);
   TaskPtr task(const QPixmap& pixmap) const;
 
+  bool isValid() const;
+  const QRect& rect() const;
+  void setRect(const QRect& rect);
+
 private:
+  friend class CaptureAreaEditor;
+
   QRect rect_;
   bool doTranslation_;
   LanguageId sourceLanguage_;

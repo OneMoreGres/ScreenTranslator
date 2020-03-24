@@ -1,6 +1,8 @@
 #include "captureareaselector.h"
 #include "capturearea.h"
+#include "captureareaeditor.h"
 #include "capturer.h"
+#include "debug.h"
 #include "languagecodes.h"
 #include "settings.h"
 
@@ -13,6 +15,7 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
   : capturer_(capturer)
   , settings_(settings)
   , pixmap_(pixmap)
+  , editor_(std::make_unique<CaptureAreaEditor>(*this))
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -20,6 +23,8 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
   setMouseTracking(true);
   setAttribute(Qt::WA_OpaquePaintEvent);
 }
+
+CaptureAreaSelector::~CaptureAreaSelector() = default;
 
 void CaptureAreaSelector::activate()
 {
@@ -51,19 +56,15 @@ void CaptureAreaSelector::updateSettings()
   const auto translationState = settings_.doTranslation ? tr("on") : tr("off");
 
   help_ = tr(R"(Recognition language: %1
-Translation language: %2 (%3))")
+Translation language: %2 (%3)
+Right click on selection - customize
+Left click on selection - process)")
               .arg(sourceName, targetName, translationState);
-}
 
-void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
-{
-  startSelectPos_ = currentSelectPos_ = QPoint();
-}
+  area_.reset();
 
-void CaptureAreaSelector::keyPressEvent(QKeyEvent *event)
-{
-  if (event->key() == Qt::Key_Escape)
-    capturer_.canceled();
+  SOFT_ASSERT(editor_, return );
+  editor_->updateSettings(settings_);
 }
 
 void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
@@ -72,6 +73,15 @@ void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
   painter.drawPixmap(rect(), pixmap_);
 
   for (const auto &rect : helpRects_) drawHelpRects(painter, rect);
+
+  if (area_)
+    drawCaptureArea(painter, *area_);
+
+  if (editor_->isVisible()) {
+    painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
+    painter.setPen(Qt::NoPen);
+    painter.drawRect(editor_->geometry());
+  }
 
   auto selection = QRect(startSelectPos_, currentSelectPos_).normalized();
   if (!selection.isValid())
@@ -116,8 +126,54 @@ void CaptureAreaSelector::drawHelpRects(QPainter &painter,
   painter.drawText(rect.current, Qt::AlignCenter, help_);
 }
 
+void CaptureAreaSelector::drawCaptureArea(QPainter &painter,
+                                          const CaptureArea &area) const
+{
+  painter.setBrush(QBrush(QColor(200, 200, 200, 50)));
+  painter.setPen(Qt::NoPen);
+  painter.drawRect(area.rect());
+
+  painter.setBrush({});
+  painter.setPen(Qt::red);
+  painter.drawRect(area.rect());
+}
+
+void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
+{
+  editor_->hide();
+  area_.reset();
+  startSelectPos_ = currentSelectPos_ = QPoint();
+}
+
+void CaptureAreaSelector::hideEvent(QHideEvent * /*event*/)
+{
+  editor_->hide();
+}
+
+void CaptureAreaSelector::keyPressEvent(QKeyEvent *event)
+{
+  if (event->key() == Qt::Key_Escape)
+    capturer_.canceled();
+}
+
 void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
 {
+  SOFT_ASSERT(editor_, return );
+  if (editor_->isVisible()) {
+    if (editor_->geometry().contains(event->pos()))
+      return;
+    applyEditor();
+  }
+
+  if (area_ && area_->rect().contains(event->pos())) {
+    if (event->button() == Qt::LeftButton) {
+      capturer_.selected(*area_);
+    } else if (event->button() == Qt::RightButton) {
+      customize(*area_);
+    }
+    return;
+  }
+
   if (startSelectPos_.isNull())
     startSelectPos_ = event->pos();
 }
@@ -137,10 +193,8 @@ void CaptureAreaSelector::mouseMoveEvent(QMouseEvent *event)
 
 void CaptureAreaSelector::mouseReleaseEvent(QMouseEvent *event)
 {
-  if (startSelectPos_.isNull() || pixmap_.isNull()) {
-    capturer_.canceled();
+  if (startSelectPos_.isNull())
     return;
-  }
 
   const auto endPos = event->pos();
   const auto selection = QRect(startSelectPos_, endPos).normalized();
@@ -148,5 +202,33 @@ void CaptureAreaSelector::mouseReleaseEvent(QMouseEvent *event)
   startSelectPos_ = currentSelectPos_ = {};
 
   const auto area = CaptureArea(selection, settings_);
-  capturer_.selected(area);
+  if (!area.isValid()) {
+    capturer_.canceled();
+    return;
+  }
+
+  if (event->button() != Qt::RightButton) {
+    capturer_.selected(area);
+  } else {
+    area_ = std::make_unique<CaptureArea>(area);
+    customize(*area_);
+  }
+}
+
+void CaptureAreaSelector::customize(const CaptureArea &area)
+{
+  SOFT_ASSERT(editor_, return );
+  editor_->set(area);
+  editor_->move(QCursor::pos());
+  editor_->show();
+  update();
+}
+
+void CaptureAreaSelector::applyEditor()
+{
+  SOFT_ASSERT(editor_, return );
+  if (!editor_->isVisible() || !area_)
+    return;
+  editor_->apply(*area_);
+  editor_->hide();
 }
