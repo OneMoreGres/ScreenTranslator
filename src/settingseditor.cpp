@@ -119,9 +119,8 @@ Settings SettingsEditor::settings() const
   settings.proxyPassword = ui->proxyPassEdit->text();
   settings.proxySavePassword = ui->proxySaveCheck->isChecked();
 
-  LanguageCodes langs;
-  if (auto lang = langs.findByName(ui->tesseractLangCombo->currentText()))
-    settings.sourceLanguage = lang->id;
+  settings.sourceLanguage =
+      LanguageCodes::idForName(ui->tesseractLangCombo->currentText());
 
   settings.useUserSubstitutions = ui->useUserSubstitutions->isChecked();
   settings.userSubstitutions = ui->userSubstitutionsTable->substitutions();
@@ -131,8 +130,8 @@ Settings SettingsEditor::settings() const
   settings.debugMode = ui->translatorDebugCheck->isChecked();
   settings.translationTimeout =
       std::chrono::seconds(ui->translateTimeoutSpin->value());
-  if (auto lang = langs.findByName(ui->translateLangCombo->currentText()))
-    settings.targetLanguage = lang->id;
+  settings.targetLanguage =
+      LanguageCodes::idForName(ui->translateLangCombo->currentText());
 
   settings.translators.clear();
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
@@ -174,11 +173,10 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxyPassEdit->setText(settings.proxyPassword);
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
-  LanguageCodes langs;
   ui->tessdataPath->setText(settings.tessdataPath);
   updateTesseractLanguages();
-  if (auto lang = langs.findById(settings.sourceLanguage))
-    ui->tesseractLangCombo->setCurrentText(QObject::tr(lang->name));
+  ui->tesseractLangCombo->setCurrentText(
+      LanguageCodes::name(settings.sourceLanguage));
 
   ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
   ui->userSubstitutionsTable->setTessdataPath(settings.tessdataPath);
@@ -191,8 +189,8 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->translatorsPath->setText(settings.translatorsDir);
   enabledTranslators_ = settings.translators;
   updateTranslators();
-  if (auto lang = langs.findById(settings.targetLanguage))
-    ui->translateLangCombo->setCurrentText(QObject::tr(lang->name));
+  ui->translateLangCombo->setCurrentText(
+      LanguageCodes::name(settings.targetLanguage));
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);

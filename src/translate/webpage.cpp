@@ -96,10 +96,9 @@ void WebPage::setTimeout(std::chrono::seconds timeout)
 
 void WebPage::start(const TaskPtr &task)
 {
-  LanguageCodes languages;
-  auto sourceLanguage = languages.findById(task->sourceLanguage);
-  auto targetLanguage = languages.findById(task->targetLanguage);
-  if (!sourceLanguage || !targetLanguage) {
+  const auto sourceLanguage = LanguageCodes::iso639_1(task->sourceLanguage);
+  const auto targetLanguage = LanguageCodes::iso639_1(task->targetLanguage);
+  if (sourceLanguage.isEmpty() || targetLanguage.isEmpty()) {
     task->error = QObject::tr("unknown translation languages: %1 or %2")
                       .arg(task->sourceLanguage)
                       .arg(task->targetLanguage);
@@ -111,8 +110,7 @@ void WebPage::start(const TaskPtr &task)
   isBusy_ = true;
   nextIdleTime_ = QDateTime::currentDateTime().addSecs(timeout_.count());
 
-  proxy_->translate(task->corrected, sourceLanguage->iso639_1,
-                    targetLanguage->iso639_1);
+  proxy_->translate(task->corrected, sourceLanguage, targetLanguage);
 }
 
 bool WebPage::checkBusy()

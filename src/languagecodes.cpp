@@ -206,41 +206,50 @@ const std::unordered_map<LanguageId, LanguageCodes::Bundle>
 #undef I
 #undef S
 
-std::optional<LanguageCodes::Bundle> LanguageCodes::findById(
-    const LanguageId &id) const
-{
-  auto it = codes_.find(id);
-  if (it != codes_.cend())
-    return it->second;
-  return {};
-}
-
-std::optional<LanguageCodes::Bundle> LanguageCodes::findByName(
-    const QString &name) const
+LanguageId LanguageCodes::idForName(const QString &name)
 {
   auto it = std::find_if(codes_.cbegin(), codes_.cend(),
                          [name](const std::pair<LanguageId, Bundle> &i) {
                            return name == QObject::tr(i.second.name);
                          });
   if (it != codes_.cend())
-    return it->second;
-  return {};
+    return it->first;
+  return name;
 }
 
-std::optional<LanguageCodes::Bundle> LanguageCodes::findByTesseract(
-    const QString &name) const
+LanguageId LanguageCodes::idForTesseract(const QString &tesseract)
 {
   auto it = std::find_if(codes_.cbegin(), codes_.cend(),
-                         [name](const std::pair<LanguageId, Bundle> &i) {
-                           return name == i.second.tesseract;
+                         [tesseract](const std::pair<LanguageId, Bundle> &i) {
+                           return tesseract == i.second.tesseract;
                          });
   if (it != codes_.cend())
-    return it->second;
-  return {};
+    return it->first;
+  return tesseract;
 }
 
-const std::unordered_map<LanguageId, LanguageCodes::Bundle>
-    &LanguageCodes::all() const
+QString LanguageCodes::iso639_1(const LanguageId &id)
 {
-  return codes_;
+  auto it = codes_.find(id);
+  return it != codes_.cend() ? it->second.iso639_1 : id;
+}
+
+QString LanguageCodes::tesseract(const LanguageId &id)
+{
+  auto it = codes_.find(id);
+  return it != codes_.cend() ? it->second.tesseract : id;
+}
+
+QString LanguageCodes::name(const LanguageId &id)
+{
+  auto it = codes_.find(id);
+  return it != codes_.cend() ? QObject::tr(it->second.name) : id;
+}
+
+std::vector<LanguageId> LanguageCodes::allIds()
+{
+  std::vector<LanguageId> result;
+  result.reserve(codes_.size());
+  for (const auto &code : codes_) result.push_back(code.first);
+  return result;
 }

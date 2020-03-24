@@ -133,17 +133,11 @@ void Tesseract::init(const LanguageId &language, const QString &tessdataPath)
 {
   SOFT_ASSERT(!engine_, return );
 
-  LanguageCodes languages;
-  auto langCodes = languages.findById(language);
-  if (!langCodes) {
-    error_ = QObject::tr("unknown recognition language: %1").arg(language);
-    return;
-  }
-
   engine_ = std::make_unique<tesseract::TessBaseAPI>();
 
+  const auto tesseractName = LanguageCodes::tesseract(language);
   auto result =
-      engine_->Init(qPrintable(tessdataPath), qPrintable(langCodes->tesseract),
+      engine_->Init(qPrintable(tessdataPath), qPrintable(tesseractName),
                     tesseract::OEM_DEFAULT);
   if (result == 0)
     return;
@@ -167,15 +161,12 @@ QStringList Tesseract::availableLanguageNames(const QString &path)
     return {};
 
   LanguageIds names;
-  LanguageCodes languages;
 
   const auto files = dir.entryList({"*.traineddata"}, QDir::Files);
   for (const auto &file : files) {
     const auto lang = file.left(file.indexOf("."));
-    if (const auto bundle = languages.findByTesseract(lang))
-      names.append(QObject::tr(bundle->name));
-    else
-      names.append(lang);
+    const auto name = LanguageCodes::name(LanguageCodes::idForTesseract(lang));
+    names.append(name);
   }
 
   if (names.isEmpty())

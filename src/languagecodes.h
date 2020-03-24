@@ -10,6 +10,14 @@ using LanguageId = QString;
 class LanguageCodes
 {
 public:
+  static LanguageId idForTesseract(const QString& tesseract);
+  static LanguageId idForName(const QString& name);
+  static QString iso639_1(const LanguageId& id);
+  static QString tesseract(const LanguageId& id);
+  static QString name(const LanguageId& id);
+  static std::vector<LanguageId> allIds();
+
+private:
   struct Bundle {
     LanguageId id;
     QString iso639_1;
@@ -17,11 +25,9 @@ public:
     const char* name;
   };
 
-  std::optional<Bundle> findById(const LanguageId& id) const;
-  std::optional<Bundle> findByName(const QString& name) const;
-  std::optional<Bundle> findByTesseract(const QString& name) const;
-  const std::unordered_map<LanguageId, Bundle>& all() const;
+  LanguageCodes() = delete;
+  LanguageCodes(const LanguageCodes&) = delete;
+  LanguageCodes& operator=(const LanguageCodes&) = delete;
 
-private:
   const static std::unordered_map<LanguageId, Bundle> codes_;
 };

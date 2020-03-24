@@ -45,13 +45,8 @@ void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
 
 void CaptureAreaSelector::updateSettings()
 {
-  LanguageCodes languages;
-  const auto source = languages.findById(settings_.sourceLanguage);
-  const auto sourceName =
-      source ? QObject::tr(source->name) : settings_.sourceLanguage;
-  const auto target = languages.findById(settings_.targetLanguage);
-  const auto targetName =
-      target ? QObject::tr(target->name) : settings_.targetLanguage;
+  const auto sourceName = LanguageCodes::name(settings_.sourceLanguage);
+  const auto targetName = LanguageCodes::name(settings_.targetLanguage);
 
   const auto translationState = settings_.doTranslation ? tr("on") : tr("off");
 

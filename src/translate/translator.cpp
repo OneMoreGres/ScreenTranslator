@@ -292,11 +292,11 @@ QStringList Translator::availableTranslators(const QString &path)
 QStringList Translator::availableLanguageNames()
 {
   QStringList names;
-  LanguageCodes languages;
 
-  for (const auto &bundle : languages.all()) {
-    if (!bundle.second.iso639_1.isEmpty())
-      names.append(QObject::tr(bundle.second.name));
+  for (const auto &id : LanguageCodes::allIds()) {
+    const auto iso = LanguageCodes::iso639_1(id);
+    if (!iso.isEmpty())
+      names.append(LanguageCodes::name(id));
   }
 
   return names;

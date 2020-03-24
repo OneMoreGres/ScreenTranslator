@@ -63,11 +63,9 @@ void SubstitutionsTable::updateModel(const Substitutions &substitutions)
   auto strings = Tesseract::availableLanguageNames(tessdataPath_);
 
   if (!substitutions.empty()) {
-    LanguageCodes languages;
     for (const auto &i : substitutions) {
-      auto name = i.first;
-      if (const auto bundle = languages.findByTesseract(name))
-        name = QObject::tr(bundle->name);
+      const auto name =
+          LanguageCodes::name(LanguageCodes::idForTesseract(i.first));
 
       if (!strings.contains(name))
         strings.append(name);
@@ -103,11 +101,7 @@ void SubstitutionsTable::addRow(const LanguageId &language,
 
   using E = Column;
   if (!language.isEmpty()) {
-    LanguageCodes langs;
-    if (auto lang = langs.findById(language))
-      combo->setCurrentText(QObject::tr(lang->name));
-    else
-      combo->setCurrentText(language);
+    combo->setCurrentText(LanguageCodes::name(language));
   } else if (rowCount() > 1) {
     const auto previousRow = rowCount() - 2;
     auto previousCombo =
@@ -129,9 +123,8 @@ std::pair<LanguageId, Substitution> SubstitutionsTable::at(int row) const
   auto combo = static_cast<QComboBox *>(cellWidget(row, int(E::Language)));
   SOFT_ASSERT(combo, return {});
 
-  LanguageCodes langs;
-  auto lang = langs.findByName(combo->currentText());
-  SOFT_ASSERT(lang, return {});
+  const auto langId = LanguageCodes::idForName(combo->currentText());
+  SOFT_ASSERT(!langId.isEmpty(), return {});
 
   Substitution sub;
   auto sourceItem = item(row, int(E::Source));
@@ -142,7 +135,7 @@ std::pair<LanguageId, Substitution> SubstitutionsTable::at(int row) const
   SOFT_ASSERT(targetItem, return {});
   sub.target = targetItem->text();
 
-  return std::make_pair(lang->id, sub);
+  return std::make_pair(langId, sub);
 }
 
 void SubstitutionsTable::handleItemChange(QTableWidgetItem *item)
