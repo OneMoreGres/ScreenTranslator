@@ -3,6 +3,7 @@
 #include "captureareaeditor.h"
 #include "capturer.h"
 #include "debug.h"
+#include "geometryutils.h"
 #include "languagecodes.h"
 #include "settings.h"
 
@@ -219,8 +220,10 @@ void CaptureAreaSelector::customize(const CaptureArea &area)
 {
   SOFT_ASSERT(editor_, return );
   editor_->set(area);
-  editor_->move(QCursor::pos());
   editor_->show();
+  const auto topLeft = service::geometry::cornerAtPoint(
+      area.rect().center(), editor_->size(), geometry());
+  editor_->move(topLeft);
   update();
 }
 

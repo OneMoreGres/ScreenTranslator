@@ -44,6 +44,7 @@ HEADERS += \
   src/represent/resultwidget.h \
   src/service/apptranslator.h \
   src/service/debug.h \
+  src/service/geometryutils.h \
   src/service/globalaction.h \
   src/service/runatsystemstart.h \
   src/service/singleapplication.h \
@@ -75,6 +76,7 @@ SOURCES += \
   src/represent/resultwidget.cpp \
   src/service/apptranslator.cpp \
   src/service/debug.cpp \
+  src/service/geometryutils.cpp \
   src/service/globalaction.cpp \
   src/service/runatsystemstart.cpp \
   src/service/singleapplication.cpp \
