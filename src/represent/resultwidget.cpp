@@ -76,14 +76,26 @@ void ResultWidget::show(const TaskPtr &task)
 
   QDesktopWidget *desktop = QApplication::desktop();
   Q_CHECK_PTR(desktop);
-  auto correction = QPoint((width() - task->captured.width()) / 2, lineWidth());
-  move(task->capturePoint - correction);
+  const auto correction =
+      QPoint((width() - task->captured.width()) / 2, lineWidth());
+  auto rect = QRect(task->capturePoint - correction, size());
 
-  auto screenRect = desktop->screenGeometry(this);
-  auto minY = screenRect.bottom() - height();
-  if (y() > minY) {
-    move(x(), minY);
+  const auto screenRect = desktop->screenGeometry(this);
+  const auto shouldTextOnTop = rect.bottom() > screenRect.bottom();
+  if (shouldTextOnTop)
+    rect.moveBottom(rect.top() + task->captured.height() + lineWidth());
+
+  auto layout = static_cast<QBoxLayout *>(this->layout());
+  SOFT_ASSERT(layout, return );
+  const auto isTextOnTop = layout->indexOf(recognized_) == 0;
+  if (isTextOnTop != shouldTextOnTop) {
+    layout->removeWidget(recognized_);
+    layout->removeWidget(translated_);
+    layout->insertWidget(shouldTextOnTop ? 0 : 1, recognized_);
+    layout->insertWidget(shouldTextOnTop ? 1 : 2, translated_);
   }
+
+  move(rect.topLeft());
 
   activateWindow();
 }
