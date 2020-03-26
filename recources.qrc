@@ -7,4 +7,7 @@
         <file alias="loadImages.png">share/images/loadImages.png</file>
         <file alias="loadImages@2x.png">share/images/loadImages@2x.png</file>
     </qresource>
+    <qresource prefix="/translations">
+        <file alias="screentranslator_ru.qm">share/translations/screentranslator_ru.qm</file>
+    </qresource>
 </RCC>
