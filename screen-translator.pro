@@ -105,8 +105,6 @@ TRANSLATIONS += \
 
 translations.files = $$PWD/share/translations/screentranslator_ru.qm
 
-translators.files = $$PWD/translators/*.js
-
 linux {
     PREFIX = /usr
 
@@ -124,8 +122,7 @@ win32 {
     RC_ICONS = $$PWD/share/images/icon.ico
     translations.path = /translations
     target.path = /
-    translators.path = /translators
-    INSTALLS += target translations translators
+    INSTALLS += target translations
 }
 mac {
     translations.path = Contents/Translations
