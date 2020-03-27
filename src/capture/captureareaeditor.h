@@ -20,6 +20,8 @@ public:
   void updateSettings(const Settings& settings);
 
 private:
+  void swapLanguages();
+
   CaptureAreaSelector& selector_;
   QCheckBox* doTranslation_;
   QComboBox* sourceLanguage_;

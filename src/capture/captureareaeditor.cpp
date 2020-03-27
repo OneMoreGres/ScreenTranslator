@@ -9,7 +9,9 @@
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QFormLayout>
+#include <QGridLayout>
+#include <QLabel>
+#include <QPushButton>
 #include <QStringListModel>
 
 CaptureAreaEditor::CaptureAreaEditor(CaptureAreaSelector &selector)
@@ -23,17 +25,36 @@ CaptureAreaEditor::CaptureAreaEditor(CaptureAreaSelector &selector)
 {
   setCursor(Qt::CursorShape::ArrowCursor);
 
-  auto layout = new QFormLayout(this);
-  layout->addRow(doTranslation_);
-  layout->addRow(tr("Recognition language"), sourceLanguage_);
-  layout->addRow(tr("Translation language"), targetLanguage_);
+  auto layout = new QGridLayout(this);
+  auto row = 0;
+  layout->addWidget(doTranslation_, row, 0, 1, 2);
+
+  ++row;
+  layout->addWidget(new QLabel(tr("Recognition language:")), row, 0);
+  layout->addWidget(sourceLanguage_, row, 1);
+  auto swapLanguages = new QPushButton(tr("⇵"));
+  layout->addWidget(swapLanguages, row, 2, 2, 1);
+
+  ++row;
+  layout->addWidget(new QLabel(tr("Translation language:")), row, 0);
+  layout->addWidget(targetLanguage_, row, 1);
 
   sourceLanguage_->setModel(sourceLanguageModel_.get());
   targetLanguage_->setModel(targetLanguageModel_.get());
   targetLanguage_->setEnabled(doTranslation_->isChecked());
 
+  swapLanguages->setFlat(true);
+  {
+    auto font = swapLanguages->font();
+    font.setPointSize(std::max(font.pointSize() * 2, 16));
+    swapLanguages->setFont(font);
+  }
+  swapLanguages->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
   connect(doTranslation_, &QCheckBox::toggled,  //
           targetLanguage_, &QComboBox::setEnabled);
+  connect(swapLanguages, &QPushButton::clicked,  //
+          this, &CaptureAreaEditor::swapLanguages);
 }
 
 CaptureAreaEditor::~CaptureAreaEditor() = default;
@@ -43,6 +64,13 @@ void CaptureAreaEditor::updateSettings(const Settings &settings)
   sourceLanguageModel_->setStringList(
       Tesseract::availableLanguageNames(settings.tessdataPath));
   targetLanguageModel_->setStringList(Translator::availableLanguageNames());
+}
+
+void CaptureAreaEditor::swapLanguages()
+{
+  const auto target = targetLanguage_->currentText();
+  targetLanguage_->setCurrentText(sourceLanguage_->currentText());
+  sourceLanguage_->setCurrentText(target);
 }
 
 void CaptureAreaEditor::set(const CaptureArea &area)
