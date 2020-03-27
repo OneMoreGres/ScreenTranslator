@@ -14,11 +14,13 @@ build_dir = path.abspath('build')
 dependencies_dir = path.abspath('deps')
 pro_file = path.abspath(path.dirname(__file__) +
                         '/../../screen-translator.pro')
+test_pro_file = path.abspath(path.dirname(__file__) +
+                             '/../../tests/tests.pro')
 app_version = 'testing'
 with open(pro_file, 'r') as f:
-  match = re.search(r'VER=(.*)', f.read())
-  if match:
-    app_version = match.group(1)
+    match = re.search(r'VER=(.*)', f.read())
+    if match:
+        app_version = match.group(1)
 ts_files_dir = path.abspath(path.dirname(__file__) + '/../../translations')
 
 os_name = getenv('OS', 'linux')

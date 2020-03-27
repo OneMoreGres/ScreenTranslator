@@ -75,6 +75,9 @@ jobs:
       - name: Build
         run: python ./share/ci/build.py
 
+      - name: Test
+        run: python ./share/ci/test.py
+
       - name: Create AppImage
         if: runner.os == 'Linux'
         shell: bash
