@@ -72,11 +72,11 @@ jobs:
       - name: Get tesseract
         run: python ./share/ci/get_tesseract.py
 
-      - name: Build
-        run: python ./share/ci/build.py
-
       - name: Test
         run: python ./share/ci/test.py
+
+      - name: Build
+        run: python ./share/ci/build.py
 
       - name: Create AppImage
         if: runner.os == 'Linux'
