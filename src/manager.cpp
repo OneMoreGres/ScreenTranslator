@@ -194,11 +194,8 @@ void Manager::translated(const TaskPtr &task)
 
   finishTask(task);
 
-  if (!task->isValid())
-    return;
-
   representer_->represent(task);
-  tray_->setTaskActionsEnabled(true);
+  tray_->setTaskActionsEnabled(!task->isNull());
 }
 
 void Manager::applySettings(const Settings &settings)

@@ -60,7 +60,6 @@ const TaskPtr &ResultWidget::task() const
 void ResultWidget::show(const TaskPtr &task)
 {
   task_ = task;
-  SOFT_ASSERT(task->isValid(), return );
 
   image_->setPixmap(task->captured);
 
