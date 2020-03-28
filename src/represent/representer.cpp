@@ -29,8 +29,10 @@ void Representer::clipboardLast()
   SOFT_ASSERT(widget_->task(), return );
   const auto task = widget_->task();
   QClipboard *clipboard = QApplication::clipboard();
-  clipboard->setText(task->recognized + QLatin1String(" - ") +
-                     task->translated);
+  auto text = task->recognized;
+  if (!task->translated.isEmpty())
+    text += QLatin1String(" - ") + task->translated;
+  clipboard->setText(text);
   tray_.showInformation(
       QObject::tr("The last result was copied to the clipboard."));
 }
