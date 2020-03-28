@@ -29,6 +29,7 @@ public:
 private:
   void updateSettings();
   void setupProxy(const Settings &settings);
+  void setupUpdates(const Settings &settings);
   void finishTask(const TaskPtr &task);
 
   std::unique_ptr<Settings> settings_;

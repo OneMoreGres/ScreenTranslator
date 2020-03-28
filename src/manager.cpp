@@ -72,18 +72,7 @@ void Manager::updateSettings()
   LTRACE() << "updateSettings";
   SOFT_ASSERT(settings_, return );
   setupProxy(*settings_);
-
-  updater_->model()->setExpansions({
-      {"$translators$", settings_->translatorsDir},
-      {"$tessdata$", settings_->tessdataPath},
-  });
-  if (settings_->autoUpdateIntervalDays > 0) {
-    updateAutoChecker_ = std::make_unique<update::AutoChecker>(*updater_);
-    updateAutoChecker_->setLastCheckDate(settings_->lastUpdateCheck);
-    updateAutoChecker_->setCheckIntervalDays(settings_->autoUpdateIntervalDays);
-  } else {
-    updateAutoChecker_.reset();
-  }
+  setupUpdates(*settings_);
 
   tray_->updateSettings();
   capturer_->updateSettings();
@@ -116,6 +105,22 @@ void Manager::setupProxy(const Settings &settings)
   proxy.setUser(settings.proxyUser);
   proxy.setPassword(settings.proxyPassword);
   QNetworkProxy::setApplicationProxy(proxy);
+}
+
+void Manager::setupUpdates(const Settings &settings)
+{
+  updater_->model()->setExpansions({
+      {"$translators$", settings.translatorsDir},
+      {"$tessdata$", settings.tessdataPath},
+  });
+
+  if (settings.autoUpdateIntervalDays > 0) {
+    updateAutoChecker_ = std::make_unique<update::AutoChecker>(*updater_);
+    updateAutoChecker_->setLastCheckDate(settings.lastUpdateCheck);
+    updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
+  } else {
+    updateAutoChecker_.reset();
+  }
 }
 
 void Manager::finishTask(const TaskPtr &task)
