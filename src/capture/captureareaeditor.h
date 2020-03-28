@@ -12,7 +12,7 @@ class CaptureAreaEditor : public QWidget
   Q_OBJECT
 public:
   explicit CaptureAreaEditor(const CommonModels& models,
-                             CaptureAreaSelector& selector);
+                             QWidget* parent = nullptr);
   ~CaptureAreaEditor();
 
   void set(const CaptureArea& area);
@@ -21,7 +21,6 @@ public:
 private:
   void swapLanguages();
 
-  CaptureAreaSelector& selector_;
   QCheckBox* doTranslation_;
   QComboBox* sourceLanguage_;
   QComboBox* targetLanguage_;

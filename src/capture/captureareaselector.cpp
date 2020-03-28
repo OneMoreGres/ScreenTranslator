@@ -17,7 +17,7 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
   : capturer_(capturer)
   , settings_(settings)
   , pixmap_(pixmap)
-  , editor_(std::make_unique<CaptureAreaEditor>(models, *this))
+  , editor_(std::make_unique<CaptureAreaEditor>(models, this))
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);

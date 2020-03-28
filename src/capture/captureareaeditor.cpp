@@ -11,9 +11,8 @@
 #include <QPushButton>
 
 CaptureAreaEditor::CaptureAreaEditor(const CommonModels &models,
-                                     CaptureAreaSelector &selector)
-  : QWidget(&selector)
-  , selector_(selector)
+                                     QWidget *parent)
+  : QWidget(parent)
   , doTranslation_(new QCheckBox(tr("Translate:"), this))
   , sourceLanguage_(new QComboBox(this))
   , targetLanguage_(new QComboBox(this))
