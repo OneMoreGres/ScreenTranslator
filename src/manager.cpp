@@ -11,7 +11,6 @@
 #include "updates.h"
 
 #include <QApplication>
-#include <QClipboard>
 #include <QMessageBox>
 #include <QNetworkProxy>
 
@@ -127,11 +126,9 @@ void Manager::finishTask(const TaskPtr &task)
   --activeTaskCount_;
   tray_->setActiveTaskCount(activeTaskCount_);
 
-  last_ = task;
-  tray_->setTaskActionsEnabled(last_->isValid());
-
   if (!task->isValid()) {
     tray_->showError(task->error);
+    tray_->setTaskActionsEnabled(false);
     return;
   }
 
@@ -201,6 +198,7 @@ void Manager::translated(const TaskPtr &task)
     return;
 
   representer_->represent(task);
+  tray_->setTaskActionsEnabled(true);
 }
 
 void Manager::applySettings(const Settings &settings)
@@ -232,14 +230,6 @@ void Manager::repeatCapture()
   capturer_->repeatCapture();
 }
 
-void Manager::showLast()
-{
-  if (!last_ || !last_->isValid())
-    return;
-  SOFT_ASSERT(representer_, return );
-  representer_->represent(last_);
-}
-
 void Manager::settings()
 {
   SettingsEditor editor(*this, *updater_);
@@ -260,16 +250,16 @@ void Manager::settings()
   applySettings(edited);
 }
 
+void Manager::showLast()
+{
+  SOFT_ASSERT(representer_, return );
+  representer_->showLast();
+}
+
 void Manager::copyLastToClipboard()
 {
-  if (!last_ || !last_->isValid())
-    return;
-
-  QClipboard *clipboard = QApplication::clipboard();
-  clipboard->setText(last_->recognized + QLatin1String(" - ") +
-                     last_->translated);
-  tray_->showInformation(
-      QObject::tr("The last result was copied to the clipboard."));
+  SOFT_ASSERT(representer_, return );
+  representer_->clipboardLast();
 }
 
 void Manager::about()

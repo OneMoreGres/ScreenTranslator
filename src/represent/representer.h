@@ -11,6 +11,8 @@ public:
   Representer(Manager &manager, TrayIcon &tray, const Settings &settings);
   ~Representer();
 
+  void showLast();
+  void clipboardLast();
   void represent(const TaskPtr &task);
   void updateSettings();
 

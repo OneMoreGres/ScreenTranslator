@@ -52,9 +52,16 @@ ResultWidget::ResultWidget(const Settings &settings, QWidget *parent)
   layout->setSpacing(1);
 }
 
+const TaskPtr &ResultWidget::task() const
+{
+  return task_;
+}
+
 void ResultWidget::show(const TaskPtr &task)
 {
+  task_ = task;
   SOFT_ASSERT(task->isValid(), return );
+
   image_->setPixmap(task->captured);
 
   recognized_->setText(task->corrected);

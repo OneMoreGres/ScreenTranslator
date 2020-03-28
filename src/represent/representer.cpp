@@ -1,9 +1,13 @@
 #include "representer.h"
+#include "debug.h"
 #include "manager.h"
 #include "resultwidget.h"
 #include "settings.h"
 #include "task.h"
 #include "trayicon.h"
+
+#include <QApplication>
+#include <QClipboard>
 
 Representer::Representer(Manager &manager, TrayIcon &tray,
                          const Settings &settings)
@@ -11,6 +15,24 @@ Representer::Representer(Manager &manager, TrayIcon &tray,
   , tray_(tray)
   , settings_(settings)
 {
+}
+
+void Representer::showLast()
+{
+  SOFT_ASSERT(widget_, return );
+  widget_->show();
+}
+
+void Representer::clipboardLast()
+{
+  SOFT_ASSERT(widget_, return );
+  SOFT_ASSERT(widget_->task(), return );
+  const auto task = widget_->task();
+  QClipboard *clipboard = QApplication::clipboard();
+  clipboard->setText(task->recognized + QLatin1String(" - ") +
+                     task->translated);
+  tray_.showInformation(
+      QObject::tr("The last result was copied to the clipboard."));
 }
 
 Representer::~Representer() = default;
