@@ -12,11 +12,12 @@
 
 CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
                                          const Settings &settings,
+                                         const CommonModels &models,
                                          const QPixmap &pixmap)
   : capturer_(capturer)
   , settings_(settings)
   , pixmap_(pixmap)
-  , editor_(std::make_unique<CaptureAreaEditor>(*this))
+  , editor_(std::make_unique<CaptureAreaEditor>(models, *this))
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -63,9 +64,6 @@ Left click on selection - process)")
               .arg(sourceName, targetName, translationState);
 
   area_.reset();
-
-  SOFT_ASSERT(editor_, return );
-  editor_->updateSettings(settings_);
 }
 
 void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)

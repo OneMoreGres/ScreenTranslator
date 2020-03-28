@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "capturer.h"
+#include "commonmodels.h"
 #include "corrector.h"
 #include "debug.h"
 #include "recognizer.h"
@@ -28,11 +29,12 @@ const auto updatesUrl =
 Manager::Manager()
   : settings_(std::make_unique<Settings>())
   , updater_(std::make_unique<update::Loader>(QUrl(updatesUrl)))
+  , models_(std::make_unique<CommonModels>())
 {
   SOFT_ASSERT(settings_, return );
 
   tray_ = std::make_unique<TrayIcon>(*this, *settings_);
-  capturer_ = std::make_unique<Capturer>(*this, *settings_);
+  capturer_ = std::make_unique<Capturer>(*this, *settings_, *models_);
   recognizer_ = std::make_unique<Recognizer>(*this, *settings_);
   translator_ = std::make_unique<Translator>(*this, *settings_);
   corrector_ = std::make_unique<Corrector>(*this, *settings_);
@@ -73,6 +75,8 @@ void Manager::updateSettings()
   SOFT_ASSERT(settings_, return );
   setupProxy(*settings_);
   setupUpdates(*settings_);
+
+  models_->update(settings_->tessdataPath);
 
   tray_->updateSettings();
   capturer_->updateSettings();

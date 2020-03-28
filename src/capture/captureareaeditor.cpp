@@ -1,27 +1,22 @@
 #include "captureareaeditor.h"
 #include "capturearea.h"
 #include "captureareaselector.h"
-#include "debug.h"
+#include "commonmodels.h"
 #include "languagecodes.h"
-#include "settings.h"
-#include "tesseract.h"
-#include "translator.h"
 
 #include <QCheckBox>
 #include <QComboBox>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QStringListModel>
 
-CaptureAreaEditor::CaptureAreaEditor(CaptureAreaSelector &selector)
+CaptureAreaEditor::CaptureAreaEditor(const CommonModels &models,
+                                     CaptureAreaSelector &selector)
   : QWidget(&selector)
   , selector_(selector)
   , doTranslation_(new QCheckBox(tr("Translate:"), this))
   , sourceLanguage_(new QComboBox(this))
   , targetLanguage_(new QComboBox(this))
-  , sourceLanguageModel_(std::make_unique<QStringListModel>())
-  , targetLanguageModel_(std::make_unique<QStringListModel>())
 {
   setCursor(Qt::CursorShape::ArrowCursor);
 
@@ -36,8 +31,8 @@ CaptureAreaEditor::CaptureAreaEditor(CaptureAreaSelector &selector)
   layout->addWidget(doTranslation_, row, 0);
   layout->addWidget(targetLanguage_, row, 1);
 
-  sourceLanguage_->setModel(sourceLanguageModel_.get());
-  targetLanguage_->setModel(targetLanguageModel_.get());
+  sourceLanguage_->setModel(models.sourceLanguageModel());
+  targetLanguage_->setModel(models.targetLanguageModel());
   targetLanguage_->setEnabled(doTranslation_->isChecked());
 
   swapLanguages->setFlat(true);
@@ -55,13 +50,6 @@ CaptureAreaEditor::CaptureAreaEditor(CaptureAreaSelector &selector)
 }
 
 CaptureAreaEditor::~CaptureAreaEditor() = default;
-
-void CaptureAreaEditor::updateSettings(const Settings &settings)
-{
-  sourceLanguageModel_->setStringList(
-      Tesseract::availableLanguageNames(settings.tessdataPath));
-  targetLanguageModel_->setStringList(Translator::availableLanguageNames());
-}
 
 void CaptureAreaEditor::swapLanguages()
 {

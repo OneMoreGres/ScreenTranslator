@@ -2,6 +2,7 @@
 
 #include <QDialog>
 
+#include "commonmodels.h"
 #include "settings.h"
 
 namespace Ui
@@ -23,17 +24,17 @@ public:
 
 private:
   void updateCurrentPage();
-  void updateTesseractLanguages();
   void updateTranslators();
-  void updateTranslationLanguages();
   void adjustUpdatesView();
   void handleButtonBoxClicked(QAbstractButton *button);
   void handlePortableChanged();
   void updateResultFont();
+  void updateModels(const QString &tessdataPath);
 
   Ui::SettingsEditor *ui;
   Manager &manager_;
   update::Loader &updater_;
+  CommonModels models_;
   QStringList enabledTranslators_;
   bool wasPortable_{false};
 };

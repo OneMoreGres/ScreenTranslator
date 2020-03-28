@@ -7,7 +7,8 @@
 class Capturer
 {
 public:
-  Capturer(Manager &manager, const Settings &settings);
+  Capturer(Manager &manager, const Settings &settings,
+           const CommonModels &models);
   ~Capturer();
 
   void capture();

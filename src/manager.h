@@ -41,5 +41,6 @@ private:
   std::unique_ptr<Representer> representer_;
   std::unique_ptr<update::Loader> updater_;
   std::unique_ptr<update::AutoChecker> updateAutoChecker_;
+  std::unique_ptr<CommonModels> models_;
   int activeTaskCount_{0};
 };

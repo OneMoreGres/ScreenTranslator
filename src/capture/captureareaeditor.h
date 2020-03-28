@@ -6,18 +6,17 @@
 
 class QCheckBox;
 class QComboBox;
-class QStringListModel;
 
 class CaptureAreaEditor : public QWidget
 {
   Q_OBJECT
 public:
-  explicit CaptureAreaEditor(CaptureAreaSelector& selector);
+  explicit CaptureAreaEditor(const CommonModels& models,
+                             CaptureAreaSelector& selector);
   ~CaptureAreaEditor();
 
   void set(const CaptureArea& area);
   void apply(CaptureArea& area) const;
-  void updateSettings(const Settings& settings);
 
 private:
   void swapLanguages();
@@ -26,6 +25,4 @@ private:
   QCheckBox* doTranslation_;
   QComboBox* sourceLanguage_;
   QComboBox* targetLanguage_;
-  std::unique_ptr<QStringListModel> sourceLanguageModel_;
-  std::unique_ptr<QStringListModel> targetLanguageModel_;
 };

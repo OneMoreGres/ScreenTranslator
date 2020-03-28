@@ -34,6 +34,7 @@ HEADERS += \
   src/capture/captureareaeditor.h \
   src/capture/captureareaselector.h \
   src/capture/capturer.h \
+  src/commonmodels.h \
   src/correct/corrector.h \
   src/languagecodes.h \
   src/manager.h \
@@ -65,6 +66,7 @@ SOURCES += \
   src/capture/captureareaeditor.cpp \
   src/capture/captureareaselector.cpp \
   src/capture/capturer.cpp \
+  src/commonmodels.cpp \
   src/correct/corrector.cpp \
   src/languagecodes.cpp \
   src/main.cpp \

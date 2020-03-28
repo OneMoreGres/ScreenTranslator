@@ -14,8 +14,9 @@ public:
 
   explicit SubstitutionsTable(QWidget* parent = nullptr);
 
+  void setSourceLanguageModel(QStringListModel* model);
+
   void setSubstitutions(const Substitutions& substitutions);
-  void setTessdataPath(const QString& tessdataPath);
   Substitutions substitutions() const;
 
 private:
@@ -25,6 +26,6 @@ private:
   std::pair<LanguageId, Substitution> at(int row) const;
   void updateModel(const Substitutions& substitutions);
 
-  QStringListModel* languagesModel_;
-  QString tessdataPath_;
+  QStringListModel* sourceLanguages_{nullptr};
+  QStringListModel* substitutionLanguages_;
 };

@@ -1,7 +1,6 @@
 #include "substitutionstable.h"
 #include "debug.h"
 #include "languagecodes.h"
-#include "tesseract.h"
 
 #include <QComboBox>
 #include <QPainter>
@@ -29,13 +28,23 @@ public:
 
 SubstitutionsTable::SubstitutionsTable(QWidget *parent)
   : QTableWidget(parent)
-  , languagesModel_(new QStringListModel(this))
+  , substitutionLanguages_(new QStringListModel(this))
 {
   setItemDelegate(new SubstitutionDelegate(this));
   setColumnCount(int(Column::Count));
   setHorizontalHeaderLabels({tr("Language"), tr("Source"), tr("Changed")});
   connect(this, &SubstitutionsTable::itemChanged,  //
           this, &SubstitutionsTable::handleItemChange);
+}
+
+void SubstitutionsTable::setSourceLanguageModel(QStringListModel *model)
+{
+  sourceLanguages_ = model;
+  connect(model, &QStringListModel::modelReset,  //
+          this, [this] {
+            if (rowCount() > 0)  // must be at least 1 if inited
+              setSubstitutions(substitutions());
+          });
 }
 
 void SubstitutionsTable::setSubstitutions(const Substitutions &substitutions)
@@ -50,17 +59,9 @@ void SubstitutionsTable::setSubstitutions(const Substitutions &substitutions)
   resizeColumnsToContents();
 }
 
-void SubstitutionsTable::setTessdataPath(const QString &tessdataPath)
-{
-  tessdataPath_ = tessdataPath;
-  if (rowCount() == 0)  // must be at least 1 if inited
-    return;
-  setSubstitutions(substitutions());
-}
-
 void SubstitutionsTable::updateModel(const Substitutions &substitutions)
 {
-  auto strings = Tesseract::availableLanguageNames(tessdataPath_);
+  auto strings = sourceLanguages_->stringList();
 
   if (!substitutions.empty()) {
     for (const auto &i : substitutions) {
@@ -73,7 +74,7 @@ void SubstitutionsTable::updateModel(const Substitutions &substitutions)
   }
 
   std::sort(strings.begin(), strings.end());
-  languagesModel_->setStringList(strings);
+  substitutionLanguages_->setStringList(strings);
 }
 
 Substitutions SubstitutionsTable::substitutions() const
@@ -97,7 +98,7 @@ void SubstitutionsTable::addRow(const LanguageId &language,
   insertRow(row);
 
   auto combo = new QComboBox(this);
-  combo->setModel(languagesModel_);
+  combo->setModel(substitutionLanguages_);
 
   using E = Column;
   if (!language.isEmpty()) {

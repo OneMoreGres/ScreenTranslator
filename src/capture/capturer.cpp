@@ -10,10 +10,12 @@
 #include <QPainter>
 #include <QScreen>
 
-Capturer::Capturer(Manager &manager, const Settings &settings)
+Capturer::Capturer(Manager &manager, const Settings &settings,
+                   const CommonModels &models)
   : manager_(manager)
   , settings_(settings)
-  , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_, pixmap_))
+  , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_, models,
+                                                    pixmap_))
 {
 }
 

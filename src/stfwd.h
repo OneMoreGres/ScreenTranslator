@@ -18,6 +18,7 @@ class Recognizer;
 class CaptureArea;
 class CaptureAreaSelector;
 class CaptureAreaEditor;
+class CommonModels;
 
 namespace update
 {

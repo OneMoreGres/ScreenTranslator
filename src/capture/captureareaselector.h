@@ -10,7 +10,7 @@ class CaptureAreaSelector : public QWidget
 
 public:
   CaptureAreaSelector(Capturer &capturer, const Settings &settings,
-                      const QPixmap &pixmap);
+                      const CommonModels &models, const QPixmap &pixmap);
   ~CaptureAreaSelector();
 
   void activate();

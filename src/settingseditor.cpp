@@ -54,13 +54,18 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
     ui->proxyPassEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
   }
 
+  // translation
+  ui->tesseractLangCombo->setModel(models_.sourceLanguageModel());
+
   // correction
   ui->userSubstitutionsTable->setEnabled(ui->useUserSubstitutions->isChecked());
+  ui->userSubstitutionsTable->setSourceLanguageModel(
+      models_.sourceLanguageModel());
   connect(ui->useUserSubstitutions, &QCheckBox::toggled,  //
           ui->userSubstitutionsTable, &QTableWidget::setEnabled);
 
   // translation
-  updateTranslationLanguages();
+  ui->translateLangCombo->setModel(models_.targetLanguageModel());
 
   // representation
   connect(ui->dialogRadio, &QRadioButton::toggled,  //
@@ -154,6 +159,9 @@ Settings SettingsEditor::settings() const
 
 void SettingsEditor::setSettings(const Settings &settings)
 {
+  if (settings.isPortable() == ui->portable->isChecked())
+    updateModels(settings.tessdataPath);
+
   wasPortable_ = settings.isPortable();
   ui->portable->setChecked(settings.isPortable());
 
@@ -174,12 +182,10 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
   ui->tessdataPath->setText(settings.tessdataPath);
-  updateTesseractLanguages();
   ui->tesseractLangCombo->setCurrentText(
       LanguageCodes::name(settings.sourceLanguage));
 
   ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
-  ui->userSubstitutionsTable->setTessdataPath(settings.tessdataPath);
   ui->userSubstitutionsTable->setSubstitutions(settings.userSubstitutions);
 
   ui->doTranslationCheck->setChecked(settings.doTranslation);
@@ -207,18 +213,6 @@ void SettingsEditor::updateCurrentPage()
   ui->pagesView->setCurrentIndex(ui->pagesList->currentIndex().row());
 }
 
-void SettingsEditor::updateTesseractLanguages()
-{
-  ui->tesseractLangCombo->clear();
-
-  auto names = Tesseract::availableLanguageNames(ui->tessdataPath->text());
-  if (names.isEmpty())
-    return;
-
-  std::sort(names.begin(), names.end());
-  ui->tesseractLangCombo->addItems(names);
-}
-
 void SettingsEditor::updateTranslators()
 {
   ui->translatorList->clear();
@@ -238,22 +232,14 @@ void SettingsEditor::updateTranslators()
   }
 }
 
-void SettingsEditor::updateTranslationLanguages()
-{
-  ui->translateLangCombo->clear();
-
-  auto names = Translator::availableLanguageNames();
-  if (names.isEmpty())
-    return;
-
-  std::sort(names.begin(), names.end());
-  ui->translateLangCombo->addItems(names);
-}
-
 void SettingsEditor::adjustUpdatesView()
 {
   ui->updatesView->resizeColumnToContents(int(update::Model::Column::Name));
-  updateTesseractLanguages();
+
+  if (ui->tessdataPath->text().isEmpty())  // not inited yet
+    return;
+
+  updateModels(ui->tessdataPath->text());
   updateTranslators();
 }
 
@@ -287,8 +273,7 @@ void SettingsEditor::handlePortableChanged()
   settings.setPortable(ui->portable->isChecked());
   ui->tessdataPath->setText(settings.tessdataPath);
   ui->translatorsPath->setText(settings.translatorsDir);
-  ui->userSubstitutionsTable->setTessdataPath(settings.tessdataPath);
-  updateTesseractLanguages();
+  updateModels(settings.tessdataPath);
   updateTranslators();
 
   const auto portableChanged = wasPortable_ != settings.isPortable();
@@ -303,4 +288,11 @@ void SettingsEditor::updateResultFont()
   auto font = ui->resultFont->currentFont();
   font.setPointSize(ui->resultFontSize->value());
   ui->resultFont->setFont(font);
+}
+
+void SettingsEditor::updateModels(const QString &tessdataPath)
+{
+  const auto source = ui->tesseractLangCombo->currentText();
+  models_.update(tessdataPath);
+  ui->tesseractLangCombo->setCurrentText(source);
 }
