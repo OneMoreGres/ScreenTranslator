@@ -45,6 +45,8 @@ const QString qs_translators = "translators";
 const QString qs_representationGroup = "Representation";
 const QString qs_fontFamily = "fontFamily";
 const QString qs_fontSize = "fontSize";
+const QString qs_fontColor = "fontColor";
+const QString qs_backgroundColor = "backgroundColor";
 const QString qs_showRecognized = "showRecognized";
 const QString qs_showCaptured = "showCaptured";
 
@@ -188,6 +190,8 @@ void Settings::save() const
 
   settings.setValue(qs_fontFamily, fontFamily);
   settings.setValue(qs_fontSize, fontSize);
+  settings.setValue(qs_fontColor, fontColor.name());
+  settings.setValue(qs_backgroundColor, backgroundColor.name());
   settings.setValue(qs_showRecognized, showRecognized);
   settings.setValue(qs_showCaptured, showCaptured);
 
@@ -281,6 +285,9 @@ void Settings::load()
   const auto defaultFont = QApplication::font().family();
   fontFamily = settings.value(qs_fontFamily, defaultFont).toString();
   fontSize = std::clamp(settings.value(qs_fontSize, fontSize).toInt(), 6, 24);
+  fontColor = QColor(settings.value(qs_fontColor, fontColor.name()).toString());
+  backgroundColor = QColor(
+      settings.value(qs_backgroundColor, backgroundColor.name()).toString());
   showRecognized = settings.value(qs_showRecognized, showRecognized).toBool();
   showCaptured = settings.value(qs_showCaptured, showCaptured).toBool();
 

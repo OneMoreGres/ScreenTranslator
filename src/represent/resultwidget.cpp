@@ -18,6 +18,7 @@ ResultWidget::ResultWidget(Representer &representer, const Settings &settings,
   , settings_(settings)
   , image_(new QLabel(this))
   , recognized_(new QLabel(this))
+  , separator_(new QLabel(this))
   , translated_(new QLabel(this))
   , contextMenu_(new QMenu(this))
 {
@@ -30,11 +31,12 @@ ResultWidget::ResultWidget(Representer &representer, const Settings &settings,
 
   image_->setAlignment(Qt::AlignCenter);
 
-  recognized_->setObjectName("recognizeLabel");
   recognized_->setAlignment(Qt::AlignCenter);
   recognized_->setWordWrap(true);
 
-  translated_->setObjectName("translateLabel");
+  separator_->setFixedHeight(1);
+  separator_->setAutoFillBackground(true);
+
   translated_->setAlignment(Qt::AlignCenter);
   translated_->setWordWrap(true);
 
@@ -50,23 +52,18 @@ ResultWidget::ResultWidget(Representer &representer, const Settings &settings,
             this, &ResultWidget::edit);
   }
 
-  const auto styleSheet =
-      "#recognizeLabel, #translateLabel {"
-      "color: black;"
-      "background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-      "stop:0 darkGray, stop: 0.5 lightGray, stop:1 darkGray);"
-      "}";
-  setStyleSheet(styleSheet);
-
   installEventFilter(this);
 
   auto layout = new QVBoxLayout(this);
   layout->addWidget(image_);
   layout->addWidget(recognized_);
+  layout->addWidget(separator_);
   layout->addWidget(translated_);
 
   layout->setMargin(0);
-  layout->setSpacing(1);
+  layout->setSpacing(0);
+
+  updateSettings();
 }
 
 const TaskPtr &ResultWidget::task() const
@@ -90,12 +87,17 @@ void ResultWidget::show(const TaskPtr &task)
 
   const auto gotTranslation = !task->translated.isEmpty();
   translated_->setVisible(gotTranslation);
+  separator_->setVisible(gotTranslation);
 
   const auto mustShowRecognized = settings_.showRecognized || !gotTranslation;
   recognized_->setVisible(mustShowRecognized);
 
   show();
   adjustSize();
+
+  if (!image_->isVisible())
+    resize(std::max(width(), task->captured.width()),
+           std::max(height(), task->captured.height()));
 
   QDesktopWidget *desktop = QApplication::desktop();
   Q_CHECK_PTR(desktop);
@@ -113,9 +115,12 @@ void ResultWidget::show(const TaskPtr &task)
   const auto isTextOnTop = layout->indexOf(recognized_) == 0;
   if (isTextOnTop != shouldTextOnTop) {
     layout->removeWidget(recognized_);
+    layout->removeWidget(separator_);
     layout->removeWidget(translated_);
-    layout->insertWidget(shouldTextOnTop ? 0 : 1, recognized_);
-    layout->insertWidget(shouldTextOnTop ? 1 : 2, translated_);
+    auto index = shouldTextOnTop ? 0 : 1;
+    layout->insertWidget(index, recognized_);
+    layout->insertWidget(++index, separator_);
+    layout->insertWidget(++index, translated_);
   }
 
   move(rect.topLeft());
@@ -125,10 +130,20 @@ void ResultWidget::show(const TaskPtr &task)
 
 void ResultWidget::updateSettings()
 {
-  // explicit font change because of stylesheet
   QFont font(settings_.fontFamily, settings_.fontSize);
-  recognized_->setFont(font);
-  translated_->setFont(font);
+  setFont(font);
+
+  auto palette = this->palette();
+  const auto &backgroundColor = settings_.backgroundColor;
+  palette.setColor(QPalette::Window, backgroundColor);
+  palette.setColor(QPalette::WindowText, settings_.fontColor);
+  setPalette(palette);
+
+  const auto separatorColor = backgroundColor.lightness() > 150
+                                  ? backgroundColor.darker()
+                                  : backgroundColor.lighter();
+  palette.setColor(QPalette::Window, separatorColor);
+  separator_->setPalette(palette);
 
   image_->setVisible(settings_.showCaptured);
 }

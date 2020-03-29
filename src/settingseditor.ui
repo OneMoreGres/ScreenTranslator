@@ -436,6 +436,23 @@
           <string>Result window</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Font:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QFontComboBox" name="resultFont"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Font size:</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="1">
            <widget class="QSpinBox" name="resultFontSize">
             <property name="minimum">
@@ -446,31 +463,48 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QFontComboBox" name="resultFont"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_18">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_20">
             <property name="text">
-             <string>Font:</string>
+             <string>Font color:</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_19">
+          <item row="2" column="1">
+           <widget class="QPushButton" name="fontColor">
             <property name="text">
-             <string>Font size:</string>
+             <string/>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="2" column="0" colspan="2">
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>Background:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="backgroundColor">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
            <widget class="QCheckBox" name="showCaptured">
             <property name="text">
              <string>Show image</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2">
+          <item row="5" column="0" colspan="2">
            <widget class="QCheckBox" name="showRecognized">
             <property name="text">
              <string>Show recognized</string>

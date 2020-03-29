@@ -2,6 +2,7 @@
 
 #include "stfwd.h"
 
+#include <QColor>
 #include <QDateTime>
 #include <QStringList>
 
@@ -66,6 +67,8 @@ public:
   ResultMode resultShowType{ResultMode::Widget};  // dialog
   QString fontFamily;
   int fontSize{11};
+  QColor fontColor{Qt::black};
+  QColor backgroundColor{Qt::lightGray};
   bool showRecognized{true};
   bool showCaptured{true};
 

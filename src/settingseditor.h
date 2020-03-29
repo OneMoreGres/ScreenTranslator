@@ -23,6 +23,7 @@ public:
   void setSettings(const Settings &settings);
 
 private:
+  enum ColorContext { Font, Bagkround };
   void updateCurrentPage();
   void updateTranslators();
   void adjustUpdatesView();
@@ -30,6 +31,7 @@ private:
   void handlePortableChanged();
   void updateResultFont();
   void updateModels(const QString &tessdataPath);
+  void pickColor(ColorContext context);
 
   Ui::SettingsEditor *ui;
   Manager &manager_;

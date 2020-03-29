@@ -8,6 +8,7 @@
 #include "updates.h"
 #include "widgetstate.h"
 
+#include <QColorDialog>
 #include <QFileDialog>
 #include <QSortFilterProxyModel>
 #include <QStringListModel>
@@ -68,12 +69,19 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   ui->translateLangCombo->setModel(models_.targetLanguageModel());
 
   // representation
+  ui->fontColor->setAutoFillBackground(true);
+  ui->backgroundColor->setAutoFillBackground(true);
+  ui->backgroundColor->setText(tr("Sample text"));
   connect(ui->dialogRadio, &QRadioButton::toggled,  //
           ui->resultWindow, &QTableWidget::setEnabled);
   connect(ui->resultFont, &QFontComboBox::currentFontChanged,  //
           this, &SettingsEditor::updateResultFont);
   connect(ui->resultFontSize, qOverload<int>(&QSpinBox::valueChanged),  //
           this, &SettingsEditor::updateResultFont);
+  connect(ui->fontColor, &QPushButton::clicked,  //
+          this, [this] { pickColor(ColorContext::Font); });
+  connect(ui->backgroundColor, &QPushButton::clicked,  //
+          this, [this] { pickColor(ColorContext::Bagkround); });
 
   // updates
   auto updatesProxy = new QSortFilterProxyModel(this);
@@ -149,6 +157,9 @@ Settings SettingsEditor::settings() const
       ui->trayRadio->isChecked() ? ResultMode::Tooltip : ResultMode::Widget;
   settings.fontFamily = ui->resultFont->currentFont().family();
   settings.fontSize = ui->resultFontSize->value();
+  settings.fontColor = ui->fontColor->palette().color(QPalette::Button);
+  settings.backgroundColor =
+      ui->backgroundColor->palette().color(QPalette::Button);
   settings.showRecognized = ui->showRecognized->isChecked();
   settings.showCaptured = ui->showCaptured->isChecked();
 
@@ -202,6 +213,14 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
   ui->resultFont->setCurrentFont(QFont(settings.fontFamily));
   ui->resultFontSize->setValue(settings.fontSize);
+  {
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Button, settings.fontColor);
+    ui->fontColor->setPalette(palette);
+    palette.setColor(QPalette::ButtonText, settings.fontColor);
+    palette.setColor(QPalette::Button, settings.backgroundColor);
+    ui->backgroundColor->setPalette(palette);
+  }
   ui->showRecognized->setChecked(settings.showRecognized);
   ui->showCaptured->setChecked(settings.showCaptured);
 
@@ -295,4 +314,27 @@ void SettingsEditor::updateModels(const QString &tessdataPath)
   const auto source = ui->tesseractLangCombo->currentText();
   models_.update(tessdataPath);
   ui->tesseractLangCombo->setCurrentText(source);
+}
+
+void SettingsEditor::pickColor(ColorContext context)
+{
+  const auto widget =
+      context == ColorContext::Font ? ui->fontColor : ui->backgroundColor;
+  const auto original = widget->palette().color(QPalette::Button);
+  const auto color = QColorDialog::getColor(original, this);
+
+  if (!color.isValid())
+    return;
+
+  QPalette palette(widget->palette());
+  palette.setColor(QPalette::Button, color);
+  widget->setPalette(palette);
+
+  if (context == ColorContext::Bagkround)
+    return;
+
+  palette = ui->backgroundColor->palette();
+  palette.setColor(QPalette::ButtonText, color);
+  ui->backgroundColor->setPalette(palette);
+  ui->backgroundColor->update();
 }

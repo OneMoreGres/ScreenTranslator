@@ -31,6 +31,7 @@ private:
   TaskPtr task_;
   QLabel* image_;
   QLabel* recognized_;
+  QLabel* separator_;
   QLabel* translated_;
   QMenu* contextMenu_;
 };
