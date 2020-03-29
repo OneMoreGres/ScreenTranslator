@@ -1,5 +1,6 @@
 #include "resultwidget.h"
 #include "debug.h"
+#include "representer.h"
 #include "settings.h"
 #include "task.h"
 
@@ -7,14 +8,18 @@
 #include <QBoxLayout>
 #include <QDesktopWidget>
 #include <QLabel>
+#include <QMenu>
 #include <QMouseEvent>
 
-ResultWidget::ResultWidget(const Settings &settings, QWidget *parent)
+ResultWidget::ResultWidget(Representer &representer, const Settings &settings,
+                           QWidget *parent)
   : QFrame(parent)
+  , representer_(representer)
   , settings_(settings)
   , image_(new QLabel(this))
   , recognized_(new QLabel(this))
   , translated_(new QLabel(this))
+  , contextMenu_(new QMenu(this))
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -32,6 +37,18 @@ ResultWidget::ResultWidget(const Settings &settings, QWidget *parent)
   translated_->setObjectName("translateLabel");
   translated_->setAlignment(Qt::AlignCenter);
   translated_->setWordWrap(true);
+
+  {
+    auto clipboardText = contextMenu_->addAction(tr("Copy text"));
+    connect(clipboardText, &QAction::triggered,  //
+            this, &ResultWidget::copyText);
+    auto clipboardImage = contextMenu_->addAction(tr("Copy image"));
+    connect(clipboardImage, &QAction::triggered,  //
+            this, &ResultWidget::copyImage);
+    auto edit = contextMenu_->addAction(tr("Edit..."));
+    connect(edit, &QAction::triggered,  //
+            this, &ResultWidget::edit);
+  }
 
   const auto styleSheet =
       "#recognizeLabel, #translateLabel {"
@@ -120,36 +137,28 @@ bool ResultWidget::eventFilter(QObject *watched, QEvent *event)
 {
   if (event->type() == QEvent::MouseButtonPress) {
     const auto button = static_cast<QMouseEvent *>(event)->button();
-    if (button == Qt::LeftButton) {
+    if (button == Qt::RightButton) {
+      contextMenu_->exec(QCursor::pos());
+    } else {
       hide();
     }
-    //    else if (button == Qt::RightButton) {
-    //      QAction *action = contextMenu_->exec(QCursor::pos());
-    //      if (recognizeSubMenu_->findChildren<QAction *>().contains(action)) {
-    //        ProcessingItem item = item_;
-    //        task->translated = task->recognized = QString();
-    //        task->ocrLanguage = dictionary_.ocrUiToCode(action->text());
-    //        emit requestRecognize(item);
-    //      } else if (translateSubMenu_->findChildren<QAction *>().contains(
-    //                     action)) {
-    //        ProcessingItem item = item_;
-    //        task->translated.clear();
-    //        task->translateLanguage =
-    //        dictionary_.translateUiToCode(action->text()); emit
-    //        requestTranslate(item);
-    //      } else if (action == clipboardAction_) {
-    //        emit requestClipboard();
-    //      } else if (action == imageClipboardAction_) {
-    //        emit requestImageClipboard();
-    //      } else if (action == correctAction_) {
-    //        emit requestEdition(item_);
-    //        // Return because Manager calls showResult() before hide()
-    //        otherwise.return QWidget::eventFilter(watched, event);
-    //      }
-    //    }
-    //    hide();
   } else if (event->type() == QEvent::WindowDeactivate) {
     hide();
   }
   return QWidget::eventFilter(watched, event);
+}
+
+void ResultWidget::edit()
+{
+  representer_.edit(task_);
+}
+
+void ResultWidget::copyText()
+{
+  representer_.clipboardText(task_);
+}
+
+void ResultWidget::copyImage()
+{
+  representer_.clipboardImage(task_);
 }

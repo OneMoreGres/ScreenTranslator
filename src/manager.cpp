@@ -38,8 +38,8 @@ Manager::Manager()
   recognizer_ = std::make_unique<Recognizer>(*this, *settings_);
   translator_ = std::make_unique<Translator>(*this, *settings_);
   corrector_ = std::make_unique<Corrector>(*this, *settings_);
-  representer_ = std::make_unique<Representer>(*this, *tray_, *settings_);
-
+  representer_ =
+      std::make_unique<Representer>(*this, *tray_, *settings_, *models_);
   qRegisterMetaType<TaskPtr>();
 
   settings_->load();

@@ -5,12 +5,14 @@
 #include <QFrame>
 
 class QLabel;
+class QMenu;
 
 class ResultWidget : public QFrame
 {
   Q_OBJECT
 public:
-  explicit ResultWidget(const Settings& settings, QWidget* parent = nullptr);
+  ResultWidget(Representer& representer, const Settings& settings,
+               QWidget* parent = nullptr);
 
   const TaskPtr& task() const;
   void show(const TaskPtr& task);
@@ -20,9 +22,15 @@ public:
   bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
+  void edit();
+  void copyImage();
+  void copyText();
+
+  Representer& representer_;
   const Settings& settings_;
   TaskPtr task_;
   QLabel* image_;
   QLabel* recognized_;
   QLabel* translated_;
+  QMenu* contextMenu_;
 };

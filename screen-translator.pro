@@ -42,6 +42,7 @@ HEADERS += \
   src/ocr/recognizerworker.h \
   src/ocr/tesseract.h \
   src/represent/representer.h \
+  src/represent/resulteditor.h \
   src/represent/resultwidget.h \
   src/service/apptranslator.h \
   src/service/debug.h \
@@ -75,6 +76,7 @@ SOURCES += \
   src/ocr/recognizerworker.cpp \
   src/ocr/tesseract.cpp \
   src/represent/representer.cpp \
+  src/represent/resulteditor.cpp \
   src/represent/resultwidget.cpp \
   src/service/apptranslator.cpp \
   src/service/debug.cpp \
