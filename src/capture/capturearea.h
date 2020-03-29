@@ -17,6 +17,8 @@ public:
   const QRect& rect() const;
   void setRect(const QRect& rect);
 
+  QString toolTip() const;
+
 private:
   friend class CaptureAreaEditor;
 

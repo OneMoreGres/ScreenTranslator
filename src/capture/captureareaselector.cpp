@@ -86,9 +86,8 @@ void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
   if (!selection.isValid())
     return;
 
-  painter.setBrush({});
-  painter.setPen(Qt::red);
-  painter.drawRect(selection);
+  const auto area = CaptureArea(selection, settings_);
+  drawCaptureArea(painter, area);
 }
 
 bool CaptureAreaSelector::updateCurrentHelpRects()
@@ -128,13 +127,24 @@ void CaptureAreaSelector::drawHelpRects(QPainter &painter,
 void CaptureAreaSelector::drawCaptureArea(QPainter &painter,
                                           const CaptureArea &area) const
 {
+  const auto areaRect = area.rect();
+  const auto toolTip = area.toolTip();
+  auto toolTipRect = painter.boundingRect(QRect(), 0, toolTip);
+  toolTipRect.moveTopLeft(areaRect.topLeft() - QPoint(0, toolTipRect.height()));
+
   painter.setBrush(QBrush(QColor(200, 200, 200, 50)));
   painter.setPen(Qt::NoPen);
-  painter.drawRect(area.rect());
+  painter.drawRect(areaRect);
+
+  painter.setBrush(QBrush(QColor(200, 200, 200, 150)));
+  painter.drawRect(toolTipRect);
 
   painter.setBrush({});
   painter.setPen(Qt::red);
-  painter.drawRect(area.rect());
+  painter.drawRect(areaRect);
+
+  painter.setPen(Qt::white);
+  painter.drawText(toolTipRect, 0, toolTip);
 }
 
 void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)

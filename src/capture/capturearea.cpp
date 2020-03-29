@@ -42,3 +42,9 @@ void CaptureArea::setRect(const QRect &rect)
 {
   rect_ = rect;
 }
+
+QString CaptureArea::toolTip() const
+{
+  return doTranslation_ ? sourceLanguage_ + "->" + targetLanguage_
+                        : sourceLanguage_;
+}
