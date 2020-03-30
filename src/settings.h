@@ -33,6 +33,7 @@ public:
   QString repeatCaptureHotkey{"Ctrl+Alt+S"};
   QString showLastHotkey{"Ctrl+Alt+X"};
   QString clipboardHotkey{"Ctrl+Alt+C"};
+  QString captureLockedHotkey{"Ctrl+Alt+Q"};
 
   bool showMessageOnStart{true};
   bool runAtSystemStart{false};

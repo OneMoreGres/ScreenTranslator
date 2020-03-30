@@ -48,3 +48,8 @@ QString CaptureArea::toolTip() const
   return doTranslation_ ? sourceLanguage_ + "->" + targetLanguage_
                         : sourceLanguage_;
 }
+
+bool CaptureArea::isLocked() const
+{
+  return isLocked_;
+}

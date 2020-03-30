@@ -44,6 +44,9 @@ void TrayIcon::updateSettings()
     failedActions << settings_.showLastHotkey;
   if (!GlobalAction::update(clipboardAction_, settings_.clipboardHotkey))
     failedActions << settings_.clipboardHotkey;
+  if (!GlobalAction::update(captureLockedAction_,
+                            settings_.captureLockedHotkey))
+    failedActions << settings_.captureLockedHotkey;
 
   if (!failedActions.isEmpty()) {
     showError(tr("Failed to register global shortcuts:\n%1")
@@ -63,6 +66,12 @@ void TrayIcon::setTaskActionsEnabled(bool isEnabled)
   updateActions();
 }
 
+void TrayIcon::setCaptureLockedEnabled(bool isEnabled)
+{
+  canCaptureLocked_ = isEnabled;
+  updateActions();
+}
+
 void TrayIcon::setRepeatCaptureEnabled(bool isEnabled)
 {
   canRepeatCapture_ = isEnabled;
@@ -73,7 +82,8 @@ void TrayIcon::updateActions()
 {
   if (isActionsBlocked_) {
     QVector<QAction *> blockable{captureAction_, repeatCaptureAction_,
-                                 showLastAction_, settingsAction_};
+                                 showLastAction_, settingsAction_,
+                                 captureLockedAction_};
     for (auto &action : blockable) action->setEnabled(false);
     return;
   }
@@ -85,6 +95,7 @@ void TrayIcon::updateActions()
   for (auto &action : taskActions) action->setEnabled(gotTask_);
 
   repeatCaptureAction_->setEnabled(canRepeatCapture_);
+  captureLockedAction_->setEnabled(canCaptureLocked_);
 }
 
 void TrayIcon::setIcon(TrayIcon::Icon icon, Duration duration)
@@ -187,6 +198,11 @@ QMenu *TrayIcon::contextMenu()
     repeatCaptureAction_ = menu->addAction(tr("Repeat capture"));
     connect(repeatCaptureAction_, &QAction::triggered,  //
             this, [this] { manager_.repeatCapture(); });
+  }
+  {
+    captureLockedAction_ = menu->addAction(tr("Capture saved areas"));
+    connect(captureLockedAction_, &QAction::triggered,  //
+            this, [this] { manager_.captureLocked(); });
   }
 
   {

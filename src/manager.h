@@ -20,6 +20,7 @@ public:
   void fatalError(const QString &text);
   void capture();
   void repeatCapture();
+  void captureLocked();
   void showLast();
   void settings();
   void copyLastToClipboard();

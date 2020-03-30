@@ -35,6 +35,17 @@ void CaptureAreaSelector::activate()
   activateWindow();
 }
 
+bool CaptureAreaSelector::hasLocked() const
+{
+  return area_ && area_->isLocked();
+}
+
+void CaptureAreaSelector::captureLocked()
+{
+  SOFT_ASSERT(hasLocked(), return );
+  capturer_.selected(*area_);
+}
+
 void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
 {
   auto helpRect = fontMetrics().boundingRect({}, 0, help_);
@@ -150,7 +161,8 @@ void CaptureAreaSelector::drawCaptureArea(QPainter &painter,
 void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
 {
   editor_->hide();
-  area_.reset();
+  if (area_ && !area_->isLocked())
+    area_.reset();
   startSelectPos_ = currentSelectPos_ = QPoint();
 }
 

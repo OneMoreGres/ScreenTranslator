@@ -16,6 +16,7 @@ const QString qs_captureHotkey = "captureHotkey";
 const QString qs_repeatCaptureHotkey = "repeatCaptureHotkey";
 const QString qs_repeatHotkey = "repeatHotkey";
 const QString qs_clipboardHotkey = "clipboardHotkey";
+const QString qs_captureLockedHotkey = "captureLockedHotkey";
 const QString qs_resultShowType = "resultShowType";
 const QString qs_proxyType = "proxyType";
 const QString qs_proxyHostName = "proxyHostName";
@@ -145,6 +146,7 @@ void Settings::save() const
   settings.setValue(qs_repeatCaptureHotkey, repeatCaptureHotkey);
   settings.setValue(qs_repeatHotkey, showLastHotkey);
   settings.setValue(qs_clipboardHotkey, clipboardHotkey);
+  settings.setValue(qs_captureLockedHotkey, captureLockedHotkey);
 
   settings.setValue(qs_showMessageOnStart, showMessageOnStart);
 
@@ -225,6 +227,8 @@ void Settings::load()
   showLastHotkey = settings.value(qs_repeatHotkey, showLastHotkey).toString();
   clipboardHotkey =
       settings.value(qs_clipboardHotkey, clipboardHotkey).toString();
+  captureLockedHotkey =
+      settings.value(qs_captureLockedHotkey, captureLockedHotkey).toString();
 
   showMessageOnStart =
       settings.value(qs_showMessageOnStart, showMessageOnStart).toBool();

@@ -14,6 +14,7 @@ CaptureAreaEditor::CaptureAreaEditor(const CommonModels &models,
                                      QWidget *parent)
   : QWidget(parent)
   , doTranslation_(new QCheckBox(tr("Translate:"), this))
+  , isLocked_(new QCheckBox(tr("Save (can capture via hotkey)"), this))
   , sourceLanguage_(new QComboBox(this))
   , targetLanguage_(new QComboBox(this))
 {
@@ -29,6 +30,9 @@ CaptureAreaEditor::CaptureAreaEditor(const CommonModels &models,
   ++row;
   layout->addWidget(doTranslation_, row, 0);
   layout->addWidget(targetLanguage_, row, 1);
+
+  ++row;
+  layout->addWidget(isLocked_, row, 0, 1, 2);
 
   sourceLanguage_->setModel(models.sourceLanguageModel());
   targetLanguage_->setModel(models.targetLanguageModel());
@@ -59,6 +63,7 @@ void CaptureAreaEditor::swapLanguages()
 
 void CaptureAreaEditor::set(const CaptureArea &area)
 {
+  isLocked_->setChecked(area.isLocked());
   doTranslation_->setChecked(area.doTranslation_);
   sourceLanguage_->setCurrentText(LanguageCodes::name(area.sourceLanguage_));
   targetLanguage_->setCurrentText(LanguageCodes::name(area.targetLanguage_));
@@ -66,6 +71,7 @@ void CaptureAreaEditor::set(const CaptureArea &area)
 
 void CaptureAreaEditor::apply(CaptureArea &area) const
 {
+  area.isLocked_ = isLocked_->isChecked();
   area.doTranslation_ = doTranslation_->isChecked();
   area.sourceLanguage_ =
       LanguageCodes::idForName(sourceLanguage_->currentText());

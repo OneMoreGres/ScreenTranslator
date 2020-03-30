@@ -17,6 +17,7 @@ public:
 
   void blockActions(bool block);
   void setTaskActionsEnabled(bool isEnabled);
+  void setCaptureLockedEnabled(bool isEnabled);
   void setRepeatCaptureEnabled(bool isEnabled);
   void setActiveTaskCount(int count);
   void resetFatalError();
@@ -40,6 +41,7 @@ private:
   std::unique_ptr<QSystemTrayIcon> tray_;
 
   QAction *captureAction_{nullptr};
+  QAction *captureLockedAction_{nullptr};
   QAction *repeatCaptureAction_{nullptr};
   QAction *showLastAction_{nullptr};
   QAction *clipboardAction_{nullptr};
@@ -53,4 +55,5 @@ private:
   bool gotTask_{false};
   bool canRepeatCapture_{false};
   bool isActionsBlocked_{false};
+  bool canCaptureLocked_{false};
 };

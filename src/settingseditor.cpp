@@ -122,6 +122,8 @@ Settings SettingsEditor::settings() const
       ui->repeatCaptureEdit->keySequence().toString();
   settings.showLastHotkey = ui->repeatEdit->keySequence().toString();
   settings.clipboardHotkey = ui->clipboardEdit->keySequence().toString();
+  settings.captureLockedHotkey =
+      ui->captureLockedEdit->keySequence().toString();
 
   settings.showMessageOnStart = ui->showOnStart->isChecked();
 
@@ -182,6 +184,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->repeatCaptureEdit->setKeySequence(settings.repeatCaptureHotkey);
   ui->repeatEdit->setKeySequence(settings.showLastHotkey);
   ui->clipboardEdit->setKeySequence(settings.clipboardHotkey);
+  ui->captureLockedEdit->setKeySequence(settings.captureLockedHotkey);
 
   ui->showOnStart->setChecked(settings.showMessageOnStart);
 

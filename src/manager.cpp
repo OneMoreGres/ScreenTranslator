@@ -83,6 +83,8 @@ void Manager::updateSettings()
   recognizer_->updateSettings();
   translator_->updateSettings();
   representer_->updateSettings();
+
+  tray_->setCaptureLockedEnabled(capturer_->canCaptureLocked());
 }
 
 void Manager::setupProxy(const Settings &settings)
@@ -145,6 +147,7 @@ void Manager::finishTask(const TaskPtr &task)
 
 void Manager::captured(const TaskPtr &task)
 {
+  tray_->setCaptureLockedEnabled(capturer_->canCaptureLocked());
   tray_->blockActions(false);
 
   SOFT_ASSERT(task, return );
@@ -163,6 +166,7 @@ void Manager::captured(const TaskPtr &task)
 
 void Manager::captureCanceled()
 {
+  tray_->setCaptureLockedEnabled(capturer_->canCaptureLocked());
   tray_->blockActions(false);
 }
 
@@ -233,6 +237,12 @@ void Manager::repeatCapture()
   SOFT_ASSERT(capturer_, return );
   tray_->blockActions(true);
   capturer_->repeatCapture();
+}
+
+void Manager::captureLocked()
+{
+  SOFT_ASSERT(capturer_, return );
+  capturer_->captureLocked();
 }
 
 void Manager::settings()

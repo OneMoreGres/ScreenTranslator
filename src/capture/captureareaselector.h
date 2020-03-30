@@ -14,6 +14,8 @@ public:
   ~CaptureAreaSelector();
 
   void activate();
+  bool hasLocked() const;
+  void captureLocked();
   void setScreenRects(const std::vector<QRect> &screens);
   void updateSettings();
 

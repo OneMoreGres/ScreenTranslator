@@ -28,6 +28,19 @@ void Capturer::capture()
   selector_->activate();
 }
 
+bool Capturer::canCaptureLocked()
+{
+  SOFT_ASSERT(selector_, return false);
+  return selector_->hasLocked();
+}
+
+void Capturer::captureLocked()
+{
+  updatePixmap();
+  SOFT_ASSERT(selector_, return );
+  selector_->captureLocked();
+}
+
 void Capturer::updatePixmap()
 {
   const auto screens = QApplication::screens();

@@ -22,6 +22,7 @@ private:
   void swapLanguages();
 
   QCheckBox* doTranslation_;
+  QCheckBox* isLocked_;
   QComboBox* sourceLanguage_;
   QComboBox* targetLanguage_;
 };

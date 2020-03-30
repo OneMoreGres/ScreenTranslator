@@ -14,6 +14,7 @@ public:
   TaskPtr task(const QPixmap& pixmap) const;
 
   bool isValid() const;
+  bool isLocked() const;
   const QRect& rect() const;
   void setRect(const QRect& rect);
 
@@ -24,6 +25,7 @@ private:
 
   QRect rect_;
   bool doTranslation_;
+  bool isLocked_{false};
   LanguageId sourceLanguage_;
   LanguageId targetLanguage_;
   QStringList translators_;

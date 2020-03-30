@@ -12,6 +12,8 @@ public:
   ~Capturer();
 
   void capture();
+  bool canCaptureLocked();
+  void captureLocked();
   void repeatCapture();
   void updateSettings();
 

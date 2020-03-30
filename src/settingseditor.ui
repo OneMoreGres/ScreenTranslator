@@ -56,37 +56,30 @@
           <string>Shortcuts</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Capture</string>
-            </property>
-           </widget>
+          <item row="4" column="1">
+           <widget class="QKeySequenceEdit" name="clipboardEdit"/>
           </item>
-          <item row="0" column="1">
-           <widget class="QKeySequenceEdit" name="captureEdit"/>
-          </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
              <string>Repeat capture</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QKeySequenceEdit" name="repeatCaptureEdit"/>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Show last result</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QKeySequenceEdit" name="repeatEdit"/>
+          <item row="0" column="1">
+           <widget class="QKeySequenceEdit" name="captureEdit"/>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
              <string>Copy result to clipboard</string>
@@ -94,7 +87,24 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QKeySequenceEdit" name="clipboardEdit"/>
+           <widget class="QKeySequenceEdit" name="repeatEdit"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Capture</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Capture saved areas</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QKeySequenceEdit" name="captureLockedEdit"/>
           </item>
          </layout>
         </widget>
