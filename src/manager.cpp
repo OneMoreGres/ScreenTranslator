@@ -82,7 +82,6 @@ void Manager::updateSettings()
   capturer_->updateSettings();
   recognizer_->updateSettings();
   translator_->updateSettings();
-  corrector_->updateSettings();
   representer_->updateSettings();
 }
 

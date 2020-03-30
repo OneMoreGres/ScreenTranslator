@@ -22,12 +22,10 @@ void Corrector::correct(const TaskPtr &task)
 
   if (!settings_.userSubstitutions.empty())
     task->corrected = substituteUser(task->recognized, task->sourceLanguage);
+  else
+    task->corrected = task->recognized;
 
   manager_.corrected(task);
-}
-
-void Corrector::updateSettings()
-{
 }
 
 QString Corrector::substituteUser(const QString &source,

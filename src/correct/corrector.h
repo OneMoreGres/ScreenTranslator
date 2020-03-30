@@ -8,7 +8,6 @@ public:
   Corrector(Manager &manager, const Settings &settings);
 
   void correct(const TaskPtr &task);
-  void updateSettings();
 
 private:
   QString substituteUser(const QString &source,
