@@ -24,6 +24,10 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
   setCursor(Qt::CrossCursor);
   setMouseTracking(true);
   setAttribute(Qt::WA_OpaquePaintEvent);
+
+  help_ = tr(R"(Right click on selection - customize
+Left click on selection - process
+Esc - cancel)");
 }
 
 CaptureAreaSelector::~CaptureAreaSelector() = default;
@@ -63,17 +67,6 @@ void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
 
 void CaptureAreaSelector::updateSettings()
 {
-  const auto sourceName = LanguageCodes::name(settings_.sourceLanguage);
-  const auto targetName = LanguageCodes::name(settings_.targetLanguage);
-
-  const auto translationState = settings_.doTranslation ? tr("on") : tr("off");
-
-  help_ = tr(R"(Recognition language: %1
-Translation language: %2 (%3)
-Right click on selection - customize
-Left click on selection - process)")
-              .arg(sourceName, targetName, translationState);
-
   area_.reset();
 }
 
@@ -147,14 +140,14 @@ void CaptureAreaSelector::drawCaptureArea(QPainter &painter,
   painter.setPen(Qt::NoPen);
   painter.drawRect(areaRect);
 
-  painter.setBrush(QBrush(QColor(200, 200, 200, 150)));
+  painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
   painter.drawRect(toolTipRect);
 
   painter.setBrush({});
   painter.setPen(Qt::red);
   painter.drawRect(areaRect);
 
-  painter.setPen(Qt::white);
+  painter.setPen(Qt::black);
   painter.drawText(toolTipRect, 0, toolTip);
 }
 
