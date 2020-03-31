@@ -46,6 +46,17 @@ void Representer::represent(const TaskPtr &task)
     showWidget(task);
 }
 
+bool Representer::isVisible() const
+{
+  return widget_ && widget_->isVisible();
+}
+
+void Representer::hide()
+{
+  if (widget_)
+    widget_->hide();
+}
+
 void Representer::updateSettings()
 {
   if (widget_)

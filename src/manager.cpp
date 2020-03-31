@@ -14,6 +14,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QNetworkProxy>
+#include <QThread>
 
 namespace
 {
@@ -242,6 +243,12 @@ void Manager::repeatCapture()
 void Manager::captureLocked()
 {
   SOFT_ASSERT(capturer_, return );
+
+  if (representer_->isVisible()) {
+    representer_->hide();
+    QThread::usleep(300'000);
+  }
+
   capturer_->captureLocked();
 }
 

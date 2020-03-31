@@ -16,6 +16,8 @@ public:
   void showLast();
   void clipboardLast();
   void represent(const TaskPtr &task);
+  bool isVisible() const;
+  void hide();
   void updateSettings();
 
   void clipboardText(const TaskPtr &task);
