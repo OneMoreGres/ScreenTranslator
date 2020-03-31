@@ -82,8 +82,7 @@ Substitutions SubstitutionsTable::substitutions() const
   Substitutions result;
   for (auto row = 0, end = rowCount(); row < end; ++row) {
     const auto pair = at(row);
-    SOFT_ASSERT(!pair.first.isEmpty(), continue);
-    if (pair.second.source.isEmpty())
+    if (pair.first.isEmpty() || pair.second.source.isEmpty())
       continue;
     result.emplace(pair.first, pair.second);
   }
@@ -123,6 +122,9 @@ std::pair<LanguageId, Substitution> SubstitutionsTable::at(int row) const
   using E = Column;
   auto combo = static_cast<QComboBox *>(cellWidget(row, int(E::Language)));
   SOFT_ASSERT(combo, return {});
+
+  if (combo->currentText().isEmpty())
+    return {};
 
   const auto langId = LanguageCodes::idForName(combo->currentText());
   SOFT_ASSERT(!langId.isEmpty(), return {});

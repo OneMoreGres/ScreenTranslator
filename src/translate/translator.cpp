@@ -123,11 +123,16 @@ void Translator::updateSettings()
   }
   tabs_->blockSignals(false);
 
+  if (settings_.translators.empty()) {
+    manager_.fatalError(tr("No translators selected"));
+    return;
+  }
+
   const auto loaded =
       loadScripts(settings_.translatorsDir, settings_.translators);
   if (loaded.empty()) {
     manager_.fatalError(
-        tr("No translators loaded from %1 (named %2)")
+        tr("No translators loaded from %1 (%2)")
             .arg(settings_.translatorsDir, settings_.translators.join(", ")));
     return;
   }
