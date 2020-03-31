@@ -279,15 +279,20 @@ void Manager::copyLastToClipboard()
 
 void Manager::about()
 {
-  auto text =
-      QObject::tr(R"(Optical character recognition (OCR) and translation tool
-Author: Gres (translator@gres.biz)
-Version: %1)")
-          .arg(QApplication::applicationVersion());
+  const auto mail = "translator@gres.biz";
+  const auto issues = "https://github.com/OneMoreGres/ScreenTranslator/issues";
+  const auto text =
+      QObject::tr(
+          R"(<p>Optical character recognition (OCR) and translation tool</p>
+<p>Version: %1</p>
+<p>Author: Gres (<a href="mailto:%2">%2</a>)</p>
+<p>Issues: <a href="%3">github</a></p>)")
+          .arg(QApplication::applicationVersion(), mail, issues);
 
   QMessageBox message(QMessageBox::Information, QObject::tr("About"), text,
                       QMessageBox::Ok);
   message.setIconPixmap(QIcon(":/icons/app.png").pixmap(QSize(64, 64)));
+  message.setTextFormat(Qt::RichText);
   message.exec();
 }
 
