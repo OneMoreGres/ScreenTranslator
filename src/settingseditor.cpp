@@ -20,6 +20,8 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
 {
   ui->setupUi(this);
 
+  ui->translatorDebugCheck->hide();
+
   connect(ui->buttonBox, &QDialogButtonBox::clicked,  //
           this, &SettingsEditor::handleButtonBoxClicked);
 

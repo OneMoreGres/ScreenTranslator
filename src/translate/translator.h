@@ -26,7 +26,6 @@ public:
 
 protected:
   void timerEvent(QTimerEvent *event) override;
-  void closeEvent(QCloseEvent *event) override;
 
 private:
   WebPage *currentPage() const;

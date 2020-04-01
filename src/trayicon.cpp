@@ -220,6 +220,12 @@ QMenu *TrayIcon::contextMenu()
   }
 
   {
+    auto action = menu->addAction(tr("Show translator"));
+    connect(action, &QAction::triggered,  //
+            this, [this] { manager_.showTranslator(); });
+  }
+
+  {
     settingsAction_ = menu->addAction(tr("Settings"));
     connect(settingsAction_, &QAction::triggered,  //
             this, [this] { manager_.settings(); });

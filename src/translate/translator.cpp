@@ -138,12 +138,6 @@ void Translator::updateSettings()
   }
 
   for (const auto &script : loaded) createPage(script.first, script.second);
-
-  if (settings_.debugMode) {
-    show();
-  } else {
-    hide();
-  }
 }
 
 void Translator::createPage(const QString &scriptName,
@@ -310,9 +304,4 @@ QStringList Translator::availableLanguageNames()
 void Translator::timerEvent(QTimerEvent * /*event*/)
 {
   processQueue();
-}
-
-void Translator::closeEvent(QCloseEvent *event)
-{
-  event->ignore();
 }
