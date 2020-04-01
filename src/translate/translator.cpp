@@ -41,19 +41,18 @@ Translator::Translator(Manager &manager, const Settings &settings)
   , url_(new QLineEdit(this))
   , loadImages_(
         new QAction(QIcon(":/icons/loadImages.png"), tr("Load images"), this))
+  , showDebugAction_(new QAction(QIcon(":/icons/debug.png"), tr("Debug"), this))
   , tabs_(new QTabWidget(this))
 {
-#ifdef DEVELOP
   {
     QTcpSocket socket;
     if (socket.bind()) {
-      quint16 port = socket.localPort();
-      LTRACE() << "debug port" << port;
-      qputenv("QTWEBENGINE_REMOTE_DEBUGGING", QString::number(port).toUtf8());
+      debugPort_ = socket.localPort();
+      qputenv("QTWEBENGINE_REMOTE_DEBUGGING",
+              QString::number(debugPort_).toUtf8());
       socket.close();
     }
   }
-#endif
 
   setObjectName("Translator");
 
@@ -65,6 +64,7 @@ Translator::Translator(Manager &manager, const Settings &settings)
     toolBar->addWidget(new QLabel(tr("Url:"), this));
     toolBar->addWidget(url_);
     toolBar->addAction(loadImages_);
+    toolBar->addAction(showDebugAction_);
 
     auto layout = new QVBoxLayout(detailsFrame);
     layout->addWidget(toolBar);
@@ -85,6 +85,8 @@ Translator::Translator(Manager &manager, const Settings &settings)
   loadImages_->setCheckable(true);
   connect(loadImages_, &QAction::toggled,  //
           this, &Translator::setPageLoadImages);
+  connect(showDebugAction_, &QAction::triggered,  //
+          this, &Translator::showDebugView);
 
   connect(tabs_, &QTabWidget::currentChanged,  //
           this, &Translator::udpateCurrentPage);
@@ -169,6 +171,16 @@ void Translator::createPage(const QString &scriptName,
 
   SOFT_ASSERT(log->document(), return )
   log->document()->setMaximumBlockCount(1000);
+}
+
+void Translator::showDebugView()
+{
+  if (!debugView_)
+    debugView_ = std::make_unique<QWebEngineView>();
+  debugView_->load(
+      QUrl::fromUserInput("http://localhost:" + QString::number(debugPort_)));
+  debugView_->show();
+  debugView_->activateWindow();
 }
 
 WebPage *Translator::currentPage() const

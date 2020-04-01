@@ -6,6 +6,8 @@
         <file alias="st_error.png">share/images/STIconRed.png</file>
         <file alias="loadImages.png">share/images/loadImages.png</file>
         <file alias="loadImages@2x.png">share/images/loadImages@2x.png</file>
+        <file alias="debug.png">share/images/debug.png</file>
+        <file alias="debug@2x.png">share/images/debug@2x.png</file>
     </qresource>
     <qresource prefix="/translations">
         <file alias="screentranslator_ru.qm">share/translations/screentranslator_ru.qm</file>

@@ -34,5 +34,7 @@ Basically it is a combination of screen capture, OCR and translation tools.
 
 ## Attributions
 
-* icons made by [Smashicons](https://www.flaticon.com/authors/smashicons)
+* icons made by
+[Smashicons](https://www.flaticon.com/authors/smashicons),
+[Freepik](https://www.flaticon.com/authors/freepik),
 from [Flaticon](https://www.flaticon.com/)
