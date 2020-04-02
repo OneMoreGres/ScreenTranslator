@@ -89,8 +89,7 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   auto updatesProxy = new QSortFilterProxyModel(this);
   updatesProxy->setSourceModel(updater_.model());
   ui->updatesView->setModel(updatesProxy);
-  ui->updatesView->setItemDelegateForColumn(int(update::Model::Column::Action),
-                                            new update::ActionDelegate(this));
+  ui->updatesView->setItemDelegate(new update::UpdateDelegate(this));
 #ifndef DEVELOP
   ui->updatesView->hideColumn(int(update::Model::Column::Files));
 #endif

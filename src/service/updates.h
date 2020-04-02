@@ -19,15 +19,18 @@ struct File {
   QString downloadPath;
   QString md5;
   QDateTime versionDate;
+  int progress{0};
 };
 
 using UserActions = std::multimap<Action, File>;
 
-class ActionDelegate : public QStyledItemDelegate
+class UpdateDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
 public:
-  explicit ActionDelegate(QObject* parent = nullptr);
+  explicit UpdateDelegate(QObject* parent = nullptr);
+  void paint(QPainter* painter, const QStyleOptionViewItem& option,
+             const QModelIndex& index) const override;
   QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option,
                         const QModelIndex& index) const override;
   void setEditorData(QWidget* editor, const QModelIndex& index) const override;
@@ -39,7 +42,7 @@ class Model : public QAbstractItemModel
 {
   Q_OBJECT
 public:
-  enum class Column { Name, State, Action, Version, Files, Count };
+  enum class Column { Name, State, Action, Version, Progress, Files, Count };
 
   explicit Model(QObject* parent = nullptr);
 
@@ -48,6 +51,8 @@ public:
   UserActions userActions() const;
   void updateStates();
   bool hasUpdates() const;
+  void updateProgress(const QUrl& url, int progress);
+  void resetProgress();
 
   QModelIndex index(int row, int column,
                     const QModelIndex& parent) const override;
@@ -72,9 +77,11 @@ private:
     std::vector<std::unique_ptr<Component>> children;
     Component* parent{nullptr};
     int index{-1};
+    int progress{0};
   };
 
   std::unique_ptr<Component> parse(const QJsonObject& json) const;
+  void updateProgress(Component& component, const QUrl& url, int progress);
   void updateState(Component& component);
   bool hasUpdates(const Component& component) const;
   void fillUserActions(UserActions& actions, Component& component) const;
@@ -126,6 +133,7 @@ private:
   QString toError(QNetworkReply& reply) const;
   void finishUpdate(const QString& error = {});
   void commitUpdate();
+  void updateProgress(qint64 bytesSent, qint64 bytesTotal);
 
   QNetworkAccessManager* network_;
   Model* model_;

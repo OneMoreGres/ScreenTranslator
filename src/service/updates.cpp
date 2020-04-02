@@ -1,6 +1,7 @@
 #include "updates.h"
 #include "debug.h"
 
+#include <QApplication>
 #include <QComboBox>
 #include <QDir>
 #include <QJsonArray>
@@ -95,6 +96,8 @@ void Loader::applyUserActions()
       break;
     }
 
+    connect(reply, &QNetworkReply::downloadProgress,  //
+            this, &Loader::updateProgress);
     file.downloadPath = downloadPath_ + '/' + file.rawPath;
     componentReplyToPath_.emplace(reply, file.downloadPath);
   }
@@ -169,11 +172,22 @@ void Loader::commitUpdate()
 {
   SOFT_ASSERT(installer_, return );
   if (installer_->commit()) {
+    model_->resetProgress();
     emit updated();
   } else {
     emit error(tr("Update failed: %1").arg(installer_->errorString()));
   }
   finishUpdate();
+}
+
+void Loader::updateProgress(qint64 bytesSent, qint64 bytesTotal)
+{
+  if (bytesTotal < 1)
+    return;
+  const auto reply = qobject_cast<QNetworkReply *>(sender());
+  SOFT_ASSERT(reply, return );
+  const auto progress = int(100.0 * bytesSent / bytesTotal);
+  model_->updateProgress(reply->url(), progress);
 }
 
 Model *Loader::model() const
@@ -273,6 +287,36 @@ std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const
   return result;
 }
 
+void Model::updateProgress(Model::Component &component, const QUrl &url,
+                           int progress)
+{
+  if (!component.files.empty()) {
+    for (auto &file : component.files) {
+      if (!url.isEmpty() && file.url != url)
+        continue;
+
+      file.progress = progress;
+      component.progress = progress;
+
+      for (const auto &file : component.files)
+        component.progress = std::max(file.progress, component.progress);
+
+      const auto index = toIndex(component, int(Column::Progress));
+      emit dataChanged(index, index, {Qt::DisplayRole});
+
+      if (!url.isEmpty())
+        break;
+    }
+    return;
+  }
+
+  if (!component.children.empty()) {
+    for (auto &child : component.children)
+      updateProgress(*child, url, progress);
+    return;
+  }
+}
+
 void Model::setExpansions(const std::map<QString, QString> &expansions)
 {
   expansions_ = expansions;
@@ -319,6 +363,22 @@ bool Model::hasUpdates() const
   if (!root_)
     return false;
   return hasUpdates(*root_);
+}
+
+void Model::updateProgress(const QUrl &url, int progress)
+{
+  if (!root_)
+    return;
+
+  updateProgress(*root_, url, progress);
+}
+
+void Model::resetProgress()
+{
+  if (!root_)
+    return;
+
+  updateProgress(*root_, {}, 0);
 }
 
 bool Model::hasUpdates(const Model::Component &component) const
@@ -465,9 +525,9 @@ QVariant Model::headerData(int section, Qt::Orientation orientation,
     return section + 1;
 
   const QMap<Column, QString> names{
-      {Column::Name, tr("Name")},     {Column::State, tr("State")},
-      {Column::Action, tr("Action")}, {Column::Version, tr("Version")},
-      {Column::Files, tr("Files")},
+      {Column::Name, tr("Name")},         {Column::State, tr("State")},
+      {Column::Action, tr("Action")},     {Column::Version, tr("Version")},
+      {Column::Progress, tr("Progress")}, {Column::Files, tr("Files")},
   };
   return names.value(Column(section));
 }
@@ -485,6 +545,8 @@ QVariant Model::data(const QModelIndex &index, int role) const
     case int(Column::State): return toString(ptr->state);
     case int(Column::Action): return toString(ptr->action);
     case int(Column::Version): return ptr->version;
+    case int(Column::Progress):
+      return ptr->progress > 0 ? ptr->progress : QVariant();
     case int(Column::Files): {
       QStringList files;
       files.reserve(ptr->files.size());
@@ -536,36 +598,73 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const
   return result;
 }
 
-ActionDelegate::ActionDelegate(QObject *parent)
+UpdateDelegate::UpdateDelegate(QObject *parent)
   : QStyledItemDelegate(parent)
 {
 }
 
-QWidget *ActionDelegate::createEditor(QWidget *parent,
-                                      const QStyleOptionViewItem & /*option*/,
-                                      const QModelIndex & /*index*/) const
+void UpdateDelegate::paint(QPainter *painter,
+                           const QStyleOptionViewItem &option,
+                           const QModelIndex &index) const
 {
-  auto combo = new QComboBox(parent);
-  combo->setEditable(false);
-  combo->addItems({toString(Action::NoAction), toString(Action::Remove),
-                   toString(Action::Install)});
-  return combo;
+  if (index.column() == int(Model::Column::Progress) &&
+      !index.data().isNull()) {
+    QStyleOptionProgressBar progressBarOption;
+    progressBarOption.rect = option.rect;
+    progressBarOption.minimum = 0;
+    progressBarOption.maximum = 100;
+    const auto progress = index.data().toInt();
+    progressBarOption.progress = progress;
+    progressBarOption.text = QString::number(progress) + "%";
+    progressBarOption.textVisible = true;
+
+    QApplication::style()->drawControl(QStyle::CE_ProgressBar,
+                                       &progressBarOption, painter);
+    return;
+  }
+
+  QStyledItemDelegate::paint(painter, option, index);
 }
 
-void ActionDelegate::setEditorData(QWidget *editor,
+QWidget *UpdateDelegate::createEditor(QWidget *parent,
+                                      const QStyleOptionViewItem &option,
+                                      const QModelIndex &index) const
+{
+  if (index.column() == int(Model::Column::Action)) {
+    auto combo = new QComboBox(parent);
+    combo->setEditable(false);
+    combo->addItems({toString(Action::NoAction), toString(Action::Remove),
+                     toString(Action::Install)});
+    return combo;
+  }
+
+  return QStyledItemDelegate::createEditor(parent, option, index);
+}
+
+void UpdateDelegate::setEditorData(QWidget *editor,
                                    const QModelIndex &index) const
 {
-  auto combo = qobject_cast<QComboBox *>(editor);
-  SOFT_ASSERT(combo, return );
-  combo->setCurrentText(index.data(Qt::EditRole).toString());
+  if (index.column() == int(Model::Column::Action)) {
+    auto combo = qobject_cast<QComboBox *>(editor);
+    SOFT_ASSERT(combo, return );
+    combo->setCurrentText(index.data(Qt::EditRole).toString());
+    return;
+  }
+
+  return QStyledItemDelegate::setEditorData(editor, index);
 }
 
-void ActionDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
+void UpdateDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
                                   const QModelIndex &index) const
 {
-  auto combo = qobject_cast<QComboBox *>(editor);
-  SOFT_ASSERT(combo, return );
-  model->setData(index, combo->currentIndex());
+  if (index.column() == int(Model::Column::Action)) {
+    auto combo = qobject_cast<QComboBox *>(editor);
+    SOFT_ASSERT(combo, return );
+    model->setData(index, combo->currentIndex());
+    return;
+  }
+
+  return QStyledItemDelegate::setModelData(editor, model, index);
 }
 
 Installer::Installer(const UserActions &actions)
