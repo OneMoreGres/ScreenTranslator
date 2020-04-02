@@ -42,6 +42,7 @@ private:
   void scheduleWebchannelInitScript();
   void scheduleTranslatorScript(const QString &script);
   void addErrorToTask(const QString &text) const;
+  void changeUserAgent();
 
   Translator &translator_;
   QString scriptName_;

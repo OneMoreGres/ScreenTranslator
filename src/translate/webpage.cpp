@@ -19,6 +19,8 @@ WebPage::WebPage(Translator &translator, const QString &script,
 {
   profile()->setParent(this);
 
+  changeUserAgent();
+
   connect(this, &WebPage::proxyAuthenticationRequired, this,
           &WebPage::authenticateProxy);
 
@@ -82,6 +84,17 @@ void WebPage::addErrorToTask(const QString &text) const
   if (!task_)
     return;
   task_->translatorErrors.append(QString("%1: %2").arg(scriptName_, text));
+}
+
+void WebPage::changeUserAgent()
+{
+  auto userAgent = profile()->httpUserAgent().split(' ');
+  userAgent.erase(std::remove_if(userAgent.begin(), userAgent.end(),
+                                 [](const QString &part) {
+                                   return part.startsWith("QtWebEngine");
+                                 }),
+                  userAgent.end());
+  profile()->setHttpUserAgent(userAgent.join(' '));
 }
 
 void WebPage::setIgnoreSslErrors(bool ignoreSslErrors)
