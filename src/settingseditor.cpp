@@ -246,6 +246,12 @@ void SettingsEditor::updateTranslators()
     return;
 
   std::sort(names.begin(), names.end());
+
+  if (!enabledTranslators_.isEmpty()) {
+    for (const auto &name : enabledTranslators_) names.removeOne(name);
+    names = enabledTranslators_ + names;
+  }
+
   ui->translatorList->addItems(names);
 
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
