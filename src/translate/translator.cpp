@@ -153,6 +153,12 @@ void Translator::createPage(const QString &scriptName,
   const auto &page = pageIt.first->second;
   page->setIgnoreSslErrors(settings_.ignoreSslErrors);
   page->setTimeout(settings_.translationTimeout);
+  page->setVisible(true);
+  connect(page.get(), &WebPage::visibleChanged,  //
+          page.get(), [page = page.get()](bool on) {
+            if (!on)
+              page->setVisible(true);
+          });
 
   auto log = new QTextEdit(tabs_);
   tabs_->addTab(log, scriptName);
@@ -233,12 +239,26 @@ void Translator::processQueue()
   std::unordered_set<QString> idlePages;
   std::unordered_set<Task *> busyTasks;
 
+  const auto visible = isVisible();
+  if (!visible)
+    showNormal();
+
+  auto oldPage = view_->page();
   for (auto &i : pages_) {
-    if (i.second->checkBusy())
-      busyTasks.insert(i.second->task().get());
-    else
+    if (!i.second->checkBusy()) {
       idlePages.insert(i.first);
+    } else {
+      busyTasks.insert(i.second->task().get());
+      view_->setPage(i.second.get());
+      view_->update();
+    }
   }
+
+  if (oldPage != view_->page())
+    view_->setPage(oldPage);
+
+  if (!visible)
+    hide();
 
   if (idlePages.empty())
     return;
