@@ -407,22 +407,36 @@ void Model::emitColumnsChanged(const QModelIndex &parent)
   for (auto i = 0; i < count; ++i) emitColumnsChanged(index(0, 0, parent));
 }
 
+Model::Component *Model::toComponent(const QModelIndex &index) const
+{
+  return static_cast<Component *>(index.internalPointer());
+}
+
+QModelIndex Model::toIndex(const Model::Component &component, int column) const
+{
+  return createIndex(component.index, column,
+                     const_cast<Model::Component *>(&component));
+}
+
 QModelIndex Model::index(int row, int column, const QModelIndex &parent) const
 {
   if (!root_)
     return {};
-  if (auto ptr = static_cast<Component *>(parent.internalPointer())) {
+
+  if (auto ptr = toComponent(parent)) {
     SOFT_ASSERT(row >= 0 && row < int(ptr->children.size()), return {});
-    return createIndex(row, column, ptr->children[row].get());
+    return toIndex(*ptr->children[row], column);
   }
+
   if (row < 0 && row >= int(root_->children.size()))
     return {};
-  return createIndex(row, column, root_->children[row].get());
+
+  return toIndex(*root_->children[row], column);
 }
 
 QModelIndex Model::parent(const QModelIndex &child) const
 {
-  auto ptr = static_cast<Component *>(child.internalPointer());
+  auto ptr = toComponent(child);
   if (auto parent = ptr->parent)
     return createIndex(parent->index, 0, parent);
   return {};
@@ -430,7 +444,7 @@ QModelIndex Model::parent(const QModelIndex &child) const
 
 int Model::rowCount(const QModelIndex &parent) const
 {
-  if (auto ptr = static_cast<Component *>(parent.internalPointer())) {
+  if (auto ptr = toComponent(parent)) {
     return ptr->children.size();
   }
   return root_ ? root_->children.size() : 0;
@@ -463,7 +477,7 @@ QVariant Model::data(const QModelIndex &index, int role) const
   if ((role != Qt::DisplayRole && role != Qt::EditRole) || !index.isValid())
     return {};
 
-  auto ptr = static_cast<Component *>(index.internalPointer());
+  auto ptr = toComponent(index);
   SOFT_ASSERT(ptr, return {});
 
   switch (index.column()) {
@@ -487,7 +501,7 @@ bool Model::setData(const QModelIndex &index, const QVariant &value, int role)
   if (!index.isValid() || role != Qt::EditRole)
     return false;
 
-  auto ptr = static_cast<Component *>(index.internalPointer());
+  auto ptr = toComponent(index);
   SOFT_ASSERT(ptr, return false);
 
   if (index.column() != int(Column::Action))
@@ -506,7 +520,7 @@ bool Model::setData(const QModelIndex &index, const QVariant &value, int role)
 
 Qt::ItemFlags Model::flags(const QModelIndex &index) const
 {
-  auto ptr = static_cast<Component *>(index.internalPointer());
+  auto ptr = toComponent(index);
   SOFT_ASSERT(ptr, return {});
   auto result = Qt::NoItemFlags | Qt::ItemIsSelectable;
 

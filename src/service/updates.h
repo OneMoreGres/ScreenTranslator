@@ -81,6 +81,8 @@ private:
   State currentState(const File& file) const;
   QString expanded(const QString& source) const;
   void emitColumnsChanged(const QModelIndex& parent);
+  Component* toComponent(const QModelIndex& index) const;
+  QModelIndex toIndex(const Component& component, int column) const;
 
   std::unique_ptr<Component> root_;
   std::map<QString, QString> expansions_;
