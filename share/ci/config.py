@@ -30,3 +30,5 @@ app_version += {'linux': '', 'macos': '-experimental',
                 'win32': '', 'win64': ''}[os_name]
 bitness = '32' if os_name == 'win32' else '64'
 msvc_version = getenv('MSVC_VERSION', '2017/Community')
+
+build_type = 'release' # 'debug'

@@ -19,6 +19,8 @@ c.run('lupdate "{}"'.format(pro_file))
 c.run('lrelease "{}"'.format(pro_file))
 
 c.set_make_threaded()
-c.run('qmake {} "{}"'.format(os.environ.get('QMAKE_FLAGS',''), pro_file))
+build_type_flag = 'debug' if build_type == 'debug' else 'release'
+qmake_flags = os.environ.get('QMAKE_FLAGS','') + ' CONFIG+=' + build_type_flag
+c.run('qmake {} "{}"'.format(qmake_flags, pro_file))
 make_cmd = c.get_make_cmd()
 c.run(make_cmd)

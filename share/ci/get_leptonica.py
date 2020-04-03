@@ -1,5 +1,5 @@
 import common as c
-from config import bitness, msvc_version, build_dir, dependencies_dir
+from config import bitness, msvc_version, build_dir, dependencies_dir, build_type
 import os
 import platform
 
@@ -67,8 +67,9 @@ if platform.system() == "Windows":
 
 c.set_make_threaded()
 c.run('cmake {}'.format(cmake_args))
-c.run('cmake --build . --config Release')
-c.run('cmake --build . --target install --config Release')
+build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
+c.run('cmake --build . --config {}'.format(build_type_flag))
+c.run('cmake --build . --target install --config {}'.format(build_type_flag))
 
 if not check_existing(): # create links
     c.print('>> Build failed')
