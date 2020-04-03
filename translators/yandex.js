@@ -32,8 +32,7 @@ function translate(text, from, to) {
         return;
     }
 
-    let url = 'https://translate.yandex.ru/?' + langs + '&text=' + text;
-    url = url.replace(new RegExp(' ', 'g'), '%20')
+    let url = 'https://translate.yandex.ru/?' + langs + '&text=' + encodeURIComponent(text);
     console.log("setting url", url);
     window.location = url;
 }

@@ -30,9 +30,9 @@ function translate(text, from, to) {
         return;
     }
 
-    let url = 'https://www.bing.com/translator/?from=auto&to=' + to + '&text=' + text;
+    let url = 'https://www.bing.com/translator/?from=auto&to=' + to + '&text=' + encodeURIComponent(text);
     console.log("setting url", url);
-    window.location = encodeURI(url);
+    window.location = url;
 
 }
 

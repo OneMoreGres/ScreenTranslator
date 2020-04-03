@@ -42,10 +42,9 @@ function translate(text, from, to) {
     return;
   }
 
-  let url = 'https://www.deepl.com/translator#' + langs +
-    text.replace('\n', ' ').replace('|', '');
+  let url = 'https://www.deepl.com/translator#' + langs + encodeURIComponent(text);
   console.log("setting url", url);
-  window.location = encodeURI(url);
+  window.location = url;
 }
 
 function init() {

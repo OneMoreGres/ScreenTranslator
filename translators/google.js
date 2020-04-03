@@ -29,9 +29,9 @@ function translate(text, from, to) {
         return;
     }
     //    let url = 'https://translate.google.com/#auto/' + to + '/' + text;
-    let url = 'https://translate.google.com/#view=home&op=translate&sl=auto&tl=' + to + '&text=' + text;
+    let url = 'https://translate.google.com/#view=home&op=translate&sl=auto&tl=' + to + '&text=' + encodeURIComponent(text);
     console.log("setting url", url);
-    window.location = encodeURI(url);
+    window.location = url;
 
 }
 

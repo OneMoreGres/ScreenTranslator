@@ -11,7 +11,7 @@ function httpGetAsync(url, callback) {
 function translate(text, from, to) {
   console.log('start translate', text, from, to)
 
-  let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=' + to + '&dt=t&q=' + text;
+  let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=' + to + '&dt=t&q=' + encodeURIComponent(text);
   console.log("loading url", url);
 
   httpGetAsync(url, function (response) {

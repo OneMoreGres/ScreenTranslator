@@ -54,8 +54,7 @@ function translate(text, from, to) {
         return;
     }
 
-    let url = 'https://papago.naver.com/?sk=auto&tk=' + to + '&st=' +
-        text.replace("\n", " ");
+    let url = 'https://papago.naver.com/?sk=auto&tk=' + to + '&st=' + encodeURIComponent(text);
     window.location = encodeURI(url);
 }
 
