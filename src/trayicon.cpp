@@ -232,12 +232,6 @@ QMenu *TrayIcon::contextMenu()
   }
 
   {
-    auto action = menu->addAction(tr("About"));
-    connect(action, &QAction::triggered,  //
-            this, [this] { manager_.about(); });
-  }
-
-  {
     auto action = menu->addAction(tr("Quit"));
     connect(action, &QAction::triggered,  //
             this, [this] { manager_.quit(); });

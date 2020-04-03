@@ -33,8 +33,8 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   {
     auto model = new QStringListModel(this);
     model->setStringList({tr("General"), tr("Recognition"), tr("Correction"),
-                          tr("Translation"), tr("Representation"),
-                          tr("Update")});
+                          tr("Translation"), tr("Representation"), tr("Update"),
+                          tr("About")});
     ui->pagesList->setModel(model);
     auto selection = ui->pagesList->selectionModel();
     connect(selection, &QItemSelectionModel::currentRowChanged,  //
@@ -102,6 +102,24 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
           &updater_, &update::Loader::checkForUpdates);
   connect(ui->applyUpdates, &QPushButton::clicked,  //
           &updater_, &update::Loader::applyUserActions);
+
+  // about
+  {
+    const auto mail = "translator@gres.biz";
+    const auto issues =
+        "https://github.com/OneMoreGres/ScreenTranslator/issues";
+    const auto aboutText =
+        QObject::tr(
+            R"(<p>Optical character recognition (OCR) and translation tool</p>
+        <p>Version: %1</p>
+        <p>Author: Gres (<a href="mailto:%2">%2</a>)</p>
+        <p>Issues: <a href="%3">%3</a></p>)")
+            .arg(QApplication::applicationVersion(), mail, issues);
+
+    ui->aboutLabel->setText(aboutText);
+    ui->aboutLabel->setTextFormat(Qt::RichText);
+    ui->aboutLabel->setOpenExternalLinks(true);
+  }
 
   new service::WidgetState(this);
 }

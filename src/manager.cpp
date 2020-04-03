@@ -1,6 +1,5 @@
 #include "manager.h"
 #include "capturer.h"
-#include "commonmodels.h"
 #include "corrector.h"
 #include "debug.h"
 #include "recognizer.h"
@@ -12,7 +11,6 @@
 #include "updates.h"
 
 #include <QApplication>
-#include <QMessageBox>
 #include <QNetworkProxy>
 #include <QThread>
 
@@ -288,25 +286,6 @@ void Manager::copyLastToClipboard()
 {
   SOFT_ASSERT(representer_, return );
   representer_->clipboardLast();
-}
-
-void Manager::about()
-{
-  const auto mail = "translator@gres.biz";
-  const auto issues = "https://github.com/OneMoreGres/ScreenTranslator/issues";
-  const auto text =
-      QObject::tr(
-          R"(<p>Optical character recognition (OCR) and translation tool</p>
-<p>Version: %1</p>
-<p>Author: Gres (<a href="mailto:%2">%2</a>)</p>
-<p>Issues: <a href="%3">github</a></p>)")
-          .arg(QApplication::applicationVersion(), mail, issues);
-
-  QMessageBox message(QMessageBox::Information, QObject::tr("About"), text,
-                      QMessageBox::Ok);
-  message.setIconPixmap(QIcon(":/icons/app.png").pixmap(QSize(64, 64)));
-  message.setTextFormat(Qt::RichText);
-  message.exec();
 }
 
 void Manager::quit()

@@ -25,7 +25,6 @@ public:
   void showTranslator();
   void settings();
   void copyLastToClipboard();
-  void about();
   void quit();
 
 private:
