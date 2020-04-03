@@ -20,8 +20,6 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
 {
   ui->setupUi(this);
 
-  ui->translatorDebugCheck->hide();
-
   connect(ui->buttonBox, &QDialogButtonBox::clicked,  //
           this, &SettingsEditor::handleButtonBoxClicked);
 
@@ -145,6 +143,7 @@ Settings SettingsEditor::settings() const
       ui->captureLockedEdit->keySequence().toString();
 
   settings.showMessageOnStart = ui->showOnStart->isChecked();
+  settings.writeTrace = ui->writeTrace->isChecked();
 
   settings.proxyType = ProxyType(ui->proxyTypeCombo->currentIndex());
   settings.proxyHostName = ui->proxyHostEdit->text();
@@ -161,7 +160,6 @@ Settings SettingsEditor::settings() const
 
   settings.doTranslation = ui->doTranslationCheck->isChecked();
   settings.ignoreSslErrors = ui->ignoreSslCheck->isChecked();
-  settings.debugMode = ui->translatorDebugCheck->isChecked();
   settings.translationTimeout =
       std::chrono::seconds(ui->translateTimeoutSpin->value());
   settings.targetLanguage =
@@ -206,6 +204,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->captureLockedEdit->setKeySequence(settings.captureLockedHotkey);
 
   ui->showOnStart->setChecked(settings.showMessageOnStart);
+  ui->writeTrace->setChecked(settings.writeTrace);
 
   ui->proxyTypeCombo->setCurrentIndex(int(settings.proxyType));
   ui->proxyHostEdit->setText(settings.proxyHostName);
@@ -223,7 +222,6 @@ void SettingsEditor::setSettings(const Settings &settings)
 
   ui->doTranslationCheck->setChecked(settings.doTranslation);
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
-  ui->translatorDebugCheck->setChecked(settings.debugMode);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
   ui->translatorsPath->setText(settings.translatorsDir);
   enabledTranslators_ = settings.translators;

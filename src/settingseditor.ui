@@ -216,6 +216,13 @@
          </property>
         </spacer>
        </item>
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="writeTrace">
+         <property name="text">
+          <string>Write trace file</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageRecognize">
@@ -307,68 +314,28 @@
      </widget>
      <widget class="QWidget" name="pageTranslate">
       <layout class="QGridLayout" name="gridLayout_9">
-       <item row="3" column="2">
-        <widget class="QSpinBox" name="translateTimeoutSpin">
-         <property name="suffix">
-          <string> secs</string>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Translators path:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
+       <item row="0" column="0" colspan="2">
         <widget class="QCheckBox" name="doTranslationCheck">
          <property name="text">
           <string>Translate text</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="1" column="0" colspan="2">
         <widget class="QCheckBox" name="ignoreSslCheck">
          <property name="text">
           <string>Ignore SSL errors</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Single translator timeout:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="translatorDebugCheck">
-         <property name="text">
-          <string>Debug mode</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0" colspan="3">
-        <widget class="QListWidget" name="translatorList">
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="dragDropMode">
-          <enum>QAbstractItemView::InternalMove</enum>
-         </property>
-         <property name="defaultDropAction">
-          <enum>Qt::MoveAction</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Language:</string>
-         </property>
-         <property name="buddy">
-          <cstring>translateLangCombo</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1" colspan="2">
-        <widget class="QComboBox" name="translateLangCombo"/>
-       </item>
-       <item row="6" column="0" colspan="3">
+       <item row="5" column="0" colspan="3">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>Translators</string>
@@ -378,17 +345,50 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Translators path:</string>
+       <item row="2" column="2">
+        <widget class="QSpinBox" name="translateTimeoutSpin">
+         <property name="suffix">
+          <string> secs</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1" colspan="2">
+        <widget class="QComboBox" name="translateLangCombo"/>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Single translator timeout:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="2">
         <widget class="QLineEdit" name="translatorsPath">
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Language:</string>
+         </property>
+         <property name="buddy">
+          <cstring>translateLangCombo</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="3">
+        <widget class="QListWidget" name="translatorList">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::InternalMove</enum>
+         </property>
+         <property name="defaultDropAction">
+          <enum>Qt::MoveAction</enum>
          </property>
         </widget>
        </item>

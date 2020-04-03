@@ -40,7 +40,6 @@ const QString qs_doTranslation = "doTranslation";
 const QString qs_ignoreSslErrors = "ignoreSslErrors";
 const QString qs_translationLanguage = "translation_language";
 const QString qs_translationTimeout = "translation_timeout";
-const QString qs_debugMode = "translation_debug";
 const QString qs_translators = "translators";
 
 const QString qs_representationGroup = "Representation";
@@ -124,6 +123,7 @@ void cleanupOutdated(QSettings& settings)
   settings.beginGroup(qs_translationGroup);
   settings.remove("source_language");
   settings.remove("forceRotateTranslators");
+  settings.remove("translation_debug");
   settings.endGroup();
 }
 
@@ -181,7 +181,6 @@ void Settings::save() const
 
   settings.setValue(qs_doTranslation, doTranslation);
   settings.setValue(qs_ignoreSslErrors, ignoreSslErrors);
-  settings.setValue(qs_debugMode, debugMode);
   settings.setValue(qs_translationLanguage, targetLanguage);
   settings.setValue(qs_translationTimeout, int(translationTimeout.count()));
   settings.setValue(qs_translators, translators);
@@ -272,7 +271,6 @@ void Settings::load()
   doTranslation = settings.value(qs_doTranslation, doTranslation).toBool();
   ignoreSslErrors =
       settings.value(qs_ignoreSslErrors, ignoreSslErrors).toBool();
-  debugMode = settings.value(qs_debugMode, debugMode).toBool();
   targetLanguage =
       settings.value(qs_translationLanguage, targetLanguage).toString();
   translationTimeout = std::chrono::seconds(

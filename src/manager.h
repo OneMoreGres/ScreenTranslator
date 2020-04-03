@@ -31,6 +31,7 @@ private:
   void updateSettings();
   void setupProxy(const Settings &settings);
   void setupUpdates(const Settings &settings);
+  void setupTrace(bool isOn);
   void finishTask(const TaskPtr &task);
 
   std::unique_ptr<Settings> settings_;

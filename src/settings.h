@@ -51,7 +51,7 @@ public:
   Substitutions userSubstitutions;
   bool useUserSubstitutions{true};
 
-  bool debugMode{false};
+  bool writeTrace{false};
 
   QString tessdataPath;
   QString sourceLanguage{"eng"};

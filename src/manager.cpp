@@ -11,6 +11,8 @@
 #include "updates.h"
 
 #include <QApplication>
+#include <QDesktopServices>
+#include <QMessageBox>
 #include <QNetworkProxy>
 #include <QThread>
 
@@ -66,12 +68,14 @@ Manager::~Manager()
     settings_->lastUpdateCheck = updateAutoChecker_->lastCheckDate();
     settings_->saveLastUpdateCheck();
   }
+  setupTrace(false);
 }
 
 void Manager::updateSettings()
 {
   LTRACE() << "updateSettings";
   SOFT_ASSERT(settings_, return );
+  setupTrace(settings_->writeTrace);
   setupProxy(*settings_);
   setupUpdates(*settings_);
 
@@ -125,6 +129,40 @@ void Manager::setupUpdates(const Settings &settings)
   } else {
     updateAutoChecker_.reset();
   }
+}
+
+void Manager::setupTrace(bool isOn)
+{
+  const auto oldFile = debug::traceFileName();
+
+  if (!isOn) {
+    debug::setTraceFileName({});
+    debug::isTrace = false;
+
+    if (!oldFile.isEmpty())
+      QDesktopServices::openUrl(QUrl::fromLocalFile(oldFile));
+
+    return;
+  }
+
+  if (!oldFile.isEmpty())
+    return;
+
+  const auto traceFile =
+      QStandardPaths::writableLocation(QStandardPaths::TempLocation) +
+      QLatin1String("/multidir-") +
+      QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
+
+  if (!debug::setTraceFileName(traceFile)) {
+    QMessageBox::warning(
+        nullptr, {},
+        QObject::tr("Failed to setup log to file: %1").arg(traceFile));
+    return;
+  }
+
+  debug::isTrace = true;
+  QMessageBox::information(
+      nullptr, {}, QObject::tr("Started logging to file: %1").arg(traceFile));
 }
 
 void Manager::finishTask(const TaskPtr &task)

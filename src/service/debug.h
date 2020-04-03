@@ -2,6 +2,13 @@
 
 #include <QDebug>
 
+namespace debug
+{
+extern std::atomic_bool isTrace;
+QString traceFileName();
+bool setTraceFileName(const QString& fileName);
+};  // namespace debug
+
 #define SOFT_ASSERT(XXX, WORKAROUND)                                         \
   if (!(XXX)) {                                                              \
     qCritical() << "Soft assertion failed at" << __FILE__ << __LINE__ << ":" \
@@ -22,11 +29,6 @@
                 << #XXX << "Context (" << #CONTEXT << ")" << CONTEXT;   \
     Q_ASSERT(XXX);                                                      \
   }
-
-namespace debug
-{
-extern std::atomic_bool isTrace;
-};
 
 #define LTRACE()      \
   if (debug::isTrace) \
