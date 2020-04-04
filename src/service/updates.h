@@ -13,7 +13,7 @@ enum class State { NotAvailable, NotInstalled, UpdateAvailable, Actual };
 enum class Action { NoAction, Remove, Install };
 
 struct File {
-  QUrl url;
+  QVector<QUrl> urls;
   QString rawPath;
   QString expandedPath;
   QString downloadPath;
@@ -130,19 +130,20 @@ signals:
 
 private:
   void handleReply(QNetworkReply* reply);
-  void handleComponentReply(QNetworkReply* reply);
+  bool handleComponentReply(QNetworkReply* reply);
   void handleUpdateReply(QNetworkReply* reply);
   QString toError(QNetworkReply& reply) const;
   void finishUpdate(const QString& error = {});
   void commitUpdate();
   void updateProgress(qint64 bytesSent, qint64 bytesTotal);
+  bool startDownload(File& file);
 
   QNetworkAccessManager* network_;
   Model* model_;
   QUrl updateUrl_;
   QString downloadPath_;
-  std::map<QNetworkReply*, QString> componentReplyToPath_;
-  std::unique_ptr<Installer> installer_;
+  std::map<QNetworkReply*, File*> downloads_;
+  UserActions currentActions_;
 };
 
 class AutoChecker : public QObject

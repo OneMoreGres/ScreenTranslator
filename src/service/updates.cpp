@@ -1,4 +1,4 @@
-#include "updates.h"
+﻿#include "updates.h"
 #include "debug.h"
 
 #include <QApplication>
@@ -37,6 +37,22 @@ QString toString(Action action)
       {Action::Install, QObject::tr("Install/Update")},
   };
   return names.value(action);
+}
+
+QStringList toList(const QJsonValue &value)
+{
+  if (value.isString())
+    return {value.toString()};
+  if (!value.isArray())
+    return {};
+
+  const auto array = value.toArray();
+  QStringList result;
+  for (const auto &i : array) {
+    if (i.isString())
+      result.append(i.toString());
+  }
+  return result;
 }
 
 }  // namespace
@@ -96,55 +112,76 @@ QString Loader::toError(QNetworkReply &reply) const
 void Loader::applyUserActions()
 {
   SOFT_ASSERT(model_, return );
-  if (installer_ || !componentReplyToPath_.empty()) {
+  if (!currentActions_.empty() || !downloads_.empty()) {
     emit error(tr("Update already in process"));
     return;
   }
 
-  auto actions = model_->userActions();
-  if (actions.empty()) {
+  currentActions_ = model_->userActions();
+  if (currentActions_.empty()) {
     emit error(tr("No actions to apply"));
     return;
   }
 
-  for (auto &action : actions) {
+  for (auto &action : currentActions_) {
     if (action.first != Action::Install)
       continue;
 
     auto &file = action.second;
-
-    auto reply = network_->get(QNetworkRequest(file.url));
-    if (reply->error() != QNetworkReply::NoError) {
-      finishUpdate(toError(*reply));
-      break;
-    }
-
-    connect(reply, &QNetworkReply::downloadProgress,  //
-            this, &Loader::updateProgress);
     file.downloadPath = downloadPath_ + '/' + file.rawPath;
-    componentReplyToPath_.emplace(reply, file.downloadPath);
+
+    if (!startDownload(file)) {
+      finishUpdate();
+      return;
+    }
   }
 
-  installer_ = std::make_unique<Installer>(actions);
-
-  if (componentReplyToPath_.empty())  // no downloads
+  if (downloads_.empty())  // no downloads
     commitUpdate();
 }
 
-void Loader::handleComponentReply(QNetworkReply *reply)
+bool Loader::startDownload(File &file)
+{
+  if (file.urls.empty())
+    return false;
+
+  auto reply = network_->get(QNetworkRequest(file.urls.takeFirst()));
+  downloads_.emplace(reply, &file);
+
+  connect(reply, &QNetworkReply::downloadProgress,  //
+          this, &Loader::updateProgress);
+
+  if (reply->error() == QNetworkReply::NoError)
+    return true;
+
+  return handleComponentReply(reply);
+}
+
+bool Loader::handleComponentReply(QNetworkReply *reply)
 {
   reply->deleteLater();
 
-  if (reply->error() != QNetworkReply::NoError) {
-    finishUpdate(toError(*reply));
-    return;
+  if (currentActions_.empty()) {  // aborted?
+    finishUpdate();
+    return false;
   }
 
-  SOFT_ASSERT(componentReplyToPath_.count(reply) == 1, return );
+  SOFT_ASSERT(downloads_.count(reply) == 1, return false);
+  auto *file = downloads_[reply];
+  SOFT_ASSERT(file, return false);
 
-  auto replyIt = componentReplyToPath_.find(reply);
-  const auto &fileName = replyIt->second;
+  downloads_.erase(reply);
 
+  if (reply->error() != QNetworkReply::NoError) {
+    emit error(toError(*reply));
+
+    if (!startDownload(*file))
+      finishUpdate();
+
+    return false;
+  }
+
+  const auto &fileName = file->downloadPath;
   auto dir = QFileInfo(fileName).absoluteDir();
   if (!dir.exists())
     dir.mkpath(".");
@@ -155,23 +192,24 @@ void Loader::handleComponentReply(QNetworkReply *reply)
         tr("Failed to save downloaded file %1 to %2. Error %3")
             .arg(reply->url().toString(), f.fileName(), f.errorString());
     finishUpdate(error);
-    return;
+    return false;
   }
+
   const auto replyData = reply->readAll();
   f.write(replyData);
   f.close();
 
-  componentReplyToPath_.erase(replyIt);
-
-  if (componentReplyToPath_.empty())
+  if (downloads_.empty())
     commitUpdate();
+
+  return true;
 }
 
 void Loader::finishUpdate(const QString &error)
 {
-  installer_.reset();
-  for (const auto &i : componentReplyToPath_) i.first->deleteLater();
-  componentReplyToPath_.clear();
+  currentActions_.clear();
+  for (const auto &i : downloads_) i.first->deleteLater();
+  downloads_.clear();
   if (!error.isEmpty())
     emit this->error(error);
   SOFT_ASSERT(model_, return );
@@ -180,12 +218,13 @@ void Loader::finishUpdate(const QString &error)
 
 void Loader::commitUpdate()
 {
-  SOFT_ASSERT(installer_, return );
-  if (installer_->commit()) {
+  SOFT_ASSERT(!currentActions_.empty(), return );
+  Installer installer(currentActions_);
+  if (installer.commit()) {
     model_->resetProgress();
     emit updated();
   } else {
-    emit error(tr("Update failed: %1").arg(installer_->errorString()));
+    emit error(tr("Update failed: %1").arg(installer.errorString()));
   }
   finishUpdate();
 }
@@ -267,8 +306,12 @@ std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const
     for (const auto &fileInfo : files) {
       const auto object = fileInfo.toObject();
       File file;
-      file.url = object["url"].toString();
-      if (!file.url.isValid())
+      for (const auto &s : toList(object["url"])) {
+        const auto url = QUrl(s);
+        if (url.isValid())
+          file.urls.append(url);
+      }
+      if (file.urls.isEmpty())
         result->checkOnly = true;
       file.rawPath = object["path"].toString();
       file.md5 = object["md5"].toString();
@@ -302,7 +345,7 @@ void Model::updateProgress(Model::Component &component, const QUrl &url,
 {
   if (!component.files.empty()) {
     for (auto &file : component.files) {
-      if (!url.isEmpty() && file.url != url)
+      if (!url.isEmpty() && !file.urls.contains(url))
         continue;
 
       file.progress = progress;
