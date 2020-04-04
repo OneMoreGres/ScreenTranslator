@@ -31,7 +31,6 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
-  setCursor(Qt::CrossCursor);
   setMouseTracking(true);
   setAttribute(Qt::WA_OpaquePaintEvent);
 
@@ -94,6 +93,29 @@ void CaptureAreaSelector::captureAll()
 void CaptureAreaSelector::cancel()
 {
   capturer_.canceled();
+}
+
+void CaptureAreaSelector::updateCursorShape(const QPoint &pos)
+{
+  const auto set = [this](Qt::CursorShape shape) {
+    const auto current = cursor().shape();
+    if (current != shape)
+      setCursor(shape);
+  };
+
+  if (areas_.empty()) {
+    set(Qt::CrossCursor);
+    return;
+  }
+
+  for (const auto &area : areas_) {
+    if (area->rect().contains(pos)) {
+      set(Qt::CursorShape::PointingHandCursor);
+      return;
+    }
+  }
+
+  set(Qt::CrossCursor);
 }
 
 void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
@@ -203,6 +225,7 @@ void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
   startSelectPos_ = currentSelectPos_ = QPoint();
   areas_.erase(std::remove_if(areas_.begin(), areas_.end(), notLocked),
                areas_.end());
+  updateCursorShape(QCursor::pos());
 }
 
 void CaptureAreaSelector::hideEvent(QHideEvent * /*event*/)
@@ -256,6 +279,8 @@ void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
 
 void CaptureAreaSelector::mouseMoveEvent(QMouseEvent *event)
 {
+  updateCursorShape(QCursor::pos());
+
   if (startSelectPos_.isNull()) {
     if (updateCurrentHelpRects())
       update();

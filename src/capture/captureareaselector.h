@@ -38,6 +38,7 @@ private:
   void capture(CaptureArea &area, uint generation);
   void captureAll();
   void cancel();
+  void updateCursorShape(const QPoint &pos);
 
   bool updateCurrentHelpRects();
   void drawHelpRects(QPainter &painter, const HelpRect &rect) const;
