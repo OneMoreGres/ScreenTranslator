@@ -10,6 +10,8 @@ public:
   bool isNull() const { return captured.isNull() && !sourceLanguage.isEmpty(); }
   bool isValid() const { return error.isEmpty(); }
 
+  Generation generation{};
+
   QPoint capturePoint;
   QPixmap captured;
   QString recognized;

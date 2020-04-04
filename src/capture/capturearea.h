@@ -13,6 +13,7 @@ public:
   CaptureArea(const QRect& rect, const Settings& settings);
   TaskPtr task(const QPixmap& pixmap) const;
 
+  void setGeneration(uint generation);
   bool isValid() const;
   bool isLocked() const;
   const QRect& rect() const;
@@ -23,6 +24,7 @@ public:
 private:
   friend class CaptureAreaEditor;
 
+  Generation generation_{};
   QRect rect_;
   bool doTranslation_;
   bool isLocked_{false};

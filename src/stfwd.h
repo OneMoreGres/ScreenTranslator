@@ -29,3 +29,4 @@ class AutoChecker;
 using TaskPtr = std::shared_ptr<Task>;
 using LanguageId = QString;
 using LanguageIds = QStringList;
+using Generation = unsigned int;

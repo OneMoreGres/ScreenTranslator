@@ -17,6 +17,7 @@ TaskPtr CaptureArea::task(const QPixmap &pixmap) const
     return {};
 
   auto task = std::make_shared<Task>();
+  task->generation = generation_;
   task->captured = pixmap.copy(rect_);
   task->capturePoint = rect_.topLeft();
   task->sourceLanguage = sourceLanguage_;
@@ -26,6 +27,11 @@ TaskPtr CaptureArea::task(const QPixmap &pixmap) const
   }
 
   return task;
+}
+
+void CaptureArea::setGeneration(uint generation)
+{
+  generation_ = generation;
 }
 
 bool CaptureArea::isValid() const

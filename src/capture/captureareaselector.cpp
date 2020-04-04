@@ -4,11 +4,20 @@
 #include "capturer.h"
 #include "debug.h"
 #include "geometryutils.h"
-#include "languagecodes.h"
 #include "settings.h"
 
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
+
+static bool locked(const std::shared_ptr<CaptureArea> &area)
+{
+  return area->isLocked();
+}
+static bool notLocked(const std::shared_ptr<CaptureArea> &area)
+{
+  return !area->isLocked();
+}
 
 CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
                                          const Settings &settings,
@@ -18,6 +27,7 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
   , settings_(settings)
   , pixmap_(pixmap)
   , editor_(std::make_unique<CaptureAreaEditor>(models, this))
+  , contextMenu_(new QMenu(this))
 {
   setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint |
                  Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -27,7 +37,20 @@ CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
 
   help_ = tr(R"(Right click on selection - customize
 Left click on selection - process
-Esc - cancel)");
+Enter - process all selections
+Esc - cancel
+Ctrl - keep selecting)");
+
+  {
+    auto action = contextMenu_->addAction(tr("Capture all"));
+    connect(action, &QAction::triggered,  //
+            this, &CaptureAreaSelector::captureAll);
+  }
+  {
+    auto action = contextMenu_->addAction(tr("Cancel"));
+    connect(action, &QAction::triggered,  //
+            this, &CaptureAreaSelector::cancel);
+  }
 }
 
 CaptureAreaSelector::~CaptureAreaSelector() = default;
@@ -41,13 +64,36 @@ void CaptureAreaSelector::activate()
 
 bool CaptureAreaSelector::hasLocked() const
 {
-  return area_ && area_->isLocked();
+  const auto it = std::find_if(areas_.cbegin(), areas_.cend(), locked);
+  return it != areas_.cend();
 }
 
 void CaptureAreaSelector::captureLocked()
 {
   SOFT_ASSERT(hasLocked(), return );
-  capturer_.selected(*area_);
+  ++generation_;
+  for (auto &area : areas_) {
+    if (area->isLocked())
+      capture(*area, generation_);
+  }
+}
+
+void CaptureAreaSelector::capture(CaptureArea &area, uint generation)
+{
+  area.setGeneration(generation);
+  capturer_.selected(area);
+}
+
+void CaptureAreaSelector::captureAll()
+{
+  SOFT_ASSERT(!areas_.empty(), return );
+  ++generation_;
+  for (auto &area : areas_) capture(*area, generation_);
+}
+
+void CaptureAreaSelector::cancel()
+{
+  capturer_.canceled();
 }
 
 void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
@@ -67,7 +113,7 @@ void CaptureAreaSelector::setScreenRects(const std::vector<QRect> &screens)
 
 void CaptureAreaSelector::updateSettings()
 {
-  area_.reset();
+  areas_.clear();
 }
 
 void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
@@ -77,8 +123,9 @@ void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
 
   for (const auto &rect : helpRects_) drawHelpRects(painter, rect);
 
-  if (area_)
-    drawCaptureArea(painter, *area_);
+  if (!areas_.empty()) {
+    for (const auto &area : areas_) drawCaptureArea(painter, *area);
+  }
 
   if (editor_->isVisible()) {
     painter.setBrush(QBrush(QColor(200, 200, 200, 200)));
@@ -86,11 +133,10 @@ void CaptureAreaSelector::paintEvent(QPaintEvent * /*event*/)
     painter.drawRect(editor_->geometry());
   }
 
-  auto selection = QRect(startSelectPos_, currentSelectPos_).normalized();
-  if (!selection.isValid())
+  const auto area = CaptureArea(
+      QRect(startSelectPos_, currentSelectPos_).normalized(), settings_);
+  if (!area.isValid())
     return;
-
-  const auto area = CaptureArea(selection, settings_);
   drawCaptureArea(painter, area);
 }
 
@@ -154,9 +200,9 @@ void CaptureAreaSelector::drawCaptureArea(QPainter &painter,
 void CaptureAreaSelector::showEvent(QShowEvent * /*event*/)
 {
   editor_->hide();
-  if (area_ && !area_->isLocked())
-    area_.reset();
   startSelectPos_ = currentSelectPos_ = QPoint();
+  areas_.erase(std::remove_if(areas_.begin(), areas_.end(), notLocked),
+               areas_.end());
 }
 
 void CaptureAreaSelector::hideEvent(QHideEvent * /*event*/)
@@ -166,8 +212,19 @@ void CaptureAreaSelector::hideEvent(QHideEvent * /*event*/)
 
 void CaptureAreaSelector::keyPressEvent(QKeyEvent *event)
 {
-  if (event->key() == Qt::Key_Escape)
-    capturer_.canceled();
+  if (event->key() == Qt::Key_Escape) {
+    cancel();
+    return;
+  }
+
+  if (event->key() == Qt::Key_Return) {
+    if (!areas_.empty()) {
+      captureAll();
+    } else {
+      cancel();
+    }
+    return;
+  }
 }
 
 void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
@@ -179,17 +236,22 @@ void CaptureAreaSelector::mousePressEvent(QMouseEvent *event)
     applyEditor();
   }
 
-  if (area_ && area_->rect().contains(event->pos())) {
-    if (event->button() == Qt::LeftButton) {
-      capturer_.selected(*area_);
-    } else if (event->button() == Qt::RightButton) {
-      customize(*area_);
+  if (!areas_.empty()) {
+    for (auto &area : areas_) {
+      if (!area->rect().contains(event->pos()))
+        continue;
+
+      if (event->button() == Qt::LeftButton) {
+        capture(*area, ++generation_);
+      } else if (event->button() == Qt::RightButton) {
+        customize(area);
+      }
+      return;
     }
-    return;
   }
 
   if (startSelectPos_.isNull())
-    startSelectPos_ = event->pos();
+    startSelectPos_ = currentSelectPos_ = event->pos();
 }
 
 void CaptureAreaSelector::mouseMoveEvent(QMouseEvent *event)
@@ -215,27 +277,37 @@ void CaptureAreaSelector::mouseReleaseEvent(QMouseEvent *event)
 
   startSelectPos_ = currentSelectPos_ = {};
 
-  const auto area = CaptureArea(selection, settings_);
-  if (!area.isValid()) {
-    capturer_.canceled();
+  auto area = CaptureArea(selection, settings_);
+  if (!area.isValid()) {  // just a click
+    if (areas_.empty()) {
+      cancel();
+      return;
+    }
+    if (event->button() == Qt::RightButton) {
+      contextMenu_->popup(QCursor::pos());
+    }
     return;
   }
 
-  if (event->button() != Qt::RightButton) {
-    capturer_.selected(area);
-  } else {
-    area_ = std::make_unique<CaptureArea>(area);
-    customize(*area_);
+  areas_.emplace_back(std::make_unique<CaptureArea>(area));
+  if (event->button() == Qt::RightButton) {
+    customize(areas_.back());
+    return;
   }
+
+  if (!(event->modifiers() & Qt::ControlModifier))
+    captureAll();
 }
 
-void CaptureAreaSelector::customize(const CaptureArea &area)
+void CaptureAreaSelector::customize(const std::shared_ptr<CaptureArea> &area)
 {
   SOFT_ASSERT(editor_, return );
-  editor_->set(area);
+  SOFT_ASSERT(area, return );
+  editor_->set(*area);
+  edited_ = area;
   editor_->show();
   const auto topLeft = service::geometry::cornerAtPoint(
-      area.rect().center(), editor_->size(), geometry());
+      area->rect().center(), editor_->size(), geometry());
   editor_->move(topLeft);
   update();
 }
@@ -243,8 +315,9 @@ void CaptureAreaSelector::customize(const CaptureArea &area)
 void CaptureAreaSelector::applyEditor()
 {
   SOFT_ASSERT(editor_, return );
-  if (!editor_->isVisible() || !area_)
+  if (!editor_->isVisible() || edited_.expired())
     return;
-  editor_->apply(*area_);
+  editor_->apply(*edited_.lock());
   editor_->hide();
+  update();
 }

@@ -2,12 +2,15 @@
 
 #include "stfwd.h"
 
+#include <QObject>
+
 enum class ResultMode;
 class ResultWidget;
 class ResultEditor;
 
-class Representer
+class Representer : public QObject
 {
+  Q_OBJECT
 public:
   Representer(Manager &manager, TrayIcon &tray, const Settings &settings,
               const CommonModels &models);
@@ -24,6 +27,8 @@ public:
   void clipboardImage(const TaskPtr &task);
   void edit(const TaskPtr &task);
 
+  bool eventFilter(QObject *watched, QEvent *event) override;
+
 private:
   void showTooltip(const TaskPtr &task);
   void showWidget(const TaskPtr &task);
@@ -32,6 +37,7 @@ private:
   TrayIcon &tray_;
   const Settings &settings_;
   const CommonModels &models_;
-  std::unique_ptr<ResultWidget> widget_;
+  Generation generation_{};
+  std::vector<std::unique_ptr<ResultWidget>> widgets_;
   std::unique_ptr<ResultEditor> editor_;
 };

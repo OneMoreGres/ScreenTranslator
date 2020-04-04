@@ -19,8 +19,6 @@ public:
   using QWidget::show;
   void updateSettings();
 
-  bool eventFilter(QObject* watched, QEvent* event) override;
-
 protected:
   void mousePressEvent(QMouseEvent* event) override;
   void mouseMoveEvent(QMouseEvent* event) override;

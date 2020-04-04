@@ -148,13 +148,6 @@ void ResultWidget::updateSettings()
   image_->setVisible(settings_.showCaptured);
 }
 
-bool ResultWidget::eventFilter(QObject *watched, QEvent *event)
-{
-  if (event->type() == QEvent::WindowDeactivate)
-    hide();
-  return QWidget::eventFilter(watched, event);
-}
-
 void ResultWidget::mousePressEvent(QMouseEvent *event)
 {
   const auto button = event->button();
@@ -167,8 +160,6 @@ void ResultWidget::mousePressEvent(QMouseEvent *event)
     lastPos_ = event->pos();
     return;
   }
-
-  hide();
 }
 
 void ResultWidget::mouseMoveEvent(QMouseEvent *event)

@@ -4,6 +4,8 @@
 
 #include <QWidget>
 
+class QMenu;
+
 class CaptureAreaSelector : public QWidget
 {
   Q_OBJECT
@@ -33,21 +35,27 @@ private:
     QRect current;
     std::vector<QRect> possible;
   };
+  void capture(CaptureArea &area, uint generation);
+  void captureAll();
+  void cancel();
 
   bool updateCurrentHelpRects();
   void drawHelpRects(QPainter &painter, const HelpRect &rect) const;
 
-  void customize(const CaptureArea &area);
+  void customize(const std::shared_ptr<CaptureArea> &area);
   void applyEditor();
   void drawCaptureArea(QPainter &painter, const CaptureArea &area) const;
 
   Capturer &capturer_;
   const Settings &settings_;
   const QPixmap &pixmap_;
+  Generation generation_{};
   QPoint startSelectPos_;
   QPoint currentSelectPos_;
   QString help_;
   std::vector<HelpRect> helpRects_;
-  std::unique_ptr<CaptureArea> area_;
+  std::vector<std::shared_ptr<CaptureArea>> areas_;
+  std::weak_ptr<CaptureArea> edited_;
   std::unique_ptr<CaptureAreaEditor> editor_;
+  QMenu *contextMenu_;
 };
