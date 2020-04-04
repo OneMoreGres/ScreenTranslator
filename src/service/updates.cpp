@@ -54,14 +54,37 @@ Loader::Loader(const QUrl &updateUrl, QObject *parent)
           this, &Loader::handleReply);
 }
 
+void Loader::handleReply(QNetworkReply *reply)
+{
+  if (reply->url() == updateUrl_) {
+    handleUpdateReply(reply);
+  } else {
+    handleComponentReply(reply);
+  }
+}
+
 void Loader::checkForUpdates()
 {
   auto reply = network_->get(QNetworkRequest(updateUrl_));
-  if (reply->error() == QNetworkReply::NoError)
-    return;
+  if (reply->error() != QNetworkReply::NoError)
+    handleUpdateReply(reply);
+}
 
+void Loader::handleUpdateReply(QNetworkReply *reply)
+{
   reply->deleteLater();
-  emit error(toError(*reply));
+
+  if (reply->error() != QNetworkReply::NoError) {
+    emit error(toError(*reply));
+    return;
+  }
+
+  const auto replyData = reply->readAll();
+
+  SOFT_ASSERT(model_, return );
+  model_->parse(replyData);
+  if (model_->hasUpdates())
+    emit updatesAvailable();
 }
 
 QString Loader::toError(QNetworkReply &reply) const
@@ -108,37 +131,12 @@ void Loader::applyUserActions()
     commitUpdate();
 }
 
-void Loader::finishUpdate(const QString &error)
-{
-  installer_.reset();
-  for (const auto &i : componentReplyToPath_) i.first->deleteLater();
-  componentReplyToPath_.clear();
-  if (!error.isEmpty())
-    emit this->error(error);
-  SOFT_ASSERT(model_, return );
-  model_->updateStates();
-}
-
-void Loader::handleReply(QNetworkReply *reply)
+void Loader::handleComponentReply(QNetworkReply *reply)
 {
   reply->deleteLater();
 
-  const auto isUpdatesReply = reply->url() == updateUrl_;
-
   if (reply->error() != QNetworkReply::NoError) {
-    emit error(toError(*reply));
-    if (!isUpdatesReply)
-      finishUpdate();
-    return;
-  }
-
-  const auto replyData = reply->readAll();
-
-  if (isUpdatesReply) {
-    SOFT_ASSERT(model_, return );
-    model_->parse(replyData);
-    if (model_->hasUpdates())
-      emit updatesAvailable();
+    finishUpdate(toError(*reply));
     return;
   }
 
@@ -159,6 +157,7 @@ void Loader::handleReply(QNetworkReply *reply)
     finishUpdate(error);
     return;
   }
+  const auto replyData = reply->readAll();
   f.write(replyData);
   f.close();
 
@@ -166,6 +165,17 @@ void Loader::handleReply(QNetworkReply *reply)
 
   if (componentReplyToPath_.empty())
     commitUpdate();
+}
+
+void Loader::finishUpdate(const QString &error)
+{
+  installer_.reset();
+  for (const auto &i : componentReplyToPath_) i.first->deleteLater();
+  componentReplyToPath_.clear();
+  if (!error.isEmpty())
+    emit this->error(error);
+  SOFT_ASSERT(model_, return );
+  model_->updateStates();
 }
 
 void Loader::commitUpdate()

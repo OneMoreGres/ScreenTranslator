@@ -130,6 +130,8 @@ signals:
 
 private:
   void handleReply(QNetworkReply* reply);
+  void handleComponentReply(QNetworkReply* reply);
+  void handleUpdateReply(QNetworkReply* reply);
   QString toError(QNetworkReply& reply) const;
   void finishUpdate(const QString& error = {});
   void commitUpdate();
