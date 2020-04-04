@@ -150,17 +150,33 @@ void ResultWidget::updateSettings()
 
 bool ResultWidget::eventFilter(QObject *watched, QEvent *event)
 {
-  if (event->type() == QEvent::MouseButtonPress) {
-    const auto button = static_cast<QMouseEvent *>(event)->button();
-    if (button == Qt::RightButton) {
-      contextMenu_->exec(QCursor::pos());
-    } else {
-      hide();
-    }
-  } else if (event->type() == QEvent::WindowDeactivate) {
+  if (event->type() == QEvent::WindowDeactivate)
     hide();
-  }
   return QWidget::eventFilter(watched, event);
+}
+
+void ResultWidget::mousePressEvent(QMouseEvent *event)
+{
+  const auto button = event->button();
+  if (button == Qt::RightButton) {
+    contextMenu_->exec(QCursor::pos());
+    return;
+  }
+
+  if (button == Qt::MiddleButton) {
+    lastPos_ = event->pos();
+    return;
+  }
+
+  hide();
+}
+
+void ResultWidget::mouseMoveEvent(QMouseEvent *event)
+{
+  if (!(event->buttons() & Qt::MiddleButton))
+    return;
+
+  move(pos() + event->pos() - lastPos_);
 }
 
 void ResultWidget::edit()

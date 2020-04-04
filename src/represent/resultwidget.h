@@ -21,6 +21,10 @@ public:
 
   bool eventFilter(QObject* watched, QEvent* event) override;
 
+protected:
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+
 private:
   void edit();
   void copyImage();
@@ -34,4 +38,5 @@ private:
   QLabel* separator_;
   QLabel* translated_;
   QMenu* contextMenu_;
+  QPoint lastPos_;
 };
