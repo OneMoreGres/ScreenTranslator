@@ -5,7 +5,7 @@ import re
 
 
 def parse_language_names():
-    root = os.path.abspath(os.path.basename(__file__) + '/..')
+    root = os.path.abspath(os.path.basename(__file__) + '/../../..')
     lines = []
     with open(root + '/src/languagecodes.cpp', 'r') as f:
         lines = f.readlines()
@@ -31,12 +31,12 @@ if len(sys.argv) > 2:
 language_names = parse_language_names()
 
 files = {}
-with os.scandir(tessdata_dir) as it:
-    for f in it:
-        if not f.is_file() or f.name in ["LICENSE", "README.md"]:
-            continue
-        name = f.name[:f.name.index('.')]
-        files.setdefault(name, []).append(f.name)
+it = os.scandir(tessdata_dir)
+for f in it:
+    if not f.is_file() or f.name in ["LICENSE", "README.md"]:
+        continue
+    name = f.name[:f.name.index('.')]
+    files.setdefault(name, []).append(f.name)
 
 print(',"recognizers": {')
 comma = ''
@@ -52,8 +52,9 @@ for name, file_names in files.items():
         git_cmd = ['git', 'log', '-1', '--pretty=format:%cI', file_name]
         date = subprocess.run(git_cmd, cwd=tessdata_dir, universal_newlines=True,
                               stdout=subprocess.PIPE, check=True).stdout
-        print('  {{"url":"{}/{}", "path":"$tessdata$/{}", "date":"{}"}}'.format(
-            download_url, file_name, file_name, date))
+        size = os.path.getsize(os.path.join(tessdata_dir, file_name))
+        print('  {{"url":"{}/{}", "path":"$tessdata$/{}", "date":"{}", "size":{}}}'.format(
+            download_url, file_name, file_name, date, size))
     print(' ]}')
 print('}')
 

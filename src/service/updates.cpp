@@ -20,6 +20,35 @@ namespace
 const auto versionKey = "version";
 const auto filesKey = "files";
 
+QString sizeString(qint64 bytes, int precision)
+{
+  if (bytes < 1)
+    return {};
+
+  const auto kb = 1024.0;
+  const auto mb = 1024 * kb;
+  const auto gb = 1024 * mb;
+  const auto tb = 1024 * gb;
+
+  if (bytes >= tb) {
+    return QString::number(bytes / tb, 'f', precision) + ' ' +
+           QObject::tr("Tb");
+  }
+  if (bytes >= gb) {
+    return QString::number(bytes / gb, 'f', precision) + ' ' +
+           QObject::tr("Gb");
+  }
+  if (bytes >= mb) {
+    return QString::number(bytes / mb, 'f', precision) + ' ' +
+           QObject::tr("Mb");
+  }
+  if (bytes >= kb) {
+    return QString::number(bytes / kb, 'f', precision) + ' ' +
+           QObject::tr("Kb");
+  }
+  return QString::number(bytes) + ' ' + QObject::tr("bytes");
+}
+
 QString toString(State state)
 {
   const QMap<State, QString> names{
@@ -324,6 +353,8 @@ std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const
       file.md5 = object["md5"].toString();
       file.versionDate =
           QDateTime::fromString(object["date"].toString(), Qt::ISODate);
+      const auto size = object["size"].toInt();
+      result->size += size;
       result->files.push_back(file);
     }
 
@@ -585,9 +616,10 @@ QVariant Model::headerData(int section, Qt::Orientation orientation,
     return section + 1;
 
   const QMap<Column, QString> names{
-      {Column::Name, tr("Name")},         {Column::State, tr("State")},
-      {Column::Action, tr("Action")},     {Column::Version, tr("Version")},
-      {Column::Progress, tr("Progress")}, {Column::Files, tr("Files")},
+      {Column::Name, tr("Name")},       {Column::State, tr("State")},
+      {Column::Action, tr("Action")},   {Column::Size, tr("Size")},
+      {Column::Version, tr("Version")}, {Column::Progress, tr("Progress")},
+      {Column::Files, tr("Files")},
   };
   return names.value(Column(section));
 }
@@ -604,6 +636,7 @@ QVariant Model::data(const QModelIndex &index, int role) const
     case int(Column::Name): return QObject::tr(qPrintable(ptr->name));
     case int(Column::State): return toString(ptr->state);
     case int(Column::Action): return toString(ptr->action);
+    case int(Column::Size): return sizeString(ptr->size, 1);
     case int(Column::Version): return ptr->version;
     case int(Column::Progress):
       return ptr->progress > 0 ? ptr->progress : QVariant();

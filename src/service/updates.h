@@ -42,7 +42,16 @@ class Model : public QAbstractItemModel
 {
   Q_OBJECT
 public:
-  enum class Column { Name, State, Action, Version, Progress, Files, Count };
+  enum class Column {
+    Name,
+    State,
+    Action,
+    Size,
+    Version,
+    Progress,
+    Files,
+    Count
+  };
 
   explicit Model(QObject* parent = nullptr);
 
@@ -78,6 +87,7 @@ private:
     Component* parent{nullptr};
     int index{-1};
     int progress{0};
+    int size{0};
   };
 
   std::unique_ptr<Component> parse(const QJsonObject& json) const;
