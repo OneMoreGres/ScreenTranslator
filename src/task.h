@@ -22,6 +22,7 @@ public:
   LanguageId targetLanguage;
 
   QStringList translators;
+  QString usedTranslator;
 
   QString error;
   QStringList translatorErrors;

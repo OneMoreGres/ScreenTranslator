@@ -149,6 +149,7 @@ void WebPage::setTranslated(const QString &text)
 
   SOFT_ASSERT(task_, return )
   task_->translated = text;
+  task_->usedTranslator = scriptName_;
   translator_.finish(task_);
 }
 

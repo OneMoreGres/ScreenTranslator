@@ -84,6 +84,7 @@ void ResultWidget::show(const TaskPtr &task)
   recognized_->setToolTip(tooltip);
 
   translated_->setText(task->translated);
+  translated_->setToolTip(task->usedTranslator);
 
   const auto gotTranslation = !task->translated.isEmpty();
   translated_->setVisible(gotTranslation);
