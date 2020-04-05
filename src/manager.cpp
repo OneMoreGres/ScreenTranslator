@@ -31,6 +31,7 @@ const auto updatesUrl =
 Manager::Manager()
   : settings_(std::make_unique<Settings>())
   , updater_(std::make_unique<update::Loader>(QUrl(updatesUrl)))
+  , updateAutoChecker_(std::make_unique<update::AutoChecker>(*updater_))
   , models_(std::make_unique<CommonModels>())
 {
   SOFT_ASSERT(settings_, return );
@@ -141,13 +142,9 @@ void Manager::setupUpdates(const Settings &settings)
       {"$tessdata$", settings.tessdataPath},
   });
 
-  if (settings.autoUpdateIntervalDays > 0) {
-    updateAutoChecker_ = std::make_unique<update::AutoChecker>(*updater_);
-    updateAutoChecker_->setLastCheckDate(settings.lastUpdateCheck);
-    updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
-  } else {
-    updateAutoChecker_.reset();
-  }
+  SOFT_ASSERT(updateAutoChecker_, return );
+  updateAutoChecker_->setLastCheckDate(settings.lastUpdateCheck);
+  updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
 }
 
 void Manager::setupTrace(bool isOn)
@@ -269,7 +266,12 @@ void Manager::translated(const TaskPtr &task)
 void Manager::applySettings(const Settings &settings)
 {
   SOFT_ASSERT(settings_, return );
+  const auto lastUpdate = settings_->lastUpdateCheck;  // not handled in editor
+
   *settings_ = settings;
+
+  settings_->lastUpdateCheck = lastUpdate;
+
   settings_->save();
   updateSettings();
 }

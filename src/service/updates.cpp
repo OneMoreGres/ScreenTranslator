@@ -963,6 +963,9 @@ void AutoChecker::setLastCheckDate(const QDateTime &dt)
 
 void AutoChecker::scheduleNextCheck()
 {
+  if (timer_)
+    timer_->stop();
+
   if (checkIntervalDays_ < 1 || !lastCheckDate_.isValid())
     return;
 
