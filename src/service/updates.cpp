@@ -11,6 +11,8 @@
 #include <QStandardPaths>
 #include <QTimer>
 
+#include <random>
+
 namespace update
 {
 namespace
@@ -311,8 +313,13 @@ std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const
         if (url.isValid())
           file.urls.append(url);
       }
-      if (file.urls.isEmpty())
+      if (file.urls.isEmpty()) {
         result->checkOnly = true;
+      } else if (file.urls.size() > 1) {
+        std::random_device device;
+        std::mt19937 generator(device());
+        std::shuffle(file.urls.begin(), file.urls.end(), generator);
+      }
       file.rawPath = object["path"].toString();
       file.md5 = object["md5"].toString();
       file.versionDate =
