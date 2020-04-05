@@ -12,6 +12,7 @@
 
 #include <QApplication>
 #include <QDesktopServices>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QNetworkProxy>
 #include <QThread>
@@ -49,6 +50,8 @@ Manager::Manager()
   if (settings_->showMessageOnStart)
     tray_->showInformation(QObject::tr("Screen translator started"));
 
+  warnIfOutdated();
+
   QObject::connect(updater_.get(), &update::Loader::error,  //
                    tray_.get(), &TrayIcon::showError);
   QObject::connect(updater_.get(), &update::Loader::updated,  //
@@ -69,6 +72,22 @@ Manager::~Manager()
     settings_->saveLastUpdateCheck();
   }
   setupTrace(false);
+}
+
+void Manager::warnIfOutdated()
+{
+  const auto now = QDateTime::currentDateTime();
+  const auto binaryInfo = QFileInfo(QApplication::applicationFilePath());
+  const auto date = binaryInfo.fileTime(QFile::FileTime::FileBirthTime);
+  const auto deadlineDays = 90;
+  if (date.daysTo(now) < deadlineDays)
+    return;
+  const auto updateDate = settings_->lastUpdateCheck;
+  if (updateDate.isValid() && updateDate.daysTo(now) < deadlineDays)
+    return;
+  tray_->showInformation(
+      QObject::tr("Current version might be outdated.\n"
+                  "Check for updates to silence this warning"));
 }
 
 void Manager::updateSettings()

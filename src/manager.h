@@ -33,6 +33,7 @@ private:
   void setupUpdates(const Settings &settings);
   void setupTrace(bool isOn);
   void finishTask(const TaskPtr &task);
+  void warnIfOutdated();
 
   std::unique_ptr<Settings> settings_;
   std::unique_ptr<TrayIcon> tray_;
