@@ -6,6 +6,7 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QTreeView;
 
 namespace update
 {
@@ -54,6 +55,8 @@ public:
   };
 
   explicit Model(QObject* parent = nullptr);
+
+  void initView(QTreeView* view);
 
   void parse(const QByteArray& data);
   void setExpansions(const std::map<QString, QString>& expansions);

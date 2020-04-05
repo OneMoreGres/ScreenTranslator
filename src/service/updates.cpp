@@ -1,15 +1,19 @@
 ﻿#include "updates.h"
 #include "debug.h"
 
+#include <QAbstractItemView>
 #include <QApplication>
 #include <QComboBox>
 #include <QDir>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMenu>
 #include <QNetworkReply>
+#include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QTimer>
+#include <QTreeView>
 
 #include <random>
 
@@ -278,6 +282,46 @@ Model *Loader::model() const
 Model::Model(QObject *parent)
   : QAbstractItemModel(parent)
 {
+}
+
+void Model::initView(QTreeView *view)
+{
+  view->setSelectionMode(QAbstractItemView::ExtendedSelection);
+  auto proxy = new QSortFilterProxyModel(view);
+  proxy->setSourceModel(this);
+  view->setModel(proxy);
+  view->setItemDelegate(new update::UpdateDelegate(view));
+#ifndef DEVELOP
+  view->hideColumn(int(update::Model::Column::Files));
+#endif
+
+  auto menu = new QMenu(view);
+  menu->addAction(toString(Action::NoAction));
+  menu->addAction(toString(Action::Remove));
+  menu->addAction(toString(Action::Install));
+
+  view->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(view, &QAbstractItemView::customContextMenuRequested,  //
+          menu, [this, menu, view, proxy] {
+            const auto selection = view->selectionModel();
+            SOFT_ASSERT(selection, return );
+            const auto indexes = selection->selectedRows(int(Column::Action));
+            if (indexes.isEmpty())
+              return;
+
+            const auto menuItem = menu->exec(QCursor::pos());
+            if (!menuItem)
+              return;
+
+            const auto action = menu->actions().indexOf(menuItem);
+
+            for (const auto &proxyIndex : indexes) {
+              auto modelIndex = proxy->mapToSource(proxyIndex);
+              if (!modelIndex.isValid() || rowCount(modelIndex) > 0)
+                continue;
+              setData(modelIndex, action, Qt::EditRole);
+            }
+          });
 }
 
 void Model::parse(const QByteArray &data)

@@ -2,16 +2,12 @@
 #include "languagecodes.h"
 #include "manager.h"
 #include "runatsystemstart.h"
-#include "tesseract.h"
 #include "translator.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
 #include "widgetstate.h"
 
 #include <QColorDialog>
-#include <QFileDialog>
-#include <QSortFilterProxyModel>
-#include <QStringListModel>
 
 SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   : ui(new Ui::SettingsEditor)
@@ -84,13 +80,7 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
           this, [this] { pickColor(ColorContext::Bagkround); });
 
   // updates
-  auto updatesProxy = new QSortFilterProxyModel(this);
-  updatesProxy->setSourceModel(updater_.model());
-  ui->updatesView->setModel(updatesProxy);
-  ui->updatesView->setItemDelegate(new update::UpdateDelegate(this));
-#ifndef DEVELOP
-  ui->updatesView->hideColumn(int(update::Model::Column::Files));
-#endif
+  updater.model()->initView(ui->updatesView);
   adjustUpdatesView();
   connect(updater_.model(), &QAbstractItemModel::modelReset,  //
           this, &SettingsEditor::adjustUpdatesView);
