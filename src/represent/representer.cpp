@@ -146,7 +146,8 @@ void Representer::showWidget(const TaskPtr &task)
   }
 
   if (index == count) {
-    widgets_.emplace_back(std::make_unique<ResultWidget>(*this, settings_));
+    widgets_.emplace_back(
+        std::make_unique<ResultWidget>(manager_, *this, settings_));
     widgets_.back()->installEventFilter(this);
   }
 

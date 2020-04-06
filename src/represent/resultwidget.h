@@ -11,8 +11,8 @@ class ResultWidget : public QFrame
 {
   Q_OBJECT
 public:
-  ResultWidget(Representer& representer, const Settings& settings,
-               QWidget* parent = nullptr);
+  ResultWidget(Manager& manager, Representer& representer,
+               const Settings& settings, QWidget* parent = nullptr);
 
   const TaskPtr& task() const;
   void show(const TaskPtr& task);

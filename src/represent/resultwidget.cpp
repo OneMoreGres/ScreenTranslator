@@ -1,5 +1,6 @@
 #include "resultwidget.h"
 #include "debug.h"
+#include "manager.h"
 #include "representer.h"
 #include "settings.h"
 #include "task.h"
@@ -11,8 +12,8 @@
 #include <QMenu>
 #include <QMouseEvent>
 
-ResultWidget::ResultWidget(Representer &representer, const Settings &settings,
-                           QWidget *parent)
+ResultWidget::ResultWidget(Manager &manager, Representer &representer,
+                           const Settings &settings, QWidget *parent)
   : QFrame(parent)
   , representer_(representer)
   , settings_(settings)
@@ -50,6 +51,15 @@ ResultWidget::ResultWidget(Representer &representer, const Settings &settings,
     auto edit = contextMenu_->addAction(tr("Edit..."));
     connect(edit, &QAction::triggered,  //
             this, &ResultWidget::edit);
+
+    contextMenu_->addSeparator();
+
+    auto capture = contextMenu_->addAction(tr("New capture"));
+    connect(capture, &QAction::triggered,  //
+            this, [&manager] { manager.capture(); });
+    auto repeatCapture = contextMenu_->addAction(tr("Repeat capture"));
+    connect(repeatCapture, &QAction::triggered,  //
+            this, [&manager] { manager.repeatCapture(); });
   }
 
   installEventFilter(this);
