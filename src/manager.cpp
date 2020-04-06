@@ -26,6 +26,7 @@ const auto updatesUrl =
     "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/"
     "updates.json";
 #endif
+const auto resultHideWaitUs = 300'000;
 }  // namespace
 
 Manager::Manager()
@@ -285,7 +286,14 @@ void Manager::fatalError(const QString &text)
 void Manager::capture()
 {
   SOFT_ASSERT(capturer_, return );
+
   tray_->blockActions(true);
+
+  if (representer_->isVisible()) {
+    representer_->hide();
+    QThread::usleep(resultHideWaitUs);
+  }
+
   capturer_->capture();
   tray_->setRepeatCaptureEnabled(true);
 }
@@ -303,7 +311,7 @@ void Manager::captureLocked()
 
   if (representer_->isVisible()) {
     representer_->hide();
-    QThread::usleep(300'000);
+    QThread::usleep(resultHideWaitUs);
   }
 
   capturer_->captureLocked();
