@@ -58,7 +58,7 @@ public:
 
   void initView(QTreeView* view);
 
-  void parse(const QByteArray& data);
+  QString parse(const QByteArray& data);
   void setExpansions(const std::map<QString, QString>& expansions);
   UserActions userActions() const;
   void updateStates();
@@ -130,7 +130,8 @@ class Loader : public QObject
 {
   Q_OBJECT
 public:
-  explicit Loader(const QUrl& updateUrl, QObject* parent = nullptr);
+  using Urls = QVector<QUrl>;
+  explicit Loader(const Urls& updateUrls, QObject* parent = nullptr);
 
   void checkForUpdates();
   void applyUserActions();
@@ -150,10 +151,11 @@ private:
   void commitUpdate();
   void updateProgress(qint64 bytesSent, qint64 bytesTotal);
   bool startDownload(File& file);
+  void startDownloadUpdates(const QUrl& previous);
 
   QNetworkAccessManager* network_;
   Model* model_;
-  QUrl updateUrl_;
+  Urls updateUrls_;
   QString downloadPath_;
   std::map<QNetworkReply*, File*> downloads_;
   UserActions currentActions_;

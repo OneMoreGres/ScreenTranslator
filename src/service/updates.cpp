@@ -92,22 +92,26 @@ QStringList toList(const QJsonValue &value)
 
 }  // namespace
 
-Loader::Loader(const QUrl &updateUrl, QObject *parent)
+Loader::Loader(const update::Loader::Urls &updateUrls, QObject *parent)
   : QObject(parent)
   , network_(new QNetworkAccessManager(this))
   , model_(new Model(this))
-  , updateUrl_(updateUrl)
+  , updateUrls_(updateUrls)
   , downloadPath_(
         QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
         "/updates")
 {
+  std::random_device device;
+  std::mt19937 generator(device());
+  std::shuffle(updateUrls_.begin(), updateUrls_.end(), generator);
+
   connect(network_, &QNetworkAccessManager::finished,  //
           this, &Loader::handleReply);
 }
 
 void Loader::handleReply(QNetworkReply *reply)
 {
-  if (reply->url() == updateUrl_) {
+  if (updateUrls_.contains(reply->url())) {
     handleUpdateReply(reply);
   } else {
     handleComponentReply(reply);
@@ -116,7 +120,28 @@ void Loader::handleReply(QNetworkReply *reply)
 
 void Loader::checkForUpdates()
 {
-  auto reply = network_->get(QNetworkRequest(updateUrl_));
+  startDownloadUpdates({});
+}
+
+void Loader::startDownloadUpdates(const QUrl &previous)
+{
+  SOFT_ASSERT(!updateUrls_.isEmpty(), return );
+
+  QUrl url;
+  if (previous.isEmpty())
+    url = updateUrls_.first();
+  else {
+    const auto index = updateUrls_.indexOf(previous);
+    SOFT_ASSERT(index != -1, return );
+    if (index == updateUrls_.size() - 1)
+      return;
+    url = updateUrls_[index + 1];
+  }
+
+  if (url.isEmpty())
+    return;
+
+  auto reply = network_->get(QNetworkRequest(url));
   if (reply->error() != QNetworkReply::NoError)
     handleUpdateReply(reply);
 }
@@ -127,13 +152,28 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
 
   if (reply->error() != QNetworkReply::NoError) {
     emit error(toError(*reply));
+    startDownloadUpdates(reply->url());
     return;
   }
 
   const auto replyData = reply->readAll();
+  if (replyData.isEmpty()) {
+    emit error(
+        tr("Received empty updates info from %1").arg(reply->url().toString()));
+    startDownloadUpdates(reply->url());
+    return;
+  }
+
 
   SOFT_ASSERT(model_, return );
-  model_->parse(replyData);
+  const auto parseError = model_->parse(replyData);
+  if (!parseError.isEmpty()) {
+    emit error(tr("Failed to parse updates from %1 (%2)")
+                   .arg(reply->url().toString(), parseError));
+    startDownloadUpdates(reply->url());
+    return;
+  }
+
   if (model_->hasUpdates())
     emit updatesAvailable();
 }
@@ -324,20 +364,20 @@ void Model::initView(QTreeView *view)
           });
 }
 
-void Model::parse(const QByteArray &data)
+QString Model::parse(const QByteArray &data)
 {
   QJsonParseError error;
   const auto doc = QJsonDocument::fromJson(data, &error);
   if (doc.isNull()) {
-    LERROR() << error.errorString();
-    return;
+    return tr("Failed to parse: %1 at %2")
+        .arg(error.errorString())
+        .arg(error.offset);
   }
 
   const auto json = doc.object();
   const auto version = json[versionKey].toInt();
   if (version != 1) {
-    LERROR() << "Wrong updates.json version" << version;
-    return;
+    return tr("Wrong updates version %1").arg(version);
   }
 
   beginResetModel();
@@ -347,6 +387,11 @@ void Model::parse(const QByteArray &data)
     updateState(*root_);
 
   endResetModel();
+
+  if (!root_) {
+    return tr("No data parsed");
+  }
+  return {};
 }
 
 std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const

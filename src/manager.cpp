@@ -28,10 +28,11 @@ const auto updatesUrl =
 #endif
 const auto resultHideWaitUs = 300'000;
 }  // namespace
+using Loader = update::Loader;
 
 Manager::Manager()
   : settings_(std::make_unique<Settings>())
-  , updater_(std::make_unique<update::Loader>(QUrl(updatesUrl)))
+  , updater_(std::make_unique<Loader>(Loader::Urls{{updatesUrl}}))
   , updateAutoChecker_(std::make_unique<update::AutoChecker>(*updater_))
   , models_(std::make_unique<CommonModels>())
 {
