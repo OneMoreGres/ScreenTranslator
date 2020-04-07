@@ -19,6 +19,9 @@ signals:
   void finished(const TaskPtr &task);
 
 private:
+  void removeUnused(Generation current);
+
   std::map<QString, std::unique_ptr<Tesseract>> engines_;
+  std::map<QString, Generation> lastGenerations_;
   QString tessdataPath_;
 };
