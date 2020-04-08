@@ -34,6 +34,7 @@ const QString qs_ocrLanguage = "language";
 const QString qs_correctionGroup = "Correction";
 const QString qs_userSubstitutions = "userSubstitutions";
 const QString qs_useUserSubstitutions = "useUserSubstitutions";
+const QString qs_useHunspell = "useHunspell";
 
 const QString qs_translationGroup = "Translation";
 const QString qs_doTranslation = "doTranslation";
@@ -173,6 +174,7 @@ void Settings::save() const
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);
+  settings.setValue(qs_useHunspell, useHunspell);
   settings.setValue(qs_useUserSubstitutions, useUserSubstitutions);
   settings.setValue(qs_userSubstitutions, packSubstitutions(userSubstitutions));
   settings.endGroup();
@@ -258,6 +260,7 @@ void Settings::load()
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);
+  useHunspell = settings.value(qs_useHunspell, useHunspell).toBool();
   useUserSubstitutions =
       settings.value(qs_useUserSubstitutions, useUserSubstitutions).toBool();
   userSubstitutions =
@@ -328,4 +331,5 @@ void Settings::setPortable(bool isPortable)
           : QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
   tessdataPath = baseDataPath + "/tessdata";
   translatorsDir = baseDataPath + "/translators";
+  hunspellDir = baseDataPath + "/hunspell";
 }

@@ -145,6 +145,7 @@ Settings SettingsEditor::settings() const
   settings.sourceLanguage =
       LanguageCodes::idForName(ui->tesseractLangCombo->currentText());
 
+  settings.useHunspell = ui->useHunspell->isChecked();
   settings.useUserSubstitutions = ui->useUserSubstitutions->isChecked();
   settings.userSubstitutions = ui->userSubstitutionsTable->substitutions();
 
@@ -207,6 +208,8 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->tesseractLangCombo->setCurrentText(
       LanguageCodes::name(settings.sourceLanguage));
 
+  ui->useHunspell->setChecked(settings.useHunspell);
+  ui->hunspellDir->setText(settings.hunspellDir);
   ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
   ui->userSubstitutionsTable->setSubstitutions(settings.userSubstitutions);
 
@@ -308,6 +311,7 @@ void SettingsEditor::handlePortableChanged()
   settings.setPortable(ui->portable->isChecked());
   ui->tessdataPath->setText(settings.tessdataPath);
   ui->translatorsPath->setText(settings.translatorsDir);
+  ui->hunspellDir->setText(settings.hunspellDir);
   updateModels(settings.tessdataPath);
   updateTranslators();
 

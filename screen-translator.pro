@@ -8,7 +8,7 @@ DEPS_DIR=$$(ST_DEPS_DIR)
 isEmpty(DEPS_DIR):DEPS_DIR=$$PWD/../deps
 INCLUDEPATH += $$DEPS_DIR/include
 LIBS += -L$$DEPS_DIR/lib
-LIBS += -ltesseract -lleptonica
+LIBS += -ltesseract -lleptonica -lhunspell
 
 win32{
   LIBS += -lUser32
@@ -39,6 +39,8 @@ HEADERS += \
   src/capture/capturer.h \
   src/commonmodels.h \
   src/correct/corrector.h \
+  src/correct/correctorworker.h \
+  src/correct/hunspellcorrector.h \
   src/languagecodes.h \
   src/manager.h \
   src/ocr/recognizer.h \
@@ -72,6 +74,8 @@ SOURCES += \
   src/capture/capturer.cpp \
   src/commonmodels.cpp \
   src/correct/corrector.cpp \
+  src/correct/correctorworker.cpp \
+  src/correct/hunspellcorrector.cpp \
   src/languagecodes.cpp \
   src/main.cpp \
   src/manager.cpp \

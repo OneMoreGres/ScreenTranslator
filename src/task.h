@@ -19,6 +19,8 @@ public:
   QString corrected;
   QString translated;
 
+  bool useHunspell{false};
+
   LanguageId sourceLanguage;
   LanguageId targetLanguage;
 

@@ -23,6 +23,7 @@ private:
 
   QCheckBox* doTranslation_;
   QCheckBox* isLocked_;
+  QCheckBox* useHunspell_;
   QComboBox* sourceLanguage_;
   QComboBox* targetLanguage_;
 };

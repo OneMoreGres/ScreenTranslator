@@ -48,6 +48,8 @@ public:
   int autoUpdateIntervalDays{0};
   QDateTime lastUpdateCheck;
 
+  bool useHunspell{false};
+  QString hunspellDir;
   Substitutions userSubstitutions;
   bool useUserSubstitutions{true};
 

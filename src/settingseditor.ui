@@ -286,30 +286,51 @@
      </widget>
      <widget class="QWidget" name="pageCorrect">
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="1" column="0" colspan="2">
+       <item row="3" column="0" colspan="2">
         <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>Substitutions</string>
+          <string>User substitutions</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QCheckBox" name="useUserSubstitutions">
-         <property name="text">
-          <string>Substitute recognized text</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
+       <item row="4" column="0" colspan="2">
         <widget class="SubstitutionsTable" name="userSubstitutionsTable">
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
          <property name="sortingEnabled">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="useHunspell">
+         <property name="text">
+          <string>Use auto corrections (hunspell)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QCheckBox" name="useUserSubstitutions">
+         <property name="text">
+          <string>Use user substitutions</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_23">
+         <property name="text">
+          <string>Hunspell dictionaries path:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="hunspellDir">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

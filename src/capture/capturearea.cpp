@@ -5,6 +5,7 @@
 CaptureArea::CaptureArea(const QRect &rect, const Settings &settings)
   : rect_(rect)
   , doTranslation_(settings.doTranslation)
+  , useHunspell_(settings.useHunspell)
   , sourceLanguage_(settings.sourceLanguage)
   , targetLanguage_(settings.targetLanguage)
   , translators_(settings.translators)
@@ -18,6 +19,7 @@ TaskPtr CaptureArea::task(const QPixmap &pixmap) const
 
   auto task = std::make_shared<Task>();
   task->generation = generation_;
+  task->useHunspell = useHunspell_;
   task->captured = pixmap.copy(rect_);
   task->capturePoint = rect_.topLeft();
   task->sourceLanguage = sourceLanguage_;

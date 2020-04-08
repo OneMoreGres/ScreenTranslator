@@ -41,6 +41,7 @@ Manager::Manager()
   // updater components
   (void)QT_TRANSLATE_NOOP("QObject", "app");
   (void)QT_TRANSLATE_NOOP("QObject", "recognizers");
+  (void)QT_TRANSLATE_NOOP("QObject", "hunspell");
   (void)QT_TRANSLATE_NOOP("QObject", "translators");
 
   tray_ = std::make_unique<TrayIcon>(*this, *settings_);
@@ -111,6 +112,7 @@ void Manager::updateSettings()
   tray_->updateSettings();
   capturer_->updateSettings();
   recognizer_->updateSettings();
+  corrector_->updateSettings();
   translator_->updateSettings();
   representer_->updateSettings();
 
@@ -147,6 +149,7 @@ void Manager::setupUpdates(const Settings &settings)
   updater_->model()->setExpansions({
       {"$translators$", settings.translatorsDir},
       {"$tessdata$", settings.tessdataPath},
+      {"$hunspell$", settings.hunspellDir},
   });
 
   SOFT_ASSERT(updateAutoChecker_, return );
