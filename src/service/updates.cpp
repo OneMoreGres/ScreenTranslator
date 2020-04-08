@@ -809,6 +809,17 @@ bool Model::setData(const QModelIndex &index, const QVariant &value, int role)
   if (ptr->action == newAction)
     return false;
 
+  if (newAction != Action::NoAction) {
+    const QMap<State, QVector<Action>> supported{
+        {State::NotAvailable, {}},
+        {State::Actual, {Action::Remove}},
+        {State::NotInstalled, {Action::Install}},
+        {State::UpdateAvailable, {Action::Remove, Action::Install}},
+    };
+    if (!supported[ptr->state].contains(newAction))
+      return false;
+  }
+
   ptr->action = newAction;
   emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
 
