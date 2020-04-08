@@ -825,11 +825,6 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const
     return result;
 
   result |= Qt::ItemIsEnabled;
-  if (index.column() != int(Column::Action) ||
-      ptr->state == State::NotAvailable)
-    return result;
-
-  result |= Qt::ItemIsEditable;
   return result;
 }
 
@@ -859,47 +854,6 @@ void UpdateDelegate::paint(QPainter *painter,
   }
 
   QStyledItemDelegate::paint(painter, option, index);
-}
-
-QWidget *UpdateDelegate::createEditor(QWidget *parent,
-                                      const QStyleOptionViewItem &option,
-                                      const QModelIndex &index) const
-{
-  if (index.column() == int(Model::Column::Action)) {
-    auto combo = new QComboBox(parent);
-    combo->setEditable(false);
-    combo->addItems({toString(Action::NoAction), toString(Action::Remove),
-                     toString(Action::Install)});
-    return combo;
-  }
-
-  return QStyledItemDelegate::createEditor(parent, option, index);
-}
-
-void UpdateDelegate::setEditorData(QWidget *editor,
-                                   const QModelIndex &index) const
-{
-  if (index.column() == int(Model::Column::Action)) {
-    auto combo = qobject_cast<QComboBox *>(editor);
-    SOFT_ASSERT(combo, return );
-    combo->setCurrentText(index.data(Qt::EditRole).toString());
-    return;
-  }
-
-  return QStyledItemDelegate::setEditorData(editor, index);
-}
-
-void UpdateDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
-                                  const QModelIndex &index) const
-{
-  if (index.column() == int(Model::Column::Action)) {
-    auto combo = qobject_cast<QComboBox *>(editor);
-    SOFT_ASSERT(combo, return );
-    model->setData(index, combo->currentIndex());
-    return;
-  }
-
-  return QStyledItemDelegate::setModelData(editor, model, index);
 }
 
 Installer::Installer(const UserActions &actions)
