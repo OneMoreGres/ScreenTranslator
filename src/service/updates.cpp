@@ -335,25 +335,38 @@ void Model::initView(QTreeView *view)
   view->hideColumn(int(update::Model::Column::Files));
 #endif
 
-  auto menu = new QMenu(view);
-  menu->addAction(toString(Action::NoAction));
-  menu->addAction(toString(Action::Remove));
-  menu->addAction(toString(Action::Install));
-
   view->setContextMenuPolicy(Qt::CustomContextMenu);
   connect(view, &QAbstractItemView::customContextMenuRequested,  //
-          menu, [this, menu, view, proxy] {
+          this, [this, view, proxy] {
+            QMenu menu;
+            menu.addAction(toString(Action::NoAction));
+            menu.addAction(toString(Action::Remove));
+            menu.addAction(toString(Action::Install));
+            menu.addSeparator();
+            auto updateAll = menu.addAction(tr("Select all updates"));
+            auto reset = menu.addAction(tr("Reset actions"));
+
+            const auto menuItem = menu.exec(QCursor::pos());
+            if (!menuItem)
+              return;
+
+            if (menuItem == updateAll) {
+              selectAllUpdates();
+              return;
+            }
+
+            if (menuItem == reset) {
+              resetActions();
+              return;
+            }
+
             const auto selection = view->selectionModel();
             SOFT_ASSERT(selection, return );
             const auto indexes = selection->selectedRows(int(Column::Action));
             if (indexes.isEmpty())
               return;
 
-            const auto menuItem = menu->exec(QCursor::pos());
-            if (!menuItem)
-              return;
-
-            const auto action = menu->actions().indexOf(menuItem);
+            const auto action = menu.actions().indexOf(menuItem);
 
             for (const auto &proxyIndex : indexes) {
               auto modelIndex = proxy->mapToSource(proxyIndex);
@@ -559,6 +572,46 @@ void Model::resetProgress()
     return;
 
   updateProgress(*root_, {}, 0);
+}
+
+void Model::selectAllUpdates()
+{
+  if (!root_)
+    return;
+
+  const auto visitor = [this](Component &component, auto v) -> void {
+    if (component.state == State::UpdateAvailable) {
+      component.action = Action::Install;
+      const auto index = toIndex(component, int(Column::Action));
+      emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
+    }
+
+    if (!component.children.empty()) {
+      for (auto &child : component.children) v(*child, v);
+    }
+  };
+
+  visitor(*root_, visitor);
+}
+
+void Model::resetActions()
+{
+  if (!root_)
+    return;
+
+  const auto visitor = [this](Component &component, auto v) -> void {
+    if (component.action != Action::NoAction) {
+      component.action = Action::NoAction;
+      const auto index = toIndex(component, int(Column::Action));
+      emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
+    }
+
+    if (!component.children.empty()) {
+      for (auto &child : component.children) v(*child, v);
+    }
+  };
+
+  visitor(*root_, visitor);
 }
 
 bool Model::hasUpdates(const Model::Component &component) const

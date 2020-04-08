@@ -65,6 +65,8 @@ public:
   bool hasUpdates() const;
   void updateProgress(const QUrl& url, int progress);
   void resetProgress();
+  void selectAllUpdates();
+  void resetActions();
 
   QModelIndex index(int row, int column,
                     const QModelIndex& parent) const override;
