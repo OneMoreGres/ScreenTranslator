@@ -521,25 +521,27 @@ UserActions Model::userActions() const
   if (!root_)
     return {};
 
-  UserActions result;
-  fillUserActions(result, *root_);
-  return result;
-}
+  UserActions actions;
 
-void Model::fillUserActions(UserActions &actions, Component &component) const
-{
-  if (!component.files.empty()) {
-    if (component.action == Action::NoAction)
+  const auto visitor = [&actions](const Component &component, auto v) -> void {
+    if (!component.files.empty()) {
+      if (component.action == Action::NoAction)
+        return;
+
+      for (auto &file : component.files)
+        actions.emplace(component.action, file);
       return;
+    }
 
-    for (auto &file : component.files) actions.emplace(component.action, file);
-    return;
-  }
+    if (!component.children.empty()) {
+      for (auto &child : component.children) v(*child, v);
+      return;
+    }
+  };
 
-  if (!component.children.empty()) {
-    for (auto &child : component.children) fillUserActions(actions, *child);
-    return;
-  }
+  visitor(*root_, visitor);
+
+  return actions;
 }
 
 void Model::updateStates()
@@ -548,14 +550,36 @@ void Model::updateStates()
     return;
 
   updateState(*root_);
-  emitColumnsChanged(QModelIndex());
+
+  const auto visitor = [this](const QModelIndex &parent, auto v) -> void {
+    const auto count = rowCount(parent);
+    if (count == 0)
+      return;
+
+    emit dataChanged(index(0, int(Column::State), parent),
+                     index(count - 1, int(Column::Action), parent),
+                     {Qt::DisplayRole, Qt::EditRole});
+
+    for (auto i = 0; i < count; ++i) v(index(0, 0, parent), v);
+  };
+
+  visitor(QModelIndex(), visitor);
 }
 
 bool Model::hasUpdates() const
 {
   if (!root_)
     return false;
-  return hasUpdates(*root_);
+
+  const auto visitor = [](const Component &component, auto v) -> bool {
+    for (const auto &i : component.children) {
+      if (i->state == State::UpdateAvailable || v(*i, v))
+        return true;
+    }
+    return false;
+  };
+
+  return visitor(*root_, visitor);
 }
 
 void Model::updateProgress(const QUrl &url, int progress)
@@ -612,15 +636,6 @@ void Model::resetActions()
   };
 
   visitor(*root_, visitor);
-}
-
-bool Model::hasUpdates(const Model::Component &component) const
-{
-  for (const auto &i : component.children) {
-    if (i->state == State::UpdateAvailable || hasUpdates(*i))
-      return true;
-  }
-  return false;
 }
 
 void Model::updateState(Model::Component &component)
@@ -685,19 +700,6 @@ QString Model::expanded(const QString &source) const
   }
 
   return result;
-}
-
-void Model::emitColumnsChanged(const QModelIndex &parent)
-{
-  const auto count = rowCount(parent);
-  if (count == 0)
-    return;
-
-  emit dataChanged(index(0, int(Column::State), parent),
-                   index(count - 1, int(Column::Action), parent),
-                   {Qt::DisplayRole, Qt::EditRole});
-
-  for (auto i = 0; i < count; ++i) emitColumnsChanged(index(0, 0, parent));
 }
 
 Model::Component *Model::toComponent(const QModelIndex &index) const

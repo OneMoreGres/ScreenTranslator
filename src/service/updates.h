@@ -93,11 +93,8 @@ private:
   std::unique_ptr<Component> parse(const QJsonObject& json) const;
   void updateProgress(Component& component, const QUrl& url, int progress);
   void updateState(Component& component);
-  bool hasUpdates(const Component& component) const;
-  void fillUserActions(UserActions& actions, Component& component) const;
   State currentState(const File& file) const;
   QString expanded(const QString& source) const;
-  void emitColumnsChanged(const QModelIndex& parent);
   Component* toComponent(const QModelIndex& index) const;
   QModelIndex toIndex(const Component& component, int column) const;
 
