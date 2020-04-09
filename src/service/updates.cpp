@@ -10,12 +10,63 @@
 #include <QJsonObject>
 #include <QMenu>
 #include <QNetworkReply>
+#include <QScopeGuard>
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QTimer>
 #include <QTreeView>
 
 #include <random>
+
+#define MINIZ_NO_ZLIB_APIS
+#define MINIZ_NO_ZLIB_COMPATIBLE_NAMES
+#define MINIZ_NO_MALLOC
+#define MINIZ_NO_STDIO
+#define MINIZ_NO_ARCHIVE_WRITING_APIS
+#include <miniz/miniz.h>
+
+static QByteArray unpack(const QByteArray &data)
+{
+  if (data.size() <= 4 || data.left(2) != "PK") {
+    LTRACE() << "Incorrect data to unpack" << LARG(data.size())
+             << data.left(10);
+    return {};
+  }
+
+  mz_zip_archive zip;
+  memset(&zip, 0, sizeof(zip));
+  if (!mz_zip_reader_init_mem(&zip, data.data(), data.size(), 0)) {
+    LTRACE() << "Failed to init zip reader for " << data.left(10)
+             << mz_zip_get_error_string(zip.m_last_error);
+    return {};
+  }
+
+  const auto guard = qScopeGuard([&zip] { mz_zip_reader_end(&zip); });
+
+  const auto fileCount = mz_zip_reader_get_num_files(&zip);
+  if (fileCount < 1) {
+    LTRACE() << "No files in zip archive";
+    return {};
+  }
+
+  for (auto i = 0u; i < fileCount; ++i) {
+    mz_zip_archive_file_stat file_stat;
+    if (!mz_zip_reader_file_stat(&zip, i, &file_stat)) {
+      LTRACE() << "Failed to get file info" << LARG(i)
+               << mz_zip_get_error_string(zip.m_last_error);
+      return {};
+    }
+
+    if (file_stat.m_is_directory)
+      continue;
+
+    QByteArray result(file_stat.m_uncomp_size, 0);
+    mz_zip_reader_extract_to_mem(&zip, 0, result.data(), result.size(), 0);
+    return result;
+  }
+
+  return {};
+}
 
 namespace update
 {
@@ -150,27 +201,36 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
 {
   reply->deleteLater();
 
+  const auto url = reply->url();
   if (reply->error() != QNetworkReply::NoError) {
     emit error(toError(*reply));
-    startDownloadUpdates(reply->url());
+    startDownloadUpdates(url);
     return;
   }
 
   const auto replyData = reply->readAll();
   if (replyData.isEmpty()) {
-    emit error(
-        tr("Received empty updates info from %1").arg(reply->url().toString()));
-    startDownloadUpdates(reply->url());
+    emit error(tr("Received empty updates info from %1").arg(url.toString()));
+    startDownloadUpdates(url);
     return;
   }
 
+  const auto unpacked =
+      url.toString().endsWith(".zip") ? unpack(replyData) : replyData;
+
+  if (unpacked.isEmpty()) {
+    emit error(
+        tr("Empty updates info after unpacking from %1").arg(url.toString()));
+    startDownloadUpdates(url);
+    return;
+  }
 
   SOFT_ASSERT(model_, return );
-  const auto parseError = model_->parse(replyData);
+  const auto parseError = model_->parse(unpacked);
   if (!parseError.isEmpty()) {
     emit error(tr("Failed to parse updates from %1 (%2)")
-                   .arg(reply->url().toString(), parseError));
-    startDownloadUpdates(reply->url());
+                   .arg(url.toString(), parseError));
+    startDownloadUpdates(url);
     return;
   }
 
@@ -258,20 +318,44 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
 
   const auto &fileName = file->downloadPath;
   auto dir = QFileInfo(fileName).absoluteDir();
-  if (!dir.exists())
-    dir.mkpath(".");
+  if (!dir.exists() && !dir.mkpath(".")) {
+    finishUpdate(tr("Failed to create temp path %1").arg(dir.absolutePath()));
+    return false;
+  }
+
+  const auto url = reply->url();
+  const auto replyData = reply->readAll();
+  if (replyData.isEmpty()) {
+    emit error(tr("Empty data downloaded from %1").arg(url.toString()));
+
+    if (!startDownload(*file))
+      finishUpdate();
+
+    return false;
+  }
+
+  const auto mustUnpack =
+      url.toString().endsWith(".zip") && !fileName.endsWith(".zip");
+  const auto unpacked = mustUnpack ? unpack(replyData) : replyData;
+
+  if (unpacked.isEmpty()) {
+    emit error(tr("Empty data after unpacking from %1").arg(url.toString()));
+
+    if (!startDownload(*file))
+      finishUpdate();
+
+    return false;
+  }
 
   QFile f(fileName);
   if (!f.open(QFile::WriteOnly)) {
-    const auto error =
-        tr("Failed to save downloaded file %1 to %2. Error %3")
-            .arg(reply->url().toString(), f.fileName(), f.errorString());
+    const auto error = tr("Failed to save downloaded file %1 to %2. Error %3")
+                           .arg(url.toString(), f.fileName(), f.errorString());
     finishUpdate(error);
     return false;
   }
 
-  const auto replyData = reply->readAll();
-  f.write(replyData);
+  f.write(unpacked);
   f.close();
 
   if (downloads_.empty())

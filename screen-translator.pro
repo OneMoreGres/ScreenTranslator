@@ -18,6 +18,9 @@ linux{
   LIBS += -lX11
 }
 
+SOURCES += $$PWD/external/miniz/miniz.c
+INCLUDEPATH += $$PWD/external
+
 VER=3.0.0
 DEFINES += VERSION="$$VER"
 VERSION = $$VER.0
