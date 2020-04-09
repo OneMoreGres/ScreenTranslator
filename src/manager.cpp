@@ -155,7 +155,7 @@ void Manager::setupTrace(bool isOn)
 
   if (!isOn) {
     debug::setTraceFileName({});
-    debug::isTrace = false;
+    debug::isTrace = qEnvironmentVariableIsSet("TRACE");
 
     if (!oldFile.isEmpty())
       QDesktopServices::openUrl(QUrl::fromLocalFile(oldFile));
