@@ -39,7 +39,7 @@ void handler(QtMsgType type, const QMessageLogContext &context,
 
 namespace debug
 {
-std::atomic_bool isTrace;
+std::atomic_bool isTrace = false;
 
 QString traceFileName()
 {

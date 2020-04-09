@@ -1,7 +1,3 @@
-#ifdef Q_OS_LINUX
-#include <locale.h>
-#endif
-
 #include "apptranslator.h"
 #include "manager.h"
 #include "singleapplication.h"
