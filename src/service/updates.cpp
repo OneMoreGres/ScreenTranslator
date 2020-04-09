@@ -189,8 +189,10 @@ void Loader::startDownloadUpdates(const QUrl &previous)
     url = updateUrls_[index + 1];
   }
 
-  if (url.isEmpty())
+  if (url.isEmpty()) {
+    dumpErrors();
     return;
+  }
 
   auto reply = network_->get(QNetworkRequest(url));
   if (reply->error() != QNetworkReply::NoError)
@@ -203,14 +205,14 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
 
   const auto url = reply->url();
   if (reply->error() != QNetworkReply::NoError) {
-    emit error(toError(*reply));
+    addError(toError(*reply));
     startDownloadUpdates(url);
     return;
   }
 
   const auto replyData = reply->readAll();
   if (replyData.isEmpty()) {
-    emit error(tr("Received empty updates info from %1").arg(url.toString()));
+    addError(tr("Received empty updates info from %1").arg(url.toString()));
     startDownloadUpdates(url);
     return;
   }
@@ -219,7 +221,7 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
       url.toString().endsWith(".zip") ? unpack(replyData) : replyData;
 
   if (unpacked.isEmpty()) {
-    emit error(
+    addError(
         tr("Empty updates info after unpacking from %1").arg(url.toString()));
     startDownloadUpdates(url);
     return;
@@ -228,11 +230,13 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
   SOFT_ASSERT(model_, return );
   const auto parseError = model_->parse(unpacked);
   if (!parseError.isEmpty()) {
-    emit error(tr("Failed to parse updates from %1 (%2)")
-                   .arg(url.toString(), parseError));
+    addError(tr("Failed to parse updates from %1 (%2)")
+                 .arg(url.toString(), parseError));
     startDownloadUpdates(url);
     return;
   }
+
+  errors_.clear();
 
   if (model_->hasUpdates())
     emit updatesAvailable();
@@ -308,7 +312,7 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
   downloads_.erase(reply);
 
   if (reply->error() != QNetworkReply::NoError) {
-    emit error(toError(*reply));
+    addError(toError(*reply));
 
     if (!startDownload(*file))
       finishUpdate();
@@ -326,7 +330,7 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
   const auto url = reply->url();
   const auto replyData = reply->readAll();
   if (replyData.isEmpty()) {
-    emit error(tr("Empty data downloaded from %1").arg(url.toString()));
+    addError(tr("Empty data downloaded from %1").arg(url.toString()));
 
     if (!startDownload(*file))
       finishUpdate();
@@ -339,7 +343,7 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
   const auto unpacked = mustUnpack ? unpack(replyData) : replyData;
 
   if (unpacked.isEmpty()) {
-    emit error(tr("Empty data after unpacking from %1").arg(url.toString()));
+    addError(tr("Empty data after unpacking from %1").arg(url.toString()));
 
     if (!startDownload(*file))
       finishUpdate();
@@ -370,7 +374,8 @@ void Loader::finishUpdate(const QString &error)
   for (const auto &i : downloads_) i.first->deleteLater();
   downloads_.clear();
   if (!error.isEmpty())
-    emit this->error(error);
+    addError(error);
+  dumpErrors();
   SOFT_ASSERT(model_, return );
   model_->updateStates();
 }
@@ -381,9 +386,10 @@ void Loader::commitUpdate()
   Installer installer(currentActions_);
   if (installer.commit()) {
     model_->resetProgress();
+    errors_.clear();
     emit updated();
   } else {
-    emit error(tr("Update failed: %1").arg(installer.errorString()));
+    addError(tr("Update failed: %1").arg(installer.errorString()));
   }
   finishUpdate();
 }
@@ -401,6 +407,21 @@ void Loader::updateProgress(qint64 bytesSent, qint64 bytesTotal)
 Model *Loader::model() const
 {
   return model_;
+}
+
+void Loader::addError(const QString &text)
+{
+  LTRACE() << text;
+  errors_.append(text);
+}
+
+void Loader::dumpErrors()
+{
+  if (errors_.isEmpty())
+    return;
+  const auto summary = errors_.join('\n');
+  emit error(summary);
+  errors_.clear();
 }
 
 Model::Model(QObject *parent)

@@ -137,6 +137,8 @@ signals:
   void error(const QString& error);
 
 private:
+  void addError(const QString& text);
+  void dumpErrors();
   void handleReply(QNetworkReply* reply);
   bool handleComponentReply(QNetworkReply* reply);
   void handleUpdateReply(QNetworkReply* reply);
@@ -152,6 +154,7 @@ private:
   Urls updateUrls_;
   QString downloadPath_;
   std::map<QNetworkReply*, File*> downloads_;
+  QStringList errors_;
   UserActions currentActions_;
 };
 
