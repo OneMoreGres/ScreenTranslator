@@ -339,9 +339,10 @@ void Model::initView(QTreeView *view)
   connect(view, &QAbstractItemView::customContextMenuRequested,  //
           this, [this, view, proxy] {
             QMenu menu;
-            menu.addAction(toString(Action::NoAction));
-            menu.addAction(toString(Action::Remove));
-            menu.addAction(toString(Action::Install));
+            using A = Action;
+            QMap<QAction *, Action> actions;
+            for (auto i : QVector<A>{A::Install, A::Remove, A::NoAction})
+              actions[menu.addAction(toString(i))] = i;
             menu.addSeparator();
             auto updateAll = menu.addAction(tr("Select all updates"));
             auto reset = menu.addAction(tr("Reset actions"));
@@ -366,13 +367,13 @@ void Model::initView(QTreeView *view)
             if (indexes.isEmpty())
               return;
 
-            const auto action = menu.actions().indexOf(menuItem);
+            const auto action = actions[menuItem];
 
             for (const auto &proxyIndex : indexes) {
               auto modelIndex = proxy->mapToSource(proxyIndex);
               if (!modelIndex.isValid() || rowCount(modelIndex) > 0)
                 continue;
-              setData(modelIndex, action, Qt::EditRole);
+              setData(modelIndex, int(action), Qt::EditRole);
             }
           });
 }
