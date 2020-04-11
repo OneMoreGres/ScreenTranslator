@@ -187,9 +187,8 @@ void Loader::startDownloadUpdates(const QUrl &previous)
   else {
     const auto index = updateUrls_.indexOf(previous);
     SOFT_ASSERT(index != -1, return );
-    if (index == updateUrls_.size() - 1)
-      return;
-    url = updateUrls_[index + 1];
+    if (index + 1 < updateUrls_.size())
+      url = updateUrls_[index + 1];
   }
 
   if (url.isEmpty()) {
