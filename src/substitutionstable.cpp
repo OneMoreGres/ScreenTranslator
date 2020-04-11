@@ -119,6 +119,10 @@ void SubstitutionsTable::updateModel(const Substitutions &substitutions)
     }
   }
 
+  const auto any = LanguageCodes::name(LanguageCodes::anyLanguageId());
+  if (!strings.contains(any))
+    strings.append(any);
+
   std::sort(strings.begin(), strings.end());
   substitutionLanguages_->setStringList(strings);
 }

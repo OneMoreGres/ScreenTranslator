@@ -16,6 +16,7 @@ public:
   static QString tesseract(const LanguageId& id);
   static QString name(const LanguageId& id);
   static std::vector<LanguageId> allIds();
+  static LanguageId anyLanguageId();
 
 private:
   struct Bundle {

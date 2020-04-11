@@ -591,6 +591,11 @@ Ctrl - продолжить выделять</translation>
         <translation>Дневнегреческий</translation>
     </message>
     <message>
+        <location filename="../../src/languagecodes.cpp" line="204"/>
+        <source>Any</source>
+        <translation>Любой язык</translation>
+    </message>
+    <message>
         <location filename="../../src/manager.cpp" line="42"/>
         <source>app</source>
         <translation>приложение</translation>
@@ -1055,17 +1060,17 @@ in %1</source>
 <context>
     <name>SubstitutionsTable</name>
     <message>
-        <location filename="../../src/substitutionstable.cpp" line="85"/>
+        <location filename="../../src/substitutionstable.cpp" line="81"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../../src/substitutionstable.cpp" line="85"/>
+        <location filename="../../src/substitutionstable.cpp" line="81"/>
         <source>Source</source>
         <translation>Исходный текст</translation>
     </message>
     <message>
-        <location filename="../../src/substitutionstable.cpp" line="85"/>
+        <location filename="../../src/substitutionstable.cpp" line="81"/>
         <source>Changed</source>
         <translation>Замена</translation>
     </message>

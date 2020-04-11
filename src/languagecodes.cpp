@@ -201,6 +201,7 @@ const std::unordered_map<LanguageId, LanguageCodes::Bundle>
   {I("enm"), {I("enm"), S(""), S("enm"), QT_TRANSLATE_NOOP("QObject", "English, Middle (1100-1500)")}},
   {I("frm"), {I("frm"), S(""), S("frm"), QT_TRANSLATE_NOOP("QObject", "French, Middle (ca.1400-1600)")}},
   {I("grc"), {I("grc"), S(""), S("grc"), QT_TRANSLATE_NOOP("QObject", "Greek, Ancient (to 1453)")}},
+  {I("any"), {I("any"), S(""), S(""), QT_TRANSLATE_NOOP("QObject", "Any")}},
         // clang-format on
     };
 #undef I
@@ -252,4 +253,9 @@ std::vector<LanguageId> LanguageCodes::allIds()
   result.reserve(codes_.size());
   for (const auto &code : codes_) result.push_back(code.first);
   return result;
+}
+
+LanguageId LanguageCodes::anyLanguageId()
+{
+  return "any";
 }

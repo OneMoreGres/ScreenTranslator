@@ -1,6 +1,7 @@
 #include "corrector.h"
 #include "correctorworker.h"
 #include "debug.h"
+#include "languagecodes.h"
 #include "manager.h"
 #include "settings.h"
 #include "task.h"
@@ -72,22 +73,38 @@ QString Corrector::substituteUser(const QString &source,
 {
   auto result = source;
 
-  const auto range = settings_.userSubstitutions.equal_range(language);
-  if (range.first == settings_.userSubstitutions.cend())
+  using It = Substitutions::const_iterator;
+  std::vector<std::pair<It, It>> ranges;
+
+  {
+    const auto range = settings_.userSubstitutions.equal_range(language);
+    if (range.first != settings_.userSubstitutions.cend())
+      ranges.push_back(range);
+  }
+  {
+    const auto anyId = LanguageCodes::anyLanguageId();
+    const auto range = settings_.userSubstitutions.equal_range(anyId);
+    if (range.first != settings_.userSubstitutions.cend())
+      ranges.push_back(range);
+  }
+
+  if (ranges.empty())
     return result;
 
   while (true) {
-    auto bestMatch = range.first;
+    auto bestMatch = ranges.front().first;
     auto bestMatchLen = 0;
 
-    for (auto it = range.first; it != range.second; ++it) {
-      const auto &sub = it->second;
-      if (!result.contains(sub.source))
-        continue;
-      const auto len = sub.source.length();
-      if (len > bestMatchLen) {
-        bestMatchLen = len;
-        bestMatch = it;
+    for (const auto &range : ranges) {
+      for (auto it = range.first; it != range.second; ++it) {
+        const auto &sub = it->second;
+        if (!result.contains(sub.source))
+          continue;
+        const auto len = sub.source.length();
+        if (len > bestMatchLen) {
+          bestMatchLen = len;
+          bestMatch = it;
+        }
       }
     }
 
