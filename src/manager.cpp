@@ -38,6 +38,11 @@ Manager::Manager()
 {
   SOFT_ASSERT(settings_, return );
 
+  // updater components
+  (void)QT_TRANSLATE_NOOP("QObject", "app");
+  (void)QT_TRANSLATE_NOOP("QObject", "recognizers");
+  (void)QT_TRANSLATE_NOOP("QObject", "translators");
+
   tray_ = std::make_unique<TrayIcon>(*this, *settings_);
   capturer_ = std::make_unique<Capturer>(*this, *settings_, *models_);
   recognizer_ = std::make_unique<Recognizer>(*this, *settings_);
@@ -173,8 +178,7 @@ void Manager::setupTrace(bool isOn)
 
   if (!debug::setTraceFileName(traceFile)) {
     QMessageBox::warning(
-        nullptr, {},
-        QObject::tr("Failed to setup log to file: %1").arg(traceFile));
+        nullptr, {}, QObject::tr("Failed to set log file: %1").arg(traceFile));
     return;
   }
 

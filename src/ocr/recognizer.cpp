@@ -1,4 +1,5 @@
 #include "recognizer.h"
+#include "debug.h"
 #include "manager.h"
 #include "recognizerworker.h"
 #include "settings.h"
@@ -40,10 +41,7 @@ Recognizer::~Recognizer()
 
 void Recognizer::updateSettings()
 {
-  if (settings_.tessdataPath.isEmpty()) {
-    manager_.fatalError(tr("Tessdata path is empty"));
-    return;
-  }
+  SOFT_ASSERT(!settings_.tessdataPath.isEmpty(), return );
 
   emit reset(settings_.tessdataPath);
 }

@@ -142,7 +142,7 @@ void Tesseract::init(const LanguageId &language, const QString &tessdataPath)
   if (result == 0)
     return;
 
-  error_ = QObject::tr("troubles with tessdata");
+  error_ = QObject::tr("init failed");
   engine_.reset();
 }
 
@@ -193,7 +193,7 @@ QString Tesseract::recognize(const QPixmap &source)
   delete[] outText;
 
   if (result.isEmpty())
-    error_ = QObject::tr("Failed to recognize text");
+    error_ = QObject::tr("Failed to recognize text or no text selected");
   return result;
 }
 

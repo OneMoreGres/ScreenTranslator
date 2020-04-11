@@ -134,7 +134,7 @@ void Translator::updateSettings()
       loadScripts(settings_.translatorsDir, settings_.translators);
   if (loaded.empty()) {
     manager_.fatalError(
-        tr("No translators loaded from %1 (%2)")
+        tr("No translators loaded from\n%1\n(%2)")
             .arg(settings_.translatorsDir, settings_.translators.join(", ")));
     return;
   }
@@ -272,8 +272,8 @@ void Translator::processQueue()
       continue;
 
     if (task->translators.isEmpty()) {
-      task->error = tr("All translators failed (%1)")
-                        .arg(task->translatorErrors.join(", "));
+      task->error =
+          tr("All translators failed\n").arg(task->translatorErrors.join("\n"));
       finishedTasks.push_back(task);
       continue;
     }

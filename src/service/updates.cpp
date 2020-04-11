@@ -87,30 +87,33 @@ QString sizeString(qint64 bytes, int precision)
 
   if (bytes >= tb) {
     return QString::number(bytes / tb, 'f', precision) + ' ' +
-           QObject::tr("Tb");
+           QApplication::translate("Updates", "Tb");
   }
   if (bytes >= gb) {
     return QString::number(bytes / gb, 'f', precision) + ' ' +
-           QObject::tr("Gb");
+           QApplication::translate("Updates", "Gb");
   }
   if (bytes >= mb) {
     return QString::number(bytes / mb, 'f', precision) + ' ' +
-           QObject::tr("Mb");
+           QApplication::translate("Updates", "Mb");
   }
   if (bytes >= kb) {
     return QString::number(bytes / kb, 'f', precision) + ' ' +
-           QObject::tr("Kb");
+           QApplication::translate("Updates", "Kb");
   }
-  return QString::number(bytes) + ' ' + QObject::tr("bytes");
+  return QString::number(bytes) + ' ' +
+         QApplication::translate("Updates", "bytes");
 }
 
 QString toString(State state)
 {
   const QMap<State, QString> names{
       {State::NotAvailable, {}},
-      {State::NotInstalled, QObject::tr("Not installed")},
-      {State::UpdateAvailable, QObject::tr("Update available")},
-      {State::Actual, QObject::tr("Up to date")},
+      {State::NotInstalled,
+       QApplication::translate("Updates", "Not installed")},
+      {State::UpdateAvailable,
+       QApplication::translate("Updates", "Update available")},
+      {State::Actual, QApplication::translate("Updates", "Up to date")},
   };
   return names.value(state);
 }
@@ -119,8 +122,8 @@ QString toString(Action action)
 {
   const QMap<Action, QString> names{
       {Action::NoAction, {}},
-      {Action::Remove, QObject::tr("Remove")},
-      {Action::Install, QObject::tr("Install/Update")},
+      {Action::Remove, QApplication::translate("Updates", "Remove")},
+      {Action::Install, QApplication::translate("Updates", "Install/Update")},
   };
   return names.value(action);
 }
@@ -212,7 +215,7 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
 
   const auto replyData = reply->readAll();
   if (replyData.isEmpty()) {
-    addError(tr("Received empty updates info from %1").arg(url.toString()));
+    addError(tr("Empty updates info from\n%1").arg(url.toString()));
     startDownloadUpdates(url);
     return;
   }
@@ -221,8 +224,7 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
       url.toString().endsWith(".zip") ? unpack(replyData) : replyData;
 
   if (unpacked.isEmpty()) {
-    addError(
-        tr("Empty updates info after unpacking from %1").arg(url.toString()));
+    addError(tr("Empty updates info unpacked from\n%1").arg(url.toString()));
     startDownloadUpdates(url);
     return;
   }
@@ -230,7 +232,7 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
   SOFT_ASSERT(model_, return );
   const auto parseError = model_->parse(unpacked);
   if (!parseError.isEmpty()) {
-    addError(tr("Failed to parse updates from %1 (%2)")
+    addError(tr("Failed to parse updates from\n%1 (%2)")
                  .arg(url.toString(), parseError));
     startDownloadUpdates(url);
     return;
@@ -244,7 +246,7 @@ void Loader::handleUpdateReply(QNetworkReply *reply)
 
 QString Loader::toError(QNetworkReply &reply) const
 {
-  return tr("Failed to download file %1. Error %2")
+  return tr("Failed to download file\n%1. Error %2")
       .arg(reply.url().toString(), reply.errorString());
 }
 
@@ -252,13 +254,13 @@ void Loader::applyUserActions()
 {
   SOFT_ASSERT(model_, return );
   if (!currentActions_.empty() || !downloads_.empty()) {
-    emit error(tr("Update already in process"));
+    emit error(tr("Already updating"));
     return;
   }
 
   currentActions_ = model_->userActions();
   if (currentActions_.empty()) {
-    emit error(tr("No actions to apply"));
+    emit error(tr("No actions selected"));
     return;
   }
 
@@ -323,14 +325,14 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
   const auto &fileName = file->downloadPath;
   auto dir = QFileInfo(fileName).absoluteDir();
   if (!dir.exists() && !dir.mkpath(".")) {
-    finishUpdate(tr("Failed to create temp path %1").arg(dir.absolutePath()));
+    finishUpdate(tr("Failed to create temp path\n%1").arg(dir.absolutePath()));
     return false;
   }
 
   const auto url = reply->url();
   const auto replyData = reply->readAll();
   if (replyData.isEmpty()) {
-    addError(tr("Empty data downloaded from %1").arg(url.toString()));
+    addError(tr("Empty data downloaded from\n%1").arg(url.toString()));
 
     if (!startDownload(*file))
       finishUpdate();
@@ -343,7 +345,7 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
   const auto unpacked = mustUnpack ? unpack(replyData) : replyData;
 
   if (unpacked.isEmpty()) {
-    addError(tr("Empty data after unpacking from %1").arg(url.toString()));
+    addError(tr("Empty data unpacked from\n%1").arg(url.toString()));
 
     if (!startDownload(*file))
       finishUpdate();
@@ -353,7 +355,7 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
 
   QFile f(fileName);
   if (!f.open(QFile::WriteOnly)) {
-    const auto error = tr("Failed to save downloaded file %1 to %2. Error %3")
+    const auto error = tr("Failed to save downloaded file\n%1\nto %2\nError %3")
                            .arg(url.toString(), f.fileName(), f.errorString());
     finishUpdate(error);
     return false;
@@ -496,7 +498,7 @@ QString Model::parse(const QByteArray &data)
   const auto json = doc.object();
   const auto version = json[versionKey].toInt();
   if (version != 1) {
-    return tr("Wrong updates version %1").arg(version);
+    return tr("Wrong updates version: %1").arg(version);
   }
 
   beginResetModel();
@@ -507,9 +509,8 @@ QString Model::parse(const QByteArray &data)
 
   endResetModel();
 
-  if (!root_) {
+  if (!root_)
     return tr("No data parsed");
-  }
   return {};
 }
 
@@ -1021,8 +1022,9 @@ void Installer::checkRemove(const File &file)
     return;
 
   if (installDir.exists() && !installDir.isWritable()) {
-    errors_.append(QObject::tr("Directory is not writable %1")
-                       .arg(installDir.absolutePath()));
+    errors_.append(
+        QApplication::translate("Updates", "Directory is not writable\n%1")
+            .arg(installDir.absolutePath()));
   }
 }
 
@@ -1030,14 +1032,16 @@ void Installer::checkInstall(const File &file)
 {
   if (!QFileInfo::exists(file.downloadPath)) {
     errors_.append(
-        QObject::tr("Downloaded file not exists %1").arg(file.downloadPath));
+        QApplication::translate("Updates", "Downloaded file not exists\n%1")
+            .arg(file.downloadPath));
     // no return
   }
 
   QFileInfo installDir(QFileInfo(file.expandedPath).absolutePath());
   if (installDir.exists() && !installDir.isWritable()) {
-    errors_.append(QObject::tr("Directory is not writable %1")
-                       .arg(installDir.absolutePath()));
+    errors_.append(
+        QApplication::translate("Updates", "Directory is not writable\n%1")
+            .arg(installDir.absolutePath()));
   }
 }
 
@@ -1048,7 +1052,8 @@ void Installer::remove(const File &file)
     return;
 
   if (!f.remove()) {
-    errors_.append(QObject::tr("Failed to remove file %1. Error %2")
+    errors_.append(QApplication::translate(
+                       "Updates", "Failed to remove file\n%1\nError %2")
                        .arg(f.fileName(), f.errorString()));
   }
 }
@@ -1058,20 +1063,23 @@ void Installer::install(const File &file)
   auto installDir = QFileInfo(file.expandedPath).absoluteDir();
   if (!installDir.exists() && !installDir.mkpath(".")) {
     errors_.append(
-        QObject::tr("Failed to create path %1").arg(installDir.absolutePath()));
+        QApplication::translate("Updates", "Failed to create path\n%1")
+            .arg(installDir.absolutePath()));
     return;
   }
 
   QFile existing(file.expandedPath);
   if (existing.exists() && !existing.remove()) {
-    errors_.append(QObject::tr("Failed to remove file %1. Error %2")
+    errors_.append(QApplication::translate(
+                       "Updates", "Failed to remove file\n%1\nError %2")
                        .arg(existing.fileName(), existing.errorString()));
     return;
   }
 
   QFile f(file.downloadPath);
   if (!f.rename(file.expandedPath)) {
-    errors_.append(QObject::tr("Failed to move file %1 to %2. Error %3")
+    errors_.append(QApplication::translate(
+                       "Updates", "Failed to move file\n%1\nto %2\nError %3")
                        .arg(f.fileName(), file.expandedPath, f.errorString()));
     return;
   }
@@ -1081,8 +1089,9 @@ void Installer::install(const File &file)
 
   if (!f.open(QFile::WriteOnly | QFile::Append) ||
       !f.setFileTime(file.versionDate, QFile::FileTime::FileModificationTime)) {
-    errors_.append(QObject::tr("Failed to set modification time of "
-                               "file %1 to %2. Error %3")
+    errors_.append(QApplication::translate("Updates",
+                                           "Failed to set modification time of "
+                                           "file\n%1\nto %2. Error %3")
                        .arg(f.fileName(),
                             file.versionDate.toString(Qt::ISODate),
                             f.errorString()));
