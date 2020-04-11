@@ -56,7 +56,7 @@ static QImage convertImage(Pix &image)
   pixWriteMemBmp(&buffer, &len, &image);
 
   QImage result;
-  result.loadFromData(static_cast<uchar *>(buffer), len);
+  result.loadFromData(static_cast<uchar *>(buffer), int(len));
   return result;
 }
 

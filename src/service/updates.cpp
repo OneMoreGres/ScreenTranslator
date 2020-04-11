@@ -847,9 +847,9 @@ QModelIndex Model::parent(const QModelIndex &child) const
 int Model::rowCount(const QModelIndex &parent) const
 {
   if (auto ptr = toComponent(parent)) {
-    return ptr->children.size();
+    return int(ptr->children.size());
   }
-  return root_ ? root_->children.size() : 0;
+  return root_ ? int(root_->children.size()) : 0;
 }
 
 int Model::columnCount(const QModelIndex & /*parent*/) const
@@ -893,7 +893,7 @@ QVariant Model::data(const QModelIndex &index, int role) const
       return ptr->progress > 0 ? ptr->progress : QVariant();
     case int(Column::Files): {
       QStringList files;
-      files.reserve(ptr->files.size());
+      files.reserve(int(ptr->files.size()));
       for (const auto &f : ptr->files) files.append(f.expandedPath);
       return files.join(',');
     }
