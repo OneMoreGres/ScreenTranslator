@@ -186,7 +186,7 @@ void Manager::setupTrace(bool isOn)
 void Manager::finishTask(const TaskPtr &task)
 {
   SOFT_ASSERT(task, return );
-  LTRACE() << "finishTask" << task->captured << task->error;
+  LTRACE() << "finishTask" << task;
 
   --activeTaskCount_;
   tray_->setActiveTaskCount(activeTaskCount_);
@@ -206,7 +206,7 @@ void Manager::captured(const TaskPtr &task)
   tray_->blockActions(false);
 
   SOFT_ASSERT(task, return );
-  LTRACE() << "captured" << task->captured << task->error;
+  LTRACE() << "captured" << task;
 
   ++activeTaskCount_;
   tray_->setActiveTaskCount(activeTaskCount_);
@@ -228,7 +228,7 @@ void Manager::captureCanceled()
 void Manager::recognized(const TaskPtr &task)
 {
   SOFT_ASSERT(task, return );
-  LTRACE() << "recognized" << task->recognized << task->error;
+  LTRACE() << "recognized" << task;
 
   if (!task->isValid()) {
     finishTask(task);
@@ -241,7 +241,7 @@ void Manager::recognized(const TaskPtr &task)
 void Manager::corrected(const TaskPtr &task)
 {
   SOFT_ASSERT(task, return );
-  LTRACE() << "corrected" << task->recognized << task->error;
+  LTRACE() << "corrected" << task;
 
   if (!task->isValid()) {
     finishTask(task);
@@ -257,7 +257,7 @@ void Manager::corrected(const TaskPtr &task)
 void Manager::translated(const TaskPtr &task)
 {
   SOFT_ASSERT(task, return );
-  LTRACE() << "translated" << task->recognized << task->error;
+  LTRACE() << "translated" << task;
 
   finishTask(task);
 

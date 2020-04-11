@@ -2,6 +2,7 @@
 
 #include "stfwd.h"
 
+#include <QDebug>
 #include <QPixmap>
 
 class Task
@@ -31,3 +32,16 @@ public:
 using TaskPtr = std::shared_ptr<Task>;
 
 Q_DECLARE_METATYPE(TaskPtr);
+
+inline QDebug operator<<(QDebug debug, const TaskPtr &c)
+{
+  QDebugStateSaver saver(debug);
+  debug.nospace() << "Task(Gen=" << c->generation
+                  << ", pix=" << c->captured.size() << ", rec=" << c->recognized
+                  << ", cor=" << c->corrected << ", tr=" << c->translated
+                  << ", lang=" << qPrintable(c->sourceLanguage) << '-'
+                  << qPrintable(c->targetLanguage) << ", err=" << c->error
+                  << ')';
+
+  return debug;
+}
