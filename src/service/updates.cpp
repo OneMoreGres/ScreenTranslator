@@ -159,6 +159,8 @@ Loader::Loader(const update::Loader::Urls &updateUrls, QObject *parent)
   std::mt19937 generator(device());
   std::shuffle(updateUrls_.begin(), updateUrls_.end(), generator);
 
+  network_->setRedirectPolicy(
+      QNetworkRequest::RedirectPolicy::NoLessSafeRedirectPolicy);
   connect(network_, &QNetworkAccessManager::finished,  //
           this, &Loader::handleReply);
 }
