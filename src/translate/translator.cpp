@@ -272,8 +272,8 @@ void Translator::processQueue()
       continue;
 
     if (task->translators.isEmpty()) {
-      task->error =
-          tr("All translators failed\n").arg(task->translatorErrors.join("\n"));
+      task->error = tr("All translators failed\n%1")
+                        .arg(task->translatorErrors.join("\n"));
       finishedTasks.push_back(task);
       continue;
     }

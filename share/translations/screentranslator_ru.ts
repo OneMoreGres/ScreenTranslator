@@ -1107,11 +1107,11 @@ in %1</source>
 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="276"/>
+        <location filename="../../src/translate/translator.cpp" line="275"/>
         <source>All translators failed
-</source>
+%1</source>
         <translation>Не удалось перевести текст
-</translation>
+%1</translation>
     </message>
 </context>
 <context>
