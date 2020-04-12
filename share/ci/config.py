@@ -10,6 +10,7 @@ qt_modules = ['qtbase', 'qttools', 'icu',
               'qtdeclarative', 'qtlocation', 'opengl32sw', 'd3dcompiler_47',
               'qtserialport']
 qt_dir = path.abspath('qt')
+ssl_dir = path.abspath('ssl')
 
 build_dir = path.abspath('build')
 dependencies_dir = path.abspath('deps')

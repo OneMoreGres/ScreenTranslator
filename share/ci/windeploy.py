@@ -3,6 +3,7 @@ from config import *
 import os
 import sys
 import shutil
+from glob import glob
 
 artifact_name = '{}-{}-{}.zip'.format(app_name, app_version, os_name)
 if len(sys.argv) > 1 and sys.argv[1] == 'artifact_name':  # subcommand
@@ -31,5 +32,9 @@ for file in os.scandir(libs_dir):
         full_name = os.path.join(libs_dir, file.name)
         c.print('>> Copying {} to {}'.format(full_name, install_dir))
         shutil.copy(full_name, install_dir)
+
+for f in glob(ssl_dir + '/bin/*.dll'):
+    c.print('>> Copying {} to {}'.format(f, install_dir))
+    shutil.copy(f, install_dir)
 
 c.archive(c.get_folder_files(os.path.relpath(install_dir)), artifact_path)

@@ -66,6 +66,9 @@ jobs:
       - name: Get Qt
         run: python ./share/ci/get_qt.py
 
+      - name: Get ssl
+        run: python ./share/ci/get_qt_ssl.py
+
       - name: Get leptonica
         run: python ./share/ci/get_leptonica.py
 

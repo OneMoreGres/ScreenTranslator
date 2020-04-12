@@ -3,6 +3,8 @@ from config import *
 import os
 import sys
 import subprocess as sub
+import shutil
+from glob import glob
 
 if len(sys.argv) > 1 and sys.argv[1] == 'glibc_version':  # subcommand
     sub.run('ldd --version | head -n 1 | grep -Po "\\d\\.\\d\\d"', shell=True)
@@ -42,6 +44,12 @@ os.environ['LD_LIBRARY_PATH'] = dependencies_dir + '/lib'
 os.environ['VERSION'] = app_version
 # debug flags: -unsupported-bundle-everything -unsupported-allow-new-glibc
 flags = '' if os.getenv("DEBUG") is None else '-unsupported-allow-new-glibc'
+
+out_lib_dir = install_dir + '/usr/lib'
+os.makedirs(out_lib_dir, exist_ok=True)
+for f in glob(ssl_dir + '/lib/lib*.so.*'):
+    c.print('>> Copying {} to {}'.format(f, out_lib_dir))
+    shutil.copy(f, out_lib_dir)
 
 c.run('{} {}/usr/share/applications/*.desktop {} -appimage -qmake={}/bin/qmake'.format(
     linuxdeployqt_bin, install_dir, flags, qt_dir))
