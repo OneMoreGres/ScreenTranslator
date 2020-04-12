@@ -75,6 +75,9 @@ jobs:
       - name: Get tesseract
         run: python ./share/ci/get_tesseract.py
 
+      - name: Get hunspell
+        run: python ./share/ci/get_hunspell.py
+
       - name: Test
         run: python ./share/ci/test.py
 
