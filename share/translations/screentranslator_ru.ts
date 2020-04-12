@@ -1275,15 +1275,6 @@ Error %3</source>
 в %2
 Текст %3</translation>
     </message>
-    <message>
-        <location filename="../../src/service/updates.cpp" line="1093"/>
-        <source>Failed to set modification time of file
-%1
-to %2. Error %3</source>
-        <translation>Ошибка установки времени файла
-%1
-на %2. Текст %3</translation>
-    </message>
 </context>
 <context>
     <name>WebPage</name>

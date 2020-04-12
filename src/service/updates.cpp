@@ -1084,19 +1084,6 @@ void Installer::install(const File &file)
                        .arg(f.fileName(), file.expandedPath, f.errorString()));
     return;
   }
-
-  if (!file.versionDate.isValid())
-    return;
-
-  if (!f.open(QFile::WriteOnly | QFile::Append) ||
-      !f.setFileTime(file.versionDate, QFile::FileTime::FileModificationTime)) {
-    errors_.append(QApplication::translate("Updates",
-                                           "Failed to set modification time of "
-                                           "file\n%1\nto %2. Error %3")
-                       .arg(f.fileName(),
-                            file.versionDate.toString(Qt::ISODate),
-                            f.errorString()));
-  }
 }
 
 QString Installer::errorString() const
