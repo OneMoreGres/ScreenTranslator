@@ -7,7 +7,8 @@ target_name = app_name
 qt_version = '5.14.0'
 qt_modules = ['qtbase', 'qttools', 'icu',
               'qttranslations', 'qtx11extras', 'qtwebengine', 'qtwebchannel',
-              'qtdeclarative', 'qtlocation', 'opengl32sw', 'd3dcompiler_47']
+              'qtdeclarative', 'qtlocation', 'opengl32sw', 'd3dcompiler_47',
+              'qtserialport']
 qt_dir = path.abspath('qt')
 
 build_dir = path.abspath('build')

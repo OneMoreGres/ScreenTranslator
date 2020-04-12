@@ -43,12 +43,7 @@ os.environ['VERSION'] = app_version
 # debug flags: -unsupported-bundle-everything -unsupported-allow-new-glibc
 flags = '' if os.getenv("DEBUG") is None else '-unsupported-allow-new-glibc'
 
-# remove serial post dependency
-os.rename(qt_dir + '/plugins/position', qt_dir + '/plugins/position1')
-
 c.run('{} {}/usr/share/applications/*.desktop {} -appimage -qmake={}/bin/qmake'.format(
     linuxdeployqt_bin, install_dir, flags, qt_dir))
-
-os.rename(qt_dir + '/plugins/position1', qt_dir + '/plugins/position')
 
 c.run('mv {}-{}*.AppImage "{}"'.format(app_name, app_version, artifact_path))
