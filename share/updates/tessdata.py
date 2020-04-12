@@ -41,7 +41,8 @@ for f in it:
 print(',"recognizers": {')
 comma = ''
 unknown_names = []
-for name, file_names in files.items():
+for name in sorted(files.keys()):
+    file_names = files[name]
     if not name in language_names:
         unknown_names.append(name)
     else:

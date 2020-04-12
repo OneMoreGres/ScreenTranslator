@@ -78,7 +78,8 @@ for d in it:
 print(',"hunspell": {')
 comma = ''
 unknown_names = []
-for lang, file_names in files.items():
+for lang in sorted(files.keys()):
+    file_names = files[lang]
     if not lang in language_names:
         unknown_names.append(lang)
         continue
