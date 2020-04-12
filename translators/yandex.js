@@ -23,15 +23,6 @@ function translate(text, from, to) {
     active = true;
 
     let langs = 'lang=' + from + '-' + to;
-    if (window.location.href.indexOf('//translate.yandex') !== -1
-        && window.location.href.indexOf(langs) !== -1) {
-        document.querySelector('div#fakeArea').value = text;
-        document.querySelector('textarea#textarea').value = text;
-        document.querySelector('div#textbox').dispatchEvent(
-            new Event("input", { bubbles: true, cancelable: true }));
-        return;
-    }
-
     let url = 'https://translate.yandex.ru/?' + langs + '&text=' + encodeURIComponent(text);
     console.log("setting url", url);
     window.location = url;

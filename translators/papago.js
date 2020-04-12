@@ -55,7 +55,7 @@ function translate(text, from, to) {
     }
 
     let url = 'https://papago.naver.com/?sk=auto&tk=' + to + '&st=' + encodeURIComponent(text);
-    window.location = encodeURI(url);
+    window.location = url;
 }
 
 function init() {

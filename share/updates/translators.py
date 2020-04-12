@@ -21,7 +21,8 @@ for f in it:
 
 print(',"translators":{')
 comma = ''
-for name, file_name in files.items():
+for name in sorted(files.keys()):
+    file_name = files[name]
     print(' {}"{}": {{"files":['.format(comma, name))
     comma = ','
     md5 = hashlib.md5()
