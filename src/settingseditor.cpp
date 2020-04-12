@@ -62,6 +62,10 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
           ui->userSubstitutionsTable, &QTableWidget::setEnabled);
 
   // translation
+  ui->translatorHint->setText(
+      tr("<b>NOTE! Some translators might require the translation window to be "
+         "visible. You can make it using the \"Show translator\" entry "
+         "in the tray icon's context menu</b>"));
   ui->translateLangCombo->setModel(models_.targetLanguageModel());
 
   // representation

@@ -239,10 +239,6 @@ void Translator::processQueue()
   std::unordered_set<QString> idlePages;
   std::unordered_set<Task *> busyTasks;
 
-  const auto visible = isVisible();
-  if (!visible)
-    showNormal();
-
   auto oldPage = view_->page();
   for (auto &i : pages_) {
     if (!i.second->checkBusy()) {
@@ -256,9 +252,6 @@ void Translator::processQueue()
 
   if (oldPage != view_->page())
     view_->setPage(oldPage);
-
-  if (!visible)
-    hide();
 
   if (idlePages.empty())
     return;
