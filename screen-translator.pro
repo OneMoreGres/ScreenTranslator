@@ -114,8 +114,6 @@ OTHER_FILES += \
 TRANSLATIONS += \
     share/translations/screentranslator_ru.ts
 
-translations.files = $$PWD/share/translations/screentranslator_ru.qm
-
 linux {
     PREFIX = /usr
 
@@ -125,18 +123,14 @@ linux {
     shortcuts.path = $$PREFIX/share/applications/
     pixmaps.files += $$PWD/share/images/screentranslator.png
     pixmaps.path = $$PREFIX/share/icons/hicolor/128x128/apps/
-    translations.path = $$PREFIX/translations
 
-    INSTALLS += target shortcuts pixmaps translations
+    INSTALLS += target shortcuts pixmaps
 }
 win32 {
     RC_ICONS = $$PWD/share/images/icon.ico
-    translations.path = /translations
     target.path = /
-    INSTALLS += target translations
+    INSTALLS += target
 }
 mac {
-    translations.path = Contents/Translations
-    QMAKE_BUNDLE_DATA += translations
     ICON = $$PWD/share/images/icon.icns
 }
