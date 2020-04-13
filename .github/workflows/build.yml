@@ -134,3 +134,13 @@ jobs:
           asset_path: ./${{ env.artifact }}
           asset_name: ${{ env.artifact }}
           asset_content_type: application/zip
+
+      - name: Upload sourceforge
+        if: contains(github.ref, '/tags/')
+        env:
+          SF_PKEY: ${{ secrets.SF_PKEY }}
+          SF_API: ${{ secrets.SF_API }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install paramiko
+          python ./share/ci/sourceforge.py ./${{ env.artifact }}
