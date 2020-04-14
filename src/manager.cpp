@@ -150,6 +150,7 @@ void Manager::setupUpdates(const Settings &settings)
       {"$translators$", settings.translatorsDir},
       {"$tessdata$", settings.tessdataPath},
       {"$hunspell$", settings.hunspellDir},
+      {"$appdir$", QApplication::applicationDirPath()},
   });
 
   SOFT_ASSERT(updateAutoChecker_, return );
