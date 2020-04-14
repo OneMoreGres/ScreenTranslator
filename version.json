@@ -3,7 +3,7 @@
     "url": "https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/version.json",
     "Application": {
         "version": 3,
-        "compatibleVersion": 2,
+        "compatibleVersion": 3,
         "built_in": true,
         "versionString": "3.0.0",
         "permissions": "0x7755",

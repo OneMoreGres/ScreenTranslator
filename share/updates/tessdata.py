@@ -36,6 +36,8 @@ for f in it:
     if not f.is_file() or f.name in ["LICENSE", "README.md"]:
         continue
     name = f.name[:f.name.index('.')]
+    if len(name) == 0:
+        continue
     files.setdefault(name, []).append(f.name)
 
 print(',"recognizers": {')
