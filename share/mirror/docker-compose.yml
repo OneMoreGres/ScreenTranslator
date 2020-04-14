@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mirror:
+    build: .
+    image: gres/st_mirror
+    restart: always
+    container_name: st_mirror
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    volumes:
+      - ./git:/git
+      - ./packed:/packed
