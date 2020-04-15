@@ -37,7 +37,7 @@ ssh = SSHClient()
 ssh.set_missing_host_key_policy(WarningPolicy())
 ssh.connect('frs.sourceforge.net', username='onemoregres', pkey=pkey)
 sftp = ssh.open_sftp()
-target_path = 'test' # 'bin/v' + app_version
+target_path = 'bin/v' + app_version
 try:
     remote_path = '/home/frs/project/screen-translator/'
     for part in target_path.split('/'):
