@@ -2,7 +2,7 @@
 #include "runatsystemstart.h"
 
 #include <QApplication>
-#include <QFile>
+#include <QDir>
 #include <QFont>
 #include <QSettings>
 #include <QStandardPaths>
@@ -327,7 +327,7 @@ void Settings::setPortable(bool isPortable)
 
   const auto baseDataPath =
       isPortable
-          ? "."
+          ? QDir().absolutePath()
           : QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
   tessdataPath = baseDataPath + "/tessdata";
   translatorsDir = baseDataPath + "/translators";
