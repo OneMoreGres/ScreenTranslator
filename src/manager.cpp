@@ -177,7 +177,7 @@ void Manager::setupTrace(bool isOn)
 
   const auto traceFile =
       QStandardPaths::writableLocation(QStandardPaths::TempLocation) +
-      QLatin1String("/multidir-") +
+      QLatin1String("/screen-translator-") +
       QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
 
   if (!debug::setTraceFileName(traceFile)) {
