@@ -109,7 +109,8 @@ FORMS += \
 
 OTHER_FILES += \
   translators/*.js \
-  version.json
+  version.json \
+  updates.json
 
 TRANSLATIONS += \
     share/translations/screentranslator_ru.ts
