@@ -326,9 +326,10 @@ void Settings::setPortable(bool isPortable)
   isPortable_ = isPortable;
 
   const auto baseDataPath =
-      isPortable
-          ? QDir().absolutePath()
-          : QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+      (isPortable ? QDir().absolutePath()
+                  : QStandardPaths::writableLocation(
+                        QStandardPaths::AppDataLocation)) +
+      "/assets";
   tessdataPath = baseDataPath + "/tessdata";
   translatorsDir = baseDataPath + "/translators";
   hunspellDir = baseDataPath + "/hunspell";
