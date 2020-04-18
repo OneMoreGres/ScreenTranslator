@@ -4,7 +4,7 @@ ADD entrypoint.sh /entrypoint.sh
 
 RUN \
   addgroup -g 1200 -S app && \
-  adduser -g 1200 -u 1200 -S app && \
+  adduser -G app -u 1200 -S app && \
   apk add --upgrade --no-cache git zip && \
   chmod +x /entrypoint.sh
 
