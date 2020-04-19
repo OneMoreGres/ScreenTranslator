@@ -439,6 +439,8 @@ void Model::initView(QTreeView *view)
   proxy->setSourceModel(this);
   view->setModel(proxy);
   view->setItemDelegate(new update::UpdateDelegate(view));
+  view->setSortingEnabled(true);
+  view->sortByColumn(int(Column::Name), Qt::AscendingOrder);
 #ifndef DEVELOP
   view->hideColumn(int(update::Model::Column::Files));
 #endif
