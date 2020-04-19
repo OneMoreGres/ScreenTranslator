@@ -30,6 +30,8 @@ download_url = "https://cgit.freedesktop.org/libreoffice/dictionaries/plain"
 if len(sys.argv) > 2:
     download_url = sys.argv[2]
 
+mirror_url = "https://translator.gres.biz/resources/dictionaries"
+
 language_names = parse_language_names()
 
 preferred = ['sr.aff', 'sv_FI.aff',
@@ -93,8 +95,10 @@ for lang in sorted(files.keys()):
                               stdout=subprocess.PIPE, check=True).stdout
         size = os.path.getsize(os.path.join(dict_dir, file_name))
         installed = lang + file_name[file_name.index('/'):]
-        print('  {}{{"url":"{}/{}", "path":"$hunspell$/{}", "date":"{}", "size":{}}}'.format(
-            lang_comma, download_url, file_name, installed, date, size))
+        mirror = ',"' + mirror_url + '/' + file_name + \
+            '.zip"' if len(mirror_url) > 0 else ''
+        print('  {}{{"url":["{}/{}"{}], "path":"$hunspell$/{}", "date":"{}", "size":{}}}'.format(
+            lang_comma, download_url, file_name, mirror, installed, date, size))
         lang_comma = ','
     print(' ]}')
 print('}')

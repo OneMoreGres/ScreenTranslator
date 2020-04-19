@@ -28,6 +28,8 @@ download_url = "https://github.com/tesseract-ocr/tessdata_best/raw/master"
 if len(sys.argv) > 2:
     download_url = sys.argv[2]
 
+mirror_url = "https://translator.gres.biz/resources/tessdata_best"
+
 language_names = parse_language_names()
 
 files = {}
@@ -56,8 +58,10 @@ for name in sorted(files.keys()):
         date = subprocess.run(git_cmd, cwd=tessdata_dir, universal_newlines=True,
                               stdout=subprocess.PIPE, check=True).stdout
         size = os.path.getsize(os.path.join(tessdata_dir, file_name))
-        print('  {{"url":"{}/{}", "path":"$tessdata$/{}", "date":"{}", "size":{}}}'.format(
-            download_url, file_name, file_name, date, size))
+        mirror = ',"' + mirror_url + '/' + file_name + \
+            '.zip"' if len(mirror_url) > 0 else ''
+        print('  {{"url":["{}/{}"{}], "path":"$tessdata$/{}", "date":"{}", "size":{}}}'.format(
+            download_url, file_name, mirror, file_name, date, size))
     print(' ]}')
 print('}')
 

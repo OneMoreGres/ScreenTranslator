@@ -7,378 +7,379 @@
  ,"linux":{"version":"3.0.0", "host":"linux", "files":[{"path":"$appdir$/screen-translator", "md5":""}]}
 }
 
+
 ,"recognizers": {
  "Afrikaans":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/afr.traineddata", "path":"$tessdata$/afr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12800552}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/afr.traineddata","https://translator.gres.biz/resources/tessdata_best/afr.traineddata.zip"], "path":"$tessdata$/afr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12800552}
  ]}
- , "amh":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/amh.traineddata", "path":"$tessdata$/amh.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8389639}
+ , "Amharic":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/amh.traineddata","https://translator.gres.biz/resources/tessdata_best/amh.traineddata.zip"], "path":"$tessdata$/amh.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8389639}
  ]}
  , "Arabic":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ara.traineddata", "path":"$tessdata$/ara.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12603724}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ara.traineddata","https://translator.gres.biz/resources/tessdata_best/ara.traineddata.zip"], "path":"$tessdata$/ara.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12603724}
  ]}
  , "Assamese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/asm.traineddata", "path":"$tessdata$/asm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11315350}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/asm.traineddata","https://translator.gres.biz/resources/tessdata_best/asm.traineddata.zip"], "path":"$tessdata$/asm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11315350}
  ]}
  , "Azerbaijani":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/aze.traineddata", "path":"$tessdata$/aze.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6281404}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/aze.traineddata","https://translator.gres.biz/resources/tessdata_best/aze.traineddata.zip"], "path":"$tessdata$/aze.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6281404}
  ]}
  , "aze_cyrl":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/aze_cyrl.traineddata", "path":"$tessdata$/aze_cyrl.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4700277}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/aze_cyrl.traineddata","https://translator.gres.biz/resources/tessdata_best/aze_cyrl.traineddata.zip"], "path":"$tessdata$/aze_cyrl.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4700277}
  ]}
  , "Belarusian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bel.traineddata", "path":"$tessdata$/bel.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10870278}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/bel.traineddata","https://translator.gres.biz/resources/tessdata_best/bel.traineddata.zip"], "path":"$tessdata$/bel.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10870278}
  ]}
- , "ben":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ben.traineddata", "path":"$tessdata$/ben.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11045427}
+ , "Bengali":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ben.traineddata","https://translator.gres.biz/resources/tessdata_best/ben.traineddata.zip"], "path":"$tessdata$/ben.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11045427}
  ]}
  , "Tibetan":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bod.traineddata", "path":"$tessdata$/bod.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8623846}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/bod.traineddata","https://translator.gres.biz/resources/tessdata_best/bod.traineddata.zip"], "path":"$tessdata$/bod.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8623846}
  ]}
- , "bos":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bos.traineddata", "path":"$tessdata$/bos.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5264248}
+ , "Bosnian":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/bos.traineddata","https://translator.gres.biz/resources/tessdata_best/bos.traineddata.zip"], "path":"$tessdata$/bos.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5264248}
  ]}
  , "Breton":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bre.traineddata", "path":"$tessdata$/bre.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15640760}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/bre.traineddata","https://translator.gres.biz/resources/tessdata_best/bre.traineddata.zip"], "path":"$tessdata$/bre.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15640760}
  ]}
  , "Bulgarian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/bul.traineddata", "path":"$tessdata$/bul.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8844613}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/bul.traineddata","https://translator.gres.biz/resources/tessdata_best/bul.traineddata.zip"], "path":"$tessdata$/bul.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8844613}
  ]}
  , "Catalan":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/cat.traineddata", "path":"$tessdata$/cat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3802329}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/cat.traineddata","https://translator.gres.biz/resources/tessdata_best/cat.traineddata.zip"], "path":"$tessdata$/cat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3802329}
  ]}
  , "Cebuano":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ceb.traineddata", "path":"$tessdata$/ceb.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3452674}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ceb.traineddata","https://translator.gres.biz/resources/tessdata_best/ceb.traineddata.zip"], "path":"$tessdata$/ceb.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3452674}
  ]}
  , "Czech":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ces.traineddata", "path":"$tessdata$/ces.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10918912}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ces.traineddata","https://translator.gres.biz/resources/tessdata_best/ces.traineddata.zip"], "path":"$tessdata$/ces.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10918912}
  ]}
  , "Chinese (Simplified)":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata", "path":"$tessdata$/chi_sim.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13077423}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_sim.traineddata.zip"], "path":"$tessdata$/chi_sim.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13077423}
  ]}
  , "chi_sim_vert":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim_vert.traineddata", "path":"$tessdata$/chi_sim_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13077507}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_sim_vert.traineddata.zip"], "path":"$tessdata$/chi_sim_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13077507}
  ]}
  , "Chinese (Traditional)":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra.traineddata", "path":"$tessdata$/chi_tra.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12985735}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_tra.traineddata.zip"], "path":"$tessdata$/chi_tra.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12985735}
  ]}
  , "chi_tra_vert":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra_vert.traineddata", "path":"$tessdata$/chi_tra_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12985521}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_tra_vert.traineddata.zip"], "path":"$tessdata$/chi_tra_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12985521}
  ]}
  , "Cherokee":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/chr.traineddata", "path":"$tessdata$/chr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":2258703}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chr.traineddata","https://translator.gres.biz/resources/tessdata_best/chr.traineddata.zip"], "path":"$tessdata$/chr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":2258703}
  ]}
- , "cos":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/cos.traineddata", "path":"$tessdata$/cos.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8830216}
+ , "Corsican":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/cos.traineddata","https://translator.gres.biz/resources/tessdata_best/cos.traineddata.zip"], "path":"$tessdata$/cos.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8830216}
  ]}
  , "Welsh":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/cym.traineddata", "path":"$tessdata$/cym.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8750784}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/cym.traineddata","https://translator.gres.biz/resources/tessdata_best/cym.traineddata.zip"], "path":"$tessdata$/cym.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8750784}
  ]}
  , "Danish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/dan.traineddata", "path":"$tessdata$/dan.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9758142}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/dan.traineddata","https://translator.gres.biz/resources/tessdata_best/dan.traineddata.zip"], "path":"$tessdata$/dan.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9758142}
  ]}
  , "German":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/deu.traineddata", "path":"$tessdata$/deu.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8628461}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/deu.traineddata","https://translator.gres.biz/resources/tessdata_best/deu.traineddata.zip"], "path":"$tessdata$/deu.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8628461}
  ]}
  , "Divehi, Dhivehi, Maldivian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/div.traineddata", "path":"$tessdata$/div.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4574116}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/div.traineddata","https://translator.gres.biz/resources/tessdata_best/div.traineddata.zip"], "path":"$tessdata$/div.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4574116}
  ]}
  , "Dzongkha":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/dzo.traineddata", "path":"$tessdata$/dzo.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3243805}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/dzo.traineddata","https://translator.gres.biz/resources/tessdata_best/dzo.traineddata.zip"], "path":"$tessdata$/dzo.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3243805}
  ]}
  , "Greek":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ell.traineddata", "path":"$tessdata$/ell.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8945021}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ell.traineddata","https://translator.gres.biz/resources/tessdata_best/ell.traineddata.zip"], "path":"$tessdata$/ell.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8945021}
  ]}
  , "English":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata", "path":"$tessdata$/eng.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15400601}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata","https://translator.gres.biz/resources/tessdata_best/eng.traineddata.zip"], "path":"$tessdata$/eng.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15400601}
  ]}
  , "English, Middle (1100-1500)":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/enm.traineddata", "path":"$tessdata$/enm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13281564}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/enm.traineddata","https://translator.gres.biz/resources/tessdata_best/enm.traineddata.zip"], "path":"$tessdata$/enm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13281564}
  ]}
- , "epo":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/epo.traineddata", "path":"$tessdata$/epo.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7402169}
+ , "Esperanto":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/epo.traineddata","https://translator.gres.biz/resources/tessdata_best/epo.traineddata.zip"], "path":"$tessdata$/epo.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7402169}
  ]}
  , "Estonian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/est.traineddata", "path":"$tessdata$/est.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15833749}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/est.traineddata","https://translator.gres.biz/resources/tessdata_best/est.traineddata.zip"], "path":"$tessdata$/est.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15833749}
  ]}
  , "Basque":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/eus.traineddata", "path":"$tessdata$/eus.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7933869}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/eus.traineddata","https://translator.gres.biz/resources/tessdata_best/eus.traineddata.zip"], "path":"$tessdata$/eus.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7933869}
  ]}
  , "Faroese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fao.traineddata", "path":"$tessdata$/fao.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10030003}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/fao.traineddata","https://translator.gres.biz/resources/tessdata_best/fao.traineddata.zip"], "path":"$tessdata$/fao.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10030003}
  ]}
  , "Persian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fas.traineddata", "path":"$tessdata$/fas.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3325955}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/fas.traineddata","https://translator.gres.biz/resources/tessdata_best/fas.traineddata.zip"], "path":"$tessdata$/fas.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3325955}
  ]}
  , "Filipino":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fil.traineddata", "path":"$tessdata$/fil.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8978743}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/fil.traineddata","https://translator.gres.biz/resources/tessdata_best/fil.traineddata.zip"], "path":"$tessdata$/fil.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8978743}
  ]}
  , "Finnish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fin.traineddata", "path":"$tessdata$/fin.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14369979}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/fin.traineddata","https://translator.gres.biz/resources/tessdata_best/fin.traineddata.zip"], "path":"$tessdata$/fin.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14369979}
  ]}
  , "French":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fra.traineddata", "path":"$tessdata$/fra.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3972885}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/fra.traineddata","https://translator.gres.biz/resources/tessdata_best/fra.traineddata.zip"], "path":"$tessdata$/fra.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3972885}
  ]}
  , "frk":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/frk.traineddata", "path":"$tessdata$/frk.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12938047}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/frk.traineddata","https://translator.gres.biz/resources/tessdata_best/frk.traineddata.zip"], "path":"$tessdata$/frk.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12938047}
  ]}
  , "French, Middle (ca.1400-1600)":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/frm.traineddata", "path":"$tessdata$/frm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4043005}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/frm.traineddata","https://translator.gres.biz/resources/tessdata_best/frm.traineddata.zip"], "path":"$tessdata$/frm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4043005}
  ]}
  , "Western Frisian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/fry.traineddata", "path":"$tessdata$/fry.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8442509}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/fry.traineddata","https://translator.gres.biz/resources/tessdata_best/fry.traineddata.zip"], "path":"$tessdata$/fry.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8442509}
  ]}
- , "gla":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/gla.traineddata", "path":"$tessdata$/gla.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9599424}
+ , "Gaelic":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/gla.traineddata","https://translator.gres.biz/resources/tessdata_best/gla.traineddata.zip"], "path":"$tessdata$/gla.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9599424}
  ]}
  , "Irish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/gle.traineddata", "path":"$tessdata$/gle.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3942458}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/gle.traineddata","https://translator.gres.biz/resources/tessdata_best/gle.traineddata.zip"], "path":"$tessdata$/gle.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3942458}
  ]}
  , "Galician":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/glg.traineddata", "path":"$tessdata$/glg.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12709487}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/glg.traineddata","https://translator.gres.biz/resources/tessdata_best/glg.traineddata.zip"], "path":"$tessdata$/glg.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12709487}
  ]}
  , "Greek, Ancient (to 1453)":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/grc.traineddata", "path":"$tessdata$/grc.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5168122}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/grc.traineddata","https://translator.gres.biz/resources/tessdata_best/grc.traineddata.zip"], "path":"$tessdata$/grc.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5168122}
  ]}
- , "guj":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/guj.traineddata", "path":"$tessdata$/guj.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8515761}
+ , "Gujarati":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/guj.traineddata","https://translator.gres.biz/resources/tessdata_best/guj.traineddata.zip"], "path":"$tessdata$/guj.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8515761}
  ]}
  , "Haitian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hat.traineddata", "path":"$tessdata$/hat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12128251}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/hat.traineddata","https://translator.gres.biz/resources/tessdata_best/hat.traineddata.zip"], "path":"$tessdata$/hat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12128251}
  ]}
  , "Hebrew":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.traineddata", "path":"$tessdata$/heb.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3704077}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.traineddata","https://translator.gres.biz/resources/tessdata_best/heb.traineddata.zip"], "path":"$tessdata$/heb.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3704077}
  ]}
  , "Hindi":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hin.traineddata", "path":"$tessdata$/hin.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11895564}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/hin.traineddata","https://translator.gres.biz/resources/tessdata_best/hin.traineddata.zip"], "path":"$tessdata$/hin.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11895564}
  ]}
  , "Croatian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hrv.traineddata", "path":"$tessdata$/hrv.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11195424}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/hrv.traineddata","https://translator.gres.biz/resources/tessdata_best/hrv.traineddata.zip"], "path":"$tessdata$/hrv.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11195424}
  ]}
  , "Hungarian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hun.traineddata", "path":"$tessdata$/hun.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12350405}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/hun.traineddata","https://translator.gres.biz/resources/tessdata_best/hun.traineddata.zip"], "path":"$tessdata$/hun.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12350405}
  ]}
  , "Armenian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/hye.traineddata", "path":"$tessdata$/hye.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6372242}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/hye.traineddata","https://translator.gres.biz/resources/tessdata_best/hye.traineddata.zip"], "path":"$tessdata$/hye.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6372242}
  ]}
  , "Inuktitut":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/iku.traineddata", "path":"$tessdata$/iku.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6139484}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/iku.traineddata","https://translator.gres.biz/resources/tessdata_best/iku.traineddata.zip"], "path":"$tessdata$/iku.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6139484}
  ]}
  , "Indonesian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ind.traineddata", "path":"$tessdata$/ind.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8253606}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ind.traineddata","https://translator.gres.biz/resources/tessdata_best/ind.traineddata.zip"], "path":"$tessdata$/ind.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8253606}
  ]}
  , "Icelandic":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/isl.traineddata", "path":"$tessdata$/isl.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9486436}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/isl.traineddata","https://translator.gres.biz/resources/tessdata_best/isl.traineddata.zip"], "path":"$tessdata$/isl.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9486436}
  ]}
  , "Italian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ita.traineddata", "path":"$tessdata$/ita.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8863667}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ita.traineddata","https://translator.gres.biz/resources/tessdata_best/ita.traineddata.zip"], "path":"$tessdata$/ita.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8863667}
  ]}
  , "ita_old":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ita_old.traineddata", "path":"$tessdata$/ita_old.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9852171}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ita_old.traineddata","https://translator.gres.biz/resources/tessdata_best/ita_old.traineddata.zip"], "path":"$tessdata$/ita_old.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9852171}
  ]}
- , "jav":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/jav.traineddata", "path":"$tessdata$/jav.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8650382}
+ , "Javanese":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/jav.traineddata","https://translator.gres.biz/resources/tessdata_best/jav.traineddata.zip"], "path":"$tessdata$/jav.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8650382}
  ]}
  , "Japanese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn.traineddata", "path":"$tessdata$/jpn.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14330109}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn.traineddata","https://translator.gres.biz/resources/tessdata_best/jpn.traineddata.zip"], "path":"$tessdata$/jpn.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14330109}
  ]}
  , "jpn_vert":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn_vert.traineddata", "path":"$tessdata$/jpn_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14330809}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/jpn_vert.traineddata.zip"], "path":"$tessdata$/jpn_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14330809}
  ]}
- , "kan":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kan.traineddata", "path":"$tessdata$/kan.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10233763}
+ , "Kannada":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kan.traineddata","https://translator.gres.biz/resources/tessdata_best/kan.traineddata.zip"], "path":"$tessdata$/kan.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10233763}
  ]}
  , "Georgian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kat.traineddata", "path":"$tessdata$/kat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4487336}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kat.traineddata","https://translator.gres.biz/resources/tessdata_best/kat.traineddata.zip"], "path":"$tessdata$/kat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4487336}
  ]}
  , "kat_old":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kat_old.traineddata", "path":"$tessdata$/kat_old.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3174400}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kat_old.traineddata","https://translator.gres.biz/resources/tessdata_best/kat_old.traineddata.zip"], "path":"$tessdata$/kat_old.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3174400}
  ]}
- , "kaz":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kaz.traineddata", "path":"$tessdata$/kaz.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7528853}
+ , "Kazakh":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kaz.traineddata","https://translator.gres.biz/resources/tessdata_best/kaz.traineddata.zip"], "path":"$tessdata$/kaz.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7528853}
  ]}
  , "Central Khmer":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/khm.traineddata", "path":"$tessdata$/khm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8104332}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/khm.traineddata","https://translator.gres.biz/resources/tessdata_best/khm.traineddata.zip"], "path":"$tessdata$/khm.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8104332}
  ]}
- , "kir":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kir.traineddata", "path":"$tessdata$/kir.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11948344}
+ , "Kyrgyz":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kir.traineddata","https://translator.gres.biz/resources/tessdata_best/kir.traineddata.zip"], "path":"$tessdata$/kir.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11948344}
  ]}
  , "kmr":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kmr.traineddata", "path":"$tessdata$/kmr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10196464}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kmr.traineddata","https://translator.gres.biz/resources/tessdata_best/kmr.traineddata.zip"], "path":"$tessdata$/kmr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10196464}
  ]}
  , "Korean":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kor.traineddata", "path":"$tessdata$/kor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12528128}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kor.traineddata","https://translator.gres.biz/resources/tessdata_best/kor.traineddata.zip"], "path":"$tessdata$/kor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12528128}
  ]}
  , "kor_vert":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/kor_vert.traineddata", "path":"$tessdata$/kor_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3964469}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kor_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/kor_vert.traineddata.zip"], "path":"$tessdata$/kor_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3964469}
  ]}
- , "lao":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lao.traineddata", "path":"$tessdata$/lao.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13532551}
+ , "Lao":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/lao.traineddata","https://translator.gres.biz/resources/tessdata_best/lao.traineddata.zip"], "path":"$tessdata$/lao.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13532551}
  ]}
- , "lat":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lat.traineddata", "path":"$tessdata$/lat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9705145}
+ , "Latin":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/lat.traineddata","https://translator.gres.biz/resources/tessdata_best/lat.traineddata.zip"], "path":"$tessdata$/lat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9705145}
  ]}
  , "Latvian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lav.traineddata", "path":"$tessdata$/lav.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5623473}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/lav.traineddata","https://translator.gres.biz/resources/tessdata_best/lav.traineddata.zip"], "path":"$tessdata$/lav.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5623473}
  ]}
  , "Lithuanian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/lit.traineddata", "path":"$tessdata$/lit.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10252680}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/lit.traineddata","https://translator.gres.biz/resources/tessdata_best/lit.traineddata.zip"], "path":"$tessdata$/lit.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10252680}
  ]}
- , "ltz":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ltz.traineddata", "path":"$tessdata$/ltz.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12721945}
+ , "Luxembourgish":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ltz.traineddata","https://translator.gres.biz/resources/tessdata_best/ltz.traineddata.zip"], "path":"$tessdata$/ltz.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12721945}
  ]}
- , "mal":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mal.traineddata", "path":"$tessdata$/mal.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12524967}
+ , "Malayalam":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mal.traineddata","https://translator.gres.biz/resources/tessdata_best/mal.traineddata.zip"], "path":"$tessdata$/mal.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12524967}
  ]}
- , "mar":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mar.traineddata", "path":"$tessdata$/mar.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13437670}
+ , "Marathi":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mar.traineddata","https://translator.gres.biz/resources/tessdata_best/mar.traineddata.zip"], "path":"$tessdata$/mar.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13437670}
  ]}
  , "Macedonian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mkd.traineddata", "path":"$tessdata$/mkd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3453054}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mkd.traineddata","https://translator.gres.biz/resources/tessdata_best/mkd.traineddata.zip"], "path":"$tessdata$/mkd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3453054}
  ]}
  , "Maltese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mlt.traineddata", "path":"$tessdata$/mlt.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5060029}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mlt.traineddata","https://translator.gres.biz/resources/tessdata_best/mlt.traineddata.zip"], "path":"$tessdata$/mlt.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5060029}
  ]}
- , "mon":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mon.traineddata", "path":"$tessdata$/mon.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8646663}
+ , "Mongolian":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mon.traineddata","https://translator.gres.biz/resources/tessdata_best/mon.traineddata.zip"], "path":"$tessdata$/mon.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8646663}
  ]}
  , "Maori":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mri.traineddata", "path":"$tessdata$/mri.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3610177}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mri.traineddata","https://translator.gres.biz/resources/tessdata_best/mri.traineddata.zip"], "path":"$tessdata$/mri.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3610177}
  ]}
  , "Malay":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/msa.traineddata", "path":"$tessdata$/msa.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8230552}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/msa.traineddata","https://translator.gres.biz/resources/tessdata_best/msa.traineddata.zip"], "path":"$tessdata$/msa.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8230552}
  ]}
  , "Burmese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/mya.traineddata", "path":"$tessdata$/mya.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14971060}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/mya.traineddata","https://translator.gres.biz/resources/tessdata_best/mya.traineddata.zip"], "path":"$tessdata$/mya.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14971060}
  ]}
- , "nep":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/nep.traineddata", "path":"$tessdata$/nep.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12387399}
+ , "Nepali":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/nep.traineddata","https://translator.gres.biz/resources/tessdata_best/nep.traineddata.zip"], "path":"$tessdata$/nep.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12387399}
  ]}
  , "Dutch":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/nld.traineddata", "path":"$tessdata$/nld.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8903736}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/nld.traineddata","https://translator.gres.biz/resources/tessdata_best/nld.traineddata.zip"], "path":"$tessdata$/nld.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8903736}
  ]}
  , "Norwegian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/nor.traineddata", "path":"$tessdata$/nor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14312333}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/nor.traineddata","https://translator.gres.biz/resources/tessdata_best/nor.traineddata.zip"], "path":"$tessdata$/nor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14312333}
  ]}
  , "Occitan":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/oci.traineddata", "path":"$tessdata$/oci.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12917692}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/oci.traineddata","https://translator.gres.biz/resources/tessdata_best/oci.traineddata.zip"], "path":"$tessdata$/oci.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12917692}
  ]}
  , "Oriya":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ori.traineddata", "path":"$tessdata$/ori.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8110602}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ori.traineddata","https://translator.gres.biz/resources/tessdata_best/ori.traineddata.zip"], "path":"$tessdata$/ori.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8110602}
  ]}
  , "osd":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/osd.traineddata", "path":"$tessdata$/osd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10562727}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/osd.traineddata","https://translator.gres.biz/resources/tessdata_best/osd.traineddata.zip"], "path":"$tessdata$/osd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10562727}
  ]}
- , "pan":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/pan.traineddata", "path":"$tessdata$/pan.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11893154}
+ , "Punjabi":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/pan.traineddata","https://translator.gres.biz/resources/tessdata_best/pan.traineddata.zip"], "path":"$tessdata$/pan.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11893154}
  ]}
  , "Polish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/pol.traineddata", "path":"$tessdata$/pol.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11978867}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/pol.traineddata","https://translator.gres.biz/resources/tessdata_best/pol.traineddata.zip"], "path":"$tessdata$/pol.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11978867}
  ]}
  , "Portuguese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/por.traineddata", "path":"$tessdata$/por.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8159939}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/por.traineddata","https://translator.gres.biz/resources/tessdata_best/por.traineddata.zip"], "path":"$tessdata$/por.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8159939}
  ]}
- , "pus":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/pus.traineddata", "path":"$tessdata$/pus.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11987930}
+ , "Pashto":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/pus.traineddata","https://translator.gres.biz/resources/tessdata_best/pus.traineddata.zip"], "path":"$tessdata$/pus.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11987930}
  ]}
  , "Quechua":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/que.traineddata", "path":"$tessdata$/que.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10774587}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/que.traineddata","https://translator.gres.biz/resources/tessdata_best/que.traineddata.zip"], "path":"$tessdata$/que.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10774587}
  ]}
  , "Romanian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ron.traineddata", "path":"$tessdata$/ron.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9595755}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ron.traineddata","https://translator.gres.biz/resources/tessdata_best/ron.traineddata.zip"], "path":"$tessdata$/ron.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9595755}
  ]}
  , "Russian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/rus.traineddata", "path":"$tessdata$/rus.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15301764}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/rus.traineddata","https://translator.gres.biz/resources/tessdata_best/rus.traineddata.zip"], "path":"$tessdata$/rus.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15301764}
  ]}
  , "Sanskrit":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/san.traineddata", "path":"$tessdata$/san.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15136202}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/san.traineddata","https://translator.gres.biz/resources/tessdata_best/san.traineddata.zip"], "path":"$tessdata$/san.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":15136202}
  ]}
  , "Sinhala, Sinhalese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/sin.traineddata", "path":"$tessdata$/sin.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8282713}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/sin.traineddata","https://translator.gres.biz/resources/tessdata_best/sin.traineddata.zip"], "path":"$tessdata$/sin.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":8282713}
  ]}
  , "Slovak":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/slk.traineddata", "path":"$tessdata$/slk.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11542252}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/slk.traineddata","https://translator.gres.biz/resources/tessdata_best/slk.traineddata.zip"], "path":"$tessdata$/slk.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11542252}
  ]}
  , "Slovenian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/slv.traineddata", "path":"$tessdata$/slv.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5879151}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/slv.traineddata","https://translator.gres.biz/resources/tessdata_best/slv.traineddata.zip"], "path":"$tessdata$/slv.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":5879151}
  ]}
- , "snd":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/snd.traineddata", "path":"$tessdata$/snd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11981538}
+ , "Sindhi":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/snd.traineddata","https://translator.gres.biz/resources/tessdata_best/snd.traineddata.zip"], "path":"$tessdata$/snd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":11981538}
  ]}
  , "Spanish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/spa.traineddata", "path":"$tessdata$/spa.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13570187}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/spa.traineddata","https://translator.gres.biz/resources/tessdata_best/spa.traineddata.zip"], "path":"$tessdata$/spa.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13570187}
  ]}
  , "spa_old":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/spa_old.traineddata", "path":"$tessdata$/spa_old.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9476925}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/spa_old.traineddata","https://translator.gres.biz/resources/tessdata_best/spa_old.traineddata.zip"], "path":"$tessdata$/spa_old.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9476925}
  ]}
  , "Albanian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/sqi.traineddata", "path":"$tessdata$/sqi.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4631498}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/sqi.traineddata","https://translator.gres.biz/resources/tessdata_best/sqi.traineddata.zip"], "path":"$tessdata$/sqi.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4631498}
  ]}
  , "Serbian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/srp.traineddata", "path":"$tessdata$/srp.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9345851}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/srp.traineddata","https://translator.gres.biz/resources/tessdata_best/srp.traineddata.zip"], "path":"$tessdata$/srp.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9345851}
  ]}
  , "srp_latn":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/srp_latn.traineddata", "path":"$tessdata$/srp_latn.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9831713}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/srp_latn.traineddata","https://translator.gres.biz/resources/tessdata_best/srp_latn.traineddata.zip"], "path":"$tessdata$/srp_latn.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9831713}
  ]}
  , "Sundanese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/sun.traineddata", "path":"$tessdata$/sun.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4132820}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/sun.traineddata","https://translator.gres.biz/resources/tessdata_best/sun.traineddata.zip"], "path":"$tessdata$/sun.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4132820}
  ]}
  , "Swahili":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/swa.traineddata", "path":"$tessdata$/swa.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4914855}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/swa.traineddata","https://translator.gres.biz/resources/tessdata_best/swa.traineddata.zip"], "path":"$tessdata$/swa.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4914855}
  ]}
  , "Swedish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/swe.traineddata", "path":"$tessdata$/swe.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14325549}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/swe.traineddata","https://translator.gres.biz/resources/tessdata_best/swe.traineddata.zip"], "path":"$tessdata$/swe.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14325549}
  ]}
  , "Syriac":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/syr.traineddata", "path":"$tessdata$/syr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12498294}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/syr.traineddata","https://translator.gres.biz/resources/tessdata_best/syr.traineddata.zip"], "path":"$tessdata$/syr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12498294}
  ]}
- , "tam":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tam.traineddata", "path":"$tessdata$/tam.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6023201}
+ , "Tamil":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tam.traineddata","https://translator.gres.biz/resources/tessdata_best/tam.traineddata.zip"], "path":"$tessdata$/tam.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":6023201}
  ]}
  , "Tatar":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tat.traineddata", "path":"$tessdata$/tat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7585204}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tat.traineddata","https://translator.gres.biz/resources/tessdata_best/tat.traineddata.zip"], "path":"$tessdata$/tat.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7585204}
  ]}
- , "tel":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tel.traineddata", "path":"$tessdata$/tel.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9098795}
+ , "Telugu":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tel.traineddata","https://translator.gres.biz/resources/tessdata_best/tel.traineddata.zip"], "path":"$tessdata$/tel.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":9098795}
  ]}
- , "tgk":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tgk.traineddata", "path":"$tessdata$/tgk.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4602842}
+ , "Tajik":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tgk.traineddata","https://translator.gres.biz/resources/tessdata_best/tgk.traineddata.zip"], "path":"$tessdata$/tgk.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4602842}
  ]}
  , "Thai":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tha.traineddata", "path":"$tessdata$/tha.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7614571}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tha.traineddata","https://translator.gres.biz/resources/tessdata_best/tha.traineddata.zip"], "path":"$tessdata$/tha.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7614571}
  ]}
  , "Tigrinya":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tir.traineddata", "path":"$tessdata$/tir.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":2410256}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tir.traineddata","https://translator.gres.biz/resources/tessdata_best/tir.traineddata.zip"], "path":"$tessdata$/tir.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":2410256}
  ]}
  , "Tonga (Tonga Islands)":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ton.traineddata", "path":"$tessdata$/ton.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3729371}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ton.traineddata","https://translator.gres.biz/resources/tessdata_best/ton.traineddata.zip"], "path":"$tessdata$/ton.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3729371}
  ]}
  , "Turkish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/tur.traineddata", "path":"$tessdata$/tur.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7456265}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/tur.traineddata","https://translator.gres.biz/resources/tessdata_best/tur.traineddata.zip"], "path":"$tessdata$/tur.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7456265}
  ]}
  , "Uighur, Uyghur":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/uig.traineddata", "path":"$tessdata$/uig.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13074609}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/uig.traineddata","https://translator.gres.biz/resources/tessdata_best/uig.traineddata.zip"], "path":"$tessdata$/uig.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13074609}
  ]}
  , "Ukrainian":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/ukr.traineddata", "path":"$tessdata$/ukr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10859081}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/ukr.traineddata","https://translator.gres.biz/resources/tessdata_best/ukr.traineddata.zip"], "path":"$tessdata$/ukr.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":10859081}
  ]}
  , "Urdu":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/urd.traineddata", "path":"$tessdata$/urd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7994323}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/urd.traineddata","https://translator.gres.biz/resources/tessdata_best/urd.traineddata.zip"], "path":"$tessdata$/urd.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":7994323}
  ]}
- , "uzb":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/uzb.traineddata", "path":"$tessdata$/uzb.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12953454}
+ , "Uzbek":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/uzb.traineddata","https://translator.gres.biz/resources/tessdata_best/uzb.traineddata.zip"], "path":"$tessdata$/uzb.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12953454}
  ]}
  , "uzb_cyrl":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/uzb_cyrl.traineddata", "path":"$tessdata$/uzb_cyrl.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4325478}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/uzb_cyrl.traineddata","https://translator.gres.biz/resources/tessdata_best/uzb_cyrl.traineddata.zip"], "path":"$tessdata$/uzb_cyrl.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":4325478}
  ]}
  , "Vietnamese":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/vie.traineddata", "path":"$tessdata$/vie.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12435550}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/vie.traineddata","https://translator.gres.biz/resources/tessdata_best/vie.traineddata.zip"], "path":"$tessdata$/vie.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12435550}
  ]}
  , "Yiddish":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/yid.traineddata", "path":"$tessdata$/yid.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3278995}
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/yid.traineddata","https://translator.gres.biz/resources/tessdata_best/yid.traineddata.zip"], "path":"$tessdata$/yid.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3278995}
  ]}
- , "yor":{"files":[
-  {"url":"https://github.com/tesseract-ocr/tessdata_best/raw/master/yor.traineddata", "path":"$tessdata$/yor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3736121}
+ , "Yoruba":{"files":[
+  {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/yor.traineddata","https://translator.gres.biz/resources/tessdata_best/yor.traineddata.zip"], "path":"$tessdata$/yor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3736121}
  ]}
 }
 
@@ -386,188 +387,188 @@
 
 ,"hunspell": {
  "Afrikaans":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.aff", "path":"$hunspell$/af/af_ZA.aff", "date":"2020-03-17T12:21:16+01:00", "size":5027}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.dic", "path":"$hunspell$/af/af_ZA.dic", "date":"2020-03-17T12:21:16+01:00", "size":1262203}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.aff","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.aff.zip"], "path":"$hunspell$/af/af_ZA.aff", "date":"2020-03-17T12:21:16+01:00", "size":5027}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.dic","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.dic.zip"], "path":"$hunspell$/af/af_ZA.dic", "date":"2020-03-17T12:21:16+01:00", "size":1262203}
  ]}
  , "Arabic":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.aff", "path":"$hunspell$/ar/ar.aff", "date":"2020-03-17T12:21:16+01:00", "size":86949}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.dic", "path":"$hunspell$/ar/ar.dic", "date":"2020-03-17T12:21:16+01:00", "size":7217161}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.aff","https://translator.gres.biz/resources/dictionaries/ar/ar.aff.zip"], "path":"$hunspell$/ar/ar.aff", "date":"2020-03-17T12:21:16+01:00", "size":86949}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.dic","https://translator.gres.biz/resources/dictionaries/ar/ar.dic.zip"], "path":"$hunspell$/ar/ar.dic", "date":"2020-03-17T12:21:16+01:00", "size":7217161}
  ]}
  , "Belarusian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be_BY.aff", "path":"$hunspell$/be/be_BY.aff", "date":"2020-03-17T12:21:16+01:00", "size":23968}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be_BY.dic", "path":"$hunspell$/be/be_BY.dic", "date":"2020-03-17T12:21:16+01:00", "size":1707840}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be_BY.aff","https://translator.gres.biz/resources/dictionaries/be_BY/be_BY.aff.zip"], "path":"$hunspell$/be/be_BY.aff", "date":"2020-03-17T12:21:16+01:00", "size":23968}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be_BY.dic","https://translator.gres.biz/resources/dictionaries/be_BY/be_BY.dic.zip"], "path":"$hunspell$/be/be_BY.dic", "date":"2020-03-17T12:21:16+01:00", "size":1707840}
  ]}
  , "Bulgarian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.aff", "path":"$hunspell$/bg/bg_BG.aff", "date":"2020-03-17T12:21:16+01:00", "size":58189}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.dic", "path":"$hunspell$/bg/bg_BG.dic", "date":"2020-03-17T12:21:16+01:00", "size":1566331}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.aff","https://translator.gres.biz/resources/dictionaries/bg_BG/bg_BG.aff.zip"], "path":"$hunspell$/bg/bg_BG.aff", "date":"2020-03-17T12:21:16+01:00", "size":58189}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.dic","https://translator.gres.biz/resources/dictionaries/bg_BG/bg_BG.dic.zip"], "path":"$hunspell$/bg/bg_BG.dic", "date":"2020-03-17T12:21:16+01:00", "size":1566331}
  ]}
  , "Bengali":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.aff", "path":"$hunspell$/bn/bn_BD.aff", "date":"2020-03-17T12:21:16+01:00", "size":195}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.dic", "path":"$hunspell$/bn/bn_BD.dic", "date":"2020-03-17T12:21:16+01:00", "size":2596038}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.aff","https://translator.gres.biz/resources/dictionaries/bn_BD/bn_BD.aff.zip"], "path":"$hunspell$/bn/bn_BD.aff", "date":"2020-03-17T12:21:16+01:00", "size":195}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.dic","https://translator.gres.biz/resources/dictionaries/bn_BD/bn_BD.dic.zip"], "path":"$hunspell$/bn/bn_BD.dic", "date":"2020-03-17T12:21:16+01:00", "size":2596038}
  ]}
  , "Tibetan":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.aff", "path":"$hunspell$/bo/bo.aff", "date":"2020-03-17T12:21:16+01:00", "size":1706}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.dic", "path":"$hunspell$/bo/bo.dic", "date":"2020-03-17T12:21:16+01:00", "size":4637}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.aff","https://translator.gres.biz/resources/dictionaries/bo/bo.aff.zip"], "path":"$hunspell$/bo/bo.aff", "date":"2020-03-17T12:21:16+01:00", "size":1706}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.dic","https://translator.gres.biz/resources/dictionaries/bo/bo.dic.zip"], "path":"$hunspell$/bo/bo.dic", "date":"2020-03-17T12:21:16+01:00", "size":4637}
  ]}
  , "Bosnian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.aff", "path":"$hunspell$/bs/bs_BA.aff", "date":"2020-03-17T12:21:16+01:00", "size":17468}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.dic", "path":"$hunspell$/bs/bs_BA.dic", "date":"2020-03-17T12:21:16+01:00", "size":339863}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.aff","https://translator.gres.biz/resources/dictionaries/bs_BA/bs_BA.aff.zip"], "path":"$hunspell$/bs/bs_BA.aff", "date":"2020-03-17T12:21:16+01:00", "size":17468}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.dic","https://translator.gres.biz/resources/dictionaries/bs_BA/bs_BA.dic.zip"], "path":"$hunspell$/bs/bs_BA.dic", "date":"2020-03-17T12:21:16+01:00", "size":339863}
  ]}
  , "Czech":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.aff", "path":"$hunspell$/cs/cs_CZ.aff", "date":"2020-03-17T12:21:16+01:00", "size":97286}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.dic", "path":"$hunspell$/cs/cs_CZ.dic", "date":"2020-03-17T12:21:16+01:00", "size":2209232}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.aff","https://translator.gres.biz/resources/dictionaries/cs_CZ/cs_CZ.aff.zip"], "path":"$hunspell$/cs/cs_CZ.aff", "date":"2020-03-17T12:21:16+01:00", "size":97286}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.dic","https://translator.gres.biz/resources/dictionaries/cs_CZ/cs_CZ.dic.zip"], "path":"$hunspell$/cs/cs_CZ.dic", "date":"2020-03-17T12:21:16+01:00", "size":2209232}
  ]}
  , "Danish":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.aff", "path":"$hunspell$/da/da_DK.aff", "date":"2020-03-17T12:21:16+01:00", "size":55779}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.dic", "path":"$hunspell$/da/da_DK.dic", "date":"2020-03-17T12:21:16+01:00", "size":2915525}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.aff","https://translator.gres.biz/resources/dictionaries/da_DK/da_DK.aff.zip"], "path":"$hunspell$/da/da_DK.aff", "date":"2020-03-17T12:21:16+01:00", "size":55779}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.dic","https://translator.gres.biz/resources/dictionaries/da_DK/da_DK.dic.zip"], "path":"$hunspell$/da/da_DK.dic", "date":"2020-03-17T12:21:16+01:00", "size":2915525}
  ]}
  , "German":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.aff", "path":"$hunspell$/de/de_DE_frami.aff", "date":"2020-03-17T12:21:16+01:00", "size":18991}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.dic", "path":"$hunspell$/de/de_DE_frami.dic", "date":"2020-03-17T12:21:16+01:00", "size":4356858}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.aff","https://translator.gres.biz/resources/dictionaries/de/de_DE_frami.aff.zip"], "path":"$hunspell$/de/de_DE_frami.aff", "date":"2020-03-17T12:21:16+01:00", "size":18991}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.dic","https://translator.gres.biz/resources/dictionaries/de/de_DE_frami.dic.zip"], "path":"$hunspell$/de/de_DE_frami.dic", "date":"2020-03-17T12:21:16+01:00", "size":4356858}
  ]}
  , "Greek":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.aff", "path":"$hunspell$/el/el_GR.aff", "date":"2020-03-17T12:21:16+01:00", "size":15647}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.dic", "path":"$hunspell$/el/el_GR.dic", "date":"2020-03-17T12:21:16+01:00", "size":10125390}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.aff","https://translator.gres.biz/resources/dictionaries/el_GR/el_GR.aff.zip"], "path":"$hunspell$/el/el_GR.aff", "date":"2020-03-17T12:21:16+01:00", "size":15647}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.dic","https://translator.gres.biz/resources/dictionaries/el_GR/el_GR.dic.zip"], "path":"$hunspell$/el/el_GR.dic", "date":"2020-03-17T12:21:16+01:00", "size":10125390}
  ]}
  , "English":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff", "path":"$hunspell$/en/en_US.aff", "date":"2020-03-17T12:21:16+01:00", "size":3090}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic", "path":"$hunspell$/en/en_US.dic", "date":"2020-03-17T12:21:16+01:00", "size":551260}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff","https://translator.gres.biz/resources/dictionaries/en/en_US.aff.zip"], "path":"$hunspell$/en/en_US.aff", "date":"2020-03-17T12:21:16+01:00", "size":3090}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic","https://translator.gres.biz/resources/dictionaries/en/en_US.dic.zip"], "path":"$hunspell$/en/en_US.dic", "date":"2020-03-17T12:21:16+01:00", "size":551260}
  ]}
  , "Spanish":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/es/es_ANY.aff", "path":"$hunspell$/es/es_ANY.aff", "date":"2020-03-17T12:21:16+01:00", "size":169377}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/es/es_ANY.dic", "path":"$hunspell$/es/es_ANY.dic", "date":"2020-03-17T12:21:16+01:00", "size":804058}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/es/es_ANY.aff","https://translator.gres.biz/resources/dictionaries/es/es_ANY.aff.zip"], "path":"$hunspell$/es/es_ANY.aff", "date":"2020-03-17T12:21:16+01:00", "size":169377}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/es/es_ANY.dic","https://translator.gres.biz/resources/dictionaries/es/es_ANY.dic.zip"], "path":"$hunspell$/es/es_ANY.dic", "date":"2020-03-17T12:21:16+01:00", "size":804058}
  ]}
  , "Estonian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.aff", "path":"$hunspell$/et/et_EE.aff", "date":"2020-03-17T12:21:16+01:00", "size":236336}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.dic", "path":"$hunspell$/et/et_EE.dic", "date":"2020-03-17T12:21:16+01:00", "size":4383841}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.aff","https://translator.gres.biz/resources/dictionaries/et_EE/et_EE.aff.zip"], "path":"$hunspell$/et/et_EE.aff", "date":"2020-03-17T12:21:16+01:00", "size":236336}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.dic","https://translator.gres.biz/resources/dictionaries/et_EE/et_EE.dic.zip"], "path":"$hunspell$/et/et_EE.dic", "date":"2020-03-17T12:21:16+01:00", "size":4383841}
  ]}
  , "French":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.aff", "path":"$hunspell$/fr/fr.aff", "date":"2020-03-17T12:21:16+01:00", "size":256857}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.dic", "path":"$hunspell$/fr/fr.dic", "date":"2020-03-17T12:21:16+01:00", "size":1100397}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.aff","https://translator.gres.biz/resources/dictionaries/fr_FR/fr.aff.zip"], "path":"$hunspell$/fr/fr.aff", "date":"2020-03-17T12:21:16+01:00", "size":256857}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.dic","https://translator.gres.biz/resources/dictionaries/fr_FR/fr.dic.zip"], "path":"$hunspell$/fr/fr.dic", "date":"2020-03-17T12:21:16+01:00", "size":1100397}
  ]}
  , "Gaelic":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.aff", "path":"$hunspell$/gd/gd_GB.aff", "date":"2020-03-17T12:21:16+01:00", "size":8228}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.dic", "path":"$hunspell$/gd/gd_GB.dic", "date":"2020-03-17T12:21:16+01:00", "size":4806682}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.aff","https://translator.gres.biz/resources/dictionaries/gd_GB/gd_GB.aff.zip"], "path":"$hunspell$/gd/gd_GB.aff", "date":"2020-03-17T12:21:16+01:00", "size":8228}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.dic","https://translator.gres.biz/resources/dictionaries/gd_GB/gd_GB.dic.zip"], "path":"$hunspell$/gd/gd_GB.dic", "date":"2020-03-17T12:21:16+01:00", "size":4806682}
  ]}
  , "Galician":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.aff", "path":"$hunspell$/gl/gl_ES.aff", "date":"2020-03-17T12:21:16+01:00", "size":1159910}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.dic", "path":"$hunspell$/gl/gl_ES.dic", "date":"2020-03-17T12:21:16+01:00", "size":8636406}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.aff","https://translator.gres.biz/resources/dictionaries/gl/gl_ES.aff.zip"], "path":"$hunspell$/gl/gl_ES.aff", "date":"2020-03-17T12:21:16+01:00", "size":1159910}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.dic","https://translator.gres.biz/resources/dictionaries/gl/gl_ES.dic.zip"], "path":"$hunspell$/gl/gl_ES.dic", "date":"2020-03-17T12:21:16+01:00", "size":8636406}
  ]}
  , "Gujarati":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.aff", "path":"$hunspell$/gu/gu_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":174}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.dic", "path":"$hunspell$/gu/gu_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":3792870}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.aff","https://translator.gres.biz/resources/dictionaries/gu_IN/gu_IN.aff.zip"], "path":"$hunspell$/gu/gu_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":174}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.dic","https://translator.gres.biz/resources/dictionaries/gu_IN/gu_IN.dic.zip"], "path":"$hunspell$/gu/gu_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":3792870}
  ]}
  , "Hebrew":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.aff", "path":"$hunspell$/he/he_IL.aff", "date":"2020-03-17T12:21:16+01:00", "size":78883}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.dic", "path":"$hunspell$/he/he_IL.dic", "date":"2020-03-17T12:21:16+01:00", "size":7796259}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.aff","https://translator.gres.biz/resources/dictionaries/he_IL/he_IL.aff.zip"], "path":"$hunspell$/he/he_IL.aff", "date":"2020-03-17T12:21:16+01:00", "size":78883}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.dic","https://translator.gres.biz/resources/dictionaries/he_IL/he_IL.dic.zip"], "path":"$hunspell$/he/he_IL.dic", "date":"2020-03-17T12:21:16+01:00", "size":7796259}
  ]}
  , "Hindi":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.aff", "path":"$hunspell$/hi/hi_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":210}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.dic", "path":"$hunspell$/hi/hi_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":303963}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.aff","https://translator.gres.biz/resources/dictionaries/hi_IN/hi_IN.aff.zip"], "path":"$hunspell$/hi/hi_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":210}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.dic","https://translator.gres.biz/resources/dictionaries/hi_IN/hi_IN.dic.zip"], "path":"$hunspell$/hi/hi_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":303963}
  ]}
  , "Croatian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.aff", "path":"$hunspell$/hr/hr_HR.aff", "date":"2020-03-17T12:21:16+01:00", "size":95802}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.dic", "path":"$hunspell$/hr/hr_HR.dic", "date":"2020-03-17T12:21:16+01:00", "size":731819}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.aff","https://translator.gres.biz/resources/dictionaries/hr_HR/hr_HR.aff.zip"], "path":"$hunspell$/hr/hr_HR.aff", "date":"2020-03-17T12:21:16+01:00", "size":95802}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.dic","https://translator.gres.biz/resources/dictionaries/hr_HR/hr_HR.dic.zip"], "path":"$hunspell$/hr/hr_HR.dic", "date":"2020-03-17T12:21:16+01:00", "size":731819}
  ]}
  , "Hungarian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.aff", "path":"$hunspell$/hu/hu_HU.aff", "date":"2020-03-17T12:21:16+01:00", "size":2106214}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.dic", "path":"$hunspell$/hu/hu_HU.dic", "date":"2020-03-17T12:21:16+01:00", "size":1653155}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.aff","https://translator.gres.biz/resources/dictionaries/hu_HU/hu_HU.aff.zip"], "path":"$hunspell$/hu/hu_HU.aff", "date":"2020-03-17T12:21:16+01:00", "size":2106214}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.dic","https://translator.gres.biz/resources/dictionaries/hu_HU/hu_HU.dic.zip"], "path":"$hunspell$/hu/hu_HU.dic", "date":"2020-03-17T12:21:16+01:00", "size":1653155}
  ]}
  , "Indonesian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.aff", "path":"$hunspell$/id/id_ID.aff", "date":"2020-03-17T12:21:16+01:00", "size":14957}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.dic", "path":"$hunspell$/id/id_ID.dic", "date":"2020-03-17T12:21:16+01:00", "size":315384}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.aff","https://translator.gres.biz/resources/dictionaries/id/id_ID.aff.zip"], "path":"$hunspell$/id/id_ID.aff", "date":"2020-03-17T12:21:16+01:00", "size":14957}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.dic","https://translator.gres.biz/resources/dictionaries/id/id_ID.dic.zip"], "path":"$hunspell$/id/id_ID.dic", "date":"2020-03-17T12:21:16+01:00", "size":315384}
  ]}
  , "Icelandic":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.aff", "path":"$hunspell$/is/is.aff", "date":"2020-03-17T12:21:16+01:00", "size":309734}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.dic", "path":"$hunspell$/is/is.dic", "date":"2020-03-17T12:21:16+01:00", "size":2454138}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.aff","https://translator.gres.biz/resources/dictionaries/is/is.aff.zip"], "path":"$hunspell$/is/is.aff", "date":"2020-03-17T12:21:16+01:00", "size":309734}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.dic","https://translator.gres.biz/resources/dictionaries/is/is.dic.zip"], "path":"$hunspell$/is/is.dic", "date":"2020-03-17T12:21:16+01:00", "size":2454138}
  ]}
  , "Italian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.aff", "path":"$hunspell$/it/it_IT.aff", "date":"2020-03-17T12:21:16+01:00", "size":80216}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.dic", "path":"$hunspell$/it/it_IT.dic", "date":"2020-03-17T12:21:16+01:00", "size":1290681}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.aff","https://translator.gres.biz/resources/dictionaries/it_IT/it_IT.aff.zip"], "path":"$hunspell$/it/it_IT.aff", "date":"2020-03-17T12:21:16+01:00", "size":80216}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.dic","https://translator.gres.biz/resources/dictionaries/it_IT/it_IT.dic.zip"], "path":"$hunspell$/it/it_IT.dic", "date":"2020-03-17T12:21:16+01:00", "size":1290681}
  ]}
  , "Lao":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.aff", "path":"$hunspell$/lo/lo_LA.aff", "date":"2020-03-17T12:21:16+01:00", "size":10}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.dic", "path":"$hunspell$/lo/lo_LA.dic", "date":"2020-03-17T12:21:16+01:00", "size":203209}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.aff","https://translator.gres.biz/resources/dictionaries/lo_LA/lo_LA.aff.zip"], "path":"$hunspell$/lo/lo_LA.aff", "date":"2020-03-17T12:21:16+01:00", "size":10}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.dic","https://translator.gres.biz/resources/dictionaries/lo_LA/lo_LA.dic.zip"], "path":"$hunspell$/lo/lo_LA.dic", "date":"2020-03-17T12:21:16+01:00", "size":203209}
  ]}
  , "Lithuanian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.aff", "path":"$hunspell$/lt/lt.aff", "date":"2020-03-17T12:21:16+01:00", "size":92208}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.dic", "path":"$hunspell$/lt/lt.dic", "date":"2020-03-17T12:21:16+01:00", "size":1085291}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.aff","https://translator.gres.biz/resources/dictionaries/lt_LT/lt.aff.zip"], "path":"$hunspell$/lt/lt.aff", "date":"2020-03-17T12:21:16+01:00", "size":92208}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.dic","https://translator.gres.biz/resources/dictionaries/lt_LT/lt.dic.zip"], "path":"$hunspell$/lt/lt.dic", "date":"2020-03-17T12:21:16+01:00", "size":1085291}
  ]}
  , "Latvian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.aff", "path":"$hunspell$/lv/lv_LV.aff", "date":"2020-03-17T12:21:16+01:00", "size":69597}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.dic", "path":"$hunspell$/lv/lv_LV.dic", "date":"2020-03-17T12:21:16+01:00", "size":2226834}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.aff","https://translator.gres.biz/resources/dictionaries/lv_LV/lv_LV.aff.zip"], "path":"$hunspell$/lv/lv_LV.aff", "date":"2020-03-17T12:21:16+01:00", "size":69597}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.dic","https://translator.gres.biz/resources/dictionaries/lv_LV/lv_LV.dic.zip"], "path":"$hunspell$/lv/lv_LV.dic", "date":"2020-03-17T12:21:16+01:00", "size":2226834}
  ]}
  , "Nepali":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.aff", "path":"$hunspell$/ne/ne_NP.aff", "date":"2020-03-17T12:21:16+01:00", "size":14162}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.dic", "path":"$hunspell$/ne/ne_NP.dic", "date":"2020-03-17T12:21:16+01:00", "size":874372}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.aff","https://translator.gres.biz/resources/dictionaries/ne_NP/ne_NP.aff.zip"], "path":"$hunspell$/ne/ne_NP.aff", "date":"2020-03-17T12:21:16+01:00", "size":14162}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.dic","https://translator.gres.biz/resources/dictionaries/ne_NP/ne_NP.dic.zip"], "path":"$hunspell$/ne/ne_NP.dic", "date":"2020-03-17T12:21:16+01:00", "size":874372}
  ]}
  , "Dutch":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.aff", "path":"$hunspell$/nl/nl_NL.aff", "date":"2020-03-17T12:21:16+01:00", "size":27835}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.dic", "path":"$hunspell$/nl/nl_NL.dic", "date":"2020-03-17T12:21:16+01:00", "size":1881063}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.aff","https://translator.gres.biz/resources/dictionaries/nl_NL/nl_NL.aff.zip"], "path":"$hunspell$/nl/nl_NL.aff", "date":"2020-03-17T12:21:16+01:00", "size":27835}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.dic","https://translator.gres.biz/resources/dictionaries/nl_NL/nl_NL.dic.zip"], "path":"$hunspell$/nl/nl_NL.dic", "date":"2020-03-17T12:21:16+01:00", "size":1881063}
  ]}
  , "Norwegian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.aff", "path":"$hunspell$/no/nb_NO.aff", "date":"2020-03-17T12:21:16+01:00", "size":17259}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.dic", "path":"$hunspell$/no/nb_NO.dic", "date":"2020-03-17T12:21:16+01:00", "size":5274030}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.aff","https://translator.gres.biz/resources/dictionaries/no/nb_NO.aff.zip"], "path":"$hunspell$/no/nb_NO.aff", "date":"2020-03-17T12:21:16+01:00", "size":17259}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.dic","https://translator.gres.biz/resources/dictionaries/no/nb_NO.dic.zip"], "path":"$hunspell$/no/nb_NO.dic", "date":"2020-03-17T12:21:16+01:00", "size":5274030}
  ]}
  , "Polish":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.aff", "path":"$hunspell$/pl/pl_PL.aff", "date":"2020-03-17T12:21:16+01:00", "size":246842}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.dic", "path":"$hunspell$/pl/pl_PL.dic", "date":"2020-03-17T12:21:16+01:00", "size":4539105}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.aff","https://translator.gres.biz/resources/dictionaries/pl_PL/pl_PL.aff.zip"], "path":"$hunspell$/pl/pl_PL.aff", "date":"2020-03-17T12:21:16+01:00", "size":246842}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.dic","https://translator.gres.biz/resources/dictionaries/pl_PL/pl_PL.dic.zip"], "path":"$hunspell$/pl/pl_PL.dic", "date":"2020-03-17T12:21:16+01:00", "size":4539105}
  ]}
  , "Portuguese":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_PT/pt_PT.aff", "path":"$hunspell$/pt/pt_PT.aff", "date":"2020-03-17T12:21:16+01:00", "size":95089}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_PT/pt_PT.dic", "path":"$hunspell$/pt/pt_PT.dic", "date":"2020-03-17T12:21:16+01:00", "size":1473077}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_PT/pt_PT.aff","https://translator.gres.biz/resources/dictionaries/pt_PT/pt_PT.aff.zip"], "path":"$hunspell$/pt/pt_PT.aff", "date":"2020-03-17T12:21:16+01:00", "size":95089}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_PT/pt_PT.dic","https://translator.gres.biz/resources/dictionaries/pt_PT/pt_PT.dic.zip"], "path":"$hunspell$/pt/pt_PT.dic", "date":"2020-03-17T12:21:16+01:00", "size":1473077}
  ]}
  , "Romanian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.aff", "path":"$hunspell$/ro/ro_RO.aff", "date":"2020-03-17T12:21:16+01:00", "size":55181}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.dic", "path":"$hunspell$/ro/ro_RO.dic", "date":"2020-03-17T12:21:16+01:00", "size":2196348}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.aff","https://translator.gres.biz/resources/dictionaries/ro/ro_RO.aff.zip"], "path":"$hunspell$/ro/ro_RO.aff", "date":"2020-03-17T12:21:16+01:00", "size":55181}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.dic","https://translator.gres.biz/resources/dictionaries/ro/ro_RO.dic.zip"], "path":"$hunspell$/ro/ro_RO.dic", "date":"2020-03-17T12:21:16+01:00", "size":2196348}
  ]}
  , "Russian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.aff", "path":"$hunspell$/ru/ru_RU.aff", "date":"2020-03-17T12:21:16+01:00", "size":53019}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.dic", "path":"$hunspell$/ru/ru_RU.dic", "date":"2020-03-17T12:21:16+01:00", "size":1969349}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.aff","https://translator.gres.biz/resources/dictionaries/ru_RU/ru_RU.aff.zip"], "path":"$hunspell$/ru/ru_RU.aff", "date":"2020-03-17T12:21:16+01:00", "size":53019}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.dic","https://translator.gres.biz/resources/dictionaries/ru_RU/ru_RU.dic.zip"], "path":"$hunspell$/ru/ru_RU.dic", "date":"2020-03-17T12:21:16+01:00", "size":1969349}
  ]}
  , "Slovak":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.aff", "path":"$hunspell$/sk/sk_SK.aff", "date":"2020-03-17T12:21:16+01:00", "size":99414}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.dic", "path":"$hunspell$/sk/sk_SK.dic", "date":"2020-03-17T12:21:16+01:00", "size":3289769}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.aff","https://translator.gres.biz/resources/dictionaries/sk_SK/sk_SK.aff.zip"], "path":"$hunspell$/sk/sk_SK.aff", "date":"2020-03-17T12:21:16+01:00", "size":99414}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.dic","https://translator.gres.biz/resources/dictionaries/sk_SK/sk_SK.dic.zip"], "path":"$hunspell$/sk/sk_SK.dic", "date":"2020-03-17T12:21:16+01:00", "size":3289769}
  ]}
  , "Slovenian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.aff", "path":"$hunspell$/sl/sl_SI.aff", "date":"2020-03-17T12:21:16+01:00", "size":14730}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.dic", "path":"$hunspell$/sl/sl_SI.dic", "date":"2020-03-17T12:21:16+01:00", "size":2967766}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.aff","https://translator.gres.biz/resources/dictionaries/sl_SI/sl_SI.aff.zip"], "path":"$hunspell$/sl/sl_SI.aff", "date":"2020-03-17T12:21:16+01:00", "size":14730}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.dic","https://translator.gres.biz/resources/dictionaries/sl_SI/sl_SI.dic.zip"], "path":"$hunspell$/sl/sl_SI.dic", "date":"2020-03-17T12:21:16+01:00", "size":2967766}
  ]}
  , "Albanian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.aff", "path":"$hunspell$/sq/sq_AL.aff", "date":"2020-03-17T12:21:16+01:00", "size":7555}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.dic", "path":"$hunspell$/sq/sq_AL.dic", "date":"2020-03-17T12:21:16+01:00", "size":2605147}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.aff","https://translator.gres.biz/resources/dictionaries/sq_AL/sq_AL.aff.zip"], "path":"$hunspell$/sq/sq_AL.aff", "date":"2020-03-17T12:21:16+01:00", "size":7555}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.dic","https://translator.gres.biz/resources/dictionaries/sq_AL/sq_AL.dic.zip"], "path":"$hunspell$/sq/sq_AL.dic", "date":"2020-03-17T12:21:16+01:00", "size":2605147}
  ]}
  , "Serbian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.aff", "path":"$hunspell$/sr/sr.aff", "date":"2020-03-17T12:21:16+01:00", "size":901060}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.dic", "path":"$hunspell$/sr/sr.dic", "date":"2020-03-17T12:21:16+01:00", "size":5878745}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.aff","https://translator.gres.biz/resources/dictionaries/sr/sr.aff.zip"], "path":"$hunspell$/sr/sr.aff", "date":"2020-03-17T12:21:16+01:00", "size":901060}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.dic","https://translator.gres.biz/resources/dictionaries/sr/sr.dic.zip"], "path":"$hunspell$/sr/sr.dic", "date":"2020-03-17T12:21:16+01:00", "size":5878745}
  ]}
  , "Swedish":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.aff", "path":"$hunspell$/sv/sv_FI.aff", "date":"2020-03-17T12:21:16+01:00", "size":18583}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.dic", "path":"$hunspell$/sv/sv_FI.dic", "date":"2020-03-17T12:21:16+01:00", "size":2317112}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.aff","https://translator.gres.biz/resources/dictionaries/sv_SE/sv_FI.aff.zip"], "path":"$hunspell$/sv/sv_FI.aff", "date":"2020-03-17T12:21:16+01:00", "size":18583}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.dic","https://translator.gres.biz/resources/dictionaries/sv_SE/sv_FI.dic.zip"], "path":"$hunspell$/sv/sv_FI.dic", "date":"2020-03-17T12:21:16+01:00", "size":2317112}
  ]}
  , "Swahili":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.aff", "path":"$hunspell$/sw/sw_TZ.aff", "date":"2020-03-17T12:21:16+01:00", "size":974}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.dic", "path":"$hunspell$/sw/sw_TZ.dic", "date":"2020-03-17T12:21:16+01:00", "size":630844}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.aff","https://translator.gres.biz/resources/dictionaries/sw_TZ/sw_TZ.aff.zip"], "path":"$hunspell$/sw/sw_TZ.aff", "date":"2020-03-17T12:21:16+01:00", "size":974}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.dic","https://translator.gres.biz/resources/dictionaries/sw_TZ/sw_TZ.dic.zip"], "path":"$hunspell$/sw/sw_TZ.dic", "date":"2020-03-17T12:21:16+01:00", "size":630844}
  ]}
  , "Telugu":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.aff", "path":"$hunspell$/te/te_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":160}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.dic", "path":"$hunspell$/te/te_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":3402272}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.aff","https://translator.gres.biz/resources/dictionaries/te_IN/te_IN.aff.zip"], "path":"$hunspell$/te/te_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":160}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.dic","https://translator.gres.biz/resources/dictionaries/te_IN/te_IN.dic.zip"], "path":"$hunspell$/te/te_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":3402272}
  ]}
  , "Thai":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.aff", "path":"$hunspell$/th/th_TH.aff", "date":"2020-03-17T12:21:16+01:00", "size":156}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.dic", "path":"$hunspell$/th/th_TH.dic", "date":"2020-03-17T12:21:16+01:00", "size":1251425}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.aff","https://translator.gres.biz/resources/dictionaries/th_TH/th_TH.aff.zip"], "path":"$hunspell$/th/th_TH.aff", "date":"2020-03-17T12:21:16+01:00", "size":156}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.dic","https://translator.gres.biz/resources/dictionaries/th_TH/th_TH.dic.zip"], "path":"$hunspell$/th/th_TH.dic", "date":"2020-03-17T12:21:16+01:00", "size":1251425}
  ]}
  , "Turkish":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.aff", "path":"$hunspell$/tr/tr_TR.aff", "date":"2020-03-17T12:21:16+01:00", "size":235315}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.dic", "path":"$hunspell$/tr/tr_TR.dic", "date":"2020-03-17T12:21:16+01:00", "size":9061155}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.aff","https://translator.gres.biz/resources/dictionaries/tr_TR/tr_TR.aff.zip"], "path":"$hunspell$/tr/tr_TR.aff", "date":"2020-03-17T12:21:16+01:00", "size":235315}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.dic","https://translator.gres.biz/resources/dictionaries/tr_TR/tr_TR.dic.zip"], "path":"$hunspell$/tr/tr_TR.dic", "date":"2020-03-17T12:21:16+01:00", "size":9061155}
  ]}
  , "Ukrainian":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.aff", "path":"$hunspell$/uk/uk_UA.aff", "date":"2020-03-17T12:21:16+01:00", "size":159599}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.dic", "path":"$hunspell$/uk/uk_UA.dic", "date":"2020-03-17T12:21:16+01:00", "size":2584267}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.aff","https://translator.gres.biz/resources/dictionaries/uk_UA/uk_UA.aff.zip"], "path":"$hunspell$/uk/uk_UA.aff", "date":"2020-03-17T12:21:16+01:00", "size":159599}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.dic","https://translator.gres.biz/resources/dictionaries/uk_UA/uk_UA.dic.zip"], "path":"$hunspell$/uk/uk_UA.dic", "date":"2020-03-17T12:21:16+01:00", "size":2584267}
  ]}
  , "Vietnamese":{"files":[
-  {"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.aff", "path":"$hunspell$/vi/vi_VN.aff", "date":"2020-03-17T12:21:16+01:00", "size":788}
-  ,{"url":"https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.dic", "path":"$hunspell$/vi/vi_VN.dic", "date":"2020-03-17T12:21:16+01:00", "size":39852}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.aff","https://translator.gres.biz/resources/dictionaries/vi/vi_VN.aff.zip"], "path":"$hunspell$/vi/vi_VN.aff", "date":"2020-03-17T12:21:16+01:00", "size":788}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.dic","https://translator.gres.biz/resources/dictionaries/vi/vi_VN.dic.zip"], "path":"$hunspell$/vi/vi_VN.dic", "date":"2020-03-17T12:21:16+01:00", "size":39852}
  ]}
 }
 
