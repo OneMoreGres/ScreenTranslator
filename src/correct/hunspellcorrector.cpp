@@ -93,10 +93,12 @@ void HunspellCorrector::init(const QString &path)
 
   engine_ =
       std::make_unique<Hunspell>(qPrintable(aff), qPrintable(dics.first()));
+  LTRACE() << "Created hunspell instance";
 
   dics.pop_front();
   if (!dics.isEmpty()) {
     for (const auto &dic : dics) engine_->add_dic(qPrintable(dic));
+    LTRACE() << "Loaded hunspell dicts" << dics;
   }
 }
 

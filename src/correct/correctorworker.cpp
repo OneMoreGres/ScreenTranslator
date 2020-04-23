@@ -13,9 +13,11 @@ void CorrectorWorker::handle(const TaskPtr &task)
   SOFT_ASSERT(task->isValid(), return );
   SOFT_ASSERT(!hunspellDir_.isEmpty(), return );
 
+  LTRACE() << "Start hunspell correction" << task->sourceLanguage;
   auto result = task;
 
   if (!bundles_.count(task->sourceLanguage)) {
+    LTRACE() << "Create hunspell engine" << task->sourceLanguage;
     auto engine =
         std::make_unique<HunspellCorrector>(task->sourceLanguage, hunspellDir_);
 
@@ -27,6 +29,7 @@ void CorrectorWorker::handle(const TaskPtr &task)
     }
 
     bundles_.emplace(task->sourceLanguage, Bundle{std::move(engine), 0});
+    LTRACE() << "Added hunspell engine" << task->sourceLanguage;
   }
 
   auto &bundle = bundles_[task->sourceLanguage];
@@ -49,6 +52,7 @@ void CorrectorWorker::reset(const QString &hunspellDir)
 
   hunspellDir_ = hunspellDir;
   bundles_.clear();
+  LTRACE() << "Cleared hunspell engines";
 }
 
 void CorrectorWorker::removeUnused(Generation current)
@@ -60,7 +64,9 @@ void CorrectorWorker::removeUnused(Generation current)
     if (it->second.usesLeft >= 0) {
       ++it;
     } else {
+      const auto name = it->first;
       it = bundles_.erase(it);
+      LTRACE() << "Removed unused hunspell engine" << name;
     }
   }
 }

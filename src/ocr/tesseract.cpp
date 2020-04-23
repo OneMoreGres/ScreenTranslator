@@ -98,18 +98,22 @@ static Pix *prepareImage(const QImage &image)
   auto gray = pixConvertRGBToGray(pix, 0.0, 0.0, 0.0);
   SOFT_ASSERT(gray, return nullptr);
   pixDestroy(&pix);
+  LTRACE() << "Removed original Pix";
 
   auto scaleSource = gray;
   auto scaled = scaleSource;
 
   if (const auto scale = getScale(scaleSource); scale > 1.0) {
     scaled = pixScale(scaleSource, scale, scale);
+    LTRACE() << "Scaled Pix for OCR" << LARG(scale) << LARG(scaled);
     if (!scaled)
       scaled = scaleSource;
   }
 
-  if (scaled != scaleSource)
+  if (scaled != scaleSource) {
     pixDestroy(&scaleSource);
+    LTRACE() << "Removed unscaled Pix";
+  }
 
   return scaled;
 }
@@ -184,13 +188,17 @@ QString Tesseract::recognize(const QPixmap &source)
 
   Pix *image = prepareImage(source.toImage());
   SOFT_ASSERT(image != NULL, return {});
+  LTRACE() << "Preprocessed Pix for OCR";
   engine_->SetImage(image);
   char *outText = engine_->GetUTF8Text();
+  LTRACE() << "Received recognized text";
   engine_->Clear();
   cleanupImage(&image);
+  LTRACE() << "Cleared preprocessed Pix";
 
   QString result = QString(outText).trimmed();
   delete[] outText;
+  LTRACE() << "Cleared recognized text buffer";
 
   if (result.isEmpty())
     error_ = QObject::tr("Failed to recognize text or no text selected");

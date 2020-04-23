@@ -103,6 +103,7 @@ void Translator::translate(const TaskPtr &task)
   SOFT_ASSERT(task, return );
 
   if (task->corrected.isEmpty()) {
+    LTRACE() << "Corrected text is empty. Skipping translation";
     manager_.translated(task);
     return;
   }
@@ -177,6 +178,7 @@ void Translator::createPage(const QString &scriptName,
 
   SOFT_ASSERT(log->document(), return )
   log->document()->setMaximumBlockCount(1000);
+  LTRACE() << "Created page" << LARG(scriptName);
 }
 
 void Translator::showDebugView()
@@ -279,6 +281,7 @@ void Translator::processQueue()
       pages_[translator]->start(task);
       task->translators.removeOne(translator);
       idlePages.erase(translator);
+      LTRACE() << "Started translation at" << translator << task;
       break;
     }
   }

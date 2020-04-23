@@ -11,9 +11,12 @@ void RecognizeWorker::handle(const TaskPtr &task)
   SOFT_ASSERT(task->isValid(), return );
   SOFT_ASSERT(!tessdataPath_.isEmpty(), return );
 
+  LTRACE() << "Start recognize" << task->captured;
   auto result = task;
 
   if (!engines_.count(task->sourceLanguage)) {
+    LTRACE() << "Create OCR engine" << task->sourceLanguage;
+
     auto engine =
         std::make_unique<Tesseract>(task->sourceLanguage, tessdataPath_);
 
@@ -24,6 +27,7 @@ void RecognizeWorker::handle(const TaskPtr &task)
     }
 
     engines_.emplace(task->sourceLanguage, std::move(engine));
+    LTRACE() << "Added OCR engine" << task->sourceLanguage;
   }
 
   auto &engine = engines_[task->sourceLanguage];
@@ -46,6 +50,7 @@ void RecognizeWorker::reset(const QString &tessdataPath)
 
   tessdataPath_ = tessdataPath;
   engines_.clear();
+  LTRACE() << "Cleared OCR engines";
 }
 
 void RecognizeWorker::removeUnused(Generation current)
@@ -58,6 +63,7 @@ void RecognizeWorker::removeUnused(Generation current)
       continue;
     }
     engines_.erase(it->first);
+    LTRACE() << "Removed unused OCR engine" << it->first;
     it = lastGenerations_.erase(it);
   }
 }
