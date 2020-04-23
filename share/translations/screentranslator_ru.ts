@@ -58,7 +58,7 @@ Ctrl - продолжить выделять</translation>
 <context>
     <name>CorrectorWorker</name>
     <message>
-        <location filename="../../src/correct/correctorworker.cpp" line="24"/>
+        <location filename="../../src/correct/correctorworker.cpp" line="26"/>
         <source>Failed to init hunspell engine: %1</source>
         <translation>Ошибка инициализации hunspell: %1</translation>
     </message>
@@ -638,12 +638,12 @@ Check for updates to silence this warning</source>
 Проверьте обновления, чтобы отключить это сообщение</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="184"/>
+        <location filename="../../src/manager.cpp" line="185"/>
         <source>Failed to set log file: %1</source>
         <translation>Ошибка установки лог-файла: %1</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="190"/>
+        <location filename="../../src/manager.cpp" line="191"/>
         <source>Started logging to file: %1</source>
         <translation>Начата запись в лог-файл: %1</translation>
     </message>
@@ -664,12 +664,12 @@ Check for updates to silence this warning</source>
         <translation>неизвестные языки для перевода: %1 или %2</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="145"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="149"/>
         <source>init failed</source>
         <translation>ошибка инициалиизации</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="196"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="204"/>
         <source>Failed to recognize text or no text selected</source>
         <translation>Ошибка распознавания текста или нет текста в выделенной зоне</translation>
     </message>
@@ -687,11 +687,21 @@ in %1</source>
         <translation>Нет .aff или .dic файлов для hunspell
 в %1</translation>
     </message>
+    <message>
+        <location filename="../../src/capture/capturearea.cpp" line="27"/>
+        <source>No source language set</source>
+        <translation>Не задан исходный язык</translation>
+    </message>
+    <message>
+        <location filename="../../src/capture/capturearea.cpp" line="34"/>
+        <source>No target language set</source>
+        <translation>Не задан язык результата</translation>
+    </message>
 </context>
 <context>
     <name>RecognizeWorker</name>
     <message>
-        <location filename="../../src/ocr/recognizerworker.cpp" line="21"/>
+        <location filename="../../src/ocr/recognizerworker.cpp" line="24"/>
         <source>Failed to init OCR engine: %1</source>
         <translation>Ошибка инициализации OCR: %1</translation>
     </message>
@@ -827,37 +837,37 @@ in %1</source>
         <translation>сохранять пароль (небезопасно)</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="292"/>
+        <location filename="../../src/settingseditor.ui" line="295"/>
         <source>User substitutions</source>
         <translation>Пользовательская коррекция</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="315"/>
+        <location filename="../../src/settingseditor.ui" line="318"/>
         <source>Use auto corrections (hunspell)</source>
         <translation>Использовать автокоррекцию (hunspell)</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="322"/>
+        <location filename="../../src/settingseditor.ui" line="325"/>
         <source>Use user substitutions</source>
         <translation>Использовать пользовательскую коррекцию</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="329"/>
+        <location filename="../../src/settingseditor.ui" line="332"/>
         <source>Hunspell dictionaries path:</source>
         <translation>Путь к словарям Hunspell:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="388"/>
+        <location filename="../../src/settingseditor.ui" line="394"/>
         <source>Language:</source>
         <translation>Язык:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="421"/>
+        <location filename="../../src/settingseditor.ui" line="430"/>
         <source> secs</source>
         <translation> сек</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="364"/>
+        <location filename="../../src/settingseditor.ui" line="370"/>
         <source>Ignore SSL errors</source>
         <translation>Игнорировать ошибки SSL</translation>
     </message>
@@ -897,97 +907,97 @@ in %1</source>
         <translation>Путь к языкам (tessdata):</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="302"/>
+        <location filename="../../src/settingseditor.ui" line="305"/>
         <source>\\ for \ symbol, \n for newline</source>
         <translation>\\ для символа \ , \n для символа новой строки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="347"/>
+        <location filename="../../src/settingseditor.ui" line="353"/>
         <source>Translators path:</source>
         <translation>Путь к переводчикам:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="354"/>
+        <location filename="../../src/settingseditor.ui" line="360"/>
         <source>Translators</source>
         <translation>Переводчики</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="486"/>
+        <location filename="../../src/settingseditor.ui" line="495"/>
         <source>Result window</source>
         <translation>Окно результата</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="492"/>
+        <location filename="../../src/settingseditor.ui" line="501"/>
         <source>Font:</source>
         <translation>Шрифт:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="502"/>
+        <location filename="../../src/settingseditor.ui" line="511"/>
         <source>Font size:</source>
         <translation>Размер шрифта:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="519"/>
+        <location filename="../../src/settingseditor.ui" line="528"/>
         <source>Font color:</source>
         <translation>Цвет шрифта:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="536"/>
+        <location filename="../../src/settingseditor.ui" line="545"/>
         <source>Background:</source>
         <translation>Фон:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="553"/>
+        <location filename="../../src/settingseditor.ui" line="562"/>
         <source>Show image</source>
         <translation>Показывать изображение</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="560"/>
+        <location filename="../../src/settingseditor.ui" line="569"/>
         <source>Show recognized</source>
         <translation>Показывать распознанное</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="629"/>
+        <location filename="../../src/settingseditor.ui" line="638"/>
         <source>Update check interval (days):</source>
         <translation>Интервал проверки обновления (дней):</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="636"/>
+        <location filename="../../src/settingseditor.ui" line="645"/>
         <source>0 - disabled</source>
         <translation>- отключено</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="669"/>
+        <location filename="../../src/settingseditor.ui" line="678"/>
         <source>Apply updates</source>
         <translation>Применить изменения</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="374"/>
+        <location filename="../../src/settingseditor.ui" line="380"/>
         <source>Translate text</source>
         <translation>Переводить текст</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="381"/>
+        <location filename="../../src/settingseditor.ui" line="387"/>
         <source>Single translator timeout:</source>
         <translation>Переходить к следующему переводчику после:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="448"/>
+        <location filename="../../src/settingseditor.ui" line="457"/>
         <source>Result type</source>
         <translation>Тип результата</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="460"/>
+        <location filename="../../src/settingseditor.ui" line="469"/>
         <source>Tray</source>
         <translation>Трей</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="473"/>
+        <location filename="../../src/settingseditor.ui" line="482"/>
         <source>Window</source>
         <translation>Окно</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="652"/>
+        <location filename="../../src/settingseditor.ui" line="661"/>
         <source>Check now</source>
         <translation>Проверить сейчас</translation>
     </message>
@@ -1098,12 +1108,12 @@ in %1</source>
         <translation>Адрес:</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="129"/>
+        <location filename="../../src/translate/translator.cpp" line="130"/>
         <source>No translators selected</source>
         <translation>Нет выбранных переводчиков</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="137"/>
+        <location filename="../../src/translate/translator.cpp" line="138"/>
         <source>No translators loaded from
 %1
 (%2)</source>
@@ -1112,7 +1122,7 @@ in %1</source>
 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="268"/>
+        <location filename="../../src/translate/translator.cpp" line="270"/>
         <source>All translators failed
 %1</source>
         <translation>Не удалось перевести текст
@@ -1233,23 +1243,23 @@ in %1</source>
         <translation>Установить/Обновить</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1027"/>
-        <location filename="../../src/service/updates.cpp" line="1044"/>
+        <location filename="../../src/service/updates.cpp" line="1029"/>
+        <location filename="../../src/service/updates.cpp" line="1046"/>
         <source>Directory is not writable
 %1</source>
         <translation>Папка недоступна для записи
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1036"/>
+        <location filename="../../src/service/updates.cpp" line="1038"/>
         <source>Downloaded file not exists
 %1</source>
         <translation>Скачанный файл не существует
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1056"/>
-        <location filename="../../src/service/updates.cpp" line="1074"/>
+        <location filename="../../src/service/updates.cpp" line="1058"/>
+        <location filename="../../src/service/updates.cpp" line="1076"/>
         <source>Failed to remove file
 %1
 Error %2</source>
@@ -1258,14 +1268,14 @@ Error %2</source>
 Текст %2</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1067"/>
+        <location filename="../../src/service/updates.cpp" line="1069"/>
         <source>Failed to create path
 %1</source>
         <translation>Ошибка создания папки
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1082"/>
+        <location filename="../../src/service/updates.cpp" line="1084"/>
         <source>Failed to move file
 %1
 to %2
@@ -1365,62 +1375,62 @@ Error %3</source>
 <context>
     <name>update::Model</name>
     <message>
-        <location filename="../../src/service/updates.cpp" line="455"/>
+        <location filename="../../src/service/updates.cpp" line="457"/>
         <source>Select all updates</source>
         <translation>Выбрать все обновления</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="456"/>
+        <location filename="../../src/service/updates.cpp" line="458"/>
         <source>Reset actions</source>
         <translation>Сбросить действия</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="494"/>
+        <location filename="../../src/service/updates.cpp" line="496"/>
         <source>Failed to parse: %1 at %2</source>
         <translation>Ошибка разбора: %1 в %2</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="502"/>
+        <location filename="../../src/service/updates.cpp" line="504"/>
         <source>Wrong updates version: %1</source>
         <translation>Неверная версия файла обновлений: %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="514"/>
+        <location filename="../../src/service/updates.cpp" line="516"/>
         <source>No data parsed</source>
         <translation>Нет разобранных данных</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="871"/>
+        <location filename="../../src/service/updates.cpp" line="873"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="871"/>
+        <location filename="../../src/service/updates.cpp" line="873"/>
         <source>State</source>
         <translation>Состояние</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="872"/>
+        <location filename="../../src/service/updates.cpp" line="874"/>
         <source>Action</source>
         <translation>Действие</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="872"/>
+        <location filename="../../src/service/updates.cpp" line="874"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="873"/>
+        <location filename="../../src/service/updates.cpp" line="875"/>
         <source>Version</source>
         <translation>Версия</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="873"/>
+        <location filename="../../src/service/updates.cpp" line="875"/>
         <source>Progress</source>
         <translation>Прогресс</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="874"/>
+        <location filename="../../src/service/updates.cpp" line="876"/>
         <source>Files</source>
         <translation>Файла</translation>
     </message>

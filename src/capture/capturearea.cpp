@@ -23,9 +23,16 @@ TaskPtr CaptureArea::task(const QPixmap &pixmap) const
   task->captured = pixmap.copy(rect_);
   task->capturePoint = rect_.topLeft();
   task->sourceLanguage = sourceLanguage_;
+  if (task->sourceLanguage.isEmpty())
+    task->error += QObject::tr("No source language set");
+
   if (doTranslation_ && !translators_.isEmpty()) {
     task->targetLanguage = targetLanguage_;
     task->translators = translators_;
+    if (task->targetLanguage.isEmpty()) {
+      task->error += (task->error.isEmpty() ? "" : ", ") +
+                     QObject::tr("No target language set");
+    }
   }
 
   return task;
