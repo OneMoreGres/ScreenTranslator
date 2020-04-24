@@ -94,11 +94,13 @@ static Pix *prepareImage(const QImage &image)
 {
   auto pix = convertImage(image);
   SOFT_ASSERT(pix, return nullptr);
+  LTRACE() << "Converted Pix" << pix;
 
   auto gray = pixConvertRGBToGray(pix, 0.0, 0.0, 0.0);
+  LTRACE() << "Created gray Pix" << gray;
   SOFT_ASSERT(gray, return nullptr);
   pixDestroy(&pix);
-  LTRACE() << "Removed original Pix";
+  LTRACE() << "Removed converted Pix";
 
   auto scaleSource = gray;
   auto scaled = scaleSource;
@@ -138,16 +140,19 @@ void Tesseract::init(const LanguageId &language, const QString &tessdataPath)
   SOFT_ASSERT(!engine_, return );
 
   engine_ = std::make_unique<tesseract::TessBaseAPI>();
+  LTRACE() << "Created Tesseract api" << engine_.get();
 
   const auto tesseractName = LanguageCodes::tesseract(language);
   auto result =
       engine_->Init(qPrintable(tessdataPath), qPrintable(tesseractName),
                     tesseract::OEM_DEFAULT);
+  LTRACE() << "Inited Tesseract api" << result;
   if (result == 0)
     return;
 
   error_ = QObject::tr("init failed");
   engine_.reset();
+  LTRACE() << "Cleared Tesseract api";
 }
 
 const QString &Tesseract::error() const
@@ -187,12 +192,14 @@ QString Tesseract::recognize(const QPixmap &source)
   error_.clear();
 
   Pix *image = prepareImage(source.toImage());
-  SOFT_ASSERT(image != NULL, return {});
-  LTRACE() << "Preprocessed Pix for OCR";
+  SOFT_ASSERT(image, return {});
+  LTRACE() << "Preprocessed Pix for OCR" << image;
   engine_->SetImage(image);
+  LTRACE() << "Set Pix to engine";
   char *outText = engine_->GetUTF8Text();
   LTRACE() << "Received recognized text";
   engine_->Clear();
+  LTRACE() << "Cleared engine";
   cleanupImage(&image);
   LTRACE() << "Cleared preprocessed Pix";
 
