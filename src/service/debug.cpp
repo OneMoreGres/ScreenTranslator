@@ -6,12 +6,19 @@
 #include <QMutex>
 #include <QThread>
 
+#ifdef Q_OS_WIN
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
+
 namespace
 {
-QtMessageHandler original = nullptr;
 QMutex mutex;
-QFile file;
-QTextStream stream;
+QString fileName;
+int realStdout{};
+int realStderr{};
+FILE *logFile{};
 
 void handler(QtMsgType type, const QMessageLogContext &context,
              const QString &msg)
@@ -29,11 +36,30 @@ void handler(QtMsgType type, const QMessageLogContext &context,
       QFileInfo(context.file).fileName().toUtf8() + ':' +
       QByteArray::number(context.line) + typeName + msg.toUtf8() + '\n';
 
-  SOFT_ASSERT(original, return );
-  original(type, context, msg);
+  if (logFile)
+    write(fileno(logFile), message.data(), message.size());
+  if (realStderr > 0)
+    write(realStderr, message.data(), message.size());
+}
 
-  QMutexLocker locker(&mutex);
-  file.write(message);
+void toDefaults()
+{
+  qInstallMessageHandler(nullptr);
+
+  if (realStdout > 0) {
+    dup2(realStdout, fileno(stdout));
+    realStdout = -1;
+  }
+
+  if (realStderr > 0) {
+    dup2(realStderr, fileno(stderr));
+    realStderr = -1;
+  }
+
+  if (logFile) {
+    fclose(logFile);
+    logFile = nullptr;
+  }
 }
 }  // namespace
 
@@ -44,28 +70,32 @@ std::atomic_bool isTrace = false;
 QString traceFileName()
 {
   QMutexLocker locker(&mutex);
-  return file.fileName();
+  return fileName;
 }
 
 bool setTraceFileName(const QString &fileName)
 {
   QMutexLocker locker(&mutex);
 
-  original = nullptr;
-  qInstallMessageHandler(nullptr);
-
-  if (file.isOpen())
-    file.close();
+  toDefaults();
 
   if (fileName.isEmpty())
     return true;
 
-  file.setFileName(fileName);
-
-  if (!file.open(QFile::WriteOnly | QFile::Unbuffered))
+  logFile = fopen(qPrintable(fileName), "w");
+  if (!logFile)
     return false;
 
-  original = qInstallMessageHandler(handler);
+  realStdout = dup(fileno(stdout));
+  realStderr = dup(fileno(stderr));
+
+  const auto fd = fileno(logFile);
+  dup2(fd, fileno(stdout));
+  dup2(fd, fileno(stderr));
+
+  ::fileName = fileName;
+  qInstallMessageHandler(handler);
+
   return true;
 }
 
