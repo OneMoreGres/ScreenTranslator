@@ -60,6 +60,8 @@ void toDefaults()
     fclose(logFile);
     logFile = nullptr;
   }
+
+  fileName.clear();
 }
 }  // namespace
 

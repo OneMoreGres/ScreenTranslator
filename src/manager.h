@@ -31,7 +31,7 @@ private:
   void updateSettings();
   void setupProxy(const Settings &settings);
   void setupUpdates(const Settings &settings);
-  void setupTrace(bool isOn);
+  bool setupTrace(bool isOn);
   void finishTask(const TaskPtr &task);
   void warnIfOutdated();
 

@@ -103,7 +103,7 @@ void Manager::updateSettings()
 {
   LTRACE() << "updateSettings";
   SOFT_ASSERT(settings_, return );
-  setupTrace(settings_->writeTrace);
+  settings_->writeTrace = setupTrace(settings_->writeTrace);
   setupProxy(*settings_);
   setupUpdates(*settings_);
 
@@ -158,7 +158,7 @@ void Manager::setupUpdates(const Settings &settings)
   updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
 }
 
-void Manager::setupTrace(bool isOn)
+bool Manager::setupTrace(bool isOn)
 {
   const auto oldFile = debug::traceFileName();
 
@@ -169,11 +169,11 @@ void Manager::setupTrace(bool isOn)
     if (!oldFile.isEmpty())
       QDesktopServices::openUrl(QUrl::fromLocalFile(oldFile));
 
-    return;
+    return false;
   }
 
   if (!oldFile.isEmpty())
-    return;
+    return true;
 
   const auto traceFile =
       QStandardPaths::writableLocation(QStandardPaths::TempLocation) +
@@ -183,12 +183,13 @@ void Manager::setupTrace(bool isOn)
   if (!debug::setTraceFileName(traceFile)) {
     QMessageBox::warning(
         nullptr, {}, QObject::tr("Failed to set log file: %1").arg(traceFile));
-    return;
+    return false;
   }
 
   debug::isTrace = true;
   QMessageBox::information(
       nullptr, {}, QObject::tr("Started logging to file: %1").arg(traceFile));
+  return true;
 }
 
 void Manager::finishTask(const TaskPtr &task)
