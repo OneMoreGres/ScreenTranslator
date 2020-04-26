@@ -18,6 +18,7 @@ pro_file = path.abspath(path.dirname(__file__) +
                         '/../../screen-translator.pro')
 test_pro_file = path.abspath(path.dirname(__file__) +
                              '/../../tests/tests.pro')
+bin_name = 'screen-translator'
 app_version = 'testing'
 with open(pro_file, 'r') as f:
     match = re.search(r'VER=(.*)', f.read())

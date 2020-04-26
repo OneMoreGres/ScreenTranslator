@@ -38,3 +38,6 @@ for f in glob(ssl_dir + '/bin/*.dll'):
     shutil.copy(f, install_dir)
 
 c.archive(c.get_folder_files(os.path.relpath(install_dir)), artifact_path)
+
+bin_path = install_dir + '\\' + bin_name + '.exe'
+c.print('>> Md5 {} {}'.format(bin_path, c.md5sum(bin_path)))

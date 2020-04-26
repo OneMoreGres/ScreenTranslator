@@ -55,3 +55,6 @@ c.run('{} {}/usr/share/applications/*.desktop {} -appimage -qmake={}/bin/qmake'.
     linuxdeployqt_bin, install_dir, flags, qt_dir))
 
 c.run('mv {}-{}*.AppImage "{}"'.format(app_name, app_version, artifact_path))
+
+bin_path = install_dir + '/usr/bin/' + bin_name
+c.print('>> Md5 {} {}'.format(bin_path, c.md5sum(bin_path)))

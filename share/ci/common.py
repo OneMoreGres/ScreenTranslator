@@ -10,6 +10,7 @@ import multiprocessing
 import platform
 import re
 import ast
+import hashlib
 
 
 print = functools.partial(print, flush=True)
@@ -208,3 +209,13 @@ def apply_cmd_env(cmd):
             print('>>> Changing env', key, '\nfrom\n',
                   os.environ[key], '\nto\n', value)
         os.environ[key] = value
+
+
+def md5sum(path):
+    if not os.path.exists(path):
+        return ''
+    md5 = hashlib.md5()
+    with open(path, 'rb') as f:
+        md5.update(f.read())
+        return md5.hexdigest()
+    return ''
