@@ -55,6 +55,7 @@ Translator::Translator(Manager &manager, const Settings &settings)
   }
 
   setObjectName("Translator");
+  setWindowTitle(tr("Translator"));
 
   view_ = new QWebEngineView(this);
 

@@ -664,12 +664,12 @@ Check for updates to silence this warning</source>
         <translation>неизвестные языки для перевода: %1 или %2</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="149"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="153"/>
         <source>init failed</source>
         <translation>ошибка инициалиизации</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="204"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="211"/>
         <source>Failed to recognize text or no text selected</source>
         <translation>Ошибка распознавания текста или нет текста в выделенной зоне</translation>
     </message>
@@ -1103,17 +1103,22 @@ in %1</source>
         <translation>Отладка</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="64"/>
+        <location filename="../../src/translate/translator.cpp" line="58"/>
+        <source>Translator</source>
+        <translation>Переводчик</translation>
+    </message>
+    <message>
+        <location filename="../../src/translate/translator.cpp" line="65"/>
         <source>Url:</source>
         <translation>Адрес:</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="130"/>
+        <location filename="../../src/translate/translator.cpp" line="132"/>
         <source>No translators selected</source>
         <translation>Нет выбранных переводчиков</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="138"/>
+        <location filename="../../src/translate/translator.cpp" line="140"/>
         <source>No translators loaded from
 %1
 (%2)</source>
@@ -1122,7 +1127,7 @@ in %1</source>
 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="270"/>
+        <location filename="../../src/translate/translator.cpp" line="272"/>
         <source>All translators failed
 %1</source>
         <translation>Не удалось перевести текст
@@ -1177,7 +1182,7 @@ in %1</source>
     <message>
         <location filename="../../src/trayicon.cpp" line="223"/>
         <source>Show translator</source>
-        <translation>Показать окно перевода</translation>
+        <translation>Показать переводчик</translation>
     </message>
     <message>
         <location filename="../../src/trayicon.cpp" line="229"/>
