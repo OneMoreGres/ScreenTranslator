@@ -36,6 +36,7 @@ void handler(QtMsgType type, const QMessageLogContext &context,
       QFileInfo(context.file).fileName().toUtf8() + ':' +
       QByteArray::number(context.line) + typeName + msg.toUtf8() + '\n';
 
+  QMutexLocker locker(&mutex);
   if (logFile)
     write(fileno(logFile), message.data(), message.size());
   if (realStderr > 0)
