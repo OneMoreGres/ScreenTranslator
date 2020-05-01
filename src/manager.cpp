@@ -80,7 +80,6 @@ Manager::~Manager()
     settings_->lastUpdateCheck = updateAutoChecker_->lastCheckDate();
     settings_->saveLastUpdateCheck();
   }
-  setupTrace(false);
 }
 
 void Manager::warnIfOutdated()
