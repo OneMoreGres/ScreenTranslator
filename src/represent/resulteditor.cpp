@@ -63,7 +63,8 @@ ResultEditor::ResultEditor(Manager &manager, const CommonModels &models,
 void ResultEditor::show(const TaskPtr &task)
 {
   SOFT_ASSERT(task, return );
-  task_ = task;
+  task_ = std::make_shared<Task>();
+  *task_ = *task;
 
   image_->setPixmap(task->captured);
   recognizedEdit_->setText(task->recognized);
