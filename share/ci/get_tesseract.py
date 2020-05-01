@@ -42,7 +42,7 @@ def check_existing():
     return True
 
 
-if check_existing():
+if check_existing() and not 'FORCE' in os.environ:
     c.print('>> Using cached')
     exit(0)
 
@@ -68,6 +68,27 @@ if platform.system() == "Windows":
 
 c.set_make_threaded()
 c.run('cmake {}'.format(cmake_args))
+
+# compatibility flags
+compat_flags = ''
+if 'NO_AVX2' in os.environ:
+    compat_flags += ' -D USE_AVX2=OFF '
+if 'NO_AVX' in os.environ:
+    compat_flags += ' -D USE_AVX=OFF '
+if 'NO_FMA' in os.environ:
+    compat_flags += ' -D USE_FMA=OFF '
+if 'NO_BMI2' in os.environ:
+    compat_flags += ' -D USE_BMI2=OFF '
+if 'NO_SSE4' in os.environ:
+    compat_flags += '  -D USE_SSE4_1=OFF -D USE_SSE4_2=OFF '
+if 'NO_OPT' in os.environ:
+    compat_flags += ' -D CMAKE_CXX_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
+    compat_flags += ' -D CMAKE_C_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
+
+if len(compat_flags) > 0:
+    c.run('cmake {} .'.format(compat_flags))
+    c.run('cmake {} .'.format(compat_flags)) # for sure :)
+
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 c.run('cmake --build . --config {}'.format(build_type_flag))
 c.run('cmake --build . --target install --config {}'.format(build_type_flag))
