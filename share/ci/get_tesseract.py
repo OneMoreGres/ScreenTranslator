@@ -9,8 +9,37 @@ install_dir = dependencies_dir
 url = 'https://github.com/tesseract-ocr/tesseract/archive/4.1.1.tar.gz'
 required_version = '4.1.1'
 
+build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
+
+# compatibility flags
+os.environ['NO_AVX2'] = '1'  # default
+compat_flags = ''
+if 'NO_AVX2' in os.environ:
+    compat_flags += ' -D USE_AVX2=OFF '
+if 'NO_AVX' in os.environ:
+    compat_flags += ' -D USE_AVX=OFF '
+if 'NO_FMA' in os.environ:
+    compat_flags += ' -D USE_FMA=OFF '
+if 'NO_BMI2' in os.environ:
+    compat_flags += ' -D USE_BMI2=OFF '
+if 'NO_SSE4' in os.environ:
+    compat_flags += '  -D USE_SSE4_1=OFF -D USE_SSE4_2=OFF '
+if 'NO_OPT' in os.environ:
+    compat_flags += ' -D CMAKE_CXX_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
+    compat_flags += ' -D CMAKE_C_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
+
+cache_file = install_dir + '/tesseract.cache'
+cache_file_data = required_version + build_type_flag + compat_flags
+
 
 def check_existing():
+    if not os.path.exists(cache_file):
+        return False
+    with open(cache_file, 'r') as f:
+        cached = f.read()
+        if cached != cache_file_data:
+            return False
+
     if platform.system() == "Windows":
         dll = install_dir + '/bin/tesseract41.dll'
         lib = install_dir + '/lib/tesseract41.lib'
@@ -31,14 +60,6 @@ def check_existing():
     if len(c.get_folder_files(includes_path)) == 0:
         return False
 
-    version_file = install_dir + '/cmake/TesseractConfig-version.cmake'
-    if not os.path.exists(version_file):
-        return False
-
-    with open(version_file, 'rt') as f:
-        existing_version = f.readline()[22:27]  # set(Tesseract_VERSION 1.78.0)
-        if existing_version != required_version:
-            return False
     return True
 
 
@@ -69,29 +90,15 @@ if platform.system() == "Windows":
 c.set_make_threaded()
 c.run('cmake {}'.format(cmake_args))
 
-# compatibility flags
-compat_flags = ''
-if 'NO_AVX2' in os.environ:
-    compat_flags += ' -D USE_AVX2=OFF '
-if 'NO_AVX' in os.environ:
-    compat_flags += ' -D USE_AVX=OFF '
-if 'NO_FMA' in os.environ:
-    compat_flags += ' -D USE_FMA=OFF '
-if 'NO_BMI2' in os.environ:
-    compat_flags += ' -D USE_BMI2=OFF '
-if 'NO_SSE4' in os.environ:
-    compat_flags += '  -D USE_SSE4_1=OFF -D USE_SSE4_2=OFF '
-if 'NO_OPT' in os.environ:
-    compat_flags += ' -D CMAKE_CXX_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
-    compat_flags += ' -D CMAKE_C_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
-
 if len(compat_flags) > 0:
     c.run('cmake {} .'.format(compat_flags))
-    c.run('cmake {} .'.format(compat_flags)) # for sure :)
+    c.run('cmake {} .'.format(compat_flags))  # for sure :)
 
-build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 c.run('cmake --build . --config {}'.format(build_type_flag))
 c.run('cmake --build . --target install --config {}'.format(build_type_flag))
+
+with open(cache_file, 'w') as f:
+    f.write(cache_file_data)
 
 if not check_existing():  # create links
     c.print('>> Build failed')
