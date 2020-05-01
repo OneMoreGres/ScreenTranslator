@@ -1067,7 +1067,22 @@ in %1</source>
         <translation>Текст для проверки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="325"/>
+        <location filename="../../src/settingseditor.cpp" line="116"/>
+        <source>The program workflow consists of the following steps:
+1. Selection on the screen area
+2. Recognition of the selected area
+3. Correction of the recognized text (optional)
+4. Translation of the corrected text (optional)
+Steps 2, 3 and 4 require additional data that can be downloaded from the updates page.</source>
+        <translation>Процесс работы с программой состоит из следующих шагов:
+1. Выделение области экрана
+2. Распознавание выделенной области
+3. Коррекция распознанного текста (не обязательно)
+4. Перевод откорректированного текста (не обязательно)
+Шаги 2,3 и 4 требуют дополнительных данных, которые можно скачать на странице обновлений.</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="333"/>
         <source>Portable changed. Apply settings first</source>
         <translation>Portable режиме изменени. Сначала применить настройки</translation>
     </message>

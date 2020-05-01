@@ -111,6 +111,14 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
     ui->aboutLabel->setText(aboutText);
     ui->aboutLabel->setTextFormat(Qt::RichText);
     ui->aboutLabel->setOpenExternalLinks(true);
+
+    ui->helpLabel->setText(
+        tr(R"(The program workflow consists of the following steps:
+1. Selection on the screen area
+2. Recognition of the selected area
+3. Correction of the recognized text (optional)
+4. Translation of the corrected text (optional)
+Steps 2, 3 and 4 require additional data that can be downloaded from the updates page.)"));
   }
 
   new service::WidgetState(this);
