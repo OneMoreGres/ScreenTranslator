@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+#include <deque>
+
 class Corrector : public QObject
 {
   Q_OBJECT
@@ -22,8 +24,10 @@ private:
   void finishCorrection(const TaskPtr &task);
   QString substituteUser(const QString &source,
                          const LanguageId &language) const;
+  void processQueue();
 
   Manager &manager_;
   const Settings &settings_;
   QThread *workerThread_;
+  std::deque<TaskPtr> queue_;
 };

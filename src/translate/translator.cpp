@@ -117,6 +117,7 @@ void Translator::updateSettings()
 {
   view_->setPage(nullptr);
   pages_.clear();
+  queue_.clear();
   url_->clear();
 
   tabs_->blockSignals(true);

@@ -3,6 +3,7 @@
 #include "manager.h"
 #include "recognizerworker.h"
 #include "settings.h"
+#include "task.h"
 #include "tesseract.h"
 
 #include <QThread>
@@ -15,7 +16,7 @@ Recognizer::Recognizer(Manager &manager, const Settings &settings)
   auto worker = new RecognizeWorker;
   connect(this, &Recognizer::reset,  //
           worker, &RecognizeWorker::reset);
-  connect(this, &Recognizer::recognize,  //
+  connect(this, &Recognizer::recognizeImpl,  //
           worker, &RecognizeWorker::handle);
   connect(worker, &RecognizeWorker::finished,  //
           this, &Recognizer::recognized);
@@ -26,9 +27,35 @@ Recognizer::Recognizer(Manager &manager, const Settings &settings)
   worker->moveToThread(workerThread_);
 }
 
+void Recognizer::recognize(const TaskPtr &task)
+{
+  SOFT_ASSERT(task, return );
+  SOFT_ASSERT(task->isValid(), return );
+
+  queue_.push_back(task);
+  if (queue_.size() == 1)
+    processQueue();
+}
+
+void Recognizer::processQueue()
+{
+  if (queue_.empty())
+    return;
+  emit recognizeImpl(queue_.front());
+}
+
 void Recognizer::recognized(const TaskPtr &task)
 {
   manager_.recognized(task);
+
+  SOFT_ASSERT(!queue_.empty(), return );
+  if (queue_.front() == task) {
+    queue_.pop_front();
+  } else {
+    LERROR() << "processed not first item in recognition queue";
+    queue_.clear();
+  }
+  processQueue();
 }
 
 Recognizer::~Recognizer()
@@ -43,5 +70,6 @@ void Recognizer::updateSettings()
 {
   SOFT_ASSERT(!settings_.tessdataPath.isEmpty(), return );
 
+  queue_.clear();
   emit reset(settings_.tessdataPath);
 }

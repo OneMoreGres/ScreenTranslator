@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+#include <deque>
+
 class Recognizer : public QObject
 {
   Q_OBJECT
@@ -12,15 +14,18 @@ public:
   ~Recognizer();
 
   void updateSettings();
+  void recognize(const TaskPtr &task);
 
 signals:
-  void recognize(const TaskPtr &task);
+  void recognizeImpl(const TaskPtr &task);
   void reset(const QString &tessdataPath);
 
 private:
   void recognized(const TaskPtr &task);
+  void processQueue();
 
   Manager &manager_;
   const Settings &settings_;
   QThread *workerThread_;
+  std::deque<TaskPtr> queue_;
 };

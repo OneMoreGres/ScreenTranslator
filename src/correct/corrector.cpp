@@ -40,8 +40,10 @@ void Corrector::correct(const TaskPtr &task)
   SOFT_ASSERT(task, return );
   SOFT_ASSERT(task->isValid(), return );
 
+  queue_.push_back(task);
+
   if (task->recognized.isEmpty()) {
-    manager_.corrected(task);
+    finishCorrection(task);
     return;
   }
 
@@ -52,22 +54,40 @@ void Corrector::correct(const TaskPtr &task)
     LTRACE() << "Corrected with user data";
   }
 
-  if (task->useHunspell) {
-    emit correctAuto(task);
+  if (!task->useHunspell) {
+    finishCorrection(task);
     return;
   }
 
-  finishCorrection(task);
+  if (queue_.size() == 1)
+    processQueue();
+}
+
+void Corrector::processQueue()
+{
+  if (queue_.empty())
+    return;
+  emit correctAuto(queue_.front());
 }
 
 void Corrector::updateSettings()
 {
+  queue_.clear();
   emit resetAuto(settings_.hunspellDir);
 }
 
 void Corrector::finishCorrection(const TaskPtr &task)
 {
   manager_.corrected(task);
+
+  SOFT_ASSERT(!queue_.empty(), return );
+  if (queue_.front() == task) {
+    queue_.pop_front();
+  } else {
+    LERROR() << "processed not first item in correction queue";
+    queue_.clear();
+  }
+  processQueue();
 }
 
 QString Corrector::substituteUser(const QString &source,
