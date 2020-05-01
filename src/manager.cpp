@@ -79,6 +79,7 @@ Manager::~Manager()
   if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged()) {
     settings_->lastUpdateCheck = updateAutoChecker_->lastCheckDate();
     settings_->saveLastUpdateCheck();
+    LTRACE() << "saved last update time";
   }
 }
 

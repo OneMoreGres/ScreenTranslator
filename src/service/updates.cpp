@@ -176,6 +176,7 @@ void Loader::handleReply(QNetworkReply *reply)
 
 void Loader::checkForUpdates()
 {
+  LTRACE() << "Loader::checkForUpdates";
   startDownloadUpdates({});
 }
 
@@ -373,6 +374,7 @@ bool Loader::handleComponentReply(QNetworkReply *reply)
 
 void Loader::finishUpdate(const QString &error)
 {
+  LTRACE() << "Loader::finishUpdate";
   currentActions_.clear();
   for (const auto &i : downloads_) i.first->deleteLater();
   downloads_.clear();
@@ -385,6 +387,7 @@ void Loader::finishUpdate(const QString &error)
 
 void Loader::commitUpdate()
 {
+  LTRACE() << "Loader::commitUpdate";
   SOFT_ASSERT(!currentActions_.empty(), return );
   Installer installer(currentActions_);
   if (installer.commit()) {

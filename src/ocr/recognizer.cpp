@@ -62,8 +62,10 @@ Recognizer::~Recognizer()
 {
   workerThread_->quit();
   const auto timeoutMs = 2000;
-  if (!workerThread_->wait(timeoutMs))
+  if (!workerThread_->wait(timeoutMs)) {
+    LTRACE() << "terminating tesseract thread";
     workerThread_->terminate();
+  }
 }
 
 void Recognizer::updateSettings()

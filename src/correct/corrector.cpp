@@ -31,8 +31,10 @@ Corrector::~Corrector()
 {
   workerThread_->quit();
   const auto timeoutMs = 2000;
-  if (!workerThread_->wait(timeoutMs))
+  if (!workerThread_->wait(timeoutMs)) {
+    LTRACE() << "terminating hunspell thread";
     workerThread_->terminate();
+  }
 }
 
 void Corrector::correct(const TaskPtr &task)
