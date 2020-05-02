@@ -1073,16 +1073,18 @@ in %1</source>
 2. Recognition of the selected area
 3. Correction of the recognized text (optional)
 4. Translation of the corrected text (optional)
+User interaction is only required for step 1.
 Steps 2, 3 and 4 require additional data that can be downloaded from the updates page.</source>
         <translation>Процесс работы с программой состоит из следующих шагов:
 1. Выделение области экрана
 2. Распознавание выделенной области
 3. Коррекция распознанного текста (не обязательно)
 4. Перевод откорректированного текста (не обязательно)
+Действия пользователя требуются только на первом шаге.
 Шаги 2,3 и 4 требуют дополнительных данных, которые можно скачать на странице обновлений.</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="333"/>
+        <location filename="../../src/settingseditor.cpp" line="334"/>
         <source>Portable changed. Apply settings first</source>
         <translation>Portable режиме изменени. Сначала применить настройки</translation>
     </message>
@@ -1263,23 +1265,23 @@ Steps 2, 3 and 4 require additional data that can be downloaded from the updates
         <translation>Установить/Обновить</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1029"/>
-        <location filename="../../src/service/updates.cpp" line="1046"/>
+        <location filename="../../src/service/updates.cpp" line="1032"/>
+        <location filename="../../src/service/updates.cpp" line="1049"/>
         <source>Directory is not writable
 %1</source>
         <translation>Папка недоступна для записи
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1038"/>
+        <location filename="../../src/service/updates.cpp" line="1041"/>
         <source>Downloaded file not exists
 %1</source>
         <translation>Скачанный файл не существует
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1058"/>
-        <location filename="../../src/service/updates.cpp" line="1076"/>
+        <location filename="../../src/service/updates.cpp" line="1061"/>
+        <location filename="../../src/service/updates.cpp" line="1079"/>
         <source>Failed to remove file
 %1
 Error %2</source>
@@ -1288,14 +1290,14 @@ Error %2</source>
 Текст %2</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1069"/>
+        <location filename="../../src/service/updates.cpp" line="1072"/>
         <source>Failed to create path
 %1</source>
         <translation>Ошибка создания папки
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="1084"/>
+        <location filename="../../src/service/updates.cpp" line="1087"/>
         <source>Failed to move file
 %1
 to %2
@@ -1317,66 +1319,66 @@ Error %3</source>
 <context>
     <name>update::Loader</name>
     <message>
-        <location filename="../../src/service/updates.cpp" line="219"/>
+        <location filename="../../src/service/updates.cpp" line="220"/>
         <source>Empty updates info from
 %1</source>
         <translation>Пустой файл обновлений из
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="228"/>
+        <location filename="../../src/service/updates.cpp" line="229"/>
         <source>Empty updates info unpacked from
 %1</source>
         <translation>Пустой файл обновлений распакован из
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="236"/>
+        <location filename="../../src/service/updates.cpp" line="237"/>
         <source>Failed to parse updates from
 %1 (%2)</source>
         <translation>Ошибка разбора файла обновлений
 %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="250"/>
+        <location filename="../../src/service/updates.cpp" line="251"/>
         <source>Failed to download file
 %1. Error %2</source>
         <translation>Ошибка скачивания файла
 %1. Текст %2</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="258"/>
+        <location filename="../../src/service/updates.cpp" line="259"/>
         <source>Already updating</source>
         <translation>Обновление в процессе</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="264"/>
+        <location filename="../../src/service/updates.cpp" line="265"/>
         <source>No actions selected</source>
         <translation>Нет выделенных действий</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="329"/>
+        <location filename="../../src/service/updates.cpp" line="330"/>
         <source>Failed to create temp path
 %1</source>
         <translation>Ошибка создания временной папки
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="336"/>
+        <location filename="../../src/service/updates.cpp" line="337"/>
         <source>Empty data downloaded from
 %1</source>
         <translation>Пустой файл из
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="349"/>
+        <location filename="../../src/service/updates.cpp" line="350"/>
         <source>Empty data unpacked from
 %1</source>
         <translation>Пустой файл распакован из
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="359"/>
+        <location filename="../../src/service/updates.cpp" line="360"/>
         <source>Failed to save downloaded file
 %1
 to %2
@@ -1387,7 +1389,7 @@ Error %3</source>
 Текст %3</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="395"/>
+        <location filename="../../src/service/updates.cpp" line="398"/>
         <source>Update failed: %1</source>
         <translation>Ошибка обновления: %1</translation>
     </message>
@@ -1395,62 +1397,62 @@ Error %3</source>
 <context>
     <name>update::Model</name>
     <message>
-        <location filename="../../src/service/updates.cpp" line="457"/>
+        <location filename="../../src/service/updates.cpp" line="460"/>
         <source>Select all updates</source>
         <translation>Выбрать все обновления</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="458"/>
+        <location filename="../../src/service/updates.cpp" line="461"/>
         <source>Reset actions</source>
         <translation>Сбросить действия</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="496"/>
+        <location filename="../../src/service/updates.cpp" line="499"/>
         <source>Failed to parse: %1 at %2</source>
         <translation>Ошибка разбора: %1 в %2</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="504"/>
+        <location filename="../../src/service/updates.cpp" line="507"/>
         <source>Wrong updates version: %1</source>
         <translation>Неверная версия файла обновлений: %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="516"/>
+        <location filename="../../src/service/updates.cpp" line="519"/>
         <source>No data parsed</source>
         <translation>Нет разобранных данных</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="873"/>
+        <location filename="../../src/service/updates.cpp" line="876"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="873"/>
+        <location filename="../../src/service/updates.cpp" line="876"/>
         <source>State</source>
         <translation>Состояние</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="874"/>
+        <location filename="../../src/service/updates.cpp" line="877"/>
         <source>Action</source>
         <translation>Действие</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="874"/>
+        <location filename="../../src/service/updates.cpp" line="877"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="875"/>
+        <location filename="../../src/service/updates.cpp" line="878"/>
         <source>Version</source>
         <translation>Версия</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="875"/>
+        <location filename="../../src/service/updates.cpp" line="878"/>
         <source>Progress</source>
         <translation>Прогресс</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="876"/>
+        <location filename="../../src/service/updates.cpp" line="879"/>
         <source>Files</source>
         <translation>Файла</translation>
     </message>
