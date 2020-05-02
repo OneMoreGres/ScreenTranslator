@@ -45,9 +45,11 @@ os.environ['VERSION'] = app_version
 # debug flags: -unsupported-bundle-everything -unsupported-allow-new-glibc
 flags = '' if os.getenv("DEBUG") is None else '-unsupported-allow-new-glibc'
 
+additional_files = glob(ssl_dir + '/lib/lib*.so.*') + \
+    glob('/usr/lib/x86_64-linux-gnu/nss/*')
 out_lib_dir = install_dir + '/usr/lib'
 os.makedirs(out_lib_dir, exist_ok=True)
-for f in glob(ssl_dir + '/lib/lib*.so.*'):
+for f in additional_files:
     c.print('>> Copying {} to {}'.format(f, out_lib_dir))
     shutil.copy(f, out_lib_dir)
 
