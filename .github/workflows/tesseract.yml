@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "share/ci/**"
+      - ".github/workflows/tesseract.yml"
 
 jobs:
   build:
