@@ -1,0 +1,62 @@
+name: Tesseract alternative builds
+
+on:
+  push:
+    paths:
+      - "share/ci/**"
+      - ".github/workflows/tesseract.yml"
+
+jobs:
+  build:
+    name: Build ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    env:
+      OS: ${{ matrix.config.name }}
+      MSVC_VERSION: 2019/Enterprise
+    strategy:
+      matrix:
+        config:
+          - { name: "win64", os: windows-latest }
+          - { name: "win32", os: windows-latest }
+          - { name: "linux", os: ubuntu-16.04 }
+          # - { name: "macos", os: macos-latest }
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+
+      - name: Setup python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: deps
+          key: ${{ env.OS }}-tess
+
+      - name: Leptonica
+        run: python ./share/ci/get_leptonica.py
+
+      - name: Compatible
+        env:
+          MARCH: nehalem
+        run: python ./share/ci/get_tesseract.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: tesseract-compatible-${{ env.OS }}
+          path: ./deps
+
+      - name: Optimized
+        env:
+          MARCH: kaby-lake
+        run: python ./share/ci/get_tesseract.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: tesseract-optimized-${{ env.OS }}
+          path: ./deps

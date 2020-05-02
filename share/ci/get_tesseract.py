@@ -12,10 +12,6 @@ required_version = '4.1.1'
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 
 # compatibility flags
-os.environ.setdefault('NO_AVX2', '1')
-os.environ.setdefault('NO_AVX512', '1')
-os.environ.setdefault('MARCH', 'sandy-bridge')
-
 compat_flags = ''
 if os.environ.get('NO_AVX2', '0') == '1':
     compat_flags += ' -D USE_AVX2=OFF '

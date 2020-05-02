@@ -1,4 +1,4 @@
-name: Build
+name: App build
 
 on: [push]
 
@@ -73,6 +73,8 @@ jobs:
         run: python ./share/ci/get_leptonica.py
 
       - name: Get tesseract
+        env:
+          MARCH: sandy-bridge
         run: python ./share/ci/get_tesseract.py
 
       - name: Get hunspell
