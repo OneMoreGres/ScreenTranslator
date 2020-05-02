@@ -46,7 +46,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: compatible
+          name: tesseract-compatible-${{ env.OS }}
           path: ./deps
 
       - name: Optimized
@@ -57,5 +57,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: optimized
+          name: tesseract-optimized-${{ env.OS }}
           path: ./deps
