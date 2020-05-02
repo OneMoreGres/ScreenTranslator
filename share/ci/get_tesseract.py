@@ -12,21 +12,30 @@ required_version = '4.1.1'
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 
 # compatibility flags
-os.environ['NO_AVX2'] = '1'  # default
+os.environ.setdefault('NO_AVX2', '1')
+os.environ.setdefault('NO_AVX512', '1')
+os.environ.setdefault('MARCH', 'sandy-bridge')
+
 compat_flags = ''
-if 'NO_AVX2' in os.environ:
+if os.environ.get('NO_AVX2', '0') == '1':
     compat_flags += ' -D USE_AVX2=OFF '
-if 'NO_AVX' in os.environ:
+if os.environ.get('NO_AVX512', '0') == '1':
+    compat_flags += ' -D USE_AVX512BW=OFF -D USE_AVX512CD=OFF \
+-D USE_AVX512DQ=OFF -D USE_AVX512ER=OFF -D USE_AVX512F=OFF -D USE_AVX512IFMA=OFF \
+-D USE_AVX512PF=OFF -D USE_AVX512VBMI=OFF -D USE_AVX512VL=OFF '
+if os.environ.get('NO_AVX', '0') == '1':
     compat_flags += ' -D USE_AVX=OFF '
-if 'NO_FMA' in os.environ:
+if os.environ.get('NO_FMA', '0') == '1':
     compat_flags += ' -D USE_FMA=OFF '
-if 'NO_BMI2' in os.environ:
+if os.environ.get('NO_BMI2', '0') == '1':
     compat_flags += ' -D USE_BMI2=OFF '
-if 'NO_SSE4' in os.environ:
+if os.environ.get('NO_SSE4', '0') == '1':
     compat_flags += '  -D USE_SSE4_1=OFF -D USE_SSE4_2=OFF '
-if 'NO_OPT' in os.environ:
+if os.environ.get('NO_OPT', '0') == '1':
     compat_flags += ' -D CMAKE_CXX_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
     compat_flags += ' -D CMAKE_C_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
+if len(os.environ.get('MARCH', '')) > 0:
+    compat_flags += ' -D TARGET_ARCHITECTURE={} '.format(os.environ['MARCH'])
 
 cache_file = install_dir + '/tesseract.cache'
 cache_file_data = required_version + build_type_flag + compat_flags
