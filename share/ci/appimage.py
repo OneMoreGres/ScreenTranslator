@@ -10,7 +10,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'glibc_version':  # subcommand
     sub.run('ldd --version | head -n 1 | grep -Po "\\d\\.\\d\\d"', shell=True)
     exit(0)
 
-artifact_name = '{}-{}.AppImage'.format(app_name, app_version)
+tag = os.environ.get('TAG', '')
+artifact_name = '{}-{}{}.AppImage'.format(app_name, app_version, tag)
 if len(sys.argv) > 1 and sys.argv[1] == 'artifact_name':  # subcommand
     c.print(artifact_name)
     exit(0)

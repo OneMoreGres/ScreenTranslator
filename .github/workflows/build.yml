@@ -29,17 +29,22 @@ jobs:
           name: release_upload_url
 
   build:
-    name: Build ${{ matrix.config.name }}
+    name: Build ${{ matrix.config.name }}${{ matrix.config.tag }}
     runs-on: ${{ matrix.config.os }}
     env:
       OS: ${{ matrix.config.name }}
+      MARCH: ${{ matrix.config.march }}
+      TAG: ${{ matrix.config.tag }}
       MSVC_VERSION: 2019/Enterprise
     strategy:
       matrix:
         config:
-          - { name: "win64", os: windows-latest }
-          - { name: "win32", os: windows-latest }
-          - { name: "linux", os: ubuntu-16.04 }
+          - { name: "win64", os: windows-latest, tag: "", march: "sandy-bridge" }
+          - { name: "win32", os: windows-latest, tag: "", march: "sandy-bridge" }
+          - { name: "linux", os: ubuntu-16.04, tag: "", march: "sandy-bridge" }
+          - { name: "win64", os: windows-latest, tag: "-compatible", march: "nehalem" }
+          - { name: "win32", os: windows-latest, tag: "-compatible", march: "nehalem" }
+          - { name: "linux", os: ubuntu-16.04, tag: "-compatible", march: "nehalem" }
           # - { name: "macos", os: macos-latest }
     steps:
       - uses: actions/checkout@v2
@@ -61,7 +66,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: deps
-          key: ${{ env.OS }}-deps
+          key: ${{ env.OS }}-${{ env.TAG }}-deps
 
       - name: Get Qt
         run: python ./share/ci/get_qt.py
@@ -73,8 +78,6 @@ jobs:
         run: python ./share/ci/get_leptonica.py
 
       - name: Get tesseract
-        env:
-          MARCH: sandy-bridge
         run: python ./share/ci/get_tesseract.py
 
       - name: Get hunspell

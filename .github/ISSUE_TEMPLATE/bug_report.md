@@ -31,8 +31,7 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. windows 10, ubuntu 18.04]
  - Desktop environment (linux only): [e.g. KDE, Gnome]
- - App version: [e.g. 3.0.0]
- - App bitness version (windows only): [e.g. win32, win64]
+ - App version (release archive name): [e.g. 3.0.0-win32, 3.0.0-compatible-win64]
 
 **Additional context**
 Add any other context about the problem here.

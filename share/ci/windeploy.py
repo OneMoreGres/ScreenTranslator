@@ -5,7 +5,8 @@ import sys
 import shutil
 from glob import glob
 
-artifact_name = '{}-{}-{}.zip'.format(app_name, app_version, os_name)
+tag = os.environ.get('TAG', '')
+artifact_name = '{}-{}{}-{}.zip'.format(app_name, app_version, tag, os_name)
 if len(sys.argv) > 1 and sys.argv[1] == 'artifact_name':  # subcommand
     c.print(artifact_name)
     exit(0)

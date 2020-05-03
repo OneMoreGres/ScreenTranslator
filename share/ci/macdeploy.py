@@ -3,7 +3,8 @@ from config import *
 import os
 import sys
 
-artifact_name = '{}-{}.dmg'.format(app_name, app_version)
+tag = os.environ.get('TAG', '')
+artifact_name = '{}-{}{}.dmg'.format(app_name, app_version, tag)
 if len(sys.argv) > 1 and sys.argv[1] == 'artifact_name':  # subcommand
     c.print(artifact_name)
     exit(0)
