@@ -236,11 +236,16 @@ void CaptureAreaSelector::hideEvent(QHideEvent * /*event*/)
 void CaptureAreaSelector::keyPressEvent(QKeyEvent *event)
 {
   if (event->key() == Qt::Key_Escape) {
+    if (editor_ && editor_->isVisible())
+      applyEditor();
     cancel();
     return;
   }
 
   if (event->key() == Qt::Key_Return) {
+    if (editor_ && editor_->isVisible())
+      applyEditor();
+
     if (!areas_.empty()) {
       captureAll();
     } else {
