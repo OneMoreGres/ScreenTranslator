@@ -9,7 +9,7 @@ Basically it is a combination of screen capture, OCR and translation tools.
 
 **Windows**: download archive from [github releases](https://github.com/OneMoreGres/ScreenTranslator/releases) page, extract it and run `.exe` file.
 
-Optionally you can install `vs_redist*.exe` package from the release archive.
+If the app fails to start with missing dll's error then install `vs_redist*.exe` from the release archive.
 If you have any update errors related to SSL/TLS you should also install or repair `vcredist 2010` (from the Microsoft website).
 
 **Linux**: download `.AppImage` file from [github releases](https://github.com/OneMoreGres/ScreenTranslator/releases), make executable (`chmod +x <file>`) and run it.
