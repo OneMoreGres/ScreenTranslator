@@ -107,6 +107,8 @@ void Manager::updateSettings()
   setupProxy(*settings_);
   setupUpdates(*settings_);
 
+  tray_->setTaskActionsEnabled(false);
+
   models_->update(settings_->tessdataPath);
 
   tray_->updateSettings();

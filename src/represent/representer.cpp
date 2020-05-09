@@ -26,6 +26,12 @@ Representer::~Representer() = default;
 
 void Representer::showLast()
 {
+  if (settings_.resultShowType == ResultMode::Tooltip) {
+    SOFT_ASSERT(lastTooltipTask_, return );
+    showTooltip(lastTooltipTask_);
+    return;
+  }
+
   SOFT_ASSERT(!widgets_.empty(), return );
   for (auto &widget : widgets_) {
     SOFT_ASSERT(widget->task(), continue);
@@ -38,6 +44,12 @@ void Representer::showLast()
 
 void Representer::clipboardLast()
 {
+  if (settings_.resultShowType == ResultMode::Tooltip) {
+    SOFT_ASSERT(lastTooltipTask_, return );
+    clipboardText(lastTooltipTask_);
+    return;
+  }
+
   SOFT_ASSERT(!widgets_.empty(), return );
   SOFT_ASSERT(widgets_.front()->task(), return );
   clipboardText(widgets_.front()->task());
@@ -70,6 +82,7 @@ void Representer::hide()
 
 void Representer::updateSettings()
 {
+  lastTooltipTask_.reset();
   if (widgets_.empty())
     return;
   for (auto &w : widgets_) w->updateSettings();
@@ -128,12 +141,16 @@ bool Representer::eventFilter(QObject * /*watched*/, QEvent *event)
 
 void Representer::showTooltip(const TaskPtr &task)
 {
+  SOFT_ASSERT(task, return );
+  lastTooltipTask_ = task;
+
   auto message = task->recognized + " - " + task->translated;
   tray_.showInformation(message);
 }
 
 void Representer::showWidget(const TaskPtr &task)
 {
+  SOFT_ASSERT(task, return );
   generation_ = task->generation;
 
   auto index = 0u;

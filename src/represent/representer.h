@@ -40,4 +40,5 @@ private:
   Generation generation_{};
   std::vector<std::unique_ptr<ResultWidget>> widgets_;
   std::unique_ptr<ResultEditor> editor_;
+  TaskPtr lastTooltipTask_;
 };
