@@ -129,7 +129,7 @@ void Translator::updateSettings()
   tabs_->blockSignals(false);
 
   if (settings_.translators.empty()) {
-    manager_.fatalError(tr("No translators selected"));
+    manager_.fatalError(tr("No translators selected. Check settings"));
     return;
   }
 

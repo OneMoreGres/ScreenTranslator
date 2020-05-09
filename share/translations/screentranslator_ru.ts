@@ -638,12 +638,12 @@ Check for updates to silence this warning</source>
 Проверьте обновления, чтобы отключить это сообщение</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="187"/>
+        <location filename="../../src/manager.cpp" line="189"/>
         <source>Failed to set log file: %1</source>
         <translation>Ошибка установки лог-файла: %1</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="193"/>
+        <location filename="../../src/manager.cpp" line="195"/>
         <source>Started logging to file: %1</source>
         <translation>Начата запись в лог-файл: %1</translation>
     </message>
@@ -1139,8 +1139,8 @@ Steps 2, 3 and 4 require additional data that can be downloaded from the updates
     </message>
     <message>
         <location filename="../../src/translate/translator.cpp" line="132"/>
-        <source>No translators selected</source>
-        <translation>Нет выбранных переводчиков</translation>
+        <source>No translators selected. Check settings</source>
+        <translation>Нет выбранных переводчиков. Проверьте настройки</translation>
     </message>
     <message>
         <location filename="../../src/translate/translator.cpp" line="140"/>
