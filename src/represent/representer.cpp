@@ -144,7 +144,9 @@ void Representer::showTooltip(const TaskPtr &task)
   SOFT_ASSERT(task, return );
   lastTooltipTask_ = task;
 
-  auto message = task->recognized + " - " + task->translated;
+  auto message = task->recognized;
+  if (!task->translated.isEmpty())
+    message += QLatin1String(" - ") + task->translated;
   tray_.showInformation(message);
 }
 
