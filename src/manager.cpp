@@ -103,11 +103,13 @@ void Manager::updateSettings()
 {
   LTRACE() << "updateSettings";
   SOFT_ASSERT(settings_, return );
+
+  tray_->resetFatalError();
+  tray_->setTaskActionsEnabled(false);
+
   settings_->writeTrace = setupTrace(settings_->writeTrace);
   setupProxy(*settings_);
   setupUpdates(*settings_);
-
-  tray_->setTaskActionsEnabled(false);
 
   models_->update(settings_->tessdataPath);
 
