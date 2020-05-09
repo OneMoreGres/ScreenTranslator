@@ -1075,24 +1075,30 @@ in %1</source>
         <translation>Текст для проверки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="116"/>
+        <location filename="../../src/settingseditor.cpp" line="115"/>
         <source>The program workflow consists of the following steps:
 1. Selection on the screen area
 2. Recognition of the selected area
 3. Correction of the recognized text (optional)
 4. Translation of the corrected text (optional)
 User interaction is only required for step 1.
-Steps 2, 3 and 4 require additional data that can be downloaded from the updates page.</source>
+Steps 2, 3 and 4 require additional data that can be downloaded from the updates page.
+
+At first start, go to the updates page and install desired recognition languages and translators and, optionally, hunspell dictionaries.
+Then set default recognition and translation languages, enable some (or all) translators and the &quot;translate text&quot; setting, if needed.</source>
         <translation>Процесс работы с программой состоит из следующих шагов:
 1. Выделение области экрана
 2. Распознавание выделенной области
 3. Коррекция распознанного текста (не обязательно)
 4. Перевод откорректированного текста (не обязательно)
 Действия пользователя требуются только на первом шаге.
-Шаги 2,3 и 4 требуют дополнительных данных, которые можно скачать на странице обновлений.</translation>
+Шаги 2,3 и 4 требуют дополнительных данных, которые можно скачать на странице обновлений.
+
+При первом запуске перейдите на страницу обновлений и установите желаемые языки распознавания и переводчики, а также, если нужно, словари hunspell.
+Далее установите языки распознавания и перевода по умолчанию, активируйте некоторые (или все) переводчики и настройку &quot;переводить текст&quot;, если нужно.</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="334"/>
+        <location filename="../../src/settingseditor.cpp" line="341"/>
         <source>Portable changed. Apply settings first</source>
         <translation>Portable режиме изменени. Сначала применить настройки</translation>
     </message>

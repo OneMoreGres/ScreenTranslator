@@ -112,14 +112,21 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
     ui->aboutLabel->setTextFormat(Qt::RichText);
     ui->aboutLabel->setOpenExternalLinks(true);
 
-    ui->helpLabel->setText(
-        tr(R"(The program workflow consists of the following steps:
-1. Selection on the screen area
-2. Recognition of the selected area
-3. Correction of the recognized text (optional)
-4. Translation of the corrected text (optional)
-User interaction is only required for step 1.
-Steps 2, 3 and 4 require additional data that can be downloaded from the updates page.)"));
+    ui->helpLabel->setText(tr(
+        "The program workflow consists of the following steps:\n"
+        "1. Selection on the screen area\n"
+        "2. Recognition of the selected area\n"
+        "3. Correction of the recognized text (optional)\n"
+        "4. Translation of the corrected text (optional)\n"
+        "User interaction is only required for step 1.\n"
+        "Steps 2, 3 and 4 require additional data that can be downloaded from "
+        "the updates page.\n"
+        "\n"
+        "At first start, go to the updates page and install desired "
+        "recognition languages and translators and, optionally, hunspell "
+        "dictionaries.\n"
+        "Then set default recognition and translation languages, enable some "
+        "(or all) translators and the \"translate text\" setting, if needed."));
   }
 
   new service::WidgetState(this);
