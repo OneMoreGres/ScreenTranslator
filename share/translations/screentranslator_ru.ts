@@ -707,6 +707,14 @@ in %1</source>
     </message>
 </context>
 <context>
+    <name>Recognizer</name>
+    <message>
+        <location filename="../../src/ocr/recognizer.cpp" line="36"/>
+        <source>No source language set. Check settings</source>
+        <translation>Не задан исходный язык. Проверьте настройки</translation>
+    </message>
+</context>
+<context>
     <name>ResultEditor</name>
     <message>
         <location filename="../../src/represent/resulteditor.cpp" line="24"/>

@@ -32,6 +32,12 @@ void Recognizer::recognize(const TaskPtr &task)
   SOFT_ASSERT(task, return );
   SOFT_ASSERT(task->isValid(), return );
 
+  if (task->sourceLanguage.isEmpty()) {
+    task->error = tr("No source language set. Check settings");
+    manager_.recognized(task);
+    return;
+  }
+
   queue_.push_back(task);
   if (queue_.size() == 1)
     processQueue();
