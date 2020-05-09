@@ -16,6 +16,16 @@ If you have any update errors related to SSL/TLS you should also install or repa
 
 **OS X**: currently not supported.
 
+## Setup
+
+Start the app, open the updates page of the settings window
+and install required recognition languages, translators and, optionally,
+hunspell dictionaries.
+
+After languages/translators installation set default recognition and
+translation languages, enable some (or all) translators
+and the `translate text` setting if needed.
+
 ## Usage
 
 1. Run program (note that it doesn't have main window).
