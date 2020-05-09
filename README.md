@@ -55,6 +55,13 @@ and the `translate text` setting if needed.
 * see [Leptonica](https://leptonica.com/)
 * several online translation services
 
+## Build from source
+
+Look at the scripts (python3) in the `share/ci` folder.
+Normally, you should only edit the `config.py` file.
+
+Build dependencies at first, then build the app.
+
 ## Attributions
 
 * icons made by
