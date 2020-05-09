@@ -44,6 +44,11 @@ and the `translate text` setting if needed.
 4. Get translation of recognized text.
 5. Check for updates if something is not working.
 
+## FAQ
+
+Answers to some frequently asked questions can be found in issues or
+[wiki](https://github.com/OneMoreGres/ScreenTranslator/wiki/FAQ)
+
 ## Limitations
 
 * Can not capture some dynamic web-pages/full screen applications
