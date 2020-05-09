@@ -49,7 +49,8 @@ void TrayIcon::updateSettings()
     failedActions << settings_.captureLockedHotkey;
 
   if (!failedActions.isEmpty()) {
-    showError(tr("Failed to register global shortcuts:\n%1")
+    showError(tr("Failed to register global shortcuts:\n%1"
+                 "\nMost likely they are already in use by another program")
                   .arg(failedActions.join('\n')));
   }
 }

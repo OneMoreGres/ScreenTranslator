@@ -71,7 +71,7 @@ Ctrl - продолжить выделять</translation>
         <translation>Инструмент распознавания и перевода</translation>
     </message>
     <message>
-        <location filename="../../src/represent/representer.cpp" line="45"/>
+        <location filename="../../src/represent/representer.cpp" line="57"/>
         <source>The last result was copied to the clipboard.</source>
         <translation>Последний результат был скопирован в буфер обмена.</translation>
     </message>
@@ -638,12 +638,12 @@ Check for updates to silence this warning</source>
 Проверьте обновления, чтобы отключить это сообщение</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="185"/>
+        <location filename="../../src/manager.cpp" line="187"/>
         <source>Failed to set log file: %1</source>
         <translation>Ошибка установки лог-файла: %1</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="191"/>
+        <location filename="../../src/manager.cpp" line="193"/>
         <source>Started logging to file: %1</source>
         <translation>Начата запись в лог-файл: %1</translation>
     </message>
@@ -1156,58 +1156,60 @@ Steps 2, 3 and 4 require additional data that can be downloaded from the updates
     <message>
         <location filename="../../src/trayicon.cpp" line="52"/>
         <source>Failed to register global shortcuts:
-%1</source>
+%1
+Most likely they are already in use by another program</source>
         <translation>Ошибка установки глобальных горячих клавиш:
-%1</translation>
+%1
+Скорее всего они уже используются какой-то программой</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="155"/>
-        <location filename="../../src/trayicon.cpp" line="162"/>
+        <location filename="../../src/trayicon.cpp" line="156"/>
+        <location filename="../../src/trayicon.cpp" line="163"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="193"/>
+        <location filename="../../src/trayicon.cpp" line="194"/>
         <source>Capture</source>
         <translation>Захват</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="198"/>
+        <location filename="../../src/trayicon.cpp" line="199"/>
         <source>Repeat capture</source>
         <translation>Повторить захват</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="203"/>
+        <location filename="../../src/trayicon.cpp" line="204"/>
         <source>Capture saved areas</source>
         <translation>Захват сохраненных зон</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="209"/>
+        <location filename="../../src/trayicon.cpp" line="210"/>
         <source>Result</source>
         <translation>Результат</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="211"/>
+        <location filename="../../src/trayicon.cpp" line="212"/>
         <source>Show</source>
         <translation>Показать</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="216"/>
+        <location filename="../../src/trayicon.cpp" line="217"/>
         <source>To clipboard</source>
         <translation>В буфер обмена</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="223"/>
+        <location filename="../../src/trayicon.cpp" line="224"/>
         <source>Show translator</source>
         <translation>Показать переводчик</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="229"/>
+        <location filename="../../src/trayicon.cpp" line="230"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../../src/trayicon.cpp" line="235"/>
+        <location filename="../../src/trayicon.cpp" line="236"/>
         <source>Quit</source>
         <translation>Выход</translation>
     </message>
