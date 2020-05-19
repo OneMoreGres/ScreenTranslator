@@ -1,6 +1,7 @@
 #include "apptranslator.h"
 #include "manager.h"
 #include "singleapplication.h"
+#include "widgetstate.h"
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
     parser.setApplicationDescription(QObject::tr("OCR and translation tool"));
     parser.addHelpOption();
     parser.addVersionOption();
+    service::WidgetState::addHelp(parser);
 
     parser.process(a);
   }

@@ -66,7 +66,7 @@ Ctrl - продолжить выделять</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/main.cpp" line="27"/>
+        <location filename="../../src/main.cpp" line="28"/>
         <source>OCR and translation tool</source>
         <translation>Инструмент распознавания и перевода</translation>
     </message>
@@ -696,6 +696,11 @@ in %1</source>
         <location filename="../../src/capture/capturearea.cpp" line="34"/>
         <source>No target language set</source>
         <translation>Не задан язык результата</translation>
+    </message>
+    <message>
+        <location filename="../../src/service/widgetstate.cpp" line="110"/>
+        <source>Do not restore user interface (window size and position, etc)</source>
+        <translation>Не восстанавливать интерфейс пользователя (размер и положения окна и т.д.)</translation>
     </message>
 </context>
 <context>

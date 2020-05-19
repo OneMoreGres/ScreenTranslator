@@ -1,6 +1,7 @@
 #include "widgetstate.h"
 #include "debug.h"
 
+#include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QHeaderView>
 #include <QMainWindow>
@@ -101,6 +102,13 @@ bool WidgetState::eventFilter(QObject *watched, QEvent *event)
     save(widget);
 
   return QObject::eventFilter(watched, event);
+}
+
+void WidgetState::addHelp(QCommandLineParser &parser)
+{
+  parser.addOption(
+      {"reset-gui", QObject::tr("Do not restore user interface "
+                                "(window size and position, etc)")});
 }
 
 void WidgetState::save(QWidget *widget)
