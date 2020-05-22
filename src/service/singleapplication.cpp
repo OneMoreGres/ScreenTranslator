@@ -20,6 +20,8 @@ namespace service
 SingleApplication::SingleApplication(const QString &baseName)
   : lockFile_(fileName(baseName))
 {
+  lockFile_.setStaleLockTime(0);
+
   if (!lockFile_.tryLock()) {
     const auto lockName = fileName(baseName);
     LERROR() << QObject::tr("Another instance is running. Lock file is busy.")
