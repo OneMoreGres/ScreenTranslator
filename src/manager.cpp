@@ -31,10 +31,10 @@ const auto resultHideWaitUs = 300'000;
 using Loader = update::Loader;
 
 Manager::Manager()
-  : settings_(std::make_unique<Settings>())
+  : models_(std::make_unique<CommonModels>())
+  , settings_(std::make_unique<Settings>())
   , updater_(std::make_unique<Loader>(Loader::Urls{{updatesUrl}}))
   , updateAutoChecker_(std::make_unique<update::AutoChecker>(*updater_))
-  , models_(std::make_unique<CommonModels>())
 {
   SOFT_ASSERT(settings_, return );
 

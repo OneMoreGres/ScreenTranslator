@@ -35,6 +35,7 @@ private:
   void finishTask(const TaskPtr &task);
   void warnIfOutdated();
 
+  std::unique_ptr<CommonModels> models_;
   std::unique_ptr<Settings> settings_;
   std::unique_ptr<TrayIcon> tray_;
   std::unique_ptr<Capturer> capturer_;
@@ -44,6 +45,5 @@ private:
   std::unique_ptr<Representer> representer_;
   std::unique_ptr<update::Loader> updater_;
   std::unique_ptr<update::AutoChecker> updateAutoChecker_;
-  std::unique_ptr<CommonModels> models_;
   int activeTaskCount_{0};
 };
