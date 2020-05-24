@@ -1,8 +1,15 @@
 function httpGetAsync(url, callback) {
   let xmlHttp = new XMLHttpRequest();
+  xmlHttp.timeout = 30000; // msecs
   xmlHttp.onreadystatechange = function () {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    if (xmlHttp.readyState != 4)
+      return
+    if (xmlHttp.status == 200)
       callback(xmlHttp.responseText);
+    else
+      proxy.setFailed(xmlHttp.statusText)
+    xmlHttp.onreadystatechange = null;
+    xmlHttp = null;
   }
   xmlHttp.open("GET", url, true);
   xmlHttp.send(null);
