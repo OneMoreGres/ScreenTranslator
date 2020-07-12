@@ -638,12 +638,32 @@ Check for updates to silence this warning</source>
 Проверьте обновления, чтобы отключить это сообщение</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="189"/>
+        <location filename="../../src/manager.cpp" line="127"/>
+        <source>No recognition languages available. Install some via Settings-&gt;Updates</source>
+        <translation>Нет доступных языков распознавания. Установите нужные через Настройки-&gt;Обновление</translation>
+    </message>
+    <message>
+        <location filename="../../src/manager.cpp" line="132"/>
+        <source>Recognition language not set. Go to Settings-&gt;Recognition and set it</source>
+        <translation>Язык распознавания не задан. Задайте его в Настройки-&gt;Распознавание</translation>
+    </message>
+    <message>
+        <location filename="../../src/manager.cpp" line="136"/>
+        <source>No translators enabled. Go to Settings-&gt;Translation and select some</source>
+        <translation>Не выбран ни один переводчик. Активируйте хотя бы один в Настройки-&gt;Перевод</translation>
+    </message>
+    <message>
+        <location filename="../../src/manager.cpp" line="141"/>
+        <source>Translation language not set. Go to Settings-&gt;Translation and set it</source>
+        <translation>Язык перевода не задан. Задайте его в Настройки-&gt;Перевод</translation>
+    </message>
+    <message>
+        <location filename="../../src/manager.cpp" line="209"/>
         <source>Failed to set log file: %1</source>
         <translation>Ошибка установки лог-файла: %1</translation>
     </message>
     <message>
-        <location filename="../../src/manager.cpp" line="195"/>
+        <location filename="../../src/manager.cpp" line="215"/>
         <source>Started logging to file: %1</source>
         <translation>Начата запись в лог-файл: %1</translation>
     </message>
@@ -1149,12 +1169,7 @@ Then set default recognition and translation languages, enable some (or all) tra
         <translation>Адрес:</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="132"/>
-        <source>No translators selected. Check settings</source>
-        <translation>Нет выбранных переводчиков. Проверьте настройки</translation>
-    </message>
-    <message>
-        <location filename="../../src/translate/translator.cpp" line="140"/>
+        <location filename="../../src/translate/translator.cpp" line="138"/>
         <source>No translators loaded from
 %1
 (%2)</source>
@@ -1163,7 +1178,7 @@ Then set default recognition and translation languages, enable some (or all) tra
 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/translate/translator.cpp" line="272"/>
+        <location filename="../../src/translate/translator.cpp" line="270"/>
         <source>All translators failed
 %1</source>
         <translation>Не удалось перевести текст
