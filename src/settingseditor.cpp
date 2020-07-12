@@ -353,7 +353,11 @@ void SettingsEditor::updateModels(const QString &tessdataPath)
 {
   const auto source = ui->tesseractLangCombo->currentText();
   models_.update(tessdataPath);
-  ui->tesseractLangCombo->setCurrentText(source);
+  if (!source.isEmpty()) {
+    ui->tesseractLangCombo->setCurrentText(source);
+  } else if (ui->tesseractLangCombo->count() > 0) {
+    ui->tesseractLangCombo->setCurrentIndex(0);
+  }
 }
 
 void SettingsEditor::pickColor(ColorContext context)
