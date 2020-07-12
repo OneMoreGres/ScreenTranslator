@@ -57,11 +57,9 @@ public:
 
   QString tessdataPath;
   QString sourceLanguage{"eng"};
-  LanguageIds availableOcrLanguages_;
 
   bool doTranslation{true};
   bool ignoreSslErrors{false};
-  bool forceRotateTranslators{false};
   LanguageId targetLanguage{"rus"};
   std::chrono::seconds translationTimeout{15};
   QString translatorsDir;
