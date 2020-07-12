@@ -41,7 +41,7 @@ Manager::Manager()
   // updater components
   (void)QT_TRANSLATE_NOOP("QObject", "app");
   (void)QT_TRANSLATE_NOOP("QObject", "recognizers");
-  (void)QT_TRANSLATE_NOOP("QObject", "hunspell");
+  (void)QT_TRANSLATE_NOOP("QObject", "correction");
   (void)QT_TRANSLATE_NOOP("QObject", "translators");
 
   tray_ = std::make_unique<TrayIcon>(*this, *settings_);

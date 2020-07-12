@@ -385,7 +385,7 @@
 
 
 
-,"hunspell": {
+,"correction": {
  "Afrikaans":{"files":[
   {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.aff","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.aff.zip"], "path":"$hunspell$/af/af_ZA.aff", "date":"2020-03-17T12:21:16+01:00", "size":5027}
   ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.dic","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.dic.zip"], "path":"$hunspell$/af/af_ZA.dic", "date":"2020-03-17T12:21:16+01:00", "size":1262203}

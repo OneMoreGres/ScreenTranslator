@@ -76,7 +76,7 @@ Ctrl - продолжить выделять</translation>
         <translation>Последний результат был скопирован в буфер обмена.</translation>
     </message>
     <message>
-        <location filename="../../src/service/singleapplication.cpp" line="25"/>
+        <location filename="../../src/service/singleapplication.cpp" line="27"/>
         <source>Another instance is running. Lock file is busy.</source>
         <translation>Другой экземпляр уже запущен. Файл блокировки занят.</translation>
     </message>
@@ -607,8 +607,8 @@ Ctrl - продолжить выделять</translation>
     </message>
     <message>
         <location filename="../../src/manager.cpp" line="44"/>
-        <source>hunspell</source>
-        <translation>hunspell</translation>
+        <source>correction</source>
+        <translation>коррекция</translation>
     </message>
     <message>
         <location filename="../../src/manager.cpp" line="45"/>

@@ -77,7 +77,7 @@ for d in it:
     files[lang] = [aff, dic]
 
 
-print(',"hunspell": {')
+print(',"correction": {')
 comma = ''
 unknown_names = []
 for lang in sorted(files.keys()):
