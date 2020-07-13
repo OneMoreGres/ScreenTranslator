@@ -38,6 +38,8 @@ for f in glob(ssl_dir + '/bin/*.dll'):
     c.print('>> Copying {} to {}'.format(f, install_dir))
     shutil.copy(f, install_dir)
 
+open(os.path.join(install_dir, 'qt.conf'), 'a').close()
+
 c.archive(c.get_folder_files(os.path.relpath(install_dir)), artifact_path)
 
 bin_path = install_dir + '\\' + bin_name + '.exe'
