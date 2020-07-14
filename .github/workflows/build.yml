@@ -59,7 +59,7 @@ jobs:
       - name: Install system libs
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 libxcb-util-dev
+          sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 libxcb-*
           echo ::set-env name=QMAKE_FLAGS::QMAKE_CXX=g++-9 QMAKE_CC=gcc-9
 
       - name: Cache dependencies
