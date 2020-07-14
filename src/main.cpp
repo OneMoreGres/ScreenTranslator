@@ -6,6 +6,8 @@
 #include <QApplication>
 #include <QCommandLineParser>
 
+#include <locale.h>
+
 #define STR2(XXX) #XXX
 #define STR(XXX) STR2(XXX)
 
