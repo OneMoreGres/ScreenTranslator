@@ -12,12 +12,12 @@ if os_name == 'linux':
     qt_dir_prefix = '{}/gcc_64'.format(qt_version)
 elif os_name == 'win32':
     os_url = 'windows_x86'
-    kit_arch = 'win32_msvc2017'
-    qt_dir_prefix = '{}/msvc2017'.format(qt_version)
+    kit_arch = 'win32_msvc2019'
+    qt_dir_prefix = '{}/msvc2019'.format(qt_version)
 elif os_name == 'win64':
     os_url = 'windows_x86'
-    kit_arch = 'win64_msvc2017_64'
-    qt_dir_prefix = '{}/msvc2017_64'.format(qt_version)
+    kit_arch = 'win64_msvc2019_64'
+    qt_dir_prefix = '{}/msvc2019_64'.format(qt_version)
 elif os_name == 'macos':
     os_url = 'mac_x64'
     kit_arch = 'clang_64'

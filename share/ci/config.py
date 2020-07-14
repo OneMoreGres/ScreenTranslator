@@ -4,7 +4,7 @@ import re
 app_name = 'ScreenTranslator'
 
 target_name = app_name
-qt_version = '5.14.0'
+qt_version = '5.15.0'
 qt_modules = ['qtbase', 'qttools', 'icu',
               'qttranslations', 'qtx11extras', 'qtwebengine', 'qtwebchannel',
               'qtdeclarative', 'qtlocation', 'opengl32sw', 'd3dcompiler_47',
@@ -30,6 +30,6 @@ os_name = getenv('OS', 'linux')
 app_version += {'linux': '', 'macos': '-experimental',
                 'win32': '', 'win64': ''}[os_name]
 bitness = '32' if os_name == 'win32' else '64'
-msvc_version = getenv('MSVC_VERSION', '2017/Community')
+msvc_version = getenv('MSVC_VERSION', '2019/Community')
 
 build_type = 'release' # 'debug'
