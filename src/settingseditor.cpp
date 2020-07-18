@@ -106,15 +106,20 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
   // about
   {
     const auto mail = "translator@gres.biz";
-    const auto issues =
-        "https://github.com/OneMoreGres/ScreenTranslator/issues";
+    const QString baseUrl = "https://github.com/OneMoreGres/ScreenTranslator";
+    const auto issues = baseUrl + "/issues";
+    QLocale locale;
+    const auto changelog =
+        baseUrl + "/share/Changelog_" +
+        (locale.language() == QLocale::Russian ? "ru" : "en") + ".md";
     const auto aboutText =
         QObject::tr(
             R"(<p>Optical character recognition (OCR) and translation tool</p>
         <p>Version: %1</p>
-        <p>Author: Gres (<a href="mailto:%2">%2</a>)</p>
-        <p>Issues: <a href="%3">%3</a></p>)")
-            .arg(QApplication::applicationVersion(), mail, issues);
+        <p>Changelog: <a href="%2">%2</a></p>
+        <p>Author: Gres (<a href="mailto:%3">%3</a>)</p>
+        <p>Issues: <a href="%4">%4</a></p>)")
+            .arg(QApplication::applicationVersion(), changelog, mail, issues);
 
     ui->aboutLabel->setText(aboutText);
     ui->aboutLabel->setTextFormat(Qt::RichText);

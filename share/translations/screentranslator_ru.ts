@@ -668,28 +668,17 @@ Check for updates to silence this warning</source>
         <translation>Начата запись в лог-файл: %1</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="112"/>
-        <source>&lt;p&gt;Optical character recognition (OCR) and translation tool&lt;/p&gt;
-        &lt;p&gt;Version: %1&lt;/p&gt;
-        &lt;p&gt;Author: Gres (&lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt;)&lt;/p&gt;
-        &lt;p&gt;Issues: &lt;a href=&quot;%3&quot;&gt;%3&lt;/a&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Инструмент оптического распознавания текста (OCR) и перевода&lt;/p&gt;
-        &lt;p&gt;Версия: %1&lt;/p&gt;
-        &lt;p&gt;Автор: Gres (&lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt;)&lt;/p&gt;
-        &lt;p&gt;Поддержка: &lt;a href=&quot;%3&quot;&gt;%3&lt;/a&gt;&lt;/p&gt;</translation>
-    </message>
-    <message>
         <location filename="../../src/translate/webpage.cpp" line="115"/>
         <source>unknown translation languages: %1 or %2</source>
         <translation>неизвестные языки для перевода: %1 или %2</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="238"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="248"/>
         <source>init failed</source>
         <translation>ошибка инициалиизации</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="289"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="299"/>
         <source>Failed to recognize text or no text selected</source>
         <translation>Ошибка распознавания текста или нет текста в выделенной зоне</translation>
     </message>
@@ -722,6 +711,19 @@ in %1</source>
         <source>Do not restore user interface (window size and position, etc)</source>
         <translation>Не восстанавливать интерфейс пользователя (размер и положения окна и т.д.)</translation>
     </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="116"/>
+        <source>&lt;p&gt;Optical character recognition (OCR) and translation tool&lt;/p&gt;
+        &lt;p&gt;Version: %1&lt;/p&gt;
+        &lt;p&gt;Changelog: &lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;Author: Gres (&lt;a href=&quot;mailto:%3&quot;&gt;%3&lt;/a&gt;)&lt;/p&gt;
+        &lt;p&gt;Issues: &lt;a href=&quot;%4&quot;&gt;%4&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Инструмент оптического распознавания текста (OCR) и перевода&lt;/p&gt;
+        &lt;p&gt;Версия: %1&lt;/p&gt;
+        &lt;p&gt;Список изменений: &lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;Автор: Gres (&lt;a href=&quot;mailto:%3&quot;&gt;%3&lt;/a&gt;)&lt;/p&gt;
+        &lt;p&gt;Поддержка: &lt;a href=&quot;%4&quot;&gt;%4&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
 </context>
 <context>
     <name>RecognizeWorker</name>
@@ -734,7 +736,7 @@ in %1</source>
 <context>
     <name>Recognizer</name>
     <message>
-        <location filename="../../src/ocr/recognizer.cpp" line="37"/>
+        <location filename="../../src/ocr/recognizer.cpp" line="36"/>
         <source>No source language set. Check settings</source>
         <translation>Не задан исходный язык. Проверьте настройки</translation>
     </message>
@@ -1120,7 +1122,7 @@ in %1</source>
         <translation>Текст для проверки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="123"/>
+        <location filename="../../src/settingseditor.cpp" line="128"/>
         <source>The program workflow consists of the following steps:
 1. Selection on the screen area
 2. Recognition of the selected area
@@ -1143,7 +1145,7 @@ Then set default recognition and translation languages, enable some (or all) tra
 Далее установите языки распознавания и перевода по умолчанию, активируйте некоторые (или все) переводчики и настройку &quot;переводить текст&quot;, если нужно.</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="352"/>
+        <location filename="../../src/settingseditor.cpp" line="357"/>
         <source>Portable changed. Apply settings first</source>
         <translation>Portable режиме изменени. Сначала применить настройки</translation>
     </message>
