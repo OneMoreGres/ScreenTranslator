@@ -34,7 +34,9 @@ for file in os.scandir(libs_dir):
         c.print('>> Copying {} to {}'.format(full_name, install_dir))
         shutil.copy(full_name, install_dir)
 
-for f in glob(ssl_dir + '/bin/*.dll'):
+additional_libs = glob(ssl_dir + '/bin/*.dll') + \
+    glob(dependencies_dir + '/bin/tesseract-*.dll')
+for f in additional_libs:
     c.print('>> Copying {} to {}'.format(f, install_dir))
     shutil.copy(f, install_dir)
 

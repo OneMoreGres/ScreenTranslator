@@ -79,5 +79,9 @@ void Recognizer::updateSettings()
   SOFT_ASSERT(!settings_.tessdataPath.isEmpty(), return );
 
   queue_.clear();
-  emit reset(settings_.tessdataPath);
+  const auto libName =
+      (settings_.tesseractVersion == TesseractVersion::Optimized
+           ? "tesseract-optimized"
+           : "tesseract-compatible");
+  emit reset(settings_.tessdataPath, libName);
 }

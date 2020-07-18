@@ -30,6 +30,7 @@ const QString qs_showMessageOnStart = "showMessageOnStart";
 
 const QString qs_recogntionGroup = "Recognition";
 const QString qs_ocrLanguage = "language";
+const QString qs_tesseractVersion = "tesseractVersion";
 
 const QString qs_correctionGroup = "Correction";
 const QString qs_userSubstitutions = "userSubstitutions";
@@ -171,6 +172,7 @@ void Settings::save() const
 
   settings.beginGroup(qs_recogntionGroup);
   settings.setValue(qs_ocrLanguage, sourceLanguage);
+  settings.setValue(qs_tesseractVersion, int(tesseractVersion));
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);
@@ -257,6 +259,9 @@ void Settings::load()
 
   settings.beginGroup(qs_recogntionGroup);
   sourceLanguage = settings.value(qs_ocrLanguage, sourceLanguage).toString();
+  tesseractVersion = TesseractVersion(std::clamp(
+      settings.value(qs_tesseractVersion, int(tesseractVersion)).toInt(),
+      int(TesseractVersion::Optimized), int(TesseractVersion::Compatible)));
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);

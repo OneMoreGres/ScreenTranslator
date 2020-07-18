@@ -17,8 +17,8 @@ void RecognizeWorker::handle(const TaskPtr &task)
   if (!engines_.count(task->sourceLanguage)) {
     LTRACE() << "Create OCR engine" << task->sourceLanguage;
 
-    auto engine =
-        std::make_unique<Tesseract>(task->sourceLanguage, tessdataPath_);
+    auto engine = std::make_unique<Tesseract>(task->sourceLanguage,
+                                              tessdataPath_, tesseractLibrary_);
 
     if (!engine->isValid()) {
       result->error = tr("Failed to init OCR engine: %1").arg(engine->error());
@@ -43,12 +43,14 @@ void RecognizeWorker::handle(const TaskPtr &task)
   emit finished(result);
 }
 
-void RecognizeWorker::reset(const QString &tessdataPath)
+void RecognizeWorker::reset(const QString &tessdataPath,
+                            const QString &tesseractLibrary)
 {
-  if (tessdataPath_ == tessdataPath)
+  if (tessdataPath_ == tessdataPath && tesseractLibrary_ == tesseractLibrary)
     return;
 
   tessdataPath_ = tessdataPath;
+  tesseractLibrary_ = tesseractLibrary;
   engines_.clear();
   LTRACE() << "Cleared OCR engines";
 }

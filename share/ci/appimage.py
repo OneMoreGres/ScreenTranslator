@@ -47,7 +47,8 @@ os.environ['VERSION'] = app_version
 flags = '' if os.getenv("DEBUG") is None else '-unsupported-allow-new-glibc'
 
 additional_files = glob(ssl_dir + '/lib/lib*.so.*') + \
-    glob('/usr/lib/x86_64-linux-gnu/nss/*')
+    glob('/usr/lib/x86_64-linux-gnu/nss/*') + \
+    glob(dependencies_dir + '/lib/libtesseract-*.so')
 out_lib_dir = install_dir + '/usr/lib'
 os.makedirs(out_lib_dir, exist_ok=True)
 for f in additional_files:

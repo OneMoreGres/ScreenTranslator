@@ -8,7 +8,7 @@ DEPS_DIR=$$(ST_DEPS_DIR)
 isEmpty(DEPS_DIR):DEPS_DIR=$$PWD/../deps
 INCLUDEPATH += $$DEPS_DIR/include
 LIBS += -L$$DEPS_DIR/lib
-LIBS += -ltesseract -lleptonica -lhunspell
+LIBS += -lhunspell -lleptonica
 
 win32{
   LIBS += -lUser32

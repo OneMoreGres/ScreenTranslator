@@ -51,8 +51,16 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
     ui->proxyPassEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
   }
 
-  // translation
+  // recognition
   ui->tesseractLangCombo->setModel(models_.sourceLanguageModel());
+  const QMap<TesseractVersion, QString> tesseractVersions{
+      {TesseractVersion::Optimized, tr("Optimized")},
+      {TesseractVersion::Compatible, tr("Compatible")},
+  };
+  ui->tesseractVersion->addItems(tesseractVersions.values());
+  ui->tesseractVersion->setToolTip(
+      tr("Use compatible version if you are experiencing crashes during "
+         "recognition"));
 
   // correction
   ui->userSubstitutionsTable->setEnabled(ui->useUserSubstitutions->isChecked());
@@ -164,6 +172,8 @@ Settings SettingsEditor::settings() const
 
   settings.sourceLanguage =
       LanguageCodes::idForName(ui->tesseractLangCombo->currentText());
+  settings.tesseractVersion =
+      TesseractVersion(ui->tesseractVersion->currentIndex());
 
   settings.useHunspell = ui->useHunspell->isChecked();
   settings.useUserSubstitutions = ui->useUserSubstitutions->isChecked();
@@ -227,6 +237,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->tessdataPath->setText(settings.tessdataPath);
   ui->tesseractLangCombo->setCurrentText(
       LanguageCodes::name(settings.sourceLanguage));
+  ui->tesseractVersion->setCurrentIndex(int(settings.tesseractVersion));
 
   ui->useHunspell->setChecked(settings.useHunspell);
   ui->hunspellDir->setText(settings.hunspellDir);

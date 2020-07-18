@@ -66,7 +66,7 @@ Ctrl - продолжить выделять</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/main.cpp" line="28"/>
+        <location filename="../../src/main.cpp" line="30"/>
         <source>OCR and translation tool</source>
         <translation>Инструмент распознавания и перевода</translation>
     </message>
@@ -668,7 +668,7 @@ Check for updates to silence this warning</source>
         <translation>Начата запись в лог-файл: %1</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="104"/>
+        <location filename="../../src/settingseditor.cpp" line="112"/>
         <source>&lt;p&gt;Optical character recognition (OCR) and translation tool&lt;/p&gt;
         &lt;p&gt;Version: %1&lt;/p&gt;
         &lt;p&gt;Author: Gres (&lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt;)&lt;/p&gt;
@@ -684,12 +684,12 @@ Check for updates to silence this warning</source>
         <translation>неизвестные языки для перевода: %1 или %2</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="153"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="238"/>
         <source>init failed</source>
         <translation>ошибка инициалиизации</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="211"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="289"/>
         <source>Failed to recognize text or no text selected</source>
         <translation>Ошибка распознавания текста или нет текста в выделенной зоне</translation>
     </message>
@@ -734,7 +734,7 @@ in %1</source>
 <context>
     <name>Recognizer</name>
     <message>
-        <location filename="../../src/ocr/recognizer.cpp" line="36"/>
+        <location filename="../../src/ocr/recognizer.cpp" line="37"/>
         <source>No source language set. Check settings</source>
         <translation>Не задан исходный язык. Проверьте настройки</translation>
     </message>
@@ -870,37 +870,42 @@ in %1</source>
         <translation>сохранять пароль (небезопасно)</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="295"/>
+        <location filename="../../src/settingseditor.ui" line="291"/>
+        <source>Library version</source>
+        <translation>Версия</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.ui" line="305"/>
         <source>User substitutions</source>
         <translation>Пользовательская коррекция</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="318"/>
+        <location filename="../../src/settingseditor.ui" line="328"/>
         <source>Use auto corrections (hunspell)</source>
         <translation>Использовать автокоррекцию (hunspell)</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="325"/>
+        <location filename="../../src/settingseditor.ui" line="335"/>
         <source>Use user substitutions</source>
         <translation>Использовать пользовательскую коррекцию</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="332"/>
+        <location filename="../../src/settingseditor.ui" line="342"/>
         <source>Hunspell dictionaries path:</source>
         <translation>Путь к словарям Hunspell:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="394"/>
+        <location filename="../../src/settingseditor.ui" line="404"/>
         <source>Language:</source>
         <translation>Язык:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="430"/>
+        <location filename="../../src/settingseditor.ui" line="440"/>
         <source> secs</source>
         <translation> сек</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="370"/>
+        <location filename="../../src/settingseditor.ui" line="380"/>
         <source>Ignore SSL errors</source>
         <translation>Игнорировать ошибки SSL</translation>
     </message>
@@ -930,107 +935,107 @@ in %1</source>
         <translation>Писать логи в файл (отладка)</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="239"/>
+        <location filename="../../src/settingseditor.ui" line="278"/>
         <source>Default language:</source>
         <translation>Язык по умолчанию:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="255"/>
+        <location filename="../../src/settingseditor.ui" line="265"/>
         <source>Tessdata path:</source>
         <translation>Путь к языкам (tessdata):</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="305"/>
+        <location filename="../../src/settingseditor.ui" line="315"/>
         <source>\\ for \ symbol, \n for newline</source>
         <translation>\\ для символа \ , \n для символа новой строки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="353"/>
+        <location filename="../../src/settingseditor.ui" line="363"/>
         <source>Translators path:</source>
         <translation>Путь к переводчикам:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="360"/>
+        <location filename="../../src/settingseditor.ui" line="370"/>
         <source>Translators</source>
         <translation>Переводчики</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="495"/>
+        <location filename="../../src/settingseditor.ui" line="505"/>
         <source>Result window</source>
         <translation>Окно результата</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="501"/>
+        <location filename="../../src/settingseditor.ui" line="511"/>
         <source>Font:</source>
         <translation>Шрифт:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="511"/>
+        <location filename="../../src/settingseditor.ui" line="521"/>
         <source>Font size:</source>
         <translation>Размер шрифта:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="528"/>
+        <location filename="../../src/settingseditor.ui" line="538"/>
         <source>Font color:</source>
         <translation>Цвет шрифта:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="545"/>
+        <location filename="../../src/settingseditor.ui" line="555"/>
         <source>Background:</source>
         <translation>Фон:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="562"/>
+        <location filename="../../src/settingseditor.ui" line="572"/>
         <source>Show image</source>
         <translation>Показывать изображение</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="569"/>
+        <location filename="../../src/settingseditor.ui" line="579"/>
         <source>Show recognized</source>
         <translation>Показывать распознанное</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="638"/>
+        <location filename="../../src/settingseditor.ui" line="648"/>
         <source>Update check interval (days):</source>
         <translation>Интервал проверки обновления (дней):</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="645"/>
+        <location filename="../../src/settingseditor.ui" line="655"/>
         <source>0 - disabled</source>
         <translation>- отключено</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="678"/>
+        <location filename="../../src/settingseditor.ui" line="688"/>
         <source>Apply updates</source>
         <translation>Применить изменения</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="380"/>
+        <location filename="../../src/settingseditor.ui" line="390"/>
         <source>Translate text</source>
         <translation>Переводить текст</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="387"/>
+        <location filename="../../src/settingseditor.ui" line="397"/>
         <source>Single translator timeout:</source>
         <translation>Переходить к следующему переводчику после:</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="457"/>
+        <location filename="../../src/settingseditor.ui" line="467"/>
         <source>Result type</source>
         <translation>Тип результата</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="469"/>
+        <location filename="../../src/settingseditor.ui" line="479"/>
         <source>Tray</source>
         <translation>Трей</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="482"/>
+        <location filename="../../src/settingseditor.ui" line="492"/>
         <source>Window</source>
         <translation>Окно</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.ui" line="661"/>
+        <location filename="../../src/settingseditor.ui" line="671"/>
         <source>Check now</source>
         <translation>Проверить сейчас</translation>
     </message>
@@ -1090,17 +1095,32 @@ in %1</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="66"/>
+        <location filename="../../src/settingseditor.cpp" line="57"/>
+        <source>Optimized</source>
+        <translation>Оптимизированная</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="58"/>
+        <source>Compatible</source>
+        <translation>Совместимая</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="62"/>
+        <source>Use compatible version if you are experiencing crashes during recognition</source>
+        <translation>Используйте совместимую версию если программа неожиданно завершается во время распознавания</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="74"/>
         <source>&lt;b&gt;NOTE! Some translators might require the translation window to be visible. You can make it using the &quot;Show translator&quot; entry in the tray icon&apos;s context menu&lt;/b&gt;</source>
         <translation>&lt;b&gt;ПРИМЕЧАНИЕ! Для работы некоторых переводчиков может потребоваться активное окно перевода. Его можно отобразить при помощи пункта &quot;Показать окно перевода&quot; контекстного меню иконки в трее&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="74"/>
+        <location filename="../../src/settingseditor.cpp" line="82"/>
         <source>Sample text</source>
         <translation>Текст для проверки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="115"/>
+        <location filename="../../src/settingseditor.cpp" line="123"/>
         <source>The program workflow consists of the following steps:
 1. Selection on the screen area
 2. Recognition of the selected area
@@ -1123,7 +1143,7 @@ Then set default recognition and translation languages, enable some (or all) tra
 Далее установите языки распознавания и перевода по умолчанию, активируйте некоторые (или все) переводчики и настройку &quot;переводить текст&quot;, если нужно.</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="341"/>
+        <location filename="../../src/settingseditor.cpp" line="352"/>
         <source>Portable changed. Apply settings first</source>
         <translation>Portable режиме изменени. Сначала применить настройки</translation>
     </message>

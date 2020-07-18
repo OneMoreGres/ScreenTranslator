@@ -7,16 +7,13 @@
 #include <memory>
 
 class QPixmap;
-namespace tesseract
-{
-class TessBaseAPI;
-}
 class Task;
 
 class Tesseract
 {
 public:
-  Tesseract(const LanguageId& language, const QString& tessdataPath);
+  Tesseract(const LanguageId& language, const QString& tessdataPath,
+            const QString& tesseractLibrary);
   ~Tesseract();
 
   QString recognize(const QPixmap& source);
@@ -26,8 +23,10 @@ public:
   static QStringList availableLanguageNames(const QString& path);
 
 private:
+  class Wrapper;
   void init(const LanguageId& language, const QString& tessdataPath);
 
-  std::unique_ptr<tesseract::TessBaseAPI> engine_;
+  const QString tesseractLibrary_;
+  std::unique_ptr<Wrapper> engine_;
   QString error_;
 };

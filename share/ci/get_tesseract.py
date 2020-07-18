@@ -33,39 +33,33 @@ if os.environ.get('NO_OPT', '0') == '1':
 if len(os.environ.get('MARCH', '')) > 0:
     compat_flags += ' -D TARGET_ARCHITECTURE={} '.format(os.environ['MARCH'])
 
-cache_file = install_dir + '/tesseract.cache'
-cache_file_data = required_version + build_type_flag + compat_flags
+lib_suffix = os.environ.get('TAG', '')
+if len(lib_suffix) > 0:
+    lib_suffix = '-' + lib_suffix
 
 
 def check_existing():
-    if not os.path.exists(cache_file):
-        return False
-    with open(cache_file, 'r') as f:
-        cached = f.read()
-        if cached != cache_file_data:
-            return False
-
-    if platform.system() == "Windows":
-        dll = install_dir + '/bin/tesseract41.dll'
-        lib = install_dir + '/lib/tesseract41.lib'
-        if not os.path.exists(dll) or not os.path.exists(lib):
-            return False
-        c.symlink(dll, install_dir + '/bin/tesseract.dll')
-        c.symlink(lib, install_dir + '/lib/tesseract.lib')
-    elif platform.system() == "Darwin":
-        lib = install_dir + '/lib/libtesseract.4.1.1.dylib'
-        if not os.path.exists(lib):
-            return False
-        c.symlink(lib, install_dir + '/lib/libtesseract.dylib')
-    else:
-        if not os.path.exists(install_dir + '/lib/libtesseract.so'):
-            return False
-
     includes_path = install_dir + '/include/tesseract'
     if len(c.get_folder_files(includes_path)) == 0:
         return False
 
-    return True
+    if platform.system() == "Windows":
+        lib = install_dir + '/bin/tesseract{}.dll'.format(lib_suffix)
+        orig_lib = install_dir + '/bin/tesseract41.dll'
+    elif platform.system() == "Darwin":
+        lib = install_dir + '/lib/libtesseract{}.dylib'.format(lib_suffix)
+        orig_lib = install_dir + '/lib/libtesseract.4.1.1.dylib'
+    else:
+        lib = install_dir + '/lib/libtesseract{}.so'.format(lib_suffix)
+        orig_lib = install_dir + '/lib/libtesseract.so.4.1.1'
+
+    if os.path.exists(lib):
+        return True
+    if os.path.exists(orig_lib):
+        os.rename(orig_lib, lib)
+        return True
+
+    return False
 
 
 if check_existing() and not 'FORCE' in os.environ:
@@ -102,9 +96,6 @@ if len(compat_flags) > 0:
 c.run('cmake --build . --config {}'.format(build_type_flag))
 c.run('cmake --build . --target install --config {}'.format(build_type_flag))
 
-with open(cache_file, 'w') as f:
-    f.write(cache_file_data)
-
-if not check_existing():  # create links
+if not check_existing():  # add suffix
     c.print('>> Build failed')
     exit(1)
