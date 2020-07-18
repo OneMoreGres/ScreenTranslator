@@ -116,7 +116,6 @@ cmake_args = '"{}" -DCMAKE_INSTALL_PREFIX="{}" {}'.format(
 if platform.system() == "Windows":
     env_cmd = c.get_msvc_env_cmd(bitness=bitness, msvc_version=msvc_version)
     c.apply_cmd_env(env_cmd)
-    cmake_args += ' ' + c.get_cmake_arch_args(bitness=bitness)
 
 c.set_make_threaded()
 c.run('cmake {}'.format(cmake_args))
