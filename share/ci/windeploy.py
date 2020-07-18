@@ -27,6 +27,17 @@ c.recreate_dir(install_dir)
 c.run('nmake INSTALL_ROOT="{0}" DESTDIR="{0}" install'.format(install_dir))
 c.run('{}/bin/windeployqt.exe "{}"'.format(qt_dir, install_dir))
 
+vcredist_for_ssl_url = ''
+vcredist_for_ssl_file = ''
+if bitness == '32':
+    vcredist_for_ssl_url = 'https://download.microsoft.com/download/C/6/D/C6D0FD4E-9E53-4897-9B91-836EBA2AACD3/vcredist_x86.exe'
+    vcredist_for_ssl_file = 'vc_redist.x86.2010.exe'
+else:
+    vcredist_for_ssl_url = 'https://download.microsoft.com/download/A/8/0/A80747C3-41BD-45DF-B505-E9710D2744E0/vcredist_x64.exe'
+    vcredist_for_ssl_file = 'vc_redist.x64.2010.exe'
+
+c.download(vcredist_for_ssl_url, os.path.join(install_dir, vcredist_for_ssl_file))
+
 libs_dir = os.path.join(dependencies_dir, 'bin')
 for file in os.scandir(libs_dir):
     if file.is_file(follow_symlinks=False) and file.name.endswith('.dll'):
@@ -34,13 +45,11 @@ for file in os.scandir(libs_dir):
         c.print('>> Copying {} to {}'.format(full_name, install_dir))
         shutil.copy(full_name, install_dir)
 
-additional_libs = glob(ssl_dir + '/bin/*.dll') + \
-    glob(dependencies_dir + '/bin/tesseract-*.dll')
-for f in additional_libs:
+for f in glob(ssl_dir + '/bin/*.dll'):
     c.print('>> Copying {} to {}'.format(f, install_dir))
     shutil.copy(f, install_dir)
 
-open(os.path.join(install_dir, 'qt.conf'), 'a').close()
+open(os.path.join(install_dir, 'qt.conf'), 'a').close() # fix for non-latin paths
 
 c.archive(c.get_folder_files(os.path.relpath(install_dir)), artifact_path)
 
