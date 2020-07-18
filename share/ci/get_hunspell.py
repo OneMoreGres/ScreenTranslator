@@ -30,15 +30,13 @@ def check_existing():
         if not os.path.exists(dll) or not os.path.exists(lib):
             return False
     elif platform.system() == "Darwin":
-        lib = install_dir + '/lib/libhunspell.1.7.0.dylib'
+        lib = install_dir + '/lib/libhunspell.dylib'
         if not os.path.exists(lib):
             return False
-        c.symlink(lib, install_dir + '/lib/libhunspell.dylib')
     else:
-        lib = install_dir + '/lib/libhunspell-1.7.so'
+        lib = install_dir + '/lib/libhunspell.so'
         if not os.path.exists(lib):
             return False
-        c.symlink(lib, install_dir + '/lib/libhunspell.so')
 
     includes_path = install_dir + '/include/hunspell'
     if len(c.get_folder_files(includes_path)) == 0:
@@ -78,54 +76,53 @@ os.chdir(build_dir)
 
 c.set_make_threaded()
 
-if platform.system() != "Windows":
-    c.run('autoreconf -i {}'.format(src_dir))
-    c.run('{}/configure --prefix={}'.format(src_dir, install_dir))
-    c.run('make')
-    c.run('make install')
-else:
-    lib_src = os.path.join(src_dir, 'src', 'hunspell')
-    sources = []
-    with os.scandir(lib_src) as it:
-        for f in it:
-            if not f.is_file() or not f.name.endswith('.cxx'):
-                continue
-            sources.append('${SRC_DIR}/' + f.name)
-
-    headers = ['${SRC_DIR}/atypes.hxx', '${SRC_DIR}/hunspell.h', '${SRC_DIR}/hunspell.hxx',
-               '${SRC_DIR}/hunvisapi.h', '${SRC_DIR}/w_char.hxx']
-
-    cmake_file = os.path.join(build_dir, 'CMakeLists.txt')
-    with open(cmake_file, 'w') as f:
-        f.write('project(hunspell)\n')
-        f.write('cmake_minimum_required(VERSION 3.11)\n')
-        f.write('set(SRC_DIR "{}")\n'.format(lib_src).replace('\\', '/'))
-        f.write('\n')
-        f.write('add_library(hunspell SHARED {})\n'.format(' '.join(sources)))
-        f.write('\n')
-        f.write('add_compile_definitions(HAVE_CONFIG_H _WIN32 BUILDING_LIBHUNSPELL)\n')
-        f.write('\n')
-        f.write('install(FILES {} \
+lib_src = os.path.join(src_dir, 'src', 'hunspell')
+sources = []
+with os.scandir(lib_src) as it:
+    for f in it:
+        if not f.is_file() or not f.name.endswith('.cxx'):
+            continue
+        sources.append('${SRC_DIR}/' + f.name)
+headers = ['${SRC_DIR}/atypes.hxx', '${SRC_DIR}/hunspell.h', '${SRC_DIR}/hunspell.hxx',
+           '${SRC_DIR}/hunvisapi.h', '${SRC_DIR}/w_char.hxx']
+cmake_file = os.path.join(build_dir, 'CMakeLists.txt')
+with open(cmake_file, 'w') as f:
+    f.write('project(hunspell)\n')
+    f.write('cmake_minimum_required(VERSION 3.11)\n')
+    f.write('set(SRC_DIR "{}")\n'.format(lib_src).replace('\\', '/'))
+    f.write('\n')
+    f.write('add_library(hunspell SHARED {})\n'.format(' '.join(sources)))
+    f.write('\n')
+    f.write('add_compile_definitions(HAVE_CONFIG_H BUILDING_LIBHUNSPELL)\n')
+    if platform.system() == "Windows":
+        f.write('add_compile_definitions(_WIN32)\n')
+    f.write('\n')
+    f.write('install(FILES {} \
 DESTINATION include/hunspell)\n'.format(' '.join(headers)))
-        f.write('\n')
-        f.write('install(TARGETS hunspell \
+    f.write('\n')
+    f.write('install(TARGETS hunspell \
 RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)\n')
-        f.write('\n')
-        f.write('set(prefix "${CMAKE_INSTALL_PREFIX}")\n')
-        f.write('set(VERSION "{}")\n'.format(required_version))
-        f.write('configure_file({}/hunspell.pc.in \
+    f.write('\n')
+    f.write('set(prefix "${CMAKE_INSTALL_PREFIX}")\n')
+    f.write('set(VERSION "{}")\n'.format(required_version))
+    f.write('configure_file({}/hunspell.pc.in \
 ${{CMAKE_CURRENT_BINARY_DIR}}/hunspell.pc @ONLY)\n'.format(src_dir.replace('\\', '/')))
-        f.write('install(FILES ${CMAKE_CURRENT_BINARY_DIR}/hunspell.pc \
+    f.write('install(FILES ${CMAKE_CURRENT_BINARY_DIR}/hunspell.pc \
 DESTINATION lib/pkgconfig)\n')
 
+cmake_args = '"{}" -DCMAKE_INSTALL_PREFIX="{}" {}'.format(
+    build_dir, install_dir, c.get_cmake_arch_args(bitness=bitness))
+
+if platform.system() == "Windows":
     env_cmd = c.get_msvc_env_cmd(bitness=bitness, msvc_version=msvc_version)
     c.apply_cmd_env(env_cmd)
-    cmake_args = '"{}" -DCMAKE_INSTALL_PREFIX="{}" {}'.format(
-        build_dir, install_dir, c.get_cmake_arch_args(bitness=bitness))
-    c.run('cmake {}'.format(cmake_args))
-    build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
-    c.run('cmake --build . --config {}'.format(build_type_flag))
-    c.run('cmake --build . --target install --config {}'.format(build_type_flag))
+    cmake_args += ' ' + c.get_cmake_arch_args(bitness=bitness)
+
+c.set_make_threaded()
+c.run('cmake {}'.format(cmake_args))
+build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
+c.run('cmake --build . --config {}'.format(build_type_flag))
+c.run('cmake --build . --target install --config {}'.format(build_type_flag))
 
 with open(cache_file, 'w') as f:
     f.write(cache_file_data)
