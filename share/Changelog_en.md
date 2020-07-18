@@ -1,5 +1,11 @@
 # Changes
 
+## 3.1.0
+
+* Added ability to choose a recognition version from the program
+* Added some error messages about misconfiguration
+* Fixed some errors
+
 ## 3.0.1
 
 * Fixed some errors
