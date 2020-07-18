@@ -712,17 +712,34 @@ in %1</source>
         <translation>Не восстанавливать интерфейс пользователя (размер и положения окна и т.д.)</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="116"/>
-        <source>&lt;p&gt;Optical character recognition (OCR) and translation tool&lt;/p&gt;
-        &lt;p&gt;Version: %1&lt;/p&gt;
-        &lt;p&gt;Changelog: &lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;
-        &lt;p&gt;Author: Gres (&lt;a href=&quot;mailto:%3&quot;&gt;%3&lt;/a&gt;)&lt;/p&gt;
-        &lt;p&gt;Issues: &lt;a href=&quot;%4&quot;&gt;%4&lt;/a&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Инструмент оптического распознавания текста (OCR) и перевода&lt;/p&gt;
-        &lt;p&gt;Версия: %1&lt;/p&gt;
-        &lt;p&gt;Список изменений: &lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;
-        &lt;p&gt;Автор: Gres (&lt;a href=&quot;mailto:%3&quot;&gt;%3&lt;/a&gt;)&lt;/p&gt;
-        &lt;p&gt;Поддержка: &lt;a href=&quot;%4&quot;&gt;%4&lt;/a&gt;&lt;/p&gt;</translation>
+        <location filename="../../src/settingseditor.cpp" line="117"/>
+        <source>&lt;p&gt;Optical character recognition (OCR) and translation tool&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Инструмент оптического распознавания текста (OCR) и перевода&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="119"/>
+        <source>&lt;p&gt;Version: %1&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Версия: %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="121"/>
+        <source>&lt;p&gt;Changelog: &lt;a href=&quot;%1&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Список изменений: &lt;a href=&quot;%1&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="123"/>
+        <source>&lt;p&gt;License: &lt;a href=&quot;%3&quot;&gt;MIT&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Лицензия: &lt;a href=&quot;%3&quot;&gt;MIT&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="124"/>
+        <source>&lt;p&gt;Author: Gres (&lt;a href=&quot;mailto:%1&quot;&gt;%1&lt;/a&gt;)&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Автор: Gres (&lt;a href=&quot;mailto:%1&quot;&gt;%1&lt;/a&gt;)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/settingseditor.cpp" line="126"/>
+        <source>&lt;p&gt;Issues: &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Поддержка: &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1122,7 +1139,7 @@ in %1</source>
         <translation>Текст для проверки</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="128"/>
+        <location filename="../../src/settingseditor.cpp" line="134"/>
         <source>The program workflow consists of the following steps:
 1. Selection on the screen area
 2. Recognition of the selected area
@@ -1145,7 +1162,7 @@ Then set default recognition and translation languages, enable some (or all) tra
 Далее установите языки распознавания и перевода по умолчанию, активируйте некоторые (или все) переводчики и настройку &quot;переводить текст&quot;, если нужно.</translation>
     </message>
     <message>
-        <location filename="../../src/settingseditor.cpp" line="357"/>
+        <location filename="../../src/settingseditor.cpp" line="366"/>
         <source>Portable changed. Apply settings first</source>
         <translation>Portable режиме изменени. Сначала применить настройки</translation>
     </message>

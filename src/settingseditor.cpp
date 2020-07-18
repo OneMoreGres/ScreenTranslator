@@ -110,36 +110,45 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
     const auto issues = baseUrl + "/issues";
     QLocale locale;
     const auto changelog =
-        baseUrl + "/share/Changelog_" +
+        baseUrl + "/blob/master/share/Changelog_" +
         (locale.language() == QLocale::Russian ? "ru" : "en") + ".md";
-    const auto aboutText =
+    const auto license = baseUrl + "/blob/master/LICENSE.md";
+    const auto aboutLines = QStringList{
         QObject::tr(
-            R"(<p>Optical character recognition (OCR) and translation tool</p>
-        <p>Version: %1</p>
-        <p>Changelog: <a href="%2">%2</a></p>
-        <p>Author: Gres (<a href="mailto:%3">%3</a>)</p>
-        <p>Issues: <a href="%4">%4</a></p>)")
-            .arg(QApplication::applicationVersion(), changelog, mail, issues);
+            R"(<p>Optical character recognition (OCR) and translation tool</p>)"),
+        QObject::tr(R"(<p>Version: %1</p>)")
+            .arg(QApplication::applicationVersion()),
+        QObject::tr(R"(<p>Changelog: <a href="%1">%2</a></p>)")
+            .arg(changelog, QUrl(changelog).fileName()),
+        QObject::tr(R"(<p>License: <a href="%3">MIT</a></p>)").arg(license),
+        QObject::tr(R"(<p>Author: Gres (<a href="mailto:%1">%1</a>)</p>)")
+            .arg(mail),
+        QObject::tr(R"(<p>Issues: <a href="%1">%1</a></p>)").arg(issues),
+    };
 
-    ui->aboutLabel->setText(aboutText);
+    ui->aboutLabel->setText(aboutLines.join('\n'));
     ui->aboutLabel->setTextFormat(Qt::RichText);
     ui->aboutLabel->setOpenExternalLinks(true);
 
-    ui->helpLabel->setText(tr(
-        "The program workflow consists of the following steps:\n"
-        "1. Selection on the screen area\n"
-        "2. Recognition of the selected area\n"
-        "3. Correction of the recognized text (optional)\n"
-        "4. Translation of the corrected text (optional)\n"
-        "User interaction is only required for step 1.\n"
-        "Steps 2, 3 and 4 require additional data that can be downloaded from "
-        "the updates page.\n"
-        "\n"
-        "At first start, go to the updates page and install desired "
-        "recognition languages and translators and, optionally, hunspell "
-        "dictionaries.\n"
-        "Then set default recognition and translation languages, enable some "
-        "(or all) translators and the \"translate text\" setting, if needed."));
+    ui->helpLabel->setText(
+        tr("The program workflow consists of the following steps:\n"
+           "1. Selection on the screen area\n"
+           "2. Recognition of the selected area\n"
+           "3. Correction of the recognized text (optional)\n"
+           "4. Translation of the corrected text (optional)\n"
+           "User interaction is only required for step 1.\n"
+           "Steps 2, 3 and 4 require additional data that can be "
+           "downloaded from "
+           "the updates page.\n"
+           "\n"
+           "At first start, go to the updates page and install desired "
+           "recognition languages and translators and, optionally, "
+           "hunspell "
+           "dictionaries.\n"
+           "Then set default recognition and translation languages, "
+           "enable some "
+           "(or all) translators and the \"translate text\" setting, "
+           "if needed."));
   }
 
   new service::WidgetState(this);
