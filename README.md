@@ -7,16 +7,6 @@ Basically it is a combination of screen capture, OCR and translation tools.
 
 ## Installation
 
-There are 2 versions of the app: general and `compatible`.
-They all share the same functionality.
-The `compatible` version does not use some hardware optimizations,
-but allows the app to be run on elder hardware.
-
-At first, download general version (without any suffixes in
-the downloadable archive's name).
-If the app will silently crash during its work,
-then try the `compatible` version.
-
 **Windows**: download archive from [github releases](https://github.com/OneMoreGres/ScreenTranslator/releases) page, extract it and run `.exe` file.
 
 If the app fails to start with missing dll's error then install `vs_redist*.exe` from the release archive.
