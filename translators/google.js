@@ -4,7 +4,7 @@ var active = window.location.href !== "about:blank";
 function checkFinished() {
     if (!active) return;
 
-    let spans = [].slice.call(document.querySelectorAll('span.translation > span, #result_box > span'));
+    let spans = [].slice.call(document.querySelectorAll('span.VIiyi > span > span'));
     let text = spans.reduce(function (res, i) {
         return res + ' ' + i.innerText;
     }, '');
@@ -25,10 +25,11 @@ function translate(text, from, to) {
 
     if (window.location.href.indexOf('//translate.google') !== -1
         && window.location.href.indexOf('&tl=' + to + '&') !== -1) {
-        document.querySelector('textarea#source').value = text;
+        document.querySelector('textarea.er8xn').value = text;
+        document.querySelector('textarea.er8xn').dispatchEvent(
+            new Event("input", { bubbles: true, cancelable: true }));
         return;
     }
-    //    let url = 'https://translate.google.com/#auto/' + to + '/' + text;
     let url = 'https://translate.google.com/#view=home&op=translate&sl=auto&tl=' + to + '&text=' + encodeURIComponent(text);
     console.log("setting url", url);
     window.location = url;
