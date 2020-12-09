@@ -55,7 +55,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install libgl1-mesa-dev libxkbcommon-x11-0 libxcb-*
-          echo ::set-env name=QMAKE_FLAGS::QMAKE_CXX=g++-9 QMAKE_CC=gcc-9
+          echo "QMAKE_FLAGS=QMAKE_CXX=g++-9 QMAKE_CC=gcc-9" >> $GITHUB_ENV
 
       - name: Cache dependencies
         uses: actions/cache@v1
@@ -98,21 +98,21 @@ jobs:
         shell: bash
         run: |
           python ./share/ci/appimage.py
-          echo ::set-env name=artifact::`python ./share/ci/appimage.py artifact_name`
+          echo "artifact=`python ./share/ci/appimage.py artifact_name`" >> $GITHUB_ENV
 
       - name: Create win deploy
         if: runner.os == 'Windows'
         shell: bash
         run: |
           python ./share/ci/windeploy.py
-          echo ::set-env name=artifact::`python ./share/ci/windeploy.py artifact_name`
+          echo "artifact=`python ./share/ci/windeploy.py artifact_name`" >> $GITHUB_ENV
 
       - name: Create mac deploy
         if: runner.os == 'macOS'
         shell: bash
         run: |
           python ./share/ci/macdeploy.py
-          echo ::set-env name=artifact::`python ./share/ci/macdeploy.py artifact_name`
+          echo "artifact=`python ./share/ci/macdeploy.py artifact_name`" >> $GITHUB_ENV
 
       - name: Upload build artifact
         if: env.artifact != ''
@@ -131,7 +131,7 @@ jobs:
       - name: Set release env
         if: contains(github.ref, '/tags/')
         shell: bash
-        run: echo ::set-env name=upload_url::`cat ./release_upload_url`
+        run: echo "upload_url=`cat ./release_upload_url`" >> $GITHUB_ENV
 
       - name: Upload release artifacts
         if: contains(github.ref, '/tags/')
