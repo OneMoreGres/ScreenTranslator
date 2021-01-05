@@ -20,13 +20,24 @@ function checkFinished() {
 
 function translate(text, from, to) {
     console.log('start translate', text, from, to)
+
+    if (text.trim().length == 0) {
+        proxy.setTranslated('');
+        return;
+    }
+
     active = true;
 
     if (window.location.href.indexOf('bing.com/translator') !== -1
         && window.location.href.indexOf('&to=' + to + '&') !== -1) {
-        document.querySelector('textarea#tta_input_ta').value = text;
-        document.querySelector('textarea#tta_input_ta').dispatchEvent(
-            new Event("input", { bubbles: true, cancelable: true }));
+        var input = document.querySelector('textarea#tta_input_ta');
+        if (input.value == text) {
+            console.log('using cached result');
+            lastText = '';
+            return;
+        }
+        input.value = text;
+        input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
         return;
     }
 

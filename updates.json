@@ -576,26 +576,27 @@
 
 ,"translators":{
  "baidu": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/baidu.js", "path":"$translators$/baidu.js", "md5":"93f7bca9b792877350f54a1d47767583", "size":1306}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/baidu.js", "path":"$translators$/baidu.js", "md5":"be3eb6d11fa5faebb046c887c9a8f3bd", "size":1501}
  ]}
  ,"bing": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js", "path":"$translators$/bing.js", "md5":"5c20fe78c25a4f9e97160fdc3bc4572c", "size":1277}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/bing.js", "path":"$translators$/bing.js", "md5":"a982e9aa6cac598f4c9bf4a56386d13e", "size":1481}
  ]}
  ,"deepl": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js", "path":"$translators$/deepl.js", "md5":"a6dfae3f63ca3fa9c7edbfaff87600e4", "size":1596}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js", "path":"$translators$/deepl.js", "md5":"fff5dba9840208cbb98fc85079014b0d", "size":1754}
  ]}
  ,"google": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js", "path":"$translators$/google.js", "md5":"74f1064ba8f02c9c7be3821a4bdc557b", "size":1297}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js", "path":"$translators$/google.js", "md5":"1ceba6431d757fc2ae028a4ec177542c", "size":1508}
  ]}
  ,"google_api": {"files":[
   {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google_api.js", "path":"$translators$/google_api.js", "md5":"90b9b1a5c8dc52fd4a3f28be93442a56", "size":1030}
  ]}
  ,"papago": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/papago.js", "path":"$translators$/papago.js", "md5":"538bb7280192b18d15d24b07adae2638", "size":1956}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/papago.js", "path":"$translators$/papago.js", "md5":"603a56fc23990453942064ec53d1eaa3", "size":2164}
  ]}
  ,"yandex": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js", "path":"$translators$/yandex.js", "md5":"f8c625e8f6ced4a9f5be6791a6ee3f87", "size":957}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js", "path":"$translators$/yandex.js", "md5":"6bc71c24270ca418b193f073e6155d5f", "size":1177}
  ]}
 }
+
 
 }

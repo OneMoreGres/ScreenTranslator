@@ -20,10 +20,21 @@ function checkFinished() {
 
 function translate(text, from, to) {
     console.log('start translate', text, from, to)
+
+    if (text.trim().length == 0) {
+        proxy.setTranslated('');
+        return;
+    }
+
     active = true;
 
     let langs = 'lang=' + from + '-' + to;
     let url = 'https://translate.yandex.ru/?' + langs + '&text=' + encodeURIComponent(text);
+    if (window.location.href == url) {
+        console.log('using cached result');
+        lastText = '';
+        return;
+    }
     console.log("setting url", url);
     window.location = url;
 }

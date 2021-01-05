@@ -20,14 +20,25 @@ function checkFinished() {
 
 function translate(text, from, to) {
     console.log('start translate', text, from, to)
+
+    if (text.trim().length == 0) {
+        proxy.setTranslated('');
+        return;
+    }
+
     active = true;
 
     let langs = from + '/' + to;
     if (window.location.href.indexOf('//fanyi.baidu.com/') !== -1
         && window.location.href.indexOf(langs) !== -1) {
-        document.querySelector('textarea#baidu_translate_input').value = text;
-        document.querySelector('textarea#baidu_translate_input').dispatchEvent(
-            new Event("input", { bubbles: true, cancelable: true }));
+        var input = document.querySelector('textarea#baidu_translate_input');
+        if (input.value == text) {
+            console.log('using cached result');
+            lastText = '';
+            return;
+        }
+        input.value = text;
+        input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
         return;
     }
 
