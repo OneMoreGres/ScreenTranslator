@@ -9,7 +9,10 @@
 
 namespace
 {
-const QString iniFileName = "settings.ini";
+const QString iniFileName()
+{
+  return QApplication::applicationDirPath() + "/" + "settings.ini";
+}
 
 const QString qs_guiGroup = "GUI";
 const QString qs_captureHotkey = "captureHotkey";
@@ -134,11 +137,12 @@ void cleanupOutdated(QSettings& settings)
 void Settings::save() const
 {
   std::unique_ptr<QSettings> ptr;
+  const auto iniName = iniFileName();
   if (isPortable_) {
-    ptr = std::make_unique<QSettings>(iniFileName, QSettings::IniFormat);
+    ptr = std::make_unique<QSettings>(iniName, QSettings::IniFormat);
   } else {
     ptr = std::make_unique<QSettings>();
-    QFile::remove(iniFileName);
+    QFile::remove(iniName);
   }
   auto& settings = *ptr;
 
@@ -213,8 +217,9 @@ void Settings::save() const
 void Settings::load()
 {
   std::unique_ptr<QSettings> ptr;
-  if (QFile::exists(iniFileName)) {
-    ptr = std::make_unique<QSettings>(iniFileName, QSettings::IniFormat);
+  const auto iniName = iniFileName();
+  if (QFile::exists(iniName)) {
+    ptr = std::make_unique<QSettings>(iniName, QSettings::IniFormat);
     setPortable(true);
   } else {
     ptr = std::make_unique<QSettings>();
@@ -309,8 +314,9 @@ void Settings::load()
 void Settings::saveLastUpdateCheck()
 {
   std::unique_ptr<QSettings> ptr;
-  if (QFile::exists(iniFileName)) {
-    ptr = std::make_unique<QSettings>(iniFileName, QSettings::IniFormat);
+  const auto iniName = iniFileName();
+  if (QFile::exists(iniName)) {
+    ptr = std::make_unique<QSettings>(iniName, QSettings::IniFormat);
   } else {
     ptr = std::make_unique<QSettings>();
   }
@@ -331,7 +337,7 @@ void Settings::setPortable(bool isPortable)
   isPortable_ = isPortable;
 
   const auto baseDataPath =
-      (isPortable ? QDir().absolutePath()
+      (isPortable ? QApplication::applicationDirPath()
                   : QStandardPaths::writableLocation(
                         QStandardPaths::AppDataLocation)) +
       "/assets";
