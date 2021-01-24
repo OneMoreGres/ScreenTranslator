@@ -1,5 +1,9 @@
 # Changes
 
+## 3.1.1
+
+* Fixed portable mode detection
+
 ## 3.1.0
 
 * Added ability to choose a recognition version from the program
