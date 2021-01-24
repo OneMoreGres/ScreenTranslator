@@ -6,8 +6,8 @@ import platform
 c.print('>> Installing leptonica')
 
 install_dir = dependencies_dir
-url = 'http://www.leptonica.org/source/leptonica-1.78.0.tar.gz'
-required_version = '1.78.0'
+url = 'https://github.com/DanBloomberg/leptonica/releases/download/1.80.0/leptonica-1.80.0.tar.gz'
+required_version = '1.80.0'
 
 
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
@@ -25,14 +25,14 @@ def check_existing():
             return False
 
     if platform.system() == "Windows":
-        dll = install_dir + '/bin/leptonica-1.78.0.dll'
-        lib = install_dir + '/lib/leptonica-1.78.0.lib'
+        dll = install_dir + '/bin/leptonica-1.80.0.dll'
+        lib = install_dir + '/lib/leptonica-1.80.0.lib'
         if not os.path.exists(dll) or not os.path.exists(lib):
             return False
         c.symlink(dll, install_dir + '/bin/leptonica.dll')
         c.symlink(lib, install_dir + '/lib/leptonica.lib')
     elif platform.system() == "Darwin":
-        lib = install_dir + '/lib/libleptonica.1.78.0.dylib'
+        lib = install_dir + '/lib/libleptonica.1.80.0.dylib'
         if not os.path.exists(lib):
             return False
         c.symlink(lib, install_dir + '/lib/libleptonica.dylib')
@@ -49,7 +49,7 @@ def check_existing():
         return False
 
     with open(version_file, 'rt') as f:
-        existing_version = f.readline()[22:28]  # set(Leptonica_VERSION 1.78.0)
+        existing_version = f.readline()[22:28]  # set(Leptonica_VERSION 1.80.0)
         if existing_version != required_version:
             return False
     return True
@@ -66,12 +66,20 @@ src_dir = os.path.abspath('leptonica_src')
 c.extract(archive, '.')
 c.symlink(c.get_archive_top_dir(archive), src_dir)
 
+with open('{}/CMakeLists.txt'.format(src_dir), 'r+') as f:
+    data = f.read()
+    data = data.replace('pkg_check_modules(WEBP', '#pkg_check_modules(WEBP')
+    data = data.replace('if(NOT WEBP', 'if(FALSE')
+    f.seek(0, os.SEEK_SET)
+    f.write(data)
+
 c.ensure_got_path(install_dir)
 
 c.recreate_dir(build_dir)
 os.chdir(build_dir)
 
-cmake_args = '"{}" -DCMAKE_INSTALL_PREFIX="{}"'.format(src_dir, install_dir)
+cmake_args = '"{}" -DCMAKE_INSTALL_PREFIX="{}" -DBUILD_SHARED_LIBS=ON \
+-DSW_BUILD=OFF'.format(src_dir, install_dir,)
 
 if platform.system() == "Windows":
     env_cmd = c.get_msvc_env_cmd(bitness=bitness, msvc_version=msvc_version)
