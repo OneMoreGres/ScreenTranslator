@@ -104,6 +104,7 @@ void ResultEditor::translate()
   task_->targetLanguage =
       LanguageCodes::idForName(targetLanguage_->currentText());
   task_->translators = settings_.translators;
+  task_->corrected = recognizedEdit_->toPlainText();
   manager_.corrected(task_);
   close();
   task_.reset();
