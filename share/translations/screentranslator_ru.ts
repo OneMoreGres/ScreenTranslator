@@ -47,7 +47,7 @@ Ctrl - продолжить выделять</translation>
     <message>
         <location filename="../../src/capture/captureareaselector.cpp" line="44"/>
         <source>Capture all</source>
-        <translation>Обрабоать все</translation>
+        <translation>Обработать все</translation>
     </message>
     <message>
         <location filename="../../src/capture/captureareaselector.cpp" line="49"/>
