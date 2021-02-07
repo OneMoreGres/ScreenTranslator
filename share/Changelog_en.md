@@ -1,5 +1,9 @@
 # Changes
 
+## 3.1.2
+
+* Fixed manually corrected text translation
+
 ## 3.1.1
 
 * Fixed portable mode detection
