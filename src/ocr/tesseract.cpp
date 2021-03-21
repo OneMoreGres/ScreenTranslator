@@ -137,6 +137,7 @@ class Tesseract::Wrapper
   using GetUtf8 = char *(*)(TessBaseAPI *);
   using ClearApi = void (*)(TessBaseAPI *);
   using DeleteUtf8 = void (*)(const char *);
+  using SetPageMode = void (*)(TessBaseAPI *, int);
 
 public:
   explicit Wrapper(const QString &libraryName)
@@ -156,6 +157,8 @@ public:
     ok &= bool(getUtf8_ = (GetUtf8)lib.resolve("TessBaseAPIGetUTF8Text"));
     ok &= bool(clearApi_ = (ClearApi)lib.resolve("TessBaseAPIClear"));
     ok &= bool(deleteUtf8_ = (DeleteUtf8)lib.resolve("TessDeleteText"));
+    ok &= bool(setPageMode_ =
+                   (SetPageMode)lib.resolve("TessBaseAPISetPageSegMode"));
     if (!ok) {
       LERROR() << "Failed to resolve tesseract functions from" << libraryName;
       return;
@@ -183,6 +186,9 @@ public:
   QString GetText(Pix *pix)
   {
     SOFT_ASSERT(handle_, return {});
+
+    SOFT_ASSERT(setPageMode_, return {});
+    setPageMode_(handle_, 3);  //    PSM_AUTO
 
     SOFT_ASSERT(setImage_, return {});
     setImage_(handle_, pix);
@@ -216,6 +222,7 @@ private:
   GetUtf8 getUtf8_{nullptr};
   ClearApi clearApi_{nullptr};
   DeleteUtf8 deleteUtf8_{nullptr};
+  SetPageMode setPageMode_{nullptr};
   TessBaseAPI *handle_{nullptr};
 };
 
