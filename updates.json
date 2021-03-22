@@ -57,13 +57,13 @@
  , "Chinese (Simplified)":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_sim.traineddata.zip"], "path":"$tessdata$/chi_sim.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13077423}
  ]}
- , "chi_sim_vert":{"files":[
+ , "Chinese (Simplified) vertical":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_sim_vert.traineddata.zip"], "path":"$tessdata$/chi_sim_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":13077507}
  ]}
  , "Chinese (Traditional)":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_tra.traineddata.zip"], "path":"$tessdata$/chi_tra.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12985735}
  ]}
- , "chi_tra_vert":{"files":[
+ , "Chinese (Traditional) vertical":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_tra_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/chi_tra_vert.traineddata.zip"], "path":"$tessdata$/chi_tra_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12985521}
  ]}
  , "Cherokee":{"files":[
@@ -183,7 +183,7 @@
  , "Japanese":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn.traineddata","https://translator.gres.biz/resources/tessdata_best/jpn.traineddata.zip"], "path":"$tessdata$/jpn.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14330109}
  ]}
- , "jpn_vert":{"files":[
+ , "Japanese vertical":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/jpn_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/jpn_vert.traineddata.zip"], "path":"$tessdata$/jpn_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":14330809}
  ]}
  , "Kannada":{"files":[
@@ -210,7 +210,7 @@
  , "Korean":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kor.traineddata","https://translator.gres.biz/resources/tessdata_best/kor.traineddata.zip"], "path":"$tessdata$/kor.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":12528128}
  ]}
- , "kor_vert":{"files":[
+ , "Korean vertical":{"files":[
   {"url":["https://github.com/tesseract-ocr/tessdata_best/raw/master/kor_vert.traineddata","https://translator.gres.biz/resources/tessdata_best/kor_vert.traineddata.zip"], "path":"$tessdata$/kor_vert.traineddata", "date":"2020-03-09T08:28:45+01:00", "size":3964469}
  ]}
  , "Lao":{"files":[

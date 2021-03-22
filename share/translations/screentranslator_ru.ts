@@ -277,321 +277,341 @@ Ctrl - продолжить выделять</translation>
     </message>
     <message>
         <location filename="../../src/languagecodes.cpp" line="83"/>
+        <source>Japanese vertical</source>
+        <translation>Японский вертикальный</translation>
+    </message>
+    <message>
+        <location filename="../../src/languagecodes.cpp" line="84"/>
         <source>Javanese</source>
         <translation>Яванский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="85"/>
+        <location filename="../../src/languagecodes.cpp" line="86"/>
         <source>Kannada</source>
         <translation>Каннада</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="88"/>
+        <location filename="../../src/languagecodes.cpp" line="89"/>
         <source>Kazakh</source>
         <translation>Казахский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="92"/>
+        <location filename="../../src/languagecodes.cpp" line="93"/>
         <source>Kyrgyz</source>
         <translation>Киргизский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="95"/>
+        <location filename="../../src/languagecodes.cpp" line="96"/>
         <source>Korean</source>
         <translation>Корейский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="96"/>
+        <location filename="../../src/languagecodes.cpp" line="97"/>
+        <source>Korean vertical</source>
+        <translation>Корейский вертикальный</translation>
+    </message>
+    <message>
+        <location filename="../../src/languagecodes.cpp" line="98"/>
         <source>Kurdish</source>
         <translation>Курдский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="98"/>
+        <location filename="../../src/languagecodes.cpp" line="100"/>
         <source>Latin</source>
         <translation>Латинский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="99"/>
+        <location filename="../../src/languagecodes.cpp" line="101"/>
         <source>Luxembourgish</source>
         <translation>Люксембургский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="103"/>
+        <location filename="../../src/languagecodes.cpp" line="105"/>
         <source>Lao</source>
         <translation>Лао</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="104"/>
+        <location filename="../../src/languagecodes.cpp" line="106"/>
         <source>Lithuanian</source>
         <translation>Литовский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="106"/>
+        <location filename="../../src/languagecodes.cpp" line="108"/>
         <source>Latvian</source>
         <translation>Латышский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="108"/>
+        <location filename="../../src/languagecodes.cpp" line="110"/>
         <source>Macedonian</source>
         <translation>Македонский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="109"/>
+        <location filename="../../src/languagecodes.cpp" line="111"/>
         <source>Malagasy</source>
         <translation>Малагасийский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="110"/>
+        <location filename="../../src/languagecodes.cpp" line="112"/>
         <source>Malay</source>
         <translation>Малайский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="111"/>
+        <location filename="../../src/languagecodes.cpp" line="113"/>
         <source>Malayalam</source>
         <translation>Малаялам</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="112"/>
+        <location filename="../../src/languagecodes.cpp" line="114"/>
         <source>Maltese</source>
         <translation>Мальтийский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="113"/>
+        <location filename="../../src/languagecodes.cpp" line="115"/>
         <source>Maori</source>
         <translation>Маори</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="114"/>
+        <location filename="../../src/languagecodes.cpp" line="116"/>
         <source>Marathi</source>
         <translation>Маратхи</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="116"/>
+        <location filename="../../src/languagecodes.cpp" line="118"/>
         <source>Mongolian</source>
         <translation>Монгольский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="120"/>
+        <location filename="../../src/languagecodes.cpp" line="122"/>
         <source>Nepali</source>
         <translation>Непальский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="124"/>
+        <location filename="../../src/languagecodes.cpp" line="126"/>
         <source>Norwegian</source>
         <translation>Норвежский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="133"/>
+        <location filename="../../src/languagecodes.cpp" line="135"/>
         <source>Punjabi</source>
         <translation>Панджаби</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="135"/>
+        <location filename="../../src/languagecodes.cpp" line="137"/>
         <source>Persian</source>
         <translation>Персидский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="136"/>
+        <location filename="../../src/languagecodes.cpp" line="138"/>
         <source>Polish</source>
         <translation>Польский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="137"/>
+        <location filename="../../src/languagecodes.cpp" line="139"/>
         <source>Pashto</source>
         <translation>Пушту</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="138"/>
+        <location filename="../../src/languagecodes.cpp" line="140"/>
         <source>Portuguese</source>
         <translation>Португальский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="142"/>
+        <location filename="../../src/languagecodes.cpp" line="144"/>
         <source>Romanian</source>
         <translation>Румынский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="143"/>
+        <location filename="../../src/languagecodes.cpp" line="145"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="146"/>
+        <location filename="../../src/languagecodes.cpp" line="148"/>
         <source>Sindhi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="148"/>
+        <location filename="../../src/languagecodes.cpp" line="150"/>
         <source>Samoan</source>
         <translation>Самоанский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="150"/>
+        <location filename="../../src/languagecodes.cpp" line="152"/>
         <source>Serbian</source>
         <translation>Сербский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="151"/>
+        <location filename="../../src/languagecodes.cpp" line="153"/>
         <source>Gaelic</source>
         <translation>Гаэльский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="152"/>
+        <location filename="../../src/languagecodes.cpp" line="154"/>
         <source>Shona</source>
         <translation>Шона</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="154"/>
+        <location filename="../../src/languagecodes.cpp" line="156"/>
         <source>Slovak</source>
         <translation>Словацкий</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="155"/>
+        <location filename="../../src/languagecodes.cpp" line="157"/>
         <source>Slovenian</source>
         <translation>Словенский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="156"/>
+        <location filename="../../src/languagecodes.cpp" line="158"/>
         <source>Somali</source>
         <translation>Сомалийский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="158"/>
+        <location filename="../../src/languagecodes.cpp" line="160"/>
         <source>Spanish</source>
         <translation>Испанский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="160"/>
+        <location filename="../../src/languagecodes.cpp" line="162"/>
         <source>Swahili</source>
         <translation>Суахили</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="162"/>
+        <location filename="../../src/languagecodes.cpp" line="164"/>
         <source>Swedish</source>
         <translation>Шведский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="163"/>
+        <location filename="../../src/languagecodes.cpp" line="165"/>
         <source>Tamil</source>
         <translation>Тамил</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="164"/>
+        <location filename="../../src/languagecodes.cpp" line="166"/>
         <source>Telugu</source>
         <translation>Телугу</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="165"/>
+        <location filename="../../src/languagecodes.cpp" line="167"/>
         <source>Tajik</source>
         <translation>Таджикиский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="166"/>
+        <location filename="../../src/languagecodes.cpp" line="168"/>
         <source>Thai</source>
         <translation>Тайский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="168"/>
+        <location filename="../../src/languagecodes.cpp" line="170"/>
         <source>Tibetan</source>
         <translation>Тибетский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="170"/>
+        <location filename="../../src/languagecodes.cpp" line="172"/>
         <source>Tagalog</source>
         <translation>Тагальский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="173"/>
+        <location filename="../../src/languagecodes.cpp" line="175"/>
         <source>Turkish</source>
         <translation>Турецкий</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="179"/>
+        <location filename="../../src/languagecodes.cpp" line="181"/>
         <source>Ukrainian</source>
         <translation>Украинский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="180"/>
+        <location filename="../../src/languagecodes.cpp" line="182"/>
         <source>Urdu</source>
         <translation>Урду</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="181"/>
+        <location filename="../../src/languagecodes.cpp" line="183"/>
         <source>Uzbek</source>
         <translation>Узбекский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="183"/>
+        <location filename="../../src/languagecodes.cpp" line="185"/>
         <source>Vietnamese</source>
         <translation>Вьетнамский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="186"/>
+        <location filename="../../src/languagecodes.cpp" line="188"/>
         <source>Welsh</source>
         <translation>Валлийский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="190"/>
+        <location filename="../../src/languagecodes.cpp" line="192"/>
         <source>Yiddish</source>
         <translation>Идиш</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="191"/>
+        <location filename="../../src/languagecodes.cpp" line="193"/>
         <source>Yoruba</source>
         <translation>Йоруба</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="193"/>
+        <location filename="../../src/languagecodes.cpp" line="195"/>
         <source>Zulu</source>
         <translation>Зулусский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="195"/>
+        <location filename="../../src/languagecodes.cpp" line="197"/>
         <source>Chinese (Simplified)</source>
         <translation>Китайский упрощенный</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="196"/>
+        <location filename="../../src/languagecodes.cpp" line="198"/>
         <source>Chinese (Traditional)</source>
         <translation>Китайский традиционный</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="197"/>
+        <location filename="../../src/languagecodes.cpp" line="199"/>
+        <source>Chinese (Simplified) vertical</source>
+        <translation>Китайский упрощенный вертикальный</translation>
+    </message>
+    <message>
+        <location filename="../../src/languagecodes.cpp" line="200"/>
+        <source>Chinese (Traditional) vertical</source>
+        <translation>Китайский традиционный вертикальный</translation>
+    </message>
+    <message>
+        <location filename="../../src/languagecodes.cpp" line="201"/>
         <source>Filipino</source>
         <translation>Филиппинский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="198"/>
+        <location filename="../../src/languagecodes.cpp" line="202"/>
         <source>Cherokee</source>
         <translation>Чероки</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="199"/>
+        <location filename="../../src/languagecodes.cpp" line="203"/>
         <source>Cebuano</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="200"/>
+        <location filename="../../src/languagecodes.cpp" line="204"/>
         <source>Syriac</source>
         <translation>Сирийский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="201"/>
+        <location filename="../../src/languagecodes.cpp" line="205"/>
         <source>English, Middle (1100-1500)</source>
         <translation>Среднев. английский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="202"/>
+        <location filename="../../src/languagecodes.cpp" line="206"/>
         <source>French, Middle (ca.1400-1600)</source>
         <translation>Среднев. французский</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="203"/>
+        <location filename="../../src/languagecodes.cpp" line="207"/>
         <source>Greek, Ancient (to 1453)</source>
         <translation>Дневнегреческий</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="204"/>
+        <location filename="../../src/languagecodes.cpp" line="208"/>
         <source>Any</source>
         <translation>Любой язык</translation>
     </message>
@@ -673,12 +693,12 @@ Check for updates to silence this warning</source>
         <translation>неизвестные языки для перевода: %1 или %2</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="248"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="255"/>
         <source>init failed</source>
         <translation>ошибка инициалиизации</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="299"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="306"/>
         <source>Failed to recognize text or no text selected</source>
         <translation>Ошибка распознавания текста или нет текста в выделенной зоне</translation>
     </message>
