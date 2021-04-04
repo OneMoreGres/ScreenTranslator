@@ -561,12 +561,12 @@ Ctrl - продолжить выделять</translation>
         <translation>Китайский упрощенный</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="198"/>
+        <location filename="../../src/languagecodes.cpp" line="199"/>
         <source>Chinese (Traditional)</source>
         <translation>Китайский традиционный</translation>
     </message>
     <message>
-        <location filename="../../src/languagecodes.cpp" line="199"/>
+        <location filename="../../src/languagecodes.cpp" line="198"/>
         <source>Chinese (Simplified) vertical</source>
         <translation>Китайский упрощенный вертикальный</translation>
     </message>
@@ -1110,8 +1110,8 @@ in %1</source>
     </message>
     <message>
         <location filename="../../src/settingseditor.cpp" line="31"/>
-        <source>About</source>
-        <translation>О программе</translation>
+        <source>Help</source>
+        <translation>Помощь</translation>
     </message>
     <message>
         <location filename="../../src/settingseditor.cpp" line="40"/>

@@ -28,7 +28,7 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
     auto model = new QStringListModel(this);
     model->setStringList({tr("General"), tr("Recognition"), tr("Correction"),
                           tr("Translation"), tr("Representation"), tr("Update"),
-                          tr("About")});
+                          tr("Help")});
     ui->pagesList->setModel(model);
     auto selection = ui->pagesList->selectionModel();
     connect(selection, &QItemSelectionModel::currentRowChanged,  //
