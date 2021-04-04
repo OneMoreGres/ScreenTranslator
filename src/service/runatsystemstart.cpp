@@ -37,12 +37,13 @@ void RunAtSystemStart::setEnabled(bool isOn)
   if (!f.open(QFile::WriteOnly))
     return;
 
+  const auto appPath =
+      qEnvironmentVariable("APPIMAGE", QCoreApplication::applicationFilePath());
   const auto contents = QString(R"([Desktop Entry]
 Name=%1
 Exec=%2
 )")
-                            .arg(QCoreApplication::applicationName(),
-                                 QCoreApplication::applicationFilePath());
+                            .arg(QCoreApplication::applicationName(), appPath);
   f.write(contents.toUtf8());
 }
 #endif
