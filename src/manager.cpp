@@ -33,8 +33,7 @@ using Loader = update::Loader;
 Manager::Manager()
   : models_(std::make_unique<CommonModels>())
   , settings_(std::make_unique<Settings>())
-  , updater_(std::make_unique<Loader>(Loader::Urls{{updatesUrl}}))
-  , updateAutoChecker_(std::make_unique<update::AutoChecker>(*updater_))
+  , updater_(std::make_unique<update::Updater>(QVector<QUrl>{{updatesUrl}}))
 {
   SOFT_ASSERT(settings_, return );
 
@@ -61,13 +60,9 @@ Manager::Manager()
 
   warnIfOutdated();
 
-  QObject::connect(updater_.get(), &update::Loader::error,  //
+  QObject::connect(updater_.get(), &update::Updater::error,  //
                    tray_.get(), &TrayIcon::showError);
-  QObject::connect(updater_.get(), &update::Loader::updated,  //
-                   tray_.get(), [this] {
-                     tray_->showInformation(QObject::tr("Update completed"));
-                   });
-  QObject::connect(updater_.get(), &update::Loader::updatesAvailable,  //
+  QObject::connect(updater_.get(), &update::Updater::updatesAvailable,  //
                    tray_.get(), [this] {
                      tray_->showInformation(QObject::tr("Updates available"));
                    });
@@ -76,8 +71,10 @@ Manager::Manager()
 Manager::~Manager()
 {
   SOFT_ASSERT(settings_, return );
-  if (updateAutoChecker_ && updateAutoChecker_->isLastCheckDateChanged()) {
-    settings_->lastUpdateCheck = updateAutoChecker_->lastCheckDate();
+  SOFT_ASSERT(updater_, return );
+  if (updater_->lastUpdateCheck().isValid() &&
+      settings_->lastUpdateCheck != updater_->lastUpdateCheck()) {
+    settings_->lastUpdateCheck = updater_->lastUpdateCheck();
     settings_->saveLastUpdateCheck();
     LTRACE() << "saved last update time";
   }
@@ -170,16 +167,15 @@ void Manager::setupProxy(const Settings &settings)
 
 void Manager::setupUpdates(const Settings &settings)
 {
-  updater_->model()->setExpansions({
+  updater_->setExpansions({
       {"$translators$", settings.translatorsDir},
       {"$tessdata$", settings.tessdataPath},
       {"$hunspell$", settings.hunspellDir},
       {"$appdir$", QApplication::applicationDirPath()},
   });
 
-  SOFT_ASSERT(updateAutoChecker_, return );
-  updateAutoChecker_->setLastCheckDate(settings.lastUpdateCheck);
-  updateAutoChecker_->setCheckIntervalDays(settings.autoUpdateIntervalDays);
+  updater_->setAutoUpdate(settings.autoUpdateIntervalDays,
+                          settings.lastUpdateCheck);
 }
 
 bool Manager::setupTrace(bool isOn)

@@ -11,19 +11,18 @@ class QTreeView;
 namespace update
 {
 enum class State { NotAvailable, NotInstalled, UpdateAvailable, Actual };
-enum class Action { NoAction, Remove, Install };
+enum class Action { Install, Remove };
+
+class Updater;
 
 struct File {
   QVector<QUrl> urls;
   QString rawPath;
   QString expandedPath;
-  QString downloadPath;
   QString md5;
   QDateTime versionDate;
   int progress{0};
 };
-
-using UserActions = std::multimap<Action, File>;
 
 class UpdateDelegate : public QStyledItemDelegate
 {
@@ -38,30 +37,17 @@ class Model : public QAbstractItemModel
 {
   Q_OBJECT
 public:
-  enum class Column {
-    Name,
-    State,
-    Action,
-    Size,
-    Version,
-    Progress,
-    Files,
-    Count
-  };
+  enum class Column { Name, State, Size, Version, Progress, Count };
 
-  explicit Model(QObject* parent = nullptr);
-
-  void initView(QTreeView* view);
+  explicit Model(Updater& updater);
 
   QString parse(const QByteArray& data);
-  void setExpansions(const std::map<QString, QString>& expansions);
-  UserActions userActions() const;
+  void setExpansions(const QHash<QString, QString>& expansions);
   void updateStates();
   bool hasUpdates() const;
   void updateProgress(const QUrl& url, int progress);
-  void resetProgress();
   void selectAllUpdates();
-  void resetActions();
+  void tryAction(Action action, const QModelIndex& index);
 
   QModelIndex index(int row, int column,
                     const QModelIndex& parent) const override;
@@ -72,16 +58,13 @@ public:
                       int role) const override;
   QVariant data(const QModelIndex& index, int role) const override;
   Qt::ItemFlags flags(const QModelIndex& index) const override;
-  bool setData(const QModelIndex& index, const QVariant& value,
-               int role) override;
 
 private:
   struct Component {
     QString name;
     State state{State::NotAvailable};
-    Action action{Action::NoAction};
     QString version;
-    std::vector<File> files;
+    QVector<File> files;
     bool checkOnly{false};
     std::vector<std::unique_ptr<Component>> children;
     Component* parent{nullptr};
@@ -91,33 +74,14 @@ private:
   };
 
   std::unique_ptr<Component> parse(const QJsonObject& json) const;
-  void updateProgress(Component& component, const QUrl& url, int progress);
-  void updateState(Component& component);
   State currentState(const File& file) const;
   QString expanded(const QString& source) const;
   Component* toComponent(const QModelIndex& index) const;
   QModelIndex toIndex(const Component& component, int column) const;
 
+  Updater& updater_;
   std::unique_ptr<Component> root_;
-  std::map<QString, QString> expansions_;
-};
-
-class Installer
-{
-public:
-  explicit Installer(const UserActions& actions);
-  bool commit();
-  QString errorString() const;
-
-private:
-  void remove(const File& file);
-  void install(const File& file);
-  void checkRemove(const File& file);
-  void checkInstall(const File& file);
-  bool checkIsPossible();
-
-  UserActions actions_;
-  QStringList errors_;
+  QHash<QString, QString> expansions_;
 };
 
 class Loader : public QObject
@@ -125,60 +89,85 @@ class Loader : public QObject
   Q_OBJECT
 public:
   using Urls = QVector<QUrl>;
-  explicit Loader(const Urls& updateUrls, QObject* parent = nullptr);
+  explicit Loader(Updater& updater);
 
-  void checkForUpdates();
-  void applyUserActions();
-  Model* model() const;
-
-signals:
-  void updatesAvailable();
-  void updated();
-  void error(const QString& error);
+  void download(const Urls& urls);
 
 private:
-  void addError(const QString& text);
-  void dumpErrors();
+  void start(const Urls& urls, const QUrl& previous, const QString& error);
   void handleReply(QNetworkReply* reply);
-  bool handleComponentReply(QNetworkReply* reply);
-  void handleUpdateReply(QNetworkReply* reply);
-  QString toError(QNetworkReply& reply) const;
-  void finishUpdate(const QString& error = {});
-  void commitUpdate();
-  void updateProgress(qint64 bytesSent, qint64 bytesTotal);
-  bool startDownload(File& file);
-  void startDownloadUpdates(const QUrl& previous);
 
+  Updater& updater_;
   QNetworkAccessManager* network_;
-  Model* model_;
-  Urls updateUrls_;
-  QString downloadPath_;
-  std::map<QNetworkReply*, File*> downloads_;
-  QStringList errors_;
-  UserActions currentActions_;
+  QHash<QNetworkReply*, Urls> downloads_;
+};
+
+class Installer
+{
+public:
+  void remove(const File& file);
+  void install(const File& file, const QByteArray& data);
+  void checkInstall(const File& file);
+  const QString& error() const;
+
+private:
+  QString error_;
 };
 
 class AutoChecker : public QObject
 {
   Q_OBJECT
 public:
-  explicit AutoChecker(Loader& loader, QObject* parent = nullptr);
+  AutoChecker(Updater& updater, int intervalDays, const QDateTime& lastCheck);
   ~AutoChecker();
 
-  bool isLastCheckDateChanged() const;
-  QDateTime lastCheckDate() const;
-  void setCheckIntervalDays(int days);
-  void setLastCheckDate(const QDateTime& dt);
+  const QDateTime& lastCheckDate() const;
 
 private:
-  void handleModelReset();
+  void updateLastCheckDate();
   void scheduleNextCheck();
 
-  Loader& loader_;
-  bool isLastCheckDateChanged_{false};
+  Updater& updater_;
   int checkIntervalDays_{0};
   QDateTime lastCheckDate_;
   std::unique_ptr<QTimer> timer_;
+};
+
+class Updater : public QObject
+{
+  Q_OBJECT
+public:
+  explicit Updater(const QVector<QUrl>& updateUrls);
+
+  void initView(QTreeView* view);
+  void setExpansions(const QHash<QString, QString>& expansions);
+  void checkForUpdates();
+
+  QDateTime lastUpdateCheck() const;
+  void setAutoUpdate(int intervalDays, const QDateTime& lastCheck);
+
+  void applyAction(Action action, const QVector<File>& files);
+  void downloaded(const QUrl& url, const QByteArray& data);
+  void updateProgress(const QUrl& url, qint64 bytesSent, qint64 bytesTotal);
+  void downloadFailed(const QUrl& url, const QString& error);
+
+signals:
+  void checkedForUpdates();
+  void updatesAvailable();
+  void updated();
+  void error(const QString& error);
+
+private:
+  void handleModelDoubleClick(const QModelIndex& index);
+  void showModelContextMenu();
+  int findDownload(const QUrl& url) const;
+  QModelIndex fromProxy(const QModelIndex& index) const;
+
+  std::unique_ptr<Model> model_;
+  std::unique_ptr<Loader> loader_;
+  std::unique_ptr<AutoChecker> autoChecker_;
+  QVector<QUrl> updateUrls_;
+  QVector<File> downloading_;
 };
 
 }  // namespace update

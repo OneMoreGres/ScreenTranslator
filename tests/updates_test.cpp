@@ -14,10 +14,9 @@ const auto f1 = "from1.txt";
 const auto t1 = "test/to1.txt";
 const auto data = "sample";
 
-File toFile(const QString& from, const QString& to)
+File toFile(const QString& to)
 {
   File result;
-  result.downloadPath = from;
   result.expandedPath = to;
   return result;
 }
@@ -47,41 +46,24 @@ bool removeFile(const QString& name)
 }
 }  // namespace
 
-TEST(UpdateInstaller, Empty)
-{
-  UserActions actions;
-  Installer testee(actions);
-  ASSERT_TRUE(testee.commit());
-}
-
 TEST(UpdateInstaller, SuccessInstall)
 {
   ASSERT_TRUE(removeFile(t1));
-  ASSERT_TRUE(writeFile(f1, data));
 
-  UserActions actions{{Action::Install, toFile(f1, t1)}};
-  Installer testee(actions);
-  ASSERT_TRUE(testee.commit());
+  Installer testee;
+  testee.install(toFile(t1), data);
   ASSERT_EQ(data, readFile(t1));
+  ASSERT_TRUE(testee.error().isEmpty());
 }
 
 TEST(UpdateInstaller, SuccessRemove)
 {
   ASSERT_TRUE(writeFile(f1, data));
 
-  UserActions actions{{Action::Remove, toFile(f1, f1)}};
-  Installer testee(actions);
-  ASSERT_TRUE(testee.commit());
+  Installer testee;
+  testee.remove(toFile(f1));
   ASSERT_FALSE(QFile::exists(f1));
-}
-
-TEST(UpdateInstaller, FailInstallNoSource)
-{
-  ASSERT_TRUE(removeFile(f1));
-
-  UserActions actions{{Action::Install, toFile(f1, t1)}};
-  Installer testee(actions);
-  ASSERT_FALSE(testee.commit());
+  ASSERT_TRUE(testee.error().isEmpty());
 }
 
 TEST(UpdateInstaller, FailInstallNoWritable)
@@ -90,9 +72,9 @@ TEST(UpdateInstaller, FailInstallNoWritable)
   QFile f(t1);
   ASSERT_FALSE(f.isWritable());
 
-  UserActions actions{{Action::Install, toFile(f1, t1)}};
-  Installer testee(actions);
-  ASSERT_FALSE(testee.commit());
+  Installer testee;
+  testee.install(toFile(t1), data);
+  ASSERT_FALSE(testee.error().isEmpty());
 }
 
 TEST(UpdateInstaller, FailRemove)
@@ -103,9 +85,9 @@ TEST(UpdateInstaller, FailRemove)
     return;
   ASSERT_FALSE(QFile::copy(f1, f1 + "1"));  // non writable
 
-  UserActions actions{{Action::Remove, toFile(f1, f1)}};
-  Installer testee(actions);
-  ASSERT_FALSE(testee.commit());
+  Installer testee;
+  testee.remove(toFile(f1));
+  ASSERT_FALSE(testee.error().isEmpty());
 }
 
 TEST(UpdateModel, ParseFail)
@@ -113,7 +95,8 @@ TEST(UpdateModel, ParseFail)
   const auto updates = R"({
 })";
 
-  Model testee;
+  Updater updater({});
+  Model testee(updater);
   const auto error = testee.parse(updates);
 
   ASSERT_FALSE(error.isEmpty());
@@ -134,7 +117,8 @@ TEST(UpdateModel, Parse)
 }
 })";
 
-  Model testee;
+  Updater updater({});
+  Model testee(updater);
   const auto error = testee.parse(updates);
 
   ASSERT_TRUE(error.isEmpty());
@@ -145,41 +129,4 @@ TEST(UpdateModel, Parse)
   const auto comp1Name =
       comp1.sibling(comp1.row(), int(Model::Column::Name)).data().toString();
   ASSERT_EQ("comp1", comp1Name);
-}
-
-TEST(UpdateLoader, InstallFile)
-{
-  const auto uf = "updates.json";
-  const auto url = QUrl::fromLocalFile(QFileInfo(f1).absoluteFilePath());
-  const auto updates = QString(R"({
-"version":1,
-"comp1":{"files":[{"url":"%1", "path":"./%2", "md5":"1"}]}
-})")
-                           .arg(url.toString(), t1);
-  ASSERT_TRUE(writeFile(uf, updates.toUtf8()));
-  ASSERT_TRUE(writeFile(f1, updates.toUtf8()));
-  ASSERT_TRUE(removeFile(t1));
-
-  Loader testee({QUrl::fromLocalFile(QFileInfo(uf).absoluteFilePath())});
-  testee.checkForUpdates();
-  QCoreApplication::processEvents();
-
-  auto model = testee.model();
-  ASSERT_NE(nullptr, model);
-  ASSERT_EQ(1, model->rowCount({}));
-
-  const auto comp1 = model->index(0, int(Model::Column::Action), {});
-  model->setData(comp1, int(Action::Install), Qt::EditRole);
-
-  QSignalSpy okSpy(&testee, &Loader::updated);
-  QSignalSpy errorSpy(&testee, &Loader::error);
-
-  testee.applyUserActions();
-
-  QCoreApplication::processEvents();
-  ASSERT_EQ(1, okSpy.count());
-  ASSERT_EQ(0, errorSpy.count());
-
-  ASSERT_TRUE(QFile::exists(f1));
-  ASSERT_EQ(updates, readFile(t1));
 }

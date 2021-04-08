@@ -16,7 +16,7 @@ class SettingsEditor : public QDialog
   Q_OBJECT
 
 public:
-  SettingsEditor(Manager &manager, update::Loader &updater);
+  SettingsEditor(Manager &manager, update::Updater &updater);
   ~SettingsEditor();
 
   Settings settings() const;
@@ -35,7 +35,7 @@ private:
 
   Ui::SettingsEditor *ui;
   Manager &manager_;
-  update::Loader &updater_;
+  update::Updater &updater_;
   CommonModels models_;
   QStringList enabledTranslators_;
   bool wasPortable_{false};

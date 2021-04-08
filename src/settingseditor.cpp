@@ -9,7 +9,7 @@
 
 #include <QColorDialog>
 
-SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
+SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
   : ui(new Ui::SettingsEditor)
   , manager_(manager)
   , updater_(updater)
@@ -92,16 +92,15 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Loader &updater)
           this, [this] { pickColor(ColorContext::Bagkround); });
 
   // updates
-  updater.model()->initView(ui->updatesView);
+  ui->updatesView->header()->setObjectName("updatesHeader");
+  updater_.initView(ui->updatesView);
   adjustUpdatesView();
-  connect(updater_.model(), &QAbstractItemModel::modelReset,  //
+  connect(&updater_, &update::Updater::checkedForUpdates,  //
           this, &SettingsEditor::adjustUpdatesView);
-  connect(&updater_, &update::Loader::updated,  //
+  connect(&updater_, &update::Updater::updated,  //
           this, &SettingsEditor::adjustUpdatesView);
   connect(ui->checkUpdates, &QPushButton::clicked,  //
-          &updater_, &update::Loader::checkForUpdates);
-  connect(ui->applyUpdates, &QPushButton::clicked,  //
-          &updater_, &update::Loader::applyUserActions);
+          &updater_, &update::Updater::checkForUpdates);
 
   // about
   {
@@ -317,8 +316,6 @@ void SettingsEditor::updateTranslators()
 
 void SettingsEditor::adjustUpdatesView()
 {
-  ui->updatesView->resizeColumnToContents(int(update::Model::Column::Name));
-
   if (ui->tessdataPath->text().isEmpty())  // not inited yet
     return;
 

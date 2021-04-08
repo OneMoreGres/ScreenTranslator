@@ -22,8 +22,7 @@ class CommonModels;
 
 namespace update
 {
-class Loader;
-class AutoChecker;
+class Updater;
 }  // namespace update
 
 using TaskPtr = std::shared_ptr<Task>;

@@ -43,7 +43,6 @@ private:
   std::unique_ptr<Corrector> corrector_;
   std::unique_ptr<Translator> translator_;
   std::unique_ptr<Representer> representer_;
-  std::unique_ptr<update::Loader> updater_;
-  std::unique_ptr<update::AutoChecker> updateAutoChecker_;
+  std::unique_ptr<update::Updater> updater_;
   int activeTaskCount_{0};
 };

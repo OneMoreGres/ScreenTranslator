@@ -1,9 +1,7 @@
 ﻿#include "updates.h"
 #include "debug.h"
 
-#include <QAbstractItemView>
 #include <QApplication>
-#include <QComboBox>
 #include <QDir>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -12,7 +10,7 @@
 #include <QNetworkReply>
 #include <QScopeGuard>
 #include <QSortFilterProxyModel>
-#include <QStandardPaths>
+#include <QTemporaryFile>
 #include <QTimer>
 #include <QTreeView>
 
@@ -121,7 +119,6 @@ QString toString(State state)
 QString toString(Action action)
 {
   const QMap<Action, QString> names{
-      {Action::NoAction, {}},
       {Action::Remove, QApplication::translate("Updates", "Remove")},
       {Action::Install, QApplication::translate("Updates", "Install/Update")},
   };
@@ -146,349 +143,11 @@ QStringList toList(const QJsonValue &value)
 
 }  // namespace
 
-Loader::Loader(const update::Loader::Urls &updateUrls, QObject *parent)
-  : QObject(parent)
-  , network_(new QNetworkAccessManager(this))
-  , model_(new Model(this))
-  , updateUrls_(updateUrls)
-  , downloadPath_(
-        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-        "/updates")
+//
+
+Model::Model(Updater &updater)
+  : updater_(updater)
 {
-  std::random_device device;
-  std::mt19937 generator(device());
-  std::shuffle(updateUrls_.begin(), updateUrls_.end(), generator);
-
-  network_->setRedirectPolicy(
-      QNetworkRequest::RedirectPolicy::NoLessSafeRedirectPolicy);
-  connect(network_, &QNetworkAccessManager::finished,  //
-          this, &Loader::handleReply);
-}
-
-void Loader::handleReply(QNetworkReply *reply)
-{
-  if (updateUrls_.contains(reply->url())) {
-    handleUpdateReply(reply);
-  } else {
-    handleComponentReply(reply);
-  }
-}
-
-void Loader::checkForUpdates()
-{
-  LTRACE() << "Loader::checkForUpdates";
-  startDownloadUpdates({});
-}
-
-void Loader::startDownloadUpdates(const QUrl &previous)
-{
-  SOFT_ASSERT(!updateUrls_.isEmpty(), return );
-
-  QUrl url;
-  if (previous.isEmpty())
-    url = updateUrls_.first();
-  else {
-    const auto index = updateUrls_.indexOf(previous);
-    SOFT_ASSERT(index != -1, return );
-    if (index + 1 < updateUrls_.size())
-      url = updateUrls_[index + 1];
-  }
-
-  if (url.isEmpty()) {
-    dumpErrors();
-    return;
-  }
-
-  auto reply = network_->get(QNetworkRequest(url));
-  if (reply->error() != QNetworkReply::NoError)
-    handleUpdateReply(reply);
-}
-
-void Loader::handleUpdateReply(QNetworkReply *reply)
-{
-  reply->deleteLater();
-
-  const auto url = reply->url();
-  if (reply->error() != QNetworkReply::NoError) {
-    addError(toError(*reply));
-    startDownloadUpdates(url);
-    return;
-  }
-
-  const auto replyData = reply->readAll();
-  if (replyData.isEmpty()) {
-    addError(tr("Empty updates info from\n%1").arg(url.toString()));
-    startDownloadUpdates(url);
-    return;
-  }
-
-  const auto unpacked =
-      url.toString().endsWith(".zip") ? unpack(replyData) : replyData;
-
-  if (unpacked.isEmpty()) {
-    addError(tr("Empty updates info unpacked from\n%1").arg(url.toString()));
-    startDownloadUpdates(url);
-    return;
-  }
-
-  SOFT_ASSERT(model_, return );
-  const auto parseError = model_->parse(unpacked);
-  if (!parseError.isEmpty()) {
-    addError(tr("Failed to parse updates from\n%1 (%2)")
-                 .arg(url.toString(), parseError));
-    startDownloadUpdates(url);
-    return;
-  }
-
-  errors_.clear();
-
-  if (model_->hasUpdates())
-    emit updatesAvailable();
-}
-
-QString Loader::toError(QNetworkReply &reply) const
-{
-  return tr("Failed to download file\n%1. Error %2")
-      .arg(reply.url().toString(), reply.errorString());
-}
-
-void Loader::applyUserActions()
-{
-  SOFT_ASSERT(model_, return );
-  if (!currentActions_.empty() || !downloads_.empty()) {
-    emit error(tr("Already updating"));
-    return;
-  }
-
-  currentActions_ = model_->userActions();
-  if (currentActions_.empty()) {
-    emit error(tr("No actions selected"));
-    return;
-  }
-
-  for (auto &action : currentActions_) {
-    if (action.first != Action::Install)
-      continue;
-
-    auto &file = action.second;
-    file.downloadPath = downloadPath_ + '/' + file.rawPath;
-
-    if (!startDownload(file)) {
-      finishUpdate();
-      return;
-    }
-  }
-
-  if (downloads_.empty())  // no downloads
-    commitUpdate();
-}
-
-bool Loader::startDownload(File &file)
-{
-  if (file.urls.empty())
-    return false;
-
-  auto reply = network_->get(QNetworkRequest(file.urls.takeFirst()));
-  downloads_.emplace(reply, &file);
-
-  connect(reply, &QNetworkReply::downloadProgress,  //
-          this, &Loader::updateProgress);
-
-  if (reply->error() == QNetworkReply::NoError)
-    return true;
-
-  return handleComponentReply(reply);
-}
-
-bool Loader::handleComponentReply(QNetworkReply *reply)
-{
-  reply->deleteLater();
-
-  if (currentActions_.empty()) {  // aborted?
-    finishUpdate();
-    return false;
-  }
-
-  SOFT_ASSERT(downloads_.count(reply) == 1, return false);
-  auto *file = downloads_[reply];
-  SOFT_ASSERT(file, return false);
-
-  downloads_.erase(reply);
-
-  if (reply->error() != QNetworkReply::NoError) {
-    addError(toError(*reply));
-
-    if (!startDownload(*file))
-      finishUpdate();
-
-    return false;
-  }
-
-  const auto &fileName = file->downloadPath;
-  auto dir = QFileInfo(fileName).absoluteDir();
-  if (!dir.exists() && !dir.mkpath(".")) {
-    finishUpdate(tr("Failed to create temp path\n%1").arg(dir.absolutePath()));
-    return false;
-  }
-
-  const auto url = reply->url();
-  const auto replyData = reply->readAll();
-  if (replyData.isEmpty()) {
-    addError(tr("Empty data downloaded from\n%1").arg(url.toString()));
-
-    if (!startDownload(*file))
-      finishUpdate();
-
-    return false;
-  }
-
-  const auto mustUnpack =
-      url.toString().endsWith(".zip") && !fileName.endsWith(".zip");
-  const auto unpacked = mustUnpack ? unpack(replyData) : replyData;
-
-  if (unpacked.isEmpty()) {
-    addError(tr("Empty data unpacked from\n%1").arg(url.toString()));
-
-    if (!startDownload(*file))
-      finishUpdate();
-
-    return false;
-  }
-
-  QFile f(fileName);
-  if (!f.open(QFile::WriteOnly)) {
-    const auto error = tr("Failed to save downloaded file\n%1\nto %2\nError %3")
-                           .arg(url.toString(), f.fileName(), f.errorString());
-    finishUpdate(error);
-    return false;
-  }
-
-  f.write(unpacked);
-  f.close();
-
-  if (downloads_.empty())
-    commitUpdate();
-
-  return true;
-}
-
-void Loader::finishUpdate(const QString &error)
-{
-  LTRACE() << "Loader::finishUpdate";
-  currentActions_.clear();
-  for (const auto &i : downloads_) i.first->deleteLater();
-  downloads_.clear();
-  if (!error.isEmpty())
-    addError(error);
-  dumpErrors();
-  SOFT_ASSERT(model_, return );
-  model_->updateStates();
-}
-
-void Loader::commitUpdate()
-{
-  LTRACE() << "Loader::commitUpdate";
-  SOFT_ASSERT(!currentActions_.empty(), return );
-  Installer installer(currentActions_);
-  if (installer.commit()) {
-    model_->resetProgress();
-    errors_.clear();
-    emit updated();
-  } else {
-    addError(tr("Update failed: %1").arg(installer.errorString()));
-  }
-  finishUpdate();
-}
-
-void Loader::updateProgress(qint64 bytesSent, qint64 bytesTotal)
-{
-  if (bytesTotal < 1)
-    return;
-  const auto reply = qobject_cast<QNetworkReply *>(sender());
-  SOFT_ASSERT(reply, return );
-  const auto progress = int(100.0 * bytesSent / bytesTotal);
-  model_->updateProgress(reply->url(), progress);
-}
-
-Model *Loader::model() const
-{
-  return model_;
-}
-
-void Loader::addError(const QString &text)
-{
-  LTRACE() << text;
-  errors_.append(text);
-}
-
-void Loader::dumpErrors()
-{
-  if (errors_.isEmpty())
-    return;
-  const auto summary = errors_.join('\n');
-  emit error(summary);
-  errors_.clear();
-}
-
-Model::Model(QObject *parent)
-  : QAbstractItemModel(parent)
-{
-}
-
-void Model::initView(QTreeView *view)
-{
-  view->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  auto proxy = new QSortFilterProxyModel(view);
-  proxy->setSourceModel(this);
-  view->setModel(proxy);
-  view->setItemDelegate(new update::UpdateDelegate(view));
-  view->setSortingEnabled(true);
-  view->sortByColumn(int(Column::Name), Qt::AscendingOrder);
-#ifndef DEVELOP
-  view->hideColumn(int(update::Model::Column::Files));
-#endif
-
-  view->setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(view, &QAbstractItemView::customContextMenuRequested,  //
-          this, [this, view, proxy] {
-            QMenu menu;
-            using A = Action;
-            QMap<QAction *, Action> actions;
-            for (auto i : QVector<A>{A::Install, A::Remove, A::NoAction})
-              actions[menu.addAction(toString(i))] = i;
-            menu.addSeparator();
-            auto updateAll = menu.addAction(tr("Select all updates"));
-            auto reset = menu.addAction(tr("Reset actions"));
-
-            const auto menuItem = menu.exec(QCursor::pos());
-            if (!menuItem)
-              return;
-
-            if (menuItem == updateAll) {
-              selectAllUpdates();
-              return;
-            }
-
-            if (menuItem == reset) {
-              resetActions();
-              return;
-            }
-
-            const auto selection = view->selectionModel();
-            SOFT_ASSERT(selection, return );
-            const auto indexes = selection->selectedRows(int(Column::Action));
-            if (indexes.isEmpty())
-              return;
-
-            const auto action = actions[menuItem];
-
-            for (const auto &proxyIndex : indexes) {
-              auto modelIndex = proxy->mapToSource(proxyIndex);
-              if (!modelIndex.isValid() || rowCount(modelIndex) > 0)
-                continue;
-              setData(modelIndex, int(action), Qt::EditRole);
-            }
-          });
 }
 
 QString Model::parse(const QByteArray &data)
@@ -511,7 +170,7 @@ QString Model::parse(const QByteArray &data)
 
   root_ = parse(json);
   if (root_)
-    updateState(*root_);
+    updateStates();
 
   endResetModel();
 
@@ -593,68 +252,45 @@ std::unique_ptr<Model::Component> Model::parse(const QJsonObject &json) const
   return result;
 }
 
-void Model::updateProgress(Model::Component &component, const QUrl &url,
-                           int progress)
+void Model::updateProgress(const QUrl &url, int progress)
 {
-  if (!component.files.empty()) {
-    for (auto &file : component.files) {
-      if (!url.isEmpty() && !file.urls.contains(url))
-        continue;
+  if (!root_ || url.isEmpty())
+    return;
 
-      file.progress = progress;
-      component.progress = progress;
+  auto visitor = [this](Component &component, const QUrl &url, int progress,
+                        auto v) -> bool {
+    if (!component.files.empty()) {
+      for (auto &file : component.files) {
+        if (!file.urls.contains(url))
+          continue;
 
-      for (const auto &file : component.files)
-        component.progress = std::max(file.progress, component.progress);
+        file.progress = progress;
+        component.progress = progress;
 
-      const auto index = toIndex(component, int(Column::Progress));
-      emit dataChanged(index, index, {Qt::DisplayRole});
+        for (const auto &f : qAsConst(component.files))
+          component.progress = std::max(f.progress, component.progress);
 
-      if (!url.isEmpty())
-        break;
+        const auto index = toIndex(component, int(Column::Progress));
+        emit dataChanged(index, index, {Qt::DisplayRole});
+        return true;
+      }
+
+    } else if (!component.children.empty()) {
+      for (auto &child : component.children) {
+        if (v(*child, url, progress, v))
+          return true;
+      }
     }
-    return;
-  }
+    return false;
+  };
 
-  if (!component.children.empty()) {
-    for (auto &child : component.children)
-      updateProgress(*child, url, progress);
-    return;
-  }
+  visitor(*root_, url, progress, visitor);
 }
 
-void Model::setExpansions(const std::map<QString, QString> &expansions)
+void Model::setExpansions(const QHash<QString, QString> &expansions)
 {
   expansions_ = expansions;
   updateStates();
-}
-
-UserActions Model::userActions() const
-{
-  if (!root_)
-    return {};
-
-  UserActions actions;
-
-  const auto visitor = [&actions](const Component &component, auto v) -> void {
-    if (!component.files.empty()) {
-      if (component.action == Action::NoAction)
-        return;
-
-      for (auto &file : component.files)
-        actions.emplace(component.action, file);
-      return;
-    }
-
-    if (!component.children.empty()) {
-      for (auto &child : component.children) v(*child, v);
-      return;
-    }
-  };
-
-  visitor(*root_, visitor);
-
-  return actions;
 }
 
 void Model::updateStates()
@@ -662,115 +298,23 @@ void Model::updateStates()
   if (!root_)
     return;
 
-  updateState(*root_);
+  auto visitor = [this](Component &component, auto v) -> void {
+    if (!component.files.empty()) {
+      component.state = State::Actual;
+      for (auto &file : component.files) {
+        file.expandedPath = expanded(file.rawPath);
+        const auto fileState = currentState(file);
+        component.state = std::min(component.state, fileState);
+      }
+      auto index = toIndex(component, int(Column::State));
+      emit dataChanged(index, index, {Qt::DisplayRole});
 
-  const auto visitor = [this](const QModelIndex &parent, auto v) -> void {
-    const auto count = rowCount(parent);
-    if (count == 0)
-      return;
-
-    emit dataChanged(index(0, int(Column::State), parent),
-                     index(count - 1, int(Column::Action), parent),
-                     {Qt::DisplayRole, Qt::EditRole});
-
-    for (auto i = 0; i < count; ++i) v(index(0, 0, parent), v);
-  };
-
-  visitor(QModelIndex(), visitor);
-}
-
-bool Model::hasUpdates() const
-{
-  if (!root_)
-    return false;
-
-  const auto visitor = [](const Component &component, auto v) -> bool {
-    for (const auto &i : component.children) {
-      if (i->state == State::UpdateAvailable || v(*i, v))
-        return true;
-    }
-    return false;
-  };
-
-  return visitor(*root_, visitor);
-}
-
-void Model::updateProgress(const QUrl &url, int progress)
-{
-  if (!root_)
-    return;
-
-  updateProgress(*root_, url, progress);
-}
-
-void Model::resetProgress()
-{
-  if (!root_)
-    return;
-
-  updateProgress(*root_, {}, 0);
-}
-
-void Model::selectAllUpdates()
-{
-  if (!root_)
-    return;
-
-  const auto visitor = [this](Component &component, auto v) -> void {
-    if (component.state == State::UpdateAvailable) {
-      component.action = Action::Install;
-      const auto index = toIndex(component, int(Column::Action));
-      emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
-    }
-
-    if (!component.children.empty()) {
+    } else if (!component.children.empty()) {
       for (auto &child : component.children) v(*child, v);
     }
   };
 
   visitor(*root_, visitor);
-}
-
-void Model::resetActions()
-{
-  if (!root_)
-    return;
-
-  const auto visitor = [this](Component &component, auto v) -> void {
-    if (component.action != Action::NoAction) {
-      component.action = Action::NoAction;
-      const auto index = toIndex(component, int(Column::Action));
-      emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
-    }
-
-    if (!component.children.empty()) {
-      for (auto &child : component.children) v(*child, v);
-    }
-  };
-
-  visitor(*root_, visitor);
-}
-
-void Model::updateState(Model::Component &component)
-{
-  if (!component.files.empty()) {
-    std::vector<State> states;
-    states.reserve(component.files.size());
-
-    for (auto &file : component.files) {
-      file.expandedPath = expanded(file.rawPath);
-      states.push_back(currentState(file));
-    }
-
-    component.state = *std::min_element(states.cbegin(), states.cend());
-    component.action = Action::NoAction;
-    return;
-  }
-
-  if (!component.children.empty()) {
-    for (auto &child : component.children) updateState(*child);
-    return;
-  }
 }
 
 State Model::currentState(const File &file) const
@@ -806,13 +350,74 @@ QString Model::expanded(const QString &source) const
 {
   auto result = source;
 
-  for (const auto &expansion : expansions_) {
-    if (!result.contains(expansion.first))
+  for (auto it = expansions_.cbegin(), end = expansions_.cend(); it != end;
+       ++it) {
+    if (!result.contains(it.key()))
       continue;
-    result.replace(expansion.first, expansion.second);
+    result.replace(it.key(), it.value());
   }
 
   return result;
+}
+
+bool Model::hasUpdates() const
+{
+  if (!root_)
+    return false;
+
+  const auto visitor = [](const Component &component, auto v) -> bool {
+    for (const auto &i : component.children) {
+      if (i->state == State::UpdateAvailable || v(*i, v))
+        return true;
+    }
+    return false;
+  };
+
+  return visitor(*root_, visitor);
+}
+
+void Model::selectAllUpdates()
+{
+  if (!root_)
+    return;
+
+  const auto visitor = [this](Component &component, auto v) -> void {
+    if (component.checkOnly)
+      return;
+
+    if (component.state == State::UpdateAvailable)
+      updater_.applyAction(Action::Install, component.files);
+
+    if (!component.children.empty()) {
+      for (auto &child : component.children) v(*child, v);
+    }
+  };
+
+  visitor(*root_, visitor);
+}
+
+void Model::tryAction(Action action, const QModelIndex &index)
+{
+  const auto visitor = [this, action](Component &component, auto v) -> void {
+    if (component.checkOnly)
+      return;
+
+    const auto &state = component.state;
+    auto ok = (action == Action::Remove &&
+               (state == State::UpdateAvailable || state == State::Actual)) ||
+              (action == Action::Install && (state == State::UpdateAvailable ||
+                                             state == State::NotInstalled));
+    if (ok)
+      updater_.applyAction(action, component.files);
+
+    if (!component.children.empty()) {
+      for (auto &child : component.children) v(*child, v);
+    }
+  };
+
+  auto component = toComponent(index);
+  SOFT_ASSERT(component, return );
+  visitor(*component, visitor);
 }
 
 Model::Component *Model::toComponent(const QModelIndex &index) const
@@ -873,10 +478,9 @@ QVariant Model::headerData(int section, Qt::Orientation orientation,
     return section + 1;
 
   const QMap<Column, QString> names{
-      {Column::Name, tr("Name")},       {Column::State, tr("State")},
-      {Column::Action, tr("Action")},   {Column::Size, tr("Size")},
-      {Column::Version, tr("Version")}, {Column::Progress, tr("Progress")},
-      {Column::Files, tr("Files")},
+      {Column::Name, tr("Name")},         {Column::State, tr("State")},
+      {Column::Size, tr("Size")},         {Column::Version, tr("Version")},
+      {Column::Progress, tr("Progress")},
   };
   return names.value(Column(section));
 }
@@ -892,53 +496,13 @@ QVariant Model::data(const QModelIndex &index, int role) const
   switch (index.column()) {
     case int(Column::Name): return QObject::tr(qPrintable(ptr->name));
     case int(Column::State): return toString(ptr->state);
-    case int(Column::Action): return toString(ptr->action);
     case int(Column::Size): return sizeString(ptr->size, 1);
     case int(Column::Version): return ptr->version;
     case int(Column::Progress):
       return ptr->progress > 0 ? ptr->progress : QVariant();
-    case int(Column::Files): {
-      QStringList files;
-      files.reserve(int(ptr->files.size()));
-      for (const auto &f : ptr->files) files.append(f.expandedPath);
-      return files.join(',');
-    }
   }
 
   return {};
-}
-
-bool Model::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-  if (!index.isValid() || role != Qt::EditRole)
-    return false;
-
-  auto ptr = toComponent(index);
-  SOFT_ASSERT(ptr, return false);
-
-  if (index.column() != int(Column::Action))
-    return false;
-
-  const auto newAction = Action(
-      std::clamp(value.toInt(), int(Action::NoAction), int(Action::Install)));
-  if (ptr->action == newAction)
-    return false;
-
-  if (newAction != Action::NoAction) {
-    const QMap<State, QVector<Action>> supported{
-        {State::NotAvailable, {}},
-        {State::Actual, {Action::Remove}},
-        {State::NotInstalled, {Action::Install}},
-        {State::UpdateAvailable, {Action::Remove, Action::Install}},
-    };
-    if (!supported[ptr->state].contains(newAction))
-      return false;
-  }
-
-  ptr->action = newAction;
-  emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
-
-  return true;
 }
 
 Qt::ItemFlags Model::flags(const QModelIndex &index) const
@@ -954,6 +518,79 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const
   return result;
 }
 
+//
+
+Loader::Loader(Updater &updater)
+  : updater_(updater)
+  , network_(new QNetworkAccessManager(this))
+{
+  network_->setRedirectPolicy(
+      QNetworkRequest::RedirectPolicy::NoLessSafeRedirectPolicy);
+  connect(network_, &QNetworkAccessManager::finished,  //
+          this, &Loader::handleReply);
+}
+
+void Loader::download(const Urls &urls)
+{
+  start(urls, {}, {});
+}
+
+void Loader::start(const Urls &urls, const QUrl &previous, const QString &error)
+{
+  if (!error.isEmpty())
+    qCritical() << error;
+
+  if (urls.isEmpty()) {
+    if (!previous.isEmpty())
+      updater_.downloadFailed(previous, error);
+    return;
+  }
+
+  auto leftUrls = urls;
+  const auto current = leftUrls.takeFirst();
+  auto reply = network_->get(QNetworkRequest(current));
+  downloads_.insert(reply, leftUrls);
+
+  connect(reply, &QNetworkReply::downloadProgress,  //
+          this, [this, current](qint64 bytesSent, qint64 bytesTotal) {
+            updater_.updateProgress(current, bytesSent, bytesTotal);
+          });
+
+  if (reply->error() == QNetworkReply::NoError) {
+    updater_.updateProgress(current, -1, -1);
+    return;
+  }
+
+  handleReply(reply);
+}
+
+void Loader::handleReply(QNetworkReply *reply)
+{
+  reply->deleteLater();
+
+  SOFT_ASSERT(downloads_.contains(reply), return );
+  const auto leftUrls = downloads_.take(reply);
+  const auto url = reply->request().url();
+
+  if (reply->error() != QNetworkReply::NoError) {
+    const auto error = tr("Failed to download file\n%1. Error %2")
+                           .arg(reply->url().toString(), reply->errorString());
+    start(leftUrls, url, error);
+    return;
+  }
+
+  const auto replyData = reply->readAll();
+  if (replyData.isEmpty()) {
+    const auto error = tr("Empty data downloaded from\n%1").arg(url.toString());
+    start(leftUrls, url, error);
+    return;
+  }
+
+  updater_.downloaded(url, replyData);
+}
+
+//
+
 UpdateDelegate::UpdateDelegate(QObject *parent)
   : QStyledItemDelegate(parent)
 {
@@ -963,91 +600,33 @@ void UpdateDelegate::paint(QPainter *painter,
                            const QStyleOptionViewItem &option,
                            const QModelIndex &index) const
 {
-  if (index.column() == int(Model::Column::Progress) &&
-      !index.data().isNull()) {
-    QStyleOptionProgressBar progressBarOption;
-    progressBarOption.rect = option.rect;
-    progressBarOption.minimum = 0;
-    progressBarOption.maximum = 100;
-    const auto progress = index.data().toInt();
-    progressBarOption.progress = progress;
-    progressBarOption.text = QString::number(progress) + "%";
-    progressBarOption.textVisible = true;
-
-    QApplication::style()->drawControl(QStyle::CE_ProgressBar,
-                                       &progressBarOption, painter);
+  if (index.column() != int(Model::Column::Progress) || index.data().isNull()) {
+    QStyledItemDelegate::paint(painter, option, index);
     return;
   }
 
-  QStyledItemDelegate::paint(painter, option, index);
+  QStyleOptionProgressBar progressBarOption;
+  progressBarOption.rect = option.rect;
+  progressBarOption.minimum = 0;
+  progressBarOption.maximum = 100;
+  const auto progress = index.data().toInt();
+  progressBarOption.progress = progress;
+  progressBarOption.text = QString::number(progress) + "%";
+  progressBarOption.textVisible = true;
+
+  QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption,
+                                     painter);
 }
 
-Installer::Installer(const UserActions &actions)
-  : actions_(actions)
-{
-}
-
-bool Installer::commit()
-{
-  if (!checkIsPossible())
-    return false;
-
-  for (const auto &action : actions_) {
-    const auto &file = action.second;
-
-    if (action.first == Action::Remove)
-      remove(file);
-    else if (action.first == Action::Install)
-      install(file);
-  }
-
-  return errors_.isEmpty();
-}
-
-bool Installer::checkIsPossible()
-{
-  errors_.clear();
-
-  for (const auto &action : actions_) {
-    const auto &file = action.second;
-
-    if (action.first == Action::Remove)
-      checkRemove(file);
-    else if (action.first == Action::Install)
-      checkInstall(file);
-  }
-  errors_.removeDuplicates();
-
-  return errors_.isEmpty();
-}
-
-void Installer::checkRemove(const File &file)
-{
-  QFileInfo installDir(QFileInfo(file.expandedPath).absolutePath());
-  if (!QFile::exists(file.expandedPath))
-    return;
-
-  if (installDir.exists() && !installDir.isWritable()) {
-    errors_.append(
-        QApplication::translate("Updates", "Directory is not writable\n%1")
-            .arg(installDir.absolutePath()));
-  }
-}
+//
 
 void Installer::checkInstall(const File &file)
 {
-  if (!QFileInfo::exists(file.downloadPath)) {
-    errors_.append(
-        QApplication::translate("Updates", "Downloaded file not exists\n%1")
-            .arg(file.downloadPath));
-    // no return
-  }
-
   QFileInfo installDir(QFileInfo(file.expandedPath).absolutePath());
   if (installDir.exists() && !installDir.isWritable()) {
-    errors_.append(
+    error_ +=
         QApplication::translate("Updates", "Directory is not writable\n%1")
-            .arg(installDir.absolutePath()));
+            .arg(installDir.absolutePath());
   }
 }
 
@@ -1058,80 +637,78 @@ void Installer::remove(const File &file)
     return;
 
   if (!f.remove()) {
-    errors_.append(QApplication::translate(
-                       "Updates", "Failed to remove file\n%1\nError %2")
-                       .arg(f.fileName(), f.errorString()));
+    error_ += QApplication::translate("Updates",
+                                      "Failed to remove file\n%1\nError %2")
+                  .arg(f.fileName(), f.errorString());
   }
 }
 
-void Installer::install(const File &file)
+void Installer::install(const File &file, const QByteArray &data)
 {
   auto installDir = QFileInfo(file.expandedPath).absoluteDir();
   if (!installDir.exists() && !installDir.mkpath(".")) {
-    errors_.append(
-        QApplication::translate("Updates", "Failed to create path\n%1")
-            .arg(installDir.absolutePath()));
+    error_ += QApplication::translate("Updates", "Failed to create path\n%1")
+                  .arg(installDir.absolutePath());
     return;
   }
+
+  QTemporaryFile tmp;
+  if (!tmp.open()) {
+    error_ += QApplication::translate(
+                  "Updates", "Failed to create temp file\n%1\nError %2")
+                  .arg(tmp.fileName(), tmp.errorString());
+    return;
+  }
+
+  const auto wrote = tmp.write(data);
+  if (wrote != data.size()) {
+    error_ += QApplication::translate(
+                  "Updates", "Failed to write to temp file\n%1\nError %2")
+                  .arg(tmp.fileName(), tmp.errorString());
+    return;
+  }
+
+  tmp.close();
 
   QFile existing(file.expandedPath);
   if (existing.exists() && !existing.remove()) {
-    errors_.append(QApplication::translate(
-                       "Updates", "Failed to remove file\n%1\nError %2")
-                       .arg(existing.fileName(), existing.errorString()));
+    error_ += QApplication::translate("Updates",
+                                      "Failed to remove file\n%1\nError %2")
+                  .arg(existing.fileName(), existing.errorString());
     return;
   }
 
-  QFile f(file.downloadPath);
-  if (!f.rename(file.expandedPath)) {
-    errors_.append(QApplication::translate(
-                       "Updates", "Failed to move file\n%1\nto %2\nError %3")
-                       .arg(f.fileName(), file.expandedPath, f.errorString()));
+  if (!tmp.copy(file.expandedPath)) {
+    error_ += QApplication::translate(
+                  "Updates", "Failed to copy file\n%1\nto %2\nError %3")
+                  .arg(tmp.fileName(), file.expandedPath, tmp.errorString());
     return;
   }
 }
 
-QString Installer::errorString() const
+const QString &Installer::error() const
 {
-  return errors_.join('\n');
+  return error_;
 }
 
-AutoChecker::AutoChecker(Loader &loader, QObject *parent)
-  : QObject(parent)
-  , loader_(loader)
+//
+
+AutoChecker::AutoChecker(Updater &updater, int intervalDays,
+                         const QDateTime &lastCheck)
+  : updater_(updater)
+  , checkIntervalDays_(intervalDays)
+  , lastCheckDate_(lastCheck)
 {
-  SOFT_ASSERT(loader.model(), return );
-  connect(loader.model(), &Model::modelReset,  //
-          this, &AutoChecker::handleModelReset);
+  connect(&updater_, &Updater::checkedForUpdates,  //
+          this, &AutoChecker::updateLastCheckDate);
+  scheduleNextCheck();
 }
 
 AutoChecker::~AutoChecker() = default;
 
-bool AutoChecker::isLastCheckDateChanged() const
-{
-  return isLastCheckDateChanged_;
-}
-
-QDateTime AutoChecker::lastCheckDate() const
+const QDateTime &AutoChecker::lastCheckDate() const
 {
   return lastCheckDate_;
-}
-
-void AutoChecker::setCheckIntervalDays(int days)
-{
-  checkIntervalDays_ = days;
-  scheduleNextCheck();
-}
-
-void AutoChecker::setLastCheckDate(const QDateTime &dt)
-{
-  isLastCheckDateChanged_ = false;
-
-  lastCheckDate_ = dt;
-  if (!lastCheckDate_.isValid())
-    lastCheckDate_ = QDateTime::currentDateTime();
-
-  scheduleNextCheck();
 }
 
 void AutoChecker::scheduleNextCheck()
@@ -1139,29 +716,249 @@ void AutoChecker::scheduleNextCheck()
   if (timer_)
     timer_->stop();
 
-  if (checkIntervalDays_ < 1 || !lastCheckDate_.isValid())
+  if (checkIntervalDays_ < 1)
     return;
 
   if (!timer_) {
     timer_ = std::make_unique<QTimer>();
     timer_->setSingleShot(true);
     connect(timer_.get(), &QTimer::timeout,  //
-            &loader_, &Loader::checkForUpdates);
+            &updater_, &Updater::checkForUpdates);
   }
 
-  auto nextTime = lastCheckDate_.addDays(checkIntervalDays_);
   const auto now = QDateTime::currentDateTime();
-  if (nextTime < now)
+  const auto &last = lastCheckDate_.isValid() ? lastCheckDate_ : now;
+  auto nextTime = last.addDays(checkIntervalDays_);
+  if (nextTime <= now)
     nextTime = now.addSecs(5);
 
   timer_->start(now.msecsTo(nextTime));
 }
 
-void AutoChecker::handleModelReset()
+void AutoChecker::updateLastCheckDate()
 {
   lastCheckDate_ = QDateTime::currentDateTime();
-  isLastCheckDateChanged_ = true;
   scheduleNextCheck();
+}
+
+//
+
+Updater::Updater(const QVector<QUrl> &updateUrls)
+  : model_(std::make_unique<Model>(*this))
+  , loader_(std::make_unique<Loader>(*this))
+  , updateUrls_(updateUrls)
+{
+  std::random_device device;
+  std::mt19937 generator(device());
+  std::shuffle(updateUrls_.begin(), updateUrls_.end(), generator);
+}
+
+void Updater::initView(QTreeView *view)
+{
+  view->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
+  auto proxy = new QSortFilterProxyModel(view);
+  proxy->setSourceModel(model_.get());
+
+  view->setModel(proxy);
+  view->setItemDelegate(new update::UpdateDelegate(view));
+  view->setSortingEnabled(true);
+  view->sortByColumn(int(Model::Column::Name), Qt::AscendingOrder);
+  view->setContextMenuPolicy(Qt::CustomContextMenu);
+
+  connect(view, &QAbstractItemView::doubleClicked,  //
+          this, &Updater::handleModelDoubleClick);
+  connect(view, &QAbstractItemView::customContextMenuRequested,  //
+          this, &Updater::showModelContextMenu);
+}
+
+void Updater::setExpansions(const QHash<QString, QString> &expansions)
+{
+  model_->setExpansions(expansions);
+}
+
+void Updater::checkForUpdates()
+{
+  loader_->download(updateUrls_);
+}
+
+void Updater::applyAction(Action action, const QVector<File> &files)
+{
+  for (const auto &file : files) {
+    LTRACE() << "applyAction" << int(action) << file.rawPath;
+
+    if (action == Action::Remove) {
+      Installer installer;
+      installer.remove(file);
+      if (!installer.error().isEmpty()) {
+        emit error(installer.error());
+        continue;
+      }
+      model_->updateStates();
+      emit updated();
+      continue;
+    }
+
+    if (action == Action::Install) {
+      if (file.urls.isEmpty() || findDownload(file.urls.first()) != -1)
+        continue;
+
+      Installer installer;
+      installer.checkInstall(file);
+
+      if (!installer.error().isEmpty()) {
+        emit error(installer.error());
+        continue;
+      }
+
+      downloading_.push_back(file);
+      loader_->download(file.urls);
+      continue;
+    }
+  }
+}
+
+void Updater::downloaded(const QUrl &url, const QByteArray &data)
+{
+  LTRACE() << "downloaded" << url << LARG(data.size());
+
+  if (updateUrls_.contains(url)) {
+    const auto errors = model_->parse(data);
+    emit checkedForUpdates();
+    if (!errors.isEmpty()) {
+      emit error(errors);
+      return;
+    }
+    if (model_->hasUpdates())
+      emit updatesAvailable();
+    return;
+  }
+
+  model_->updateProgress(url, 0);
+
+  const auto index = findDownload(url);
+  if (index == -1)
+    return;
+
+  const auto file = downloading_.takeAt(index);
+  LTRACE() << "downloaded file" << file.expandedPath;
+
+  const auto mustUnpack =
+      url.toString().endsWith(".zip") && !file.expandedPath.endsWith(".zip");
+  const auto unpacked = mustUnpack ? unpack(data) : data;
+  if (unpacked.isEmpty()) {
+    emit error(tr("Empty data unpacked from\n%1").arg(url.toString()));
+    return;
+  }
+
+  Installer installer;
+  installer.install(file, data);
+  if (!installer.error().isEmpty()) {
+    emit error(installer.error());
+    return;
+  }
+
+  model_->updateStates();
+  emit updated();
+}
+
+void Updater::updateProgress(const QUrl &url, qint64 bytesSent,
+                             qint64 bytesTotal)
+{
+  auto progress = bytesTotal < 1 ? 1 : int(100.0 * bytesSent / bytesTotal);
+  model_->updateProgress(url, progress);
+}
+
+void Updater::downloadFailed(const QUrl &url, const QString &error)
+{
+  if (updateUrls_.contains(url)) {
+    emit checkedForUpdates();
+    emit this->error(error);
+    return;
+  }
+
+  model_->updateProgress(url, 0);
+
+  const auto index = findDownload(url);
+  if (index == -1)
+    return;
+
+  downloading_.removeAt(index);
+  emit this->error(error);
+}
+
+QDateTime Updater::lastUpdateCheck() const
+{
+  if (!autoChecker_)
+    return {};
+  return autoChecker_->lastCheckDate();
+}
+
+void Updater::setAutoUpdate(int intervalDays, const QDateTime &lastCheck)
+{
+  if (intervalDays < 1) {
+    autoChecker_.reset();
+    return;
+  }
+
+  autoChecker_ = std::make_unique<AutoChecker>(*this, intervalDays, lastCheck);
+}
+
+void Updater::handleModelDoubleClick(const QModelIndex &index)
+{
+  if (!index.isValid())
+    return;
+
+  model_->tryAction(Action::Install, fromProxy(index));
+}
+
+void Updater::showModelContextMenu()
+{
+  QMenu menu;
+  auto install = menu.addAction(toString(Action::Install));
+  menu.addAction(toString(Action::Remove));
+  menu.addSeparator();
+  auto updateAll = menu.addAction(tr("Update all"));
+
+  const auto choice = menu.exec(QCursor::pos());
+  if (!choice)
+    return;
+
+  if (choice == updateAll) {
+    model_->selectAllUpdates();
+    return;
+  }
+
+  auto view = qobject_cast<QAbstractItemView *>(sender());
+  SOFT_ASSERT(view, return );
+
+  const auto selection = view->selectionModel();
+  SOFT_ASSERT(selection, return );
+  const auto indexes = selection->selectedRows(int(Model::Column::Name));
+  if (indexes.isEmpty())
+    return;
+
+  const auto action = choice == install ? Action::Install : Action::Remove;
+  for (const auto &index : indexes) model_->tryAction(action, fromProxy(index));
+}
+
+int Updater::findDownload(const QUrl &url) const
+{
+  auto it = std::find_if(downloading_.cbegin(), downloading_.cend(),
+                         [url](const File &f) { return f.urls.contains(url); });
+  if (it == downloading_.end())
+    return -1;
+  return std::distance(downloading_.cbegin(), it);
+}
+
+QModelIndex Updater::fromProxy(const QModelIndex &index) const
+{
+  if (!index.isValid() || index.model() == model_.get())
+    return index;
+  auto proxy = qobject_cast<const QSortFilterProxyModel *>(index.model());
+  if (!proxy)
+    return {};
+  return proxy->mapToSource(index);
 }
 
 }  // namespace update
