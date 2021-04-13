@@ -287,6 +287,11 @@ void SettingsEditor::setSettings(const Settings &settings)
 void SettingsEditor::updateCurrentPage()
 {
   ui->pagesView->setCurrentIndex(ui->pagesList->currentIndex().row());
+
+  if (ui->pagesView->currentWidget() != ui->pageUpdate)
+    return;
+  if (ui->updatesView->model()->rowCount() == 0)
+    updater_.checkForUpdates();
 }
 
 void SettingsEditor::updateTranslators()
