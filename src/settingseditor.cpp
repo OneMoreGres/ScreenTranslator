@@ -1,18 +1,37 @@
 #include "settingseditor.h"
+#include "debug.h"
 #include "languagecodes.h"
 #include "manager.h"
 #include "runatsystemstart.h"
+#include "settingsvalidator.h"
 #include "translator.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
 #include "widgetstate.h"
 
 #include <QColorDialog>
+#include <QStandardItemModel>
+
+namespace
+{
+enum class Page {  // order must match ui->pagesView
+  General,
+  Recognition,
+  Correction,
+  Translation,
+  Representation,
+  Update,
+  Help,
+  Count
+};
+enum class PageColumn { Name, Description, Error, Count };
+}  // namespace
 
 SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
   : ui(new Ui::SettingsEditor)
   , manager_(manager)
   , updater_(updater)
+  , pageModel_(new QStandardItemModel(this))
 {
   ui->setupUi(this);
 
@@ -20,19 +39,70 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
           this, &SettingsEditor::handleButtonBoxClicked);
 
   connect(ui->portable, &QCheckBox::toggled,  //
-          this, &SettingsEditor::handlePortableChanged);
+          this, &SettingsEditor::updateState);
 
   ui->runAtSystemStart->setEnabled(service::RunAtSystemStart::isAvailable());
 
   {
-    auto model = new QStringListModel(this);
-    model->setStringList({tr("General"), tr("Recognition"), tr("Correction"),
-                          tr("Translation"), tr("Representation"), tr("Update"),
-                          tr("Help")});
-    ui->pagesList->setModel(model);
+    struct Info {
+      QString title;
+      QString description;
+    };
+
+    QMap<Page, Info> names{
+        {Page::General,
+         {tr("General"), tr("This page contains general program settings")}},
+
+        {Page::Recognition,
+         {tr("Recognition"),
+          tr("This page contains text recognition settings. "
+             "It shows the available languages that program can convert from "
+             "image to text")}},
+
+        {Page::Correction,
+         {tr("Correction"),
+          tr("This page contains recognized text correction settings. "
+             "It allows to fix some errors after recognition.\n"
+             "Hunspell searches for words that are similar to recognized ones "
+             "in its dictionary.\n"
+             "User correction allows to manually fix some frequently "
+             "happening mistakes.\n"
+             "User correction occurs before hunspell correction if both "
+             "are enabled")}},
+
+        {Page::Translation,
+         {tr("Translation"),
+          tr("This page contains settings, related to translation of the "
+             "recognized text. "
+             "Translation is done via enabled (checked) translation services. "
+             "If one fails, then second one will be used and so on. "
+             "If translator hangs it will be treated as failed after "
+             "given timeout")}},
+
+        {Page::Representation,
+         {tr("Representation"),
+          tr("This page contains result representation settings")}},
+
+        {Page::Update,
+         {tr("Update"),
+          tr("This page allow to install/update/remove program resources")}},
+
+        {Page::Help, {tr("Help"), tr("")}},
+    };
+
+    for (const auto &i : names) {
+      const auto error = QString();
+      pageModel_->appendRow({new QStandardItem(i.title),
+                             new QStandardItem(i.description),
+                             new QStandardItem(error)});
+    }
+    ui->pagesList->setModel(pageModel_);
+    ui->pagesList->setModelColumn(int(PageColumn::Name));
     auto selection = ui->pagesList->selectionModel();
     connect(selection, &QItemSelectionModel::currentRowChanged,  //
             this, &SettingsEditor::updateCurrentPage);
+    selection->select(pageModel_->index(0, 0),
+                      QItemSelectionModel::SelectCurrent);
   }
 
   {
@@ -89,16 +159,13 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
   connect(ui->fontColor, &QPushButton::clicked,  //
           this, [this] { pickColor(ColorContext::Font); });
   connect(ui->backgroundColor, &QPushButton::clicked,  //
-          this, [this] { pickColor(ColorContext::Bagkround); });
+          this, [this] { pickColor(ColorContext::Background); });
 
   // updates
   ui->updatesView->header()->setObjectName("updatesHeader");
   updater_.initView(ui->updatesView);
-  adjustUpdatesView();
-  connect(&updater_, &update::Updater::checkedForUpdates,  //
-          this, &SettingsEditor::adjustUpdatesView);
   connect(&updater_, &update::Updater::updated,  //
-          this, &SettingsEditor::adjustUpdatesView);
+          this, &SettingsEditor::updateState);
   connect(ui->checkUpdates, &QPushButton::clicked,  //
           &updater_, &update::Updater::checkForUpdates);
 
@@ -198,13 +265,7 @@ Settings SettingsEditor::settings() const
       std::chrono::seconds(ui->translateTimeoutSpin->value());
   settings.targetLanguage =
       LanguageCodes::idForName(ui->translateLangCombo->currentText());
-
-  settings.translators.clear();
-  for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
-    auto item = ui->translatorList->item(i);
-    if (item->checkState() == Qt::Checked)
-      settings.translators.append(item->text());
-  }
+  settings.translators = enabledTranslators();
 
   settings.resultShowType =
       ui->trayRadio->isChecked() ? ResultMode::Tooltip : ResultMode::Widget;
@@ -223,11 +284,10 @@ Settings SettingsEditor::settings() const
 
 void SettingsEditor::setSettings(const Settings &settings)
 {
-  if (settings.isPortable() == ui->portable->isChecked())
-    updateModels(settings.tessdataPath);
-
   wasPortable_ = settings.isPortable();
+  ui->portable->blockSignals(true);
   ui->portable->setChecked(settings.isPortable());
+  ui->portable->blockSignals(false);
 
   ui->runAtSystemStart->setChecked(settings.runAtSystemStart);
 
@@ -248,6 +308,7 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
   ui->tessdataPath->setText(settings.tessdataPath);
+  updateModels();
   ui->tesseractLangCombo->setCurrentText(
       LanguageCodes::name(settings.sourceLanguage));
   ui->tesseractVersion->setCurrentIndex(int(settings.tesseractVersion));
@@ -261,10 +322,9 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
   ui->translatorsPath->setText(settings.translatorsDir);
-  enabledTranslators_ = settings.translators;
-  updateTranslators();
   ui->translateLangCombo->setCurrentText(
       LanguageCodes::name(settings.targetLanguage));
+  updateTranslators(settings.translators);
 
   ui->trayRadio->setChecked(settings.resultShowType == ResultMode::Tooltip);
   ui->dialogRadio->setChecked(settings.resultShowType == ResultMode::Widget);
@@ -282,19 +342,52 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->showCaptured->setChecked(settings.showCaptured);
 
   ui->autoUpdateInterval->setValue(settings.autoUpdateIntervalDays);
+
+  updateState();
+}
+
+void SettingsEditor::updateState()
+{
+  Settings settings;
+  settings.setPortable(ui->portable->isChecked());
+  ui->tessdataPath->setText(settings.tessdataPath);
+  ui->translatorsPath->setText(settings.translatorsDir);
+  ui->hunspellDir->setText(settings.hunspellDir);
+
+  updateModels();
+  updateTranslators(enabledTranslators());
+  validateSettings();
+  updateCurrentPage();
+
+  const auto portableChanged = wasPortable_ != settings.isPortable();
+  ui->pageUpdate->setEnabled(!portableChanged);
+  ui->pageUpdate->setToolTip(portableChanged
+                                 ? tr("Portable changed. Apply settings first")
+                                 : QString());
 }
 
 void SettingsEditor::updateCurrentPage()
 {
-  ui->pagesView->setCurrentIndex(ui->pagesList->currentIndex().row());
+  const auto row = ui->pagesList->currentIndex().row();
+
+  const auto description = pageModel_->index(row, int(PageColumn::Description));
+  ui->pageInfoLabel->setText(description.data().toString());
+  ui->pageInfoLabel->setVisible(!ui->pageInfoLabel->text().isEmpty());
+
+  const auto error = pageModel_->index(row, int(PageColumn::Error));
+  ui->pageErrorLabel->setText(error.data().toString());
+  ui->pageErrorLabel->setVisible(!ui->pageErrorLabel->text().isEmpty());
+
+  ui->pagesView->setCurrentIndex(row);
 
   if (ui->pagesView->currentWidget() != ui->pageUpdate)
     return;
+
   if (ui->updatesView->model()->rowCount() == 0)
     updater_.checkForUpdates();
 }
 
-void SettingsEditor::updateTranslators()
+void SettingsEditor::updateTranslators(const QStringList &translators)
 {
   ui->translatorList->clear();
 
@@ -304,28 +397,13 @@ void SettingsEditor::updateTranslators()
 
   std::sort(names.begin(), names.end());
 
-  if (!enabledTranslators_.isEmpty()) {
-    for (const auto &name : enabledTranslators_) names.removeOne(name);
-    names = enabledTranslators_ + names;
-  }
-
   ui->translatorList->addItems(names);
 
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
     auto item = ui->translatorList->item(i);
-    item->setCheckState(enabledTranslators_.contains(item->text())
-                            ? Qt::Checked
-                            : Qt::Unchecked);
+    item->setCheckState(translators.contains(item->text()) ? Qt::Checked
+                                                           : Qt::Unchecked);
   }
-}
-
-void SettingsEditor::adjustUpdatesView()
-{
-  if (ui->tessdataPath->text().isEmpty())  // not inited yet
-    return;
-
-  updateModels(ui->tessdataPath->text());
-  updateTranslators();
 }
 
 void SettingsEditor::handleButtonBoxClicked(QAbstractButton *button)
@@ -344,29 +422,10 @@ void SettingsEditor::handleButtonBoxClicked(QAbstractButton *button)
   if (button == ui->buttonBox->button(QDialogButtonBox::Apply)) {
     const auto settings = this->settings();
     manager_.applySettings(settings);
-    if (settings.isPortable() != wasPortable_) {
-      wasPortable_ = settings.isPortable();
-      handlePortableChanged();
-    }
+    wasPortable_ = ui->portable->isChecked();
+    updateState();
     return;
   }
-}
-
-void SettingsEditor::handlePortableChanged()
-{
-  Settings settings;
-  settings.setPortable(ui->portable->isChecked());
-  ui->tessdataPath->setText(settings.tessdataPath);
-  ui->translatorsPath->setText(settings.translatorsDir);
-  ui->hunspellDir->setText(settings.hunspellDir);
-  updateModels(settings.tessdataPath);
-  updateTranslators();
-
-  const auto portableChanged = wasPortable_ != settings.isPortable();
-  ui->pageUpdate->setEnabled(!portableChanged);
-  ui->pageUpdate->setToolTip(portableChanged
-                                 ? tr("Portable changed. Apply settings first")
-                                 : QString());
 }
 
 void SettingsEditor::updateResultFont()
@@ -376,10 +435,21 @@ void SettingsEditor::updateResultFont()
   ui->resultFont->setFont(font);
 }
 
-void SettingsEditor::updateModels(const QString &tessdataPath)
+QStringList SettingsEditor::enabledTranslators() const
+{
+  QStringList result;
+  for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
+    auto item = ui->translatorList->item(i);
+    if (item->checkState() == Qt::Checked)
+      result.append(item->text());
+  }
+  return result;
+}
+
+void SettingsEditor::updateModels()
 {
   const auto source = ui->tesseractLangCombo->currentText();
-  models_.update(tessdataPath);
+  models_.update(ui->tessdataPath->text());
   if (!source.isEmpty()) {
     ui->tesseractLangCombo->setCurrentText(source);
   } else if (ui->tesseractLangCombo->count() > 0) {
@@ -401,11 +471,52 @@ void SettingsEditor::pickColor(ColorContext context)
   palette.setColor(QPalette::Button, color);
   widget->setPalette(palette);
 
-  if (context == ColorContext::Bagkround)
+  if (context == ColorContext::Background)
     return;
 
   palette = ui->backgroundColor->palette();
   palette.setColor(QPalette::ButtonText, color);
   ui->backgroundColor->setPalette(palette);
   ui->backgroundColor->update();
+}
+
+void SettingsEditor::validateSettings()
+{
+  for (auto i = 0, end = pageModel_->rowCount(); i < end; ++i) {
+    const auto name = pageModel_->index(i, int(PageColumn::Name));
+    pageModel_->setData(name, QBrush(Qt::black), Qt::ForegroundRole);
+
+    const auto error = pageModel_->index(i, int(PageColumn::Error));
+    pageModel_->setData(error, {});
+  }
+
+  SettingsValidator validator;
+  const auto errors = validator.check(settings(), models_);
+  if (errors.isEmpty())
+    return;
+
+  using E = SettingsValidator::Error;
+  QMap<E, Page> errorToPage{
+      {E::NoSourceInstalled, Page::Update},
+      {E::NoSourceSet, Page::Recognition},
+      {E::NoTranslatorInstalled, Page::Update},
+      {E::NoTranslatorSet, Page::Translation},
+      {E::NoTargetSet, Page::Translation},
+  };
+
+  QMap<Page, QStringList> summary;
+  for (const auto err : errors) {
+    SOFT_ASSERT(errorToPage.contains(err), continue);
+    auto page = errorToPage[err];
+    summary[page].push_back(validator.toString(err));
+  }
+
+  for (auto it = summary.cbegin(), end = summary.cend(); it != end; ++it) {
+    const auto row = int(it.key());
+    const auto index = pageModel_->index(row, int(PageColumn::Name));
+    pageModel_->setData(index, QBrush(Qt::red), Qt::ForegroundRole);
+
+    const auto error = pageModel_->index(row, int(PageColumn::Error));
+    pageModel_->setData(error, it.value().join('\n'));
+  }
 }

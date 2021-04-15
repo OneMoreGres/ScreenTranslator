@@ -5,6 +5,7 @@
 #include "recognizer.h"
 #include "representer.h"
 #include "settingseditor.h"
+#include "settingsvalidator.h"
 #include "task.h"
 #include "translator.h"
 #include "trayicon.h"
@@ -119,25 +120,11 @@ void Manager::updateSettings()
 
   tray_->setCaptureLockedEnabled(capturer_->canCaptureLocked());
 
-  if (models_->sourceLanguageModel()->rowCount() == 0) {
-    fatalError(
-        QObject::tr("No recognition languages available. Install some via "
-                    "Settings->Updates"));
-  }
-  if (settings_->sourceLanguage.isEmpty()) {
-    fatalError(
-        QObject::tr("Recognition language not set. Go to Settings->Recognition "
-                    "and set it"));
-  }
-  if (settings_->doTranslation && settings_->translators.isEmpty()) {
-    fatalError(QObject::tr(
-        "No translators enabled. Go to Settings->Translation and select some"));
-  }
-  if (settings_->doTranslation && settings_->targetLanguage.isEmpty()) {
-    fatalError(
-        QObject::tr("Translation language not set. Go to Settings->Translation "
-                    "and set it"));
-  }
+  const auto errors = SettingsValidator().check(*settings_, *models_);
+  if (errors.isEmpty())
+    return;
+
+  fatalError(QObject::tr("Incorrect settings found. Go to Settings"));
 }
 
 void Manager::setupProxy(const Settings &settings)

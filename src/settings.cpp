@@ -100,8 +100,7 @@ Substitutions loadLegacySubstitutions()
 
   const auto data = f.readAll();
 
-  const auto lines =
-      QString::fromUtf8(data).split('\n', QString::SkipEmptyParts);
+  const auto lines = QString::fromUtf8(data).split('\n', Qt::SkipEmptyParts);
   for (const auto& line : lines) {
     const auto parts = line.mid(1, line.size() - 2).split("\",\"");  // remove "
     if (parts.size() < 3)

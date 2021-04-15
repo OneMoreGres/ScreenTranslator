@@ -59,6 +59,7 @@ HEADERS += \
   src/service/widgetstate.h \
   src/settings.h \
   src/settingseditor.h \
+  src/settingsvalidator.h \
   src/stfwd.h \
   src/substitutionstable.h \
   src/task.h \
@@ -95,6 +96,7 @@ SOURCES += \
   src/service/widgetstate.cpp \
   src/settings.cpp \
   src/settingseditor.cpp \
+  src/settingsvalidator.cpp \
   src/substitutionstable.cpp \
   src/translate/translator.cpp \
   src/translate/webpage.cpp \

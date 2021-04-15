@@ -10,6 +10,7 @@ namespace Ui
 class SettingsEditor;
 }
 class QAbstractButton;
+class QStandardItemModel;
 
 class SettingsEditor : public QDialog
 {
@@ -23,20 +24,22 @@ public:
   void setSettings(const Settings &settings);
 
 private:
-  enum ColorContext { Font, Bagkround };
-  void updateCurrentPage();
-  void updateTranslators();
-  void adjustUpdatesView();
+  enum ColorContext { Font, Background };
   void handleButtonBoxClicked(QAbstractButton *button);
-  void handlePortableChanged();
-  void updateResultFont();
-  void updateModels(const QString &tessdataPath);
   void pickColor(ColorContext context);
+  void updateResultFont();
+  QStringList enabledTranslators() const;
+
+  void updateState();
+  void updateCurrentPage();
+  void updateTranslators(const QStringList &translators);
+  void updateModels();
+  void validateSettings();
 
   Ui::SettingsEditor *ui;
   Manager &manager_;
   update::Updater &updater_;
   CommonModels models_;
-  QStringList enabledTranslators_;
   bool wasPortable_{false};
+  QStandardItemModel *pageModel_;
 };
