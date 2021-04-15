@@ -7,6 +7,7 @@
 #include <QStringList>
 
 #include <chrono>
+#include <map>
 
 enum class ResultMode { Widget, Tooltip };
 
@@ -14,7 +15,7 @@ struct Substitution {
   QString source;
   QString target;
 };
-using Substitutions = std::unordered_multimap<LanguageId, Substitution>;
+using Substitutions = std::multimap<LanguageId, Substitution>;
 
 enum class ProxyType { Disabled, System, Socks5, Http };
 
