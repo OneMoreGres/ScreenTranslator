@@ -66,6 +66,7 @@ TEST(UpdateInstaller, SuccessRemove)
   ASSERT_TRUE(testee.error().isEmpty());
 }
 
+#ifdef Q_OS_LINUX
 TEST(UpdateInstaller, FailInstallNoWritable)
 {
   const auto t1 = "/foo.txt";
@@ -76,6 +77,7 @@ TEST(UpdateInstaller, FailInstallNoWritable)
   testee.install(toFile(t1), data);
   ASSERT_FALSE(testee.error().isEmpty());
 }
+#endif
 
 TEST(UpdateInstaller, FailRemove)
 {
