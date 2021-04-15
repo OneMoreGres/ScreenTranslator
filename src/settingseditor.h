@@ -24,9 +24,8 @@ public:
   void setSettings(const Settings &settings);
 
 private:
-  enum ColorContext { Font, Background };
   void handleButtonBoxClicked(QAbstractButton *button);
-  void pickColor(ColorContext context);
+  void pickColor(QWidget *widget);
   void updateResultFont();
   QStringList enabledTranslators() const;
 

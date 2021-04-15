@@ -150,6 +150,8 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
   ui->fontColor->setAutoFillBackground(true);
   ui->backgroundColor->setAutoFillBackground(true);
   ui->backgroundColor->setText(tr("Sample text"));
+  ui->fontColor->setFocusPolicy(Qt::FocusPolicy::NoFocus);
+  ui->backgroundColor->setFocusPolicy(Qt::FocusPolicy::NoFocus);
   connect(ui->dialogRadio, &QRadioButton::toggled,  //
           ui->resultWindow, &QTableWidget::setEnabled);
   connect(ui->resultFont, &QFontComboBox::currentFontChanged,  //
@@ -157,9 +159,15 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
   connect(ui->resultFontSize, qOverload<int>(&QSpinBox::valueChanged),  //
           this, &SettingsEditor::updateResultFont);
   connect(ui->fontColor, &QPushButton::clicked,  //
-          this, [this] { pickColor(ColorContext::Font); });
+          this, [this] {
+            pickColor(ui->fontColor);
+            updateResultFont();
+          });
   connect(ui->backgroundColor, &QPushButton::clicked,  //
-          this, [this] { pickColor(ColorContext::Background); });
+          this, [this] {
+            pickColor(ui->backgroundColor);
+            updateResultFont();
+          });
 
   // updates
   ui->updatesView->header()->setObjectName("updatesHeader");
@@ -432,7 +440,12 @@ void SettingsEditor::updateResultFont()
 {
   auto font = ui->resultFont->currentFont();
   font.setPointSize(ui->resultFontSize->value());
-  ui->resultFont->setFont(font);
+  ui->backgroundColor->setFont(font);
+
+  auto fontColor = ui->fontColor->palette().color(QPalette::Button);
+  QPalette palette(ui->backgroundColor->palette());
+  palette.setColor(QPalette::ButtonText, fontColor);
+  ui->backgroundColor->setPalette(palette);
 }
 
 QStringList SettingsEditor::enabledTranslators() const
@@ -457,10 +470,8 @@ void SettingsEditor::updateModels()
   }
 }
 
-void SettingsEditor::pickColor(ColorContext context)
+void SettingsEditor::pickColor(QWidget *widget)
 {
-  const auto widget =
-      context == ColorContext::Font ? ui->fontColor : ui->backgroundColor;
   const auto original = widget->palette().color(QPalette::Button);
   const auto color = QColorDialog::getColor(original, this);
 
@@ -470,14 +481,6 @@ void SettingsEditor::pickColor(ColorContext context)
   QPalette palette(widget->palette());
   palette.setColor(QPalette::Button, color);
   widget->setPalette(palette);
-
-  if (context == ColorContext::Background)
-    return;
-
-  palette = ui->backgroundColor->palette();
-  palette.setColor(QPalette::ButtonText, color);
-  ui->backgroundColor->setPalette(palette);
-  ui->backgroundColor->update();
 }
 
 void SettingsEditor::validateSettings()

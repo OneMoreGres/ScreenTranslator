@@ -608,9 +608,6 @@
               <property name="text">
                <string/>
               </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
              </widget>
             </item>
             <item row="3" column="0">
@@ -624,9 +621,6 @@
              <widget class="QPushButton" name="backgroundColor">
               <property name="text">
                <string/>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
               </property>
              </widget>
             </item>
