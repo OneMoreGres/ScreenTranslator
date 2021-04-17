@@ -1,5 +1,11 @@
 # Changes
 
+## 3.2.0
+
+* Improved vertical text recognition
+* Improved incorrect settings notification
+* Improved update process
+
 ## 3.1.2
 
 * Fixed manually corrected text translation
