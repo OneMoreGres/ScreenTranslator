@@ -152,6 +152,10 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
   ui->backgroundColor->setText(tr("Sample text"));
   ui->fontColor->setFocusPolicy(Qt::FocusPolicy::NoFocus);
   ui->backgroundColor->setFocusPolicy(Qt::FocusPolicy::NoFocus);
+#ifdef Q_OS_WINDOWS
+  ui->fontColor->setFlat(true);
+  ui->backgroundColor->setFlat(true);
+#endif
   connect(ui->dialogRadio, &QRadioButton::toggled,  //
           ui->resultWindow, &QTableWidget::setEnabled);
   connect(ui->resultFont, &QFontComboBox::currentFontChanged,  //
