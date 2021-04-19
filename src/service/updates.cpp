@@ -841,7 +841,7 @@ void Updater::downloaded(const QUrl &url, const QByteArray &data)
     return;
 
   const auto file = downloading_.takeAt(index);
-  LTRACE() << "downloaded file" << file.expandedPath;
+  LTRACE() << "downloaded file" << url << file.expandedPath;
 
   const auto mustUnpack =
       url.toString().endsWith(".zip") && !file.expandedPath.endsWith(".zip");
@@ -852,7 +852,7 @@ void Updater::downloaded(const QUrl &url, const QByteArray &data)
   }
 
   Installer installer;
-  installer.install(file, data);
+  installer.install(file, unpacked);
   if (!installer.error().isEmpty()) {
     emit error(installer.error());
     return;
