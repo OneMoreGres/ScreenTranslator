@@ -1,5 +1,9 @@
 # Changes
 
+## 3.2.1
+
+* Fixed incorrect update install
+
 ## 3.2.0
 
 * Improved vertical text recognition
