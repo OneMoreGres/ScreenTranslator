@@ -2,9 +2,9 @@
 "version":1
 
 ,"app":{
- "win32":{"version":"3.2.0", "host":"win32", "files":[{"path":"$appdir$/screen-translator.exe", "md5":"d0fcca47530c31e70f88bc0237489463"}]}
- ,"win64":{"version":"3.2.0", "host":"win64", "files":[{"path":"$appdir$/screen-translator.exe", "md5":"4c8cf482a33f4fa672fdf706ef791d45"}]}
- ,"linux":{"version":"3.2.0", "host":"linux", "files":[{"path":"$appdir$/screen-translator", "md5":"62b323e3e5d91e9be9f4aed914ceb797"}]}
+ "win32":{"version":"3.2.1", "host":"win32", "files":[{"path":"$appdir$/screen-translator.exe", "md5":"30a87d5ae32c6cb384a021f53566f8a9"}]}
+ ,"win64":{"version":"3.2.1", "host":"win64", "files":[{"path":"$appdir$/screen-translator.exe", "md5":"181a72953ed3bcfa1de41c8f9ca7360c"}]}
+ ,"linux":{"version":"3.2.1", "host":"linux", "files":[{"path":"$appdir$/screen-translator", "md5":"be84c13ee89badfb99a5df579176353a"}]}
 }
 
 
