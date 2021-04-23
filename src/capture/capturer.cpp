@@ -4,7 +4,7 @@
 #include "debug.h"
 #include "manager.h"
 #include "settings.h"
-#include "task.h"
+#include "waylandcapturer.h"
 
 #include <QApplication>
 #include <QPainter>
@@ -17,6 +17,10 @@ Capturer::Capturer(Manager &manager, const Settings &settings,
   , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_, models,
                                                     pixmap_))
 {
+#ifdef Q_OS_LINUX
+  if (WaylandCapturer::isWayland())
+    wayland_ = std::make_unique<WaylandCapturer>();
+#endif
 }
 
 Capturer::~Capturer() = default;
@@ -57,11 +61,20 @@ void Capturer::updatePixmap()
   QPixmap combined(rect.size());
   QPainter p(&combined);
 
-  for (const auto screen : screens) {
-    const auto geometry = screen->geometry();
-    const auto pixmap =
-        screen->grabWindow(0, 0, 0, geometry.width(), geometry.height());
-    p.drawPixmap(geometry, pixmap);
+  if (!wayland_) {
+    for (const auto screen : screens) {
+      const auto geometry = screen->geometry();
+      const auto pixmap =
+          screen->grabWindow(0, 0, 0, geometry.width(), geometry.height());
+      p.drawPixmap(geometry, pixmap);
+    }
+  } else {
+    auto pix = wayland_->grab();
+    if (!pix.isNull()) {
+      p.drawPixmap(0, 0, pix);
+    } else {
+      combined.fill(Qt::black);
+    }
   }
 
   SOFT_ASSERT(selector_, return );

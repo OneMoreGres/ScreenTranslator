@@ -14,7 +14,7 @@ win32{
   LIBS += -lUser32
 }
 linux{
-  QT += x11extras
+  QT += x11extras dbus
   LIBS += -lX11
 }
 
@@ -37,6 +37,7 @@ HEADERS += \
   src/capture/captureareaeditor.h \
   src/capture/captureareaselector.h \
   src/capture/capturer.h \
+  src/capture/waylandcapturer.h \
   src/commonmodels.h \
   src/correct/corrector.h \
   src/correct/correctorworker.h \
@@ -73,6 +74,7 @@ SOURCES += \
   src/capture/captureareaeditor.cpp \
   src/capture/captureareaselector.cpp \
   src/capture/capturer.cpp \
+  src/capture/waylandcapturer.cpp \
   src/commonmodels.cpp \
   src/correct/corrector.cpp \
   src/correct/correctorworker.cpp \

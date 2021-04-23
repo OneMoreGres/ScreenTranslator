@@ -4,6 +4,8 @@
 
 #include <QPixmap>
 
+class WaylandCapturer;
+
 class Capturer
 {
 public:
@@ -27,4 +29,5 @@ private:
   const Settings &settings_;
   QPixmap pixmap_;
   std::unique_ptr<CaptureAreaSelector> selector_;
+  std::unique_ptr<WaylandCapturer> wayland_;
 };
