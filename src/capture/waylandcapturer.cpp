@@ -1,6 +1,8 @@
 #include "waylandcapturer.h"
 #include "debug.h"
 
+#ifdef Q_OS_LINUX
+
 #include <QCoreApplication>
 #include <QDBusConnection>
 #include <QDBusPendingReply>
@@ -44,13 +46,13 @@ X-KDE-DBUS-Restricted-Interfaces=org.kde.kwin.Screenshot
 
 }  // namespace
 
-bool WaylandCapturer::isWayland()
+bool WaylandCapturerImpl::isWayland()
 {
   return qEnvironmentVariable("XDG_SESSION_TYPE").toLower() ==
          QStringLiteral("wayland");
 }
 
-WaylandCapturer::Method WaylandCapturer::getMethod()
+WaylandCapturerImpl::Method WaylandCapturerImpl::getMethod()
 {
   auto de = qEnvironmentVariable("XDG_CURRENT_DESKTOP").toLower();
   if (de == QLatin1String("kde")) {
@@ -61,20 +63,20 @@ WaylandCapturer::Method WaylandCapturer::getMethod()
   return Method::Freedesktop;
 }
 
-WaylandCapturer::WaylandCapturer()
+WaylandCapturerImpl::WaylandCapturerImpl()
   : method_(getMethod())
 {
   if (method_ == Method::Kde)
     writeDesktop();
 }
 
-WaylandCapturer::~WaylandCapturer()
+WaylandCapturerImpl::~WaylandCapturerImpl()
 {
   if (method_ == Method::Kde)
     removeDesktop();
 }
 
-QPixmap WaylandCapturer::grab()
+QPixmap WaylandCapturerImpl::grab()
 {
   switch (method_) {
     case Method::Gnome: return grabGnome();
@@ -84,7 +86,7 @@ QPixmap WaylandCapturer::grab()
   return {};
 }
 
-QPixmap WaylandCapturer::grabKde()
+QPixmap WaylandCapturerImpl::grabKde()
 {
   auto request = QDBusMessage::createMethodCall(
       QStringLiteral("org.kde.KWin"), QStringLiteral("/Screenshot"),
@@ -106,7 +108,7 @@ QPixmap WaylandCapturer::grabKde()
   return result;
 }
 
-QPixmap WaylandCapturer::grabGnome()
+QPixmap WaylandCapturerImpl::grabGnome()
 {
   auto request = QDBusMessage::createMethodCall(
       QStringLiteral("org.gnome.Shell.Screenshot"),
@@ -138,7 +140,7 @@ QPixmap WaylandCapturer::grabGnome()
   return QPixmap(f.fileName());
 }
 
-QPixmap WaylandCapturer::grabFreedesktop()
+QPixmap WaylandCapturerImpl::grabFreedesktop()
 {
   auto request = QDBusMessage::createMethodCall(
       QStringLiteral("org.freedesktop.portal.Desktop"),
@@ -172,8 +174,8 @@ QPixmap WaylandCapturer::grabFreedesktop()
   return result_;
 }
 
-void WaylandCapturer::parseFreedesktopResult(uint response,
-                                             const QVariantMap &results)
+void WaylandCapturerImpl::parseFreedesktopResult(uint response,
+                                                 const QVariantMap &results)
 {
   if (response == 0) {
     const auto name = QUrl(results["uri"].toString()).toLocalFile();
@@ -181,4 +183,15 @@ void WaylandCapturer::parseFreedesktopResult(uint response,
     QFile::remove(name);
   }
   loop_.exit();
+}
+
+#endif
+
+std::unique_ptr<WaylandCapturer> WaylandCapturer::create()
+{
+#ifdef Q_OS_LINUX
+  if (WaylandCapturerImpl::isWayland())
+    return std::make_unique<WaylandCapturerImpl>();
+#endif
+  return {};
 }

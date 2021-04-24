@@ -16,11 +16,8 @@ Capturer::Capturer(Manager &manager, const Settings &settings,
   , settings_(settings)
   , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_, models,
                                                     pixmap_))
+  , wayland_(WaylandCapturer::create())
 {
-#ifdef Q_OS_LINUX
-  if (WaylandCapturer::isWayland())
-    wayland_ = std::make_unique<WaylandCapturer>();
-#endif
 }
 
 Capturer::~Capturer() = default;

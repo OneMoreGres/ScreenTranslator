@@ -4,16 +4,28 @@
 #include <QObject>
 #include <QPixmap>
 
-class WaylandCapturer : public QObject
+class WaylandCapturer
+{
+public:
+  virtual ~WaylandCapturer() = default;
+
+  virtual QPixmap grab() = 0;
+
+  static std::unique_ptr<WaylandCapturer> create();
+};
+
+#ifdef Q_OS_LINUX
+
+class WaylandCapturerImpl : public QObject, public WaylandCapturer
 {
   Q_OBJECT
 public:
-  WaylandCapturer();
-  ~WaylandCapturer();
+  WaylandCapturerImpl();
+  ~WaylandCapturerImpl();
 
   static bool isWayland();
 
-  QPixmap grab();
+  QPixmap grab() override;
 
 private slots:
   void parseFreedesktopResult(uint response, const QVariantMap &results);
@@ -30,3 +42,5 @@ private:
   QEventLoop loop_;
   QPixmap result_;
 };
+
+#endif
