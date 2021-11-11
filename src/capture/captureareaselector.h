@@ -12,7 +12,8 @@ class CaptureAreaSelector : public QWidget
 
 public:
   CaptureAreaSelector(Capturer &capturer, const Settings &settings,
-                      const CommonModels &models, const QPixmap &pixmap);
+                      const CommonModels &models, const QPixmap &pixmap,
+                      const QPoint &pixmapOffset);
   ~CaptureAreaSelector();
 
   void activate();
@@ -50,6 +51,7 @@ private:
   Capturer &capturer_;
   const Settings &settings_;
   const QPixmap &pixmap_;
+  const QPoint &pixmapOffset_;
   Generation generation_{};
   QPoint startSelectPos_;
   QPoint currentSelectPos_;

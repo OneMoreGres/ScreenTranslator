@@ -15,7 +15,7 @@ Capturer::Capturer(Manager &manager, const Settings &settings,
   : manager_(manager)
   , settings_(settings)
   , selector_(std::make_unique<CaptureAreaSelector>(*this, settings_, models,
-                                                    pixmap_))
+                                                    pixmap_, pixmapOffset_))
 {
 }
 
@@ -56,6 +56,7 @@ void Capturer::updatePixmap()
 
   QPixmap combined(rect.size());
   QPainter p(&combined);
+  p.translate(-rect.topLeft());
 
   for (const auto screen : screens) {
     const auto geometry = screen->geometry();
@@ -66,6 +67,9 @@ void Capturer::updatePixmap()
 
   SOFT_ASSERT(selector_, return );
   pixmap_ = combined;
+  pixmapOffset_ = rect.topLeft();
+
+  for (auto &r : screenRects) r.translate(-rect.topLeft());
   selector_->setScreenRects(screenRects);
 }
 

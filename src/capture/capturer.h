@@ -26,5 +26,6 @@ private:
   Manager &manager_;
   const Settings &settings_;
   QPixmap pixmap_;
+  QPoint pixmapOffset_;
   std::unique_ptr<CaptureAreaSelector> selector_;
 };

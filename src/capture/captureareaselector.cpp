@@ -22,10 +22,12 @@ static bool notLocked(const std::shared_ptr<CaptureArea> &area)
 CaptureAreaSelector::CaptureAreaSelector(Capturer &capturer,
                                          const Settings &settings,
                                          const CommonModels &models,
-                                         const QPixmap &pixmap)
+                                         const QPixmap &pixmap,
+                                         const QPoint &pixmapOffset)
   : capturer_(capturer)
   , settings_(settings)
   , pixmap_(pixmap)
+  , pixmapOffset_(pixmapOffset)
   , editor_(std::make_unique<CaptureAreaEditor>(models, this))
   , contextMenu_(new QMenu(this))
 {
@@ -56,7 +58,7 @@ CaptureAreaSelector::~CaptureAreaSelector() = default;
 
 void CaptureAreaSelector::activate()
 {
-  setGeometry(pixmap_.rect());
+  setGeometry(QRect(pixmapOffset_, pixmap_.size()));
   show();
   activateWindow();
 }
