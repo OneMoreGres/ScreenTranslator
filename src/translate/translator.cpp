@@ -132,11 +132,11 @@ void Translator::updateSettings()
     return;
 
   const auto loaded =
-      loadScripts(settings_.translatorsDir, settings_.translators);
+      loadScripts(settings_.translatorsPath, settings_.translators);
   if (loaded.empty()) {
     manager_.fatalError(
         tr("No translators loaded from\n%1\n(%2)")
-            .arg(settings_.translatorsDir, settings_.translators.join(", ")));
+            .arg(settings_.translatorsPath, settings_.translators.join(", ")));
     return;
   }
 

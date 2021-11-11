@@ -75,7 +75,7 @@ void Corrector::processQueue()
 void Corrector::updateSettings()
 {
   queue_.clear();
-  emit resetAuto(settings_.hunspellDir);
+  emit resetAuto(settings_.hunspellPath);
 }
 
 void Corrector::finishCorrection(const TaskPtr &task)

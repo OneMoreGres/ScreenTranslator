@@ -392,6 +392,6 @@ void Settings::setPortable(bool isPortable)
                         QStandardPaths::AppDataLocation)) +
       "/assets";
   tessdataPath = baseDataPath + "/tessdata";
-  translatorsDir = baseDataPath + "/translators";
-  hunspellDir = baseDataPath + "/hunspell";
+  translatorsPath = baseDataPath + "/translators";
+  hunspellPath = baseDataPath + "/hunspell";
 }

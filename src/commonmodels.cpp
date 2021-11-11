@@ -11,12 +11,18 @@ CommonModels::CommonModels()
 
 CommonModels::~CommonModels() = default;
 
-void CommonModels::update(const QString &tessdataPath)
+void CommonModels::update(const QString &tessdataPath,
+                          const QString &translatorPath)
 {
   {
     auto names = Tesseract::availableLanguageNames(tessdataPath);
     std::sort(names.begin(), names.end());
     sourceLanguageModel_->setStringList(names);
+  }
+
+  {
+    translators_ = Translator::availableTranslators(translatorPath);
+    std::sort(translators_.begin(), translators_.end());
   }
 
   if (targetLanguageModel_->rowCount() > 0)
@@ -37,4 +43,9 @@ QStringListModel *CommonModels::sourceLanguageModel() const
 QStringListModel *CommonModels::targetLanguageModel() const
 {
   return targetLanguageModel_.get();
+}
+
+const QStringList &CommonModels::translators() const
+{
+  return translators_;
 }

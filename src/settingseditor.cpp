@@ -4,7 +4,6 @@
 #include "manager.h"
 #include "runatsystemstart.h"
 #include "settingsvalidator.h"
-#include "translator.h"
 #include "ui_settingseditor.h"
 #include "updates.h"
 #include "widgetstate.h"
@@ -326,14 +325,14 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->tesseractVersion->setCurrentIndex(int(settings.tesseractVersion));
 
   ui->useHunspell->setChecked(settings.useHunspell);
-  ui->hunspellDir->setText(settings.hunspellDir);
+  ui->hunspellDir->setText(settings.hunspellPath);
   ui->useUserSubstitutions->setChecked(settings.useUserSubstitutions);
   ui->userSubstitutionsTable->setSubstitutions(settings.userSubstitutions);
 
   ui->doTranslationCheck->setChecked(settings.doTranslation);
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
-  ui->translatorsPath->setText(settings.translatorsDir);
+  ui->translatorsPath->setText(settings.translatorsPath);
   ui->translateLangCombo->setCurrentText(
       LanguageCodes::name(settings.targetLanguage));
   updateTranslators(settings.translators);
@@ -363,8 +362,8 @@ void SettingsEditor::updateState()
   Settings settings;
   settings.setPortable(ui->portable->isChecked());
   ui->tessdataPath->setText(settings.tessdataPath);
-  ui->translatorsPath->setText(settings.translatorsDir);
-  ui->hunspellDir->setText(settings.hunspellDir);
+  ui->translatorsPath->setText(settings.translatorsPath);
+  ui->hunspellDir->setText(settings.hunspellPath);
 
   updateModels();
   updateTranslators(enabledTranslators());
@@ -402,14 +401,10 @@ void SettingsEditor::updateCurrentPage()
 void SettingsEditor::updateTranslators(const QStringList &translators)
 {
   ui->translatorList->clear();
-
-  auto names = Translator::availableTranslators(ui->translatorsPath->text());
-  if (names.isEmpty())
+  if (models_.translators().isEmpty())
     return;
 
-  std::sort(names.begin(), names.end());
-
-  ui->translatorList->addItems(names);
+  ui->translatorList->addItems(models_.translators());
 
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
     auto item = ui->translatorList->item(i);
@@ -466,7 +461,7 @@ QStringList SettingsEditor::enabledTranslators() const
 void SettingsEditor::updateModels()
 {
   const auto source = ui->tesseractLangCombo->currentText();
-  models_.update(ui->tessdataPath->text());
+  models_.update(ui->tessdataPath->text(), ui->translatorsPath->text());
   if (!source.isEmpty()) {
     ui->tesseractLangCombo->setCurrentText(source);
   } else if (ui->tesseractLangCombo->count() > 0) {
@@ -489,6 +484,15 @@ void SettingsEditor::pickColor(QWidget *widget)
 
 void SettingsEditor::validateSettings()
 {
+  SettingsValidator validator;
+  {
+    auto settings = this->settings();
+    if (validator.correct(settings, models_)) {
+      setSettings(settings);
+      return;
+    }
+  }
+
   for (auto i = 0, end = pageModel_->rowCount(); i < end; ++i) {
     const auto name = pageModel_->index(i, int(PageColumn::Name));
     pageModel_->setData(name, QBrush(Qt::black), Qt::ForegroundRole);
@@ -497,7 +501,6 @@ void SettingsEditor::validateSettings()
     pageModel_->setData(error, {});
   }
 
-  SettingsValidator validator;
   const auto errors = validator.check(settings(), models_);
   if (errors.isEmpty())
     return;

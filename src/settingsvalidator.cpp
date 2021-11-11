@@ -14,7 +14,7 @@ QVector<SettingsValidator::Error> SettingsValidator::check(
   if (settings.sourceLanguage.isEmpty())
     result.append(Error::NoSourceSet);
 
-  if (settings.doTranslation && models.targetLanguageModel()->rowCount() == 0)
+  if (settings.doTranslation && models.translators().isEmpty())
     result.append(Error::NoTranslatorInstalled);
 
   if (settings.doTranslation && settings.translators.isEmpty())
@@ -24,6 +24,18 @@ QVector<SettingsValidator::Error> SettingsValidator::check(
     result.append(Error::NoTargetSet);
 
   return result;
+}
+
+bool SettingsValidator::correct(Settings &settings, const CommonModels &models)
+{
+  auto changed = false;
+
+  if (settings.doTranslation && settings.translators.isEmpty() &&
+      !models.translators().isEmpty()) {
+    settings.translators = models.translators();
+    changed = true;
+  }
+  return changed;
 }
 
 QString SettingsValidator::toString(Error error) const

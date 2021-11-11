@@ -17,5 +17,6 @@ public:
 
   QVector<Error> check(const Settings& settings,
                        const CommonModels& models) const;
+  bool correct(Settings& settings, const CommonModels& models);
   QString toString(Error error) const;
 };

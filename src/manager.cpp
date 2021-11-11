@@ -109,7 +109,7 @@ void Manager::updateSettings()
   setupProxy(*settings_);
   setupUpdates(*settings_);
 
-  models_->update(settings_->tessdataPath);
+  models_->update(settings_->tessdataPath, settings_->translatorsPath);
 
   tray_->updateSettings();
   capturer_->updateSettings();
@@ -120,7 +120,9 @@ void Manager::updateSettings()
 
   tray_->setCaptureLockedEnabled(capturer_->canCaptureLocked());
 
-  const auto errors = SettingsValidator().check(*settings_, *models_);
+  SettingsValidator validator;
+  validator.correct(*settings_, *models_);
+  const auto errors = validator.check(*settings_, *models_);
   if (errors.isEmpty())
     return;
 
@@ -155,9 +157,9 @@ void Manager::setupProxy(const Settings &settings)
 void Manager::setupUpdates(const Settings &settings)
 {
   updater_->setExpansions({
-      {"$translators$", settings.translatorsDir},
+      {"$translators$", settings.translatorsPath},
       {"$tessdata$", settings.tessdataPath},
-      {"$hunspell$", settings.hunspellDir},
+      {"$hunspell$", settings.hunspellPath},
       {"$appdir$", QApplication::applicationDirPath()},
   });
 

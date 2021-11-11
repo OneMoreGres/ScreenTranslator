@@ -52,7 +52,7 @@ public:
   QDateTime lastUpdateCheck;
 
   bool useHunspell{false};
-  QString hunspellDir;
+  QString hunspellPath;
   Substitutions userSubstitutions;
   bool useUserSubstitutions{true};
 
@@ -66,7 +66,7 @@ public:
   bool ignoreSslErrors{false};
   LanguageId targetLanguage{"rus"};
   std::chrono::seconds translationTimeout{15};
-  QString translatorsDir;
+  QString translatorsPath;
   QStringList translators{"google.js"};
 
   ResultMode resultShowType{ResultMode::Widget};  // dialog
