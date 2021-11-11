@@ -153,6 +153,9 @@ quint32 GlobalAction::nativeKeycode(Qt::Key key)
 {
   Display *display = QX11Info::display();
   KeySym keySym = XStringToKeysym(qPrintable(QKeySequence(key).toString()));
+  if (XKeysymToString(keySym) == nullptr) {
+    keySym = QChar(key).unicode();
+  }
   return XKeysymToKeycode(display, keySym);
 }
 
@@ -223,6 +226,9 @@ quint32 GlobalAction::nativeKeycode(Qt::Key key)
     case Qt::Key_Down: return VK_DOWN;
     case Qt::Key_PageUp: return VK_PRIOR;
     case Qt::Key_PageDown: return VK_NEXT;
+    case Qt::Key_CapsLock: return VK_CAPITAL;
+    case Qt::Key_NumLock: return VK_NUMLOCK;
+    case Qt::Key_ScrollLock: return VK_SCROLL;
     case Qt::Key_F1: return VK_F1;
     case Qt::Key_F2: return VK_F2;
     case Qt::Key_F3: return VK_F3;
@@ -248,11 +254,27 @@ quint32 GlobalAction::nativeKeycode(Qt::Key key)
     case Qt::Key_F23: return VK_F23;
     case Qt::Key_F24: return VK_F24;
     case Qt::Key_Space: return VK_SPACE;
+
+    case Qt::Key_QuoteDbl: return VK_OEM_7;
+    case Qt::Key_Apostrophe: return VK_OEM_7;
+    case Qt::Key_Period: return VK_DECIMAL;
+    case Qt::Key_Colon: return VK_OEM_1;
+    case Qt::Key_Semicolon: return VK_OEM_1;
+    case Qt::Key_Less: return VK_OEM_COMMA;
+    case Qt::Key_Greater: return VK_OEM_PERIOD;
+    case Qt::Key_Question: return VK_OEM_2;
+    case Qt::Key_BracketLeft: return VK_OEM_4;
+    case Qt::Key_Backslash: return VK_OEM_5;
+    case Qt::Key_BracketRight: return VK_OEM_6;
+    case Qt::Key_QuoteLeft: return VK_OEM_3;
+    case Qt::Key_BraceLeft: return VK_OEM_4;
+    case Qt::Key_Bar: return VK_OEM_5;
+    case Qt::Key_BraceRight: return VK_OEM_6;
     case Qt::Key_Asterisk: return VK_MULTIPLY;
-    case Qt::Key_Plus: return VK_ADD;
-    case Qt::Key_Comma: return VK_SEPARATOR;
-    case Qt::Key_Minus: return VK_SUBTRACT;
-    case Qt::Key_Slash: return VK_DIVIDE;
+    case Qt::Key_Plus: return VK_OEM_PLUS;
+    case Qt::Key_Comma: return VK_OEM_COMMA;
+    case Qt::Key_Minus: return VK_OEM_MINUS;
+    case Qt::Key_Slash: return VK_OEM_2;
     case Qt::Key_MediaNext: return VK_MEDIA_NEXT_TRACK;
     case Qt::Key_MediaPrevious: return VK_MEDIA_PREV_TRACK;
     case Qt::Key_MediaPlay: return VK_MEDIA_PLAY_PAUSE;
