@@ -59,6 +59,16 @@ void TrayIcon::blockActions(bool block)
 {
   isActionsBlocked_ = block;
   updateActions();
+  const auto actions =
+      QVector<QAction *>{captureAction_, repeatCaptureAction_, showLastAction_,
+                         clipboardAction_, captureLockedAction_};
+  for (const auto i : actions) {
+    if (block) {
+      GlobalAction::removeGlobal(i);
+    } else {
+      GlobalAction::makeGlobal(i);
+    }
+  }
 }
 
 void TrayIcon::setTaskActionsEnabled(bool isEnabled)

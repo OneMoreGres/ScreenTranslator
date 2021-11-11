@@ -221,7 +221,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout">
             <item row="4" column="1">
-             <widget class="QKeySequenceEdit" name="clipboardEdit"/>
+             <widget class="service::KeySequenceEdit" name="clipboardEdit"/>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_8">
@@ -231,7 +231,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QKeySequenceEdit" name="repeatCaptureEdit"/>
+             <widget class="service::KeySequenceEdit" name="repeatCaptureEdit"/>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_3">
@@ -241,7 +241,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QKeySequenceEdit" name="captureEdit"/>
+             <widget class="service::KeySequenceEdit" name="captureEdit"/>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_7">
@@ -251,7 +251,7 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QKeySequenceEdit" name="repeatEdit"/>
+             <widget class="service::KeySequenceEdit" name="repeatEdit"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label">
@@ -268,7 +268,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QKeySequenceEdit" name="captureLockedEdit"/>
+             <widget class="service::KeySequenceEdit" name="captureLockedEdit"/>
             </item>
            </layout>
           </widget>
@@ -774,6 +774,11 @@
    <class>SubstitutionsTable</class>
    <extends>QTableWidget</extends>
    <header>substitutionstable.h</header>
+  </customwidget>
+  <customwidget>
+   <class>service::KeySequenceEdit</class>
+   <extends>QWidget</extends>
+   <header>keysequenceedit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

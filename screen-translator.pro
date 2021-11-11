@@ -53,6 +53,7 @@ HEADERS += \
   src/service/debug.h \
   src/service/geometryutils.h \
   src/service/globalaction.h \
+  src/service/keysequenceedit.h \
   src/service/runatsystemstart.h \
   src/service/singleapplication.h \
   src/service/updates.h \
@@ -90,6 +91,7 @@ SOURCES += \
   src/service/debug.cpp \
   src/service/geometryutils.cpp \
   src/service/globalaction.cpp \
+  src/service/keysequenceedit.cpp \
   src/service/runatsystemstart.cpp \
   src/service/singleapplication.cpp \
   src/service/updates.cpp \
