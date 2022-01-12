@@ -198,7 +198,7 @@ const std::unordered_map<LanguageId, LanguageCodes::Bundle>
   {I("chi_sim_vert"), {I("chi_sim_vert"), S("zh-CN"), S("chi_sim_vert"), QT_TRANSLATE_NOOP("QObject", "Chinese (Simplified) vertical")}},
   {I("chi_tra"), {I("chi_tra"), S("zh-TW"), S("chi_tra"), QT_TRANSLATE_NOOP("QObject", "Chinese (Traditional)")}},
   {I("chi_tra_vert"), {I("chi_tra_vert"), S("zh-TW"), S("chi_tra_vert"), QT_TRANSLATE_NOOP("QObject", "Chinese (Traditional) vertical")}},
-  {I("fil"), {I("fil"), S(""), S("fil"), QT_TRANSLATE_NOOP("QObject", "Filipino")}},
+  {I("fil"), {I("fil"), S("tl"), S("fil"), QT_TRANSLATE_NOOP("QObject", "Filipino")}},
   {I("chr"), {I("chr"), S(""), S("chr"), QT_TRANSLATE_NOOP("QObject", "Cherokee")}},
   {I("ceb"), {I("ceb"), S(""), S("ceb"), QT_TRANSLATE_NOOP("QObject", "Cebuano")}},
   {I("syr"), {I("syr"), S(""), S("syr"), QT_TRANSLATE_NOOP("QObject", "Syriac")}},
