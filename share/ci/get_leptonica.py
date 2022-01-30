@@ -6,8 +6,8 @@ import platform
 c.print('>> Installing leptonica')
 
 install_dir = dependencies_dir
-url = 'https://github.com/DanBloomberg/leptonica/releases/download/1.80.0/leptonica-1.80.0.tar.gz'
-required_version = '1.80.0'
+url = 'https://github.com/DanBloomberg/leptonica/releases/download/1.82.0/leptonica-1.82.0.tar.gz'
+required_version = '1.82.0'
 
 
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
@@ -25,14 +25,14 @@ def check_existing():
             return False
 
     if platform.system() == "Windows":
-        dll = install_dir + '/bin/leptonica-1.80.0.dll'
-        lib = install_dir + '/lib/leptonica-1.80.0.lib'
+        dll = install_dir + '/bin/leptonica-1.82.0.dll'
+        lib = install_dir + '/lib/leptonica-1.82.0.lib'
         if not os.path.exists(dll) or not os.path.exists(lib):
             return False
         c.symlink(dll, install_dir + '/bin/leptonica.dll')
         c.symlink(lib, install_dir + '/lib/leptonica.lib')
     elif platform.system() == "Darwin":
-        lib = install_dir + '/lib/libleptonica.1.80.0.dylib'
+        lib = install_dir + '/lib/libleptonica.1.82.0.dylib'
         if not os.path.exists(lib):
             return False
         c.symlink(lib, install_dir + '/lib/libleptonica.dylib')
@@ -44,12 +44,12 @@ def check_existing():
     if len(c.get_folder_files(includes_path)) == 0:
         return False
 
-    version_file = install_dir + '/cmake/LeptonicaConfig-version.cmake'
+    version_file = install_dir + '/lib/cmake/leptonica/LeptonicaConfig-version.cmake'
     if not os.path.exists(version_file):
         return False
 
     with open(version_file, 'rt') as f:
-        existing_version = f.readline()[22:28]  # set(Leptonica_VERSION 1.80.0)
+        existing_version = f.readline()[22:28]  # set(Leptonica_VERSION 1.82.0)
         if existing_version != required_version:
             return False
     return True

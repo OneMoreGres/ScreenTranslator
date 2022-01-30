@@ -6,8 +6,8 @@ import platform
 c.print('>> Installing tesseract')
 
 install_dir = dependencies_dir
-url = 'https://github.com/tesseract-ocr/tesseract/archive/4.1.1.tar.gz'
-required_version = '4.1.1'
+url = 'https://github.com/tesseract-ocr/tesseract/archive/4.1.3.tar.gz'
+required_version = '4.1.3'
 
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 
@@ -48,10 +48,10 @@ def check_existing():
         orig_lib = install_dir + '/bin/tesseract41.dll'
     elif platform.system() == "Darwin":
         lib = install_dir + '/lib/libtesseract{}.dylib'.format(lib_suffix)
-        orig_lib = install_dir + '/lib/libtesseract.4.1.1.dylib'
+        orig_lib = install_dir + '/lib/libtesseract.{}.dylib'.format(required_version)
     else:
         lib = install_dir + '/lib/libtesseract{}.so'.format(lib_suffix)
-        orig_lib = install_dir + '/lib/libtesseract.so.4.1.1'
+        orig_lib = install_dir + '/lib/libtesseract.so.{}'.format(required_version)
 
     if os.path.exists(lib):
         return True
@@ -73,13 +73,45 @@ src_dir = os.path.abspath('tesseract_src')
 c.extract(archive, '.')
 c.symlink(c.get_archive_top_dir(archive), src_dir)
 
+if platform.system() == "Windows": 
+    # workaround for not found 'max'
+    modify_data = ''
+    modify_file = '{}/src/ccmain/thresholder.cpp'.format(src_dir)
+    with open(modify_file, 'r') as f:
+        modify_data = f.read()
+
+    if modify_data.find('<algorithm>') == -1:
+        modify_data = modify_data.replace(
+        '''<tuple>''',
+        '''<tuple>\n#include <algorithm>''')
+
+    with open(modify_file, 'w') as f:
+        f.write(modify_data)
+
+    # ignore libtiff
+    modify_data = ''
+    modify_file = '{}/CMakeLists.txt'.format(src_dir)
+    with open(modify_file, 'r') as f:
+        modify_data = f.read()
+
+    if modify_data.find('#pkg_check_modules(TIFF libtiff-4)') == -1:
+        modify_data = modify_data.replace(
+        '''pkg_check_modules(TIFF libtiff-4)''',
+        '''#pkg_check_modules(TIFF libtiff-4)''')
+
+    with open(modify_file, 'w') as f:
+        f.write(modify_data)
+
+
+
 c.ensure_got_path(install_dir)
 
 c.recreate_dir(build_dir)
 os.chdir(build_dir)
 
 cmake_args = '"{0}" -DCMAKE_INSTALL_PREFIX="{1}" -DLeptonica_DIR="{1}/cmake" \
--DBUILD_TRAINING_TOOLS=OFF -DBUILD_TESTS=OFF'.format(src_dir, install_dir)
+-DBUILD_TRAINING_TOOLS=OFF -DBUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON -DSW_BUILD=OFF \
+'.format(src_dir, install_dir)
 
 if platform.system() == "Windows":
     env_cmd = c.get_msvc_env_cmd(bitness=bitness, msvc_version=msvc_version)
