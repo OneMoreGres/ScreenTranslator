@@ -22,7 +22,7 @@ c.print('>> Making appimage')
 base_url = 'https://github.com/probonopd/linuxdeployqt/releases/download'
 continuous_url = base_url + '/continuous/linuxdeployqt-continuous-x86_64.AppImage'
 tagged_url = base_url + '/6/linuxdeployqt-6-x86_64.AppImage'
-linuxdeployqt_url = tagged_url
+linuxdeployqt_url = continuous_url
 linuxdeployqt_original = os.path.basename(linuxdeployqt_url)
 
 c.download(linuxdeployqt_url, linuxdeployqt_original)
@@ -54,6 +54,8 @@ os.makedirs(out_lib_dir, exist_ok=True)
 for f in additional_files:
     c.print('>> Copying {} to {}'.format(f, out_lib_dir))
     shutil.copy(f, out_lib_dir)
+
+c.ensure_got_path('{}/usr/share/doc/libc6/copyright'.format(install_dir))
 
 c.run('{} {}/usr/share/applications/*.desktop {} -appimage -qmake={}/bin/qmake'.format(
     linuxdeployqt_bin, install_dir, flags, qt_dir))
