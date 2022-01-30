@@ -190,11 +190,15 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
         baseUrl + "/blob/master/share/Changelog_" +
         (locale.language() == QLocale::Russian ? "ru" : "en") + ".md";
     const auto license = baseUrl + "/blob/master/LICENSE.md";
+    const auto help = locale.language() == QLocale::Russian
+    ? "https://translator.gres.biz/page/download/"
+    : baseUrl + "/blob/master/README.md";
     const auto aboutLines = QStringList{
         QObject::tr(
             R"(<p>Optical character recognition (OCR) and translation tool</p>)"),
         QObject::tr(R"(<p>Version: %1</p>)")
             .arg(QApplication::applicationVersion()),
+        QObject::tr(R"(<p>Setup instructions: <a href="%1">%1</a></p>)").arg(help),
         QObject::tr(R"(<p>Changelog: <a href="%1">%2</a></p>)")
             .arg(changelog, QUrl(changelog).fileName()),
         QObject::tr(R"(<p>License: <a href="%3">MIT</a></p>)").arg(license),
