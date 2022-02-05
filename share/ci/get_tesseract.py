@@ -37,8 +37,17 @@ lib_suffix = os.environ.get('TAG', '')
 if len(lib_suffix) > 0:
     lib_suffix = '-' + lib_suffix
 
+cache_file = install_dir + '/tesseract{}.cache'.format(lib_suffix)
+cache_file_data = required_version + build_type_flag
 
 def check_existing():
+    if not os.path.exists(cache_file):
+        return False
+    with open(cache_file, 'r') as f:
+        cached = f.read()
+        if cached != cache_file_data:
+            return False
+
     includes_path = install_dir + '/include/tesseract'
     if len(c.get_folder_files(includes_path)) == 0:
         return False
@@ -73,7 +82,7 @@ src_dir = os.path.abspath('tesseract_src')
 c.extract(archive, '.')
 c.symlink(c.get_archive_top_dir(archive), src_dir)
 
-if platform.system() == "Windows": 
+if platform.system() == "Windows":
     # workaround for not found 'max'
     modify_data = ''
     modify_file = '{}/src/ccmain/thresholder.cpp'.format(src_dir)
@@ -127,6 +136,9 @@ if len(compat_flags) > 0:
 
 c.run('cmake --build . --config {}'.format(build_type_flag))
 c.run('cmake --build . --target install --config {}'.format(build_type_flag))
+
+with open(cache_file, 'w') as f:
+    f.write(cache_file_data)
 
 if not check_existing():  # add suffix
     c.print('>> Build failed')
