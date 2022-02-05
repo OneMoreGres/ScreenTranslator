@@ -63,56 +63,11 @@ jobs:
           path: deps
           key: ${{ env.OS }}-deps
 
-      - name: Get Qt
-        run: python ./share/ci/get_qt.py
-
-      - name: Get ssl
-        run: python ./share/ci/get_qt_ssl.py
-
-      - name: Get leptonica
-        run: python ./share/ci/get_leptonica.py
-
-      - name: Get tesseract optimized
-        env:
-          MARCH: sandy-bridge
-          TAG: optimized
-        run: python ./share/ci/get_tesseract.py
-
-      - name: Get tesseract compatible
-        env:
-          MARCH: nehalem
-          TAG: compatible
-        run: python ./share/ci/get_tesseract.py
-
-      - name: Get hunspell
-        run: python ./share/ci/get_hunspell.py
-
-      - name: Test
-        run: python ./share/ci/test.py
-
-      - name: Build
-        run: python ./share/ci/build.py
-
-      - name: Create AppImage
-        if: runner.os == 'Linux'
+      - name: Make a release
         shell: bash
         run: |
-          python ./share/ci/appimage.py
-          echo "artifact=`python ./share/ci/appimage.py artifact_name`" >> $GITHUB_ENV
-
-      - name: Create win deploy
-        if: runner.os == 'Windows'
-        shell: bash
-        run: |
-          python ./share/ci/windeploy.py
-          echo "artifact=`python ./share/ci/windeploy.py artifact_name`" >> $GITHUB_ENV
-
-      - name: Create mac deploy
-        if: runner.os == 'macOS'
-        shell: bash
-        run: |
-          python ./share/ci/macdeploy.py
-          echo "artifact=`python ./share/ci/macdeploy.py artifact_name`" >> $GITHUB_ENV
+          python ./share/ci/release.py
+          echo "artifact=`python ./share/ci/release.py artifact_name`" >> $GITHUB_ENV
 
       - name: Upload build artifact
         if: env.artifact != ''
