@@ -1,5 +1,12 @@
 # Changes
 
+## 3.2.2
+
+* Disabled hotkeys with several consecutive combinations
+* Added the ability to use some service buttons for hotkeys
+* Fixed multiple monitors support if the main one is not at the top left
+* Automatic selection of the supported version of tesseract
+
 ## 3.2.1
 
 * Fixed incorrect update install
