@@ -323,7 +323,9 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->proxySaveCheck->setChecked(settings.proxySavePassword);
 
   ui->tessdataPath->setText(settings.tessdataPath);
+  ui->translatorsPath->setText(settings.translatorsPath);
   updateModels();
+
   ui->tesseractLangCombo->setCurrentText(
       LanguageCodes::name(settings.sourceLanguage));
   ui->tesseractVersion->setCurrentIndex(int(settings.tesseractVersion));
@@ -336,7 +338,6 @@ void SettingsEditor::setSettings(const Settings &settings)
   ui->doTranslationCheck->setChecked(settings.doTranslation);
   ui->ignoreSslCheck->setChecked(settings.ignoreSslErrors);
   ui->translateTimeoutSpin->setValue(settings.translationTimeout.count());
-  ui->translatorsPath->setText(settings.translatorsPath);
   ui->translateLangCombo->setCurrentText(
       LanguageCodes::name(settings.targetLanguage));
   updateTranslators(settings.translators);
@@ -408,7 +409,14 @@ void SettingsEditor::updateTranslators(const QStringList &translators)
   if (models_.translators().isEmpty())
     return;
 
-  ui->translatorList->addItems(models_.translators());
+  QStringList all;
+  for (const auto &i : translators) {
+    if (models_.translators().contains(i))
+      all.append(i);
+  }
+  all += models_.translators();
+  all.removeDuplicates();
+  ui->translatorList->addItems(all);
 
   for (auto i = 0, end = ui->translatorList->count(); i < end; ++i) {
     auto item = ui->translatorList->item(i);
