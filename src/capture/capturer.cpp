@@ -91,7 +91,7 @@ void Capturer::selected(const CaptureArea &area)
   selector_->hide();
 
   SOFT_ASSERT(!pixmap_.isNull(), return manager_.captureCanceled())
-  auto task = area.task(pixmap_);
+  auto task = area.task(pixmap_, pixmapOffset_);
   if (task)
     manager_.captured(task);
   else

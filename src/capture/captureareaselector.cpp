@@ -339,7 +339,7 @@ void CaptureAreaSelector::customize(const std::shared_ptr<CaptureArea> &area)
   edited_ = area;
   editor_->show();
   const auto topLeft = service::geometry::cornerAtPoint(
-      area->rect().center(), editor_->size(), geometry());
+      area->rect().center(), editor_->size(), QRect({}, size()));
   editor_->move(topLeft);
   update();
 }

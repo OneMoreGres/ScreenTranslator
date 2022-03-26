@@ -11,7 +11,7 @@ class CaptureArea
 {
 public:
   CaptureArea(const QRect& rect, const Settings& settings);
-  TaskPtr task(const QPixmap& pixmap) const;
+  TaskPtr task(const QPixmap& pixmap, const QPoint& pixmapOffset) const;
 
   void setGeneration(uint generation);
   bool isValid() const;

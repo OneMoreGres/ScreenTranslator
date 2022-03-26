@@ -12,7 +12,8 @@ CaptureArea::CaptureArea(const QRect &rect, const Settings &settings)
 {
 }
 
-TaskPtr CaptureArea::task(const QPixmap &pixmap) const
+TaskPtr CaptureArea::task(const QPixmap &pixmap,
+                          const QPoint &pixmapOffset) const
 {
   if (pixmap.isNull() || !isValid())
     return {};
@@ -21,7 +22,7 @@ TaskPtr CaptureArea::task(const QPixmap &pixmap) const
   task->generation = generation_;
   task->useHunspell = useHunspell_;
   task->captured = pixmap.copy(rect_);
-  task->capturePoint = rect_.topLeft();
+  task->capturePoint = pixmapOffset + rect_.topLeft();
   task->sourceLanguage = sourceLanguage_;
   if (task->sourceLanguage.isEmpty())
     task->error += QObject::tr("No source language set");
