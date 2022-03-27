@@ -150,7 +150,7 @@ def get_msvc_env_cmd(bitness='64', msvc_version=''):
     if platform.system() != "Windows":
         return None
 
-    msvc_path = 'C:/Program Files (x86)/Microsoft Visual Studio'
+    msvc_path = 'C:/Program Files/Microsoft Visual Studio'
     if len(msvc_version) == 0:
         with os.scandir(msvc_path) as ver_it:
             version = next(ver_it, '')
