@@ -135,6 +135,10 @@ bool Representer::eventFilter(QObject * /*watched*/, QEvent *event)
     const auto casted = static_cast<QMouseEvent *>(event);
     if (casted->button() == Qt::LeftButton)
       hide();
+  } else if (event->type() == QEvent::KeyPress) {
+    const auto casted = static_cast<QKeyEvent *>(event);
+    if (casted->key() == Qt::Key_Escape)
+      hide();
   }
   return false;
 }
