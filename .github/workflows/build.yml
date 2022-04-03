@@ -33,7 +33,7 @@ jobs:
     runs-on: ${{ matrix.config.os }}
     env:
       OS: ${{ matrix.config.name }}
-      MSVC_VERSION: 2022/Enterprise
+      MSVC_VERSION: C:/Program Files/Microsoft Visual Studio/2022/Enterprise
     strategy:
       matrix:
         config:

@@ -30,6 +30,6 @@ os_name = getenv('OS', 'linux')
 app_version += {'linux': '', 'macos': '-experimental',
                 'win32': '', 'win64': ''}[os_name]
 bitness = '32' if os_name == 'win32' else '64'
-msvc_version = getenv('MSVC_VERSION', '2019/Community')
+msvc_version = getenv('MSVC_VERSION', 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Community')
 
 build_type = 'release' # 'debug'

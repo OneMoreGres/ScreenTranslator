@@ -150,15 +150,7 @@ def get_msvc_env_cmd(bitness='64', msvc_version=''):
     if platform.system() != "Windows":
         return None
 
-    msvc_path = 'C:/Program Files/Microsoft Visual Studio'
-    if len(msvc_version) == 0:
-        with os.scandir(msvc_path) as ver_it:
-            version = next(ver_it, '')
-            with os.scandir(msvc_path + '/' + version) as ed_it:
-                msvc_version = version + '/' + next(ed_it, '')
-
-    env_script = msvc_path + '/{}/VC/Auxiliary/Build/vcvars{}.bat'.format(
-        msvc_version, bitness)
+    env_script = msvc_version + '/VC/Auxiliary/Build/vcvars{}.bat'.format(bitness)
     return '"' + env_script + '"'
 
 

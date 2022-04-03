@@ -6,8 +6,8 @@ import platform
 c.print('>> Installing tesseract')
 
 install_dir = dependencies_dir
-url = 'https://github.com/tesseract-ocr/tesseract/archive/4.1.3.tar.gz'
-required_version = '4.1.3'
+url = 'https://github.com/tesseract-ocr/tesseract/archive/5.1.0.tar.gz'
+required_version = '5.1.0'
 
 build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 
@@ -54,7 +54,7 @@ def check_existing():
 
     if platform.system() == "Windows":
         lib = install_dir + '/bin/tesseract{}.dll'.format(lib_suffix)
-        orig_lib = install_dir + '/bin/tesseract41.dll'
+        orig_lib = install_dir + '/bin/tesseract51.dll'
     elif platform.system() == "Darwin":
         lib = install_dir + '/lib/libtesseract{}.dylib'.format(lib_suffix)
         orig_lib = install_dir + '/lib/libtesseract.{}.dylib'.format(required_version)
