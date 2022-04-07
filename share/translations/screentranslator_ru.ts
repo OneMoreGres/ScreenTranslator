@@ -655,7 +655,7 @@ Check for updates to silence this warning</source>
     <message>
         <location filename="../../src/manager.cpp" line="129"/>
         <source>Incorrect settings found. Go to Settings</source>
-        <translation>Обнвружены некорректные настройки. Перейдите в Настройки</translation>
+        <translation>Обнаружены некорректные настройки. Перейдите в Настройки</translation>
     </message>
     <message>
         <location filename="../../src/manager.cpp" line="194"/>
