@@ -7,6 +7,8 @@
 #include <QSettings>
 #include <QStandardPaths>
 
+#include <array>
+
 namespace
 {
 const QString iniFileName()
@@ -133,47 +135,32 @@ void cleanupOutdated(QSettings& settings)
 
 #ifdef _MSC_VER
 #include <intrin.h>
-#endif
-#ifdef __GNUC__
-void __cpuid(int* cpuinfo, int info)
+void cpuid(int leaf, int subleaf, std::array<uint, 4>& cpuinfo)
 {
-  __asm__ __volatile__(
-      "xchg %%ebx, %%edi;"
-      "cpuid;"
-      "xchg %%ebx, %%edi;"
-      : "=a"(cpuinfo[0]), "=D"(cpuinfo[1]), "=c"(cpuinfo[2]), "=d"(cpuinfo[3])
-      : "0"(info));
+  __cpuidex(reinterpret_cast<int*>(cpuinfo.data()), leaf, subleaf);
 }
-
-unsigned long long _xgetbv(unsigned int index)
+#else
+#include <cpuid.h>
+void cpuid(int leaf, int subleaf, std::array<uint, 4>& cpuinfo)
 {
-  unsigned int eax, edx;
-  __asm__ __volatile__("xgetbv;" : "=a"(eax), "=d"(edx) : "c"(index));
-  return ((unsigned long long)edx << 32) | eax;
+  __get_cpuid_count(leaf, subleaf, &cpuinfo[0], &cpuinfo[1], &cpuinfo[2],
+                    &cpuinfo[3]);
 }
 #endif
 
 bool checkOptimizedTesseractSupport()
 {
-  bool sse4_1Supportted = false;
-  bool sse4_2Supportted = false;
-  bool avxSupportted = false;
+  std::array<uint, 4> cpuinfo{0};
 
-  int cpuinfo[4];
-  __cpuid(cpuinfo, 1);
+  cpuid(1, 0, cpuinfo);
+  const bool sse4_1 = cpuinfo[2] & (1 << 19);
+  const bool sse4_2 = cpuinfo[2] & (1 << 20);
+  const bool avx = cpuinfo[2] & (1 << 28);
 
-  sse4_1Supportted = cpuinfo[2] & (1 << 19) || false;
-  sse4_2Supportted = cpuinfo[2] & (1 << 20) || false;
+  cpuid(7, 0, cpuinfo);
+  const bool avx2 = cpuinfo[1] & (1 << 5);
 
-  avxSupportted = cpuinfo[2] & (1 << 28) || false;
-  bool osxsaveSupported = cpuinfo[2] & (1 << 27) || false;
-  if (osxsaveSupported && avxSupportted) {
-    // _XCR_XFEATURE_ENABLED_MASK = 0
-    unsigned long long xcrFeatureMask = _xgetbv(0);
-    avxSupportted = (xcrFeatureMask & 0x6) == 0x6;
-  }
-
-  return sse4_1Supportted && sse4_2Supportted && avxSupportted;
+  return sse4_1 && sse4_2 && avx && avx2;
 }
 
 }  // namespace
