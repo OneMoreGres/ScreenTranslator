@@ -31,6 +31,7 @@ private:
   Representer& representer_;
   const Settings& settings_;
   TaskPtr task_;
+  QWidget* imagePlaceholder_;
   QLabel* image_;
   QLabel* recognized_;
   QLabel* separator_;
