@@ -56,6 +56,8 @@ If `Portable` setting in `General` section is checked, then resources will be do
 If you are experiencing crashes during the app usage, then try changing `tesseract library version` from `Optimized` to `Compatible`.
 It provides the same functionality, but should work on the bigger variety of hardware.
 
+Set `QTWEBENGINE_DISABLE_SANDBOX=1` environment variable when fail to start due to crash.
+
 Answers to some frequently asked questions can be found in issues or
 [wiki](https://github.com/OneMoreGres/ScreenTranslator/wiki/FAQ)
 
