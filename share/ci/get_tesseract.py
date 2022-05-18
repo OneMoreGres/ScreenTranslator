@@ -13,27 +13,16 @@ build_type_flag = 'Debug' if build_type == 'debug' else 'Release'
 
 # compatibility flags
 compat_flags = ''
-if os.environ.get('NO_AVX2', '0') == '1':
-    compat_flags += ' -D USE_AVX2=OFF '
-if os.environ.get('NO_AVX512', '0') == '1':
-    compat_flags += ' -D USE_AVX512BW=OFF -D USE_AVX512CD=OFF \
--D USE_AVX512DQ=OFF -D USE_AVX512ER=OFF -D USE_AVX512F=OFF -D USE_AVX512IFMA=OFF \
--D USE_AVX512PF=OFF -D USE_AVX512VBMI=OFF -D USE_AVX512VL=OFF '
-if os.environ.get('NO_AVX', '0') == '1':
-    compat_flags += ' -D USE_AVX=OFF '
-if os.environ.get('NO_FMA', '0') == '1':
-    compat_flags += ' -D USE_FMA=OFF '
-if os.environ.get('NO_BMI2', '0') == '1':
-    compat_flags += ' -D USE_BMI2=OFF '
-if os.environ.get('NO_SSE4', '0') == '1':
-    compat_flags += '  -D USE_SSE4_1=OFF -D USE_SSE4_2=OFF '
-if os.environ.get('NO_OPT', '0') == '1':
-    compat_flags += ' -D CMAKE_CXX_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
-    compat_flags += ' -D CMAKE_C_FLAGS_RELEASE="/MD /Od /Od0 /DNDEBUG" '
-if len(os.environ.get('MARCH', '')) > 0:
-    compat_flags += ' -D TARGET_ARCHITECTURE={} '.format(os.environ['MARCH'])
+compat_flags += ' -D DISABLE_LEGACY_ENGINE=ON '
+compat_flags += ' -D DISABLE_ARCHIVE=ON '
+compat_flags += ' -D DISABLE_CURL=ON '
 
-lib_suffix = os.environ.get('TAG', '')
+version_tag = os.environ.get('TAG', '')
+if version_tag == 'compatible':
+    compat_flags += ' -D HAVE_AVX2=0 '
+    compat_flags += ' -D HAVE_FMA=0 '
+
+lib_suffix = version_tag
 if len(lib_suffix) > 0:
     lib_suffix = '-' + lib_suffix
 

@@ -30,21 +30,19 @@ r('get_qt.py')
 r('get_qt_ssl.py')
 r('get_leptonica.py')
 
-os.environ['MARCH'] = 'sandy-bridge'
 os.environ['TAG'] = 'optimized'
 r('get_tesseract.py')
 
-os.environ['MARCH'] = 'nehalem'
 os.environ['TAG'] = 'compatible'
 r('get_tesseract.py')
 
-del os.environ['MARCH']
 del os.environ['TAG']
 
 r('get_hunspell.py')
-r('test.py')
+# r('test.py')
 r('build.py')
 
+exit(0)
 if platform.system() == "Linux":
     r('appimage.py')
 if platform.system() == "Windows":
