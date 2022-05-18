@@ -39,10 +39,9 @@ r('get_tesseract.py')
 del os.environ['TAG']
 
 r('get_hunspell.py')
-# r('test.py')
+r('test.py')
 r('build.py')
 
-exit(0)
 if platform.system() == "Linux":
     r('appimage.py')
 if platform.system() == "Windows":
