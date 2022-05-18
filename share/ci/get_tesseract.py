@@ -100,6 +100,22 @@ if platform.system() == "Windows":
     with open(modify_file, 'w') as f:
         f.write(modify_data)
 
+if platform.system() == "Linux":
+    # FIXME fix crash on ubuntu
+    modify_data = ''
+    modify_file = '{}/src/ccmain/tessedit.cpp'.format(src_dir)
+    with open(modify_file, 'r') as f:
+        modify_data = f.read()
+
+    lines = modify_data.split('\n')
+    for line in [250,253,255,256]:
+        if not lines[line].startswith('//'):
+            lines[line] = '// ' + lines[line]
+    modify_data = '\n'.join(lines)
+
+    with open(modify_file, 'w') as f:
+        f.write(modify_data)
+
 
 
 c.ensure_got_path(install_dir)
