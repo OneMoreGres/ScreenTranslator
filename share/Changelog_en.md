@@ -1,5 +1,12 @@
 # Changes
 
+## 3.2.3
+
+* Fixed translators order persistance
+* Fixed multi-monitor support
+* Improves result representation near monitor borders
+* Updated recognition library
+
 ## 3.2.2
 
 * Disabled hotkeys with several consecutive combinations
