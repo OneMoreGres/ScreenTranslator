@@ -4,6 +4,7 @@
 
 #include <optional>
 #include <unordered_map>
+#include <vector>
 
 using LanguageId = QString;
 
