@@ -90,34 +90,118 @@ static double getScale(Pix *source)
   return scale;
 }
 
+// Smart pointer for Pix
+class PixGuard
+{
+public:
+  explicit PixGuard(Pix *pix = nullptr)
+    : pix_(pix)
+  {
+  }
+  ~PixGuard()
+  {
+    if (pix_)
+      pixDestroy(&pix_);
+  }
+  void operator=(Pix *pix)
+  {
+    if (!pix)
+      return;
+    if (pix_)
+      pixDestroy(&pix_);
+    pix_ = pix;
+  }
+  operator Pix *() { return pix_; }
+  Pix *operator->() { return pix_; }
+  Pix *&get() { return pix_; }
+  Pix *take()
+  {
+    auto ret = pix_;
+    pix_ = nullptr;
+    return ret;
+  }
+  void trace(const QString &name) const
+  {
+    LTRACE() << qPrintable(name) << pix_;
+#if 0
+    if (!pix_)
+      return;
+    auto fileName = name + ".png";
+    fileName.replace(' ', "_");
+    convertImage(*pix_).save(fileName);
+#endif
+  }
+
+private:
+  Pix *pix_;
+
+  Q_DISABLE_COPY(PixGuard);
+};
+
 static Pix *prepareImage(const QImage &image)
 {
-  auto pix = convertImage(image);
+  auto pix = PixGuard(convertImage(image));
   SOFT_ASSERT(pix, return nullptr);
-  LTRACE() << "Converted Pix" << pix;
+  pix.trace("Pix 1 Converted");
 
-  auto gray = pixConvertRGBToGray(pix, 0.0, 0.0, 0.0);
-  LTRACE() << "Created gray Pix" << gray;
-  SOFT_ASSERT(gray, return nullptr);
-  pixDestroy(&pix);
-  LTRACE() << "Removed converted Pix";
-
-  auto scaleSource = gray;
-  auto scaled = scaleSource;
-
-  if (const auto scale = getScale(scaleSource); scale > 1.0) {
-    scaled = pixScale(scaleSource, scale, scale);
-    LTRACE() << "Scaled Pix for OCR" << LARG(scale) << LARG(scaled);
-    if (!scaled)
-      scaled = scaleSource;
+  {
+    pix = pixConvertRGBToGray(pix, 0.0, 0.0, 0.0);
+    pix.trace("Pix 2 Gray");
   }
 
-  if (scaled != scaleSource) {
-    pixDestroy(&scaleSource);
-    LTRACE() << "Removed unscaled Pix";
+  if (const auto scale = getScale(pix); scale > 1.0) {
+    pix = pixScaleGrayLI(pix, scale, scale);
+    pix.trace("Pix 3 Scaled");
   }
 
-  return scaled;
+  l_int32 otsuSx = 5000;
+  l_int32 otsuSy = 5000;
+  l_int32 otsuSmoothx = 0;
+  l_int32 otsuSmoothy = 0;
+  l_float32 otsuScorefract = 0.1f;
+
+  {
+    PixGuard otsu;
+    pixOtsuAdaptiveThreshold(pix, otsuSx, otsuSy, otsuSmoothx, otsuSmoothy,
+                             otsuScorefract, nullptr, &otsu.get());
+    pix.trace("Pix 4 Test Color Otsu");
+
+    // Get the average intensity of the border pixels,
+    // with average of 0.0 being completely white and 1.0 being completely black
+    // Top
+    auto avg = pixAverageOnLine(otsu, 0, 0, otsu->w - 1, 0, 1);
+    // Bottom
+    avg += pixAverageOnLine(otsu, 0, otsu->h - 1, otsu->w - 1, otsu->h - 1, 1);
+    // Left
+    avg += pixAverageOnLine(otsu, 0, 0, 0, otsu->h - 1, 1);
+    // Right
+    avg += pixAverageOnLine(otsu, otsu->w - 1, 0, otsu->w - 1, otsu->h - 1, 1);
+    avg /= 4.0f;
+
+    // If background is dark
+    l_float32 threshold = 0.5f;
+    if (avg > threshold) {
+      pix = pixInvert(nullptr, pix);
+      pix.trace("Pix 5 Inverted");
+    }
+  }
+
+  {
+    l_int32 usm_halfwidth = 5;
+    l_float32 usm_fract = 2.5f;
+    pix = pixUnsharpMaskingGray(pix, usm_halfwidth, usm_fract);
+    pix.trace("Pix 6 Unshapred");
+  }
+
+  {
+    pixOtsuAdaptiveThreshold(pix, otsuSx, otsuSy, otsuSmoothx, otsuSmoothy, 0.0,
+                             nullptr, &pix.get());
+    pix.trace("Pix 7 Binarized");
+  }
+
+  pix.trace("Pix 8 Result");
+
+  return pix.take();
 }
 
 static void cleanupImage(Pix **image)
