@@ -18,7 +18,7 @@ public:
 
 signals:
   void recognizeImpl(const TaskPtr &task);
-  void reset(const QString &tessdataPath, const QString &tesseractLibrary);
+  void reset(const QString &tessdataPath);
 
 private:
   void recognized(const TaskPtr &task);

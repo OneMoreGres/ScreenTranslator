@@ -19,8 +19,6 @@ using Substitutions = std::multimap<LanguageId, Substitution>;
 
 enum class ProxyType { Disabled, System, Socks5, Http };
 
-enum class TesseractVersion { Optimized, Compatible };
-
 class Settings
 {
 public:
@@ -60,7 +58,6 @@ public:
 
   QString tessdataPath;
   QString sourceLanguage{"eng"};
-  TesseractVersion tesseractVersion{TesseractVersion::Optimized};
 
   bool doTranslation{true};
   bool ignoreSslErrors{false};

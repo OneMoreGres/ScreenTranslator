@@ -29,14 +29,7 @@ def r(script):
 r('get_qt.py')
 r('get_qt_ssl.py')
 r('get_leptonica.py')
-
-os.environ['TAG'] = 'optimized'
 r('get_tesseract.py')
-
-os.environ['TAG'] = 'compatible'
-r('get_tesseract.py')
-
-del os.environ['TAG']
 
 r('get_hunspell.py')
 r('test.py')

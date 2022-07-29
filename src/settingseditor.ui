@@ -221,7 +221,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout">
             <item row="4" column="1">
-             <widget class="service::KeySequenceEdit" name="clipboardEdit"/>
+             <widget class="service::KeySequenceEdit" name="clipboardEdit" native="true"/>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_8">
@@ -231,7 +231,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="service::KeySequenceEdit" name="repeatCaptureEdit"/>
+             <widget class="service::KeySequenceEdit" name="repeatCaptureEdit" native="true"/>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_3">
@@ -241,7 +241,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="service::KeySequenceEdit" name="captureEdit"/>
+             <widget class="service::KeySequenceEdit" name="captureEdit" native="true"/>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_7">
@@ -251,7 +251,7 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="service::KeySequenceEdit" name="repeatEdit"/>
+             <widget class="service::KeySequenceEdit" name="repeatEdit" native="true"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label">
@@ -268,7 +268,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="service::KeySequenceEdit" name="captureLockedEdit"/>
+             <widget class="service::KeySequenceEdit" name="captureLockedEdit" native="true"/>
             </item>
            </layout>
           </widget>
@@ -291,7 +291,23 @@
        </widget>
        <widget class="QWidget" name="pageRecognize">
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="3" column="2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Tessdata path:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QComboBox" name="tesseractLangCombo"/>
+         </item>
+         <item row="2" column="2">
           <spacer name="verticalSpacer_2">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -317,19 +333,6 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Tessdata path:</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_4">
            <property name="sizePolicy">
@@ -345,19 +348,6 @@
             <cstring>tesseractLangCombo</cstring>
            </property>
           </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QComboBox" name="tesseractLangCombo"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_24">
-           <property name="text">
-            <string>Library version</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QComboBox" name="tesseractVersion"/>
          </item>
         </layout>
        </widget>

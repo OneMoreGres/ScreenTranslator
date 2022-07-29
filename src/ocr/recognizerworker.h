@@ -13,7 +13,7 @@ public:
   ~RecognizeWorker();
 
   void handle(const TaskPtr &task);
-  void reset(const QString &tessdataPath, const QString &tesseractLibrary);
+  void reset(const QString &tessdataPath);
 
 signals:
   void finished(const TaskPtr &task);
@@ -24,5 +24,4 @@ private:
   std::map<QString, std::unique_ptr<Tesseract>> engines_;
   std::map<QString, Generation> lastGenerations_;
   QString tessdataPath_;
-  QString tesseractLibrary_;
 };

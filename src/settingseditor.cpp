@@ -122,14 +122,6 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
 
   // recognition
   ui->tesseractLangCombo->setModel(models_.sourceLanguageModel());
-  const QMap<TesseractVersion, QString> tesseractVersions{
-      {TesseractVersion::Optimized, tr("Optimized")},
-      {TesseractVersion::Compatible, tr("Compatible")},
-  };
-  ui->tesseractVersion->addItems(tesseractVersions.values());
-  ui->tesseractVersion->setToolTip(
-      tr("Use compatible version if you are experiencing crashes during "
-         "recognition"));
 
   // correction
   ui->userSubstitutionsTable->setEnabled(ui->useUserSubstitutions->isChecked());
@@ -191,14 +183,15 @@ SettingsEditor::SettingsEditor(Manager &manager, update::Updater &updater)
         (locale.language() == QLocale::Russian ? "ru" : "en") + ".md";
     const auto license = baseUrl + "/blob/master/LICENSE.md";
     const auto help = locale.language() == QLocale::Russian
-    ? "https://translator.gres.biz/page/download/"
-    : baseUrl + "/blob/master/README.md";
+                          ? "https://translator.gres.biz/page/download/"
+                          : baseUrl + "/blob/master/README.md";
     const auto aboutLines = QStringList{
         QObject::tr(
             R"(<p>Optical character recognition (OCR) and translation tool</p>)"),
         QObject::tr(R"(<p>Version: %1</p>)")
             .arg(QApplication::applicationVersion()),
-        QObject::tr(R"(<p>Setup instructions: <a href="%1">%1</a></p>)").arg(help),
+        QObject::tr(R"(<p>Setup instructions: <a href="%1">%1</a></p>)")
+            .arg(help),
         QObject::tr(R"(<p>Changelog: <a href="%1">%2</a></p>)")
             .arg(changelog, QUrl(changelog).fileName()),
         QObject::tr(R"(<p>License: <a href="%3">MIT</a></p>)").arg(license),
@@ -267,8 +260,6 @@ Settings SettingsEditor::settings() const
 
   settings.sourceLanguage =
       LanguageCodes::idForName(ui->tesseractLangCombo->currentText());
-  settings.tesseractVersion =
-      TesseractVersion(ui->tesseractVersion->currentIndex());
 
   settings.useHunspell = ui->useHunspell->isChecked();
   settings.useUserSubstitutions = ui->useUserSubstitutions->isChecked();
@@ -328,7 +319,6 @@ void SettingsEditor::setSettings(const Settings &settings)
 
   ui->tesseractLangCombo->setCurrentText(
       LanguageCodes::name(settings.sourceLanguage));
-  ui->tesseractVersion->setCurrentIndex(int(settings.tesseractVersion));
 
   ui->useHunspell->setChecked(settings.useHunspell);
   ui->hunspellDir->setText(settings.hunspellPath);

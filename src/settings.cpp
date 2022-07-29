@@ -35,7 +35,6 @@ const QString qs_showMessageOnStart = "showMessageOnStart";
 
 const QString qs_recogntionGroup = "Recognition";
 const QString qs_ocrLanguage = "language";
-const QString qs_tesseractVersion = "tesseractVersion";
 
 const QString qs_correctionGroup = "Correction";
 const QString qs_userSubstitutions = "userSubstitutions";
@@ -133,36 +132,6 @@ void cleanupOutdated(QSettings& settings)
   settings.endGroup();
 }
 
-#ifdef _MSC_VER
-#include <intrin.h>
-void cpuid(int leaf, int subleaf, std::array<uint, 4>& cpuinfo)
-{
-  __cpuidex(reinterpret_cast<int*>(cpuinfo.data()), leaf, subleaf);
-}
-#else
-#include <cpuid.h>
-void cpuid(int leaf, int subleaf, std::array<uint, 4>& cpuinfo)
-{
-  __get_cpuid_count(leaf, subleaf, &cpuinfo[0], &cpuinfo[1], &cpuinfo[2],
-                    &cpuinfo[3]);
-}
-#endif
-
-bool checkOptimizedTesseractSupport()
-{
-  std::array<uint, 4> cpuinfo{0};
-
-  cpuid(1, 0, cpuinfo);
-  const bool sse4_1 = cpuinfo[2] & (1 << 19);
-  const bool sse4_2 = cpuinfo[2] & (1 << 20);
-  const bool avx = cpuinfo[2] & (1 << 28);
-
-  cpuid(7, 0, cpuinfo);
-  const bool avx2 = cpuinfo[1] & (1 << 5);
-
-  return sse4_1 && sse4_2 && avx && avx2;
-}
-
 }  // namespace
 
 void Settings::save() const
@@ -207,7 +176,6 @@ void Settings::save() const
 
   settings.beginGroup(qs_recogntionGroup);
   settings.setValue(qs_ocrLanguage, sourceLanguage);
-  settings.setValue(qs_tesseractVersion, int(tesseractVersion));
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);
@@ -295,15 +263,6 @@ void Settings::load()
 
   settings.beginGroup(qs_recogntionGroup);
   sourceLanguage = settings.value(qs_ocrLanguage, sourceLanguage).toString();
-  if (!settings.contains(qs_tesseractVersion)) {
-    tesseractVersion = checkOptimizedTesseractSupport()
-                           ? TesseractVersion::Optimized
-                           : TesseractVersion::Compatible;
-  } else {
-    tesseractVersion = TesseractVersion(std::clamp(
-        settings.value(qs_tesseractVersion, int(tesseractVersion)).toInt(),
-        int(TesseractVersion::Optimized), int(TesseractVersion::Compatible)));
-  }
   settings.endGroup();
 
   settings.beginGroup(qs_correctionGroup);
