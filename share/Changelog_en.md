@@ -1,5 +1,10 @@
 # Changes
 
+## 3.3.0
+
+* Use single tesseract library (not optimized and compatible versions)
+* Improved recognition
+
 ## 3.2.3
 
 * Fixed translators order persistance
