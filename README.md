@@ -53,9 +53,6 @@ Then click `Ok` to close settings.
 By default resources are downloaded to the one of the user's folders.
 If `Portable` setting in `General` section is checked, then resources will be downloaded to the app's folder.
 
-If you are experiencing crashes during the app usage, then try changing `tesseract library version` from `Optimized` to `Compatible`.
-It provides the same functionality, but should work on the bigger variety of hardware.
-
 Set `QTWEBENGINE_DISABLE_SANDBOX=1` environment variable when fail to start due to crash.
 
 Answers to some frequently asked questions can be found in issues or
