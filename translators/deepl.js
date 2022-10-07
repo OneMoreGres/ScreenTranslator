@@ -27,7 +27,9 @@ function translate(text, from, to) {
   from = from == 'zh-CN' ? 'zh' : from;
   to = to == 'zh-CN' ? 'zh' : to;
 
-  let supported = ['ru', 'en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ja', 'zh']
+  let supported = ['ru', 'en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ja', 'zh',
+  'uk', 'bg', 'hu', 'el', 'da', 'id', 'lt', 'pt', 'ro', 'sk', 'sk', 'tr', 'fi', 'cs',
+  'sv', 'et']
   if (supported.indexOf(from) == -1) {
     proxy.setFailed('Source language not supported');
     return;
