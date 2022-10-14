@@ -585,7 +585,7 @@
   {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/deepl.js", "path":"$translators$/deepl.js", "md5":"6f1c5cd1ccd18cd663f65e6a9bf8462a", "size":1854}
  ]}
  ,"google": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js", "path":"$translators$/google.js", "md5":"1ceba6431d757fc2ae028a4ec177542c", "size":1508}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google.js", "path":"$translators$/google.js", "md5":"793d6628ac9e26a1f3cc00fa9c863495", "size":1508}
  ]}
  ,"google_api": {"files":[
   {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/google_api.js", "path":"$translators$/google_api.js", "md5":"90b9b1a5c8dc52fd4a3f28be93442a56", "size":1030}

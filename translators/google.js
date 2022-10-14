@@ -4,7 +4,7 @@ var active = window.location.href !== "about:blank";
 function checkFinished() {
     if (!active) return;
 
-    let spans = [].slice.call(document.querySelectorAll('span.VIiyi > span > span'));
+    let spans = [].slice.call(document.querySelectorAll('span.HwtZe > span > span'));
     let text = spans.reduce(function (res, i) {
         return res + ' ' + i.innerText;
     }, '');
