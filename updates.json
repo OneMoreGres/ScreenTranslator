@@ -387,188 +387,200 @@
 
 ,"correction": {
  "Afrikaans":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.aff","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.aff.zip"], "path":"$hunspell$/af/af_ZA.aff", "date":"2020-03-17T12:21:16+01:00", "size":5027}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.dic","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.dic.zip"], "path":"$hunspell$/af/af_ZA.dic", "date":"2020-03-17T12:21:16+01:00", "size":1262203}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.aff","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.aff.zip"], "path":"$hunspell$/af/af_ZA.aff", "date":"2020-02-16T20:22:16+01:00", "size":5027}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/af_ZA/af_ZA.dic","https://translator.gres.biz/resources/dictionaries/af_ZA/af_ZA.dic.zip"], "path":"$hunspell$/af/af_ZA.dic", "date":"2020-02-16T20:22:16+01:00", "size":1262203}
  ]}
  , "Arabic":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.aff","https://translator.gres.biz/resources/dictionaries/ar/ar.aff.zip"], "path":"$hunspell$/ar/ar.aff", "date":"2020-03-17T12:21:16+01:00", "size":86949}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.dic","https://translator.gres.biz/resources/dictionaries/ar/ar.dic.zip"], "path":"$hunspell$/ar/ar.dic", "date":"2020-03-17T12:21:16+01:00", "size":7217161}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.aff","https://translator.gres.biz/resources/dictionaries/ar/ar.aff.zip"], "path":"$hunspell$/ar/ar.aff", "date":"2018-02-04T21:34:12+01:00", "size":86949}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ar/ar.dic","https://translator.gres.biz/resources/dictionaries/ar/ar.dic.zip"], "path":"$hunspell$/ar/ar.dic", "date":"2019-03-07T11:32:58+01:00", "size":7217161}
  ]}
  , "Belarusian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be_BY.aff","https://translator.gres.biz/resources/dictionaries/be_BY/be_BY.aff.zip"], "path":"$hunspell$/be/be_BY.aff", "date":"2020-03-17T12:21:16+01:00", "size":23968}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be_BY.dic","https://translator.gres.biz/resources/dictionaries/be_BY/be_BY.dic.zip"], "path":"$hunspell$/be/be_BY.dic", "date":"2020-03-17T12:21:16+01:00", "size":1707840}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be-official.aff","https://translator.gres.biz/resources/dictionaries/be_BY/be-official.aff.zip"], "path":"$hunspell$/be/be-official.aff", "date":"2021-09-27T10:14:30+02:00", "size":183480}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/be_BY/be-official.dic","https://translator.gres.biz/resources/dictionaries/be_BY/be-official.dic.zip"], "path":"$hunspell$/be/be-official.dic", "date":"2021-09-27T10:14:30+02:00", "size":9355556}
  ]}
  , "Bulgarian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.aff","https://translator.gres.biz/resources/dictionaries/bg_BG/bg_BG.aff.zip"], "path":"$hunspell$/bg/bg_BG.aff", "date":"2020-03-17T12:21:16+01:00", "size":58189}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.dic","https://translator.gres.biz/resources/dictionaries/bg_BG/bg_BG.dic.zip"], "path":"$hunspell$/bg/bg_BG.dic", "date":"2020-03-17T12:21:16+01:00", "size":1566331}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.aff","https://translator.gres.biz/resources/dictionaries/bg_BG/bg_BG.aff.zip"], "path":"$hunspell$/bg/bg_BG.aff", "date":"2018-06-29T12:25:29+02:00", "size":58189}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bg_BG/bg_BG.dic","https://translator.gres.biz/resources/dictionaries/bg_BG/bg_BG.dic.zip"], "path":"$hunspell$/bg/bg_BG.dic", "date":"2018-06-29T12:25:29+02:00", "size":1566331}
  ]}
  , "Bengali":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.aff","https://translator.gres.biz/resources/dictionaries/bn_BD/bn_BD.aff.zip"], "path":"$hunspell$/bn/bn_BD.aff", "date":"2020-03-17T12:21:16+01:00", "size":195}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.dic","https://translator.gres.biz/resources/dictionaries/bn_BD/bn_BD.dic.zip"], "path":"$hunspell$/bn/bn_BD.dic", "date":"2020-03-17T12:21:16+01:00", "size":2596038}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.aff","https://translator.gres.biz/resources/dictionaries/bn_BD/bn_BD.aff.zip"], "path":"$hunspell$/bn/bn_BD.aff", "date":"2012-10-16T11:09:27-05:00", "size":195}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bn_BD/bn_BD.dic","https://translator.gres.biz/resources/dictionaries/bn_BD/bn_BD.dic.zip"], "path":"$hunspell$/bn/bn_BD.dic", "date":"2012-10-16T11:09:27-05:00", "size":2596038}
  ]}
  , "Tibetan":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.aff","https://translator.gres.biz/resources/dictionaries/bo/bo.aff.zip"], "path":"$hunspell$/bo/bo.aff", "date":"2020-03-17T12:21:16+01:00", "size":1706}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.dic","https://translator.gres.biz/resources/dictionaries/bo/bo.dic.zip"], "path":"$hunspell$/bo/bo.dic", "date":"2020-03-17T12:21:16+01:00", "size":4637}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.aff","https://translator.gres.biz/resources/dictionaries/bo/bo.aff.zip"], "path":"$hunspell$/bo/bo.aff", "date":"2016-11-22T22:23:34+00:00", "size":1706}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bo/bo.dic","https://translator.gres.biz/resources/dictionaries/bo/bo.dic.zip"], "path":"$hunspell$/bo/bo.dic", "date":"2017-10-23T18:37:13+02:00", "size":4637}
  ]}
  , "Bosnian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.aff","https://translator.gres.biz/resources/dictionaries/bs_BA/bs_BA.aff.zip"], "path":"$hunspell$/bs/bs_BA.aff", "date":"2020-03-17T12:21:16+01:00", "size":17468}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.dic","https://translator.gres.biz/resources/dictionaries/bs_BA/bs_BA.dic.zip"], "path":"$hunspell$/bs/bs_BA.dic", "date":"2020-03-17T12:21:16+01:00", "size":339863}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.aff","https://translator.gres.biz/resources/dictionaries/bs_BA/bs_BA.aff.zip"], "path":"$hunspell$/bs/bs_BA.aff", "date":"2013-01-22T17:32:09+01:00", "size":17468}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/bs_BA/bs_BA.dic","https://translator.gres.biz/resources/dictionaries/bs_BA/bs_BA.dic.zip"], "path":"$hunspell$/bs/bs_BA.dic", "date":"2013-01-22T17:32:09+01:00", "size":339863}
  ]}
  , "Czech":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.aff","https://translator.gres.biz/resources/dictionaries/cs_CZ/cs_CZ.aff.zip"], "path":"$hunspell$/cs/cs_CZ.aff", "date":"2020-03-17T12:21:16+01:00", "size":97286}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.dic","https://translator.gres.biz/resources/dictionaries/cs_CZ/cs_CZ.dic.zip"], "path":"$hunspell$/cs/cs_CZ.dic", "date":"2020-03-17T12:21:16+01:00", "size":2209232}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.aff","https://translator.gres.biz/resources/dictionaries/cs_CZ/cs_CZ.aff.zip"], "path":"$hunspell$/cs/cs_CZ.aff", "date":"2021-07-01T19:25:44+02:00", "size":111575}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.dic","https://translator.gres.biz/resources/dictionaries/cs_CZ/cs_CZ.dic.zip"], "path":"$hunspell$/cs/cs_CZ.dic", "date":"2021-07-28T19:02:59+02:00", "size":3656362}
  ]}
  , "Danish":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.aff","https://translator.gres.biz/resources/dictionaries/da_DK/da_DK.aff.zip"], "path":"$hunspell$/da/da_DK.aff", "date":"2020-03-17T12:21:16+01:00", "size":55779}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.dic","https://translator.gres.biz/resources/dictionaries/da_DK/da_DK.dic.zip"], "path":"$hunspell$/da/da_DK.dic", "date":"2020-03-17T12:21:16+01:00", "size":2915525}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.aff","https://translator.gres.biz/resources/dictionaries/da_DK/da_DK.aff.zip"], "path":"$hunspell$/da/da_DK.aff", "date":"2022-06-09T11:42:30+02:00", "size":79054}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/da_DK/da_DK.dic","https://translator.gres.biz/resources/dictionaries/da_DK/da_DK.dic.zip"], "path":"$hunspell$/da/da_DK.dic", "date":"2022-06-09T11:42:30+02:00", "size":3514463}
  ]}
  , "German":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.aff","https://translator.gres.biz/resources/dictionaries/de/de_DE_frami.aff.zip"], "path":"$hunspell$/de/de_DE_frami.aff", "date":"2020-03-17T12:21:16+01:00", "size":18991}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.dic","https://translator.gres.biz/resources/dictionaries/de/de_DE_frami.dic.zip"], "path":"$hunspell$/de/de_DE_frami.dic", "date":"2020-03-17T12:21:16+01:00", "size":4356858}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.aff","https://translator.gres.biz/resources/dictionaries/de/de_DE_frami.aff.zip"], "path":"$hunspell$/de/de_DE_frami.aff", "date":"2022-09-23T10:52:56+02:00", "size":19067}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de/de_DE_frami.dic","https://translator.gres.biz/resources/dictionaries/de/de_DE_frami.dic.zip"], "path":"$hunspell$/de/de_DE_frami.dic", "date":"2017-01-22T19:03:05+00:00", "size":4356858}
  ]}
  , "Greek":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.aff","https://translator.gres.biz/resources/dictionaries/el_GR/el_GR.aff.zip"], "path":"$hunspell$/el/el_GR.aff", "date":"2020-03-17T12:21:16+01:00", "size":15647}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.dic","https://translator.gres.biz/resources/dictionaries/el_GR/el_GR.dic.zip"], "path":"$hunspell$/el/el_GR.dic", "date":"2020-03-17T12:21:16+01:00", "size":10125390}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.aff","https://translator.gres.biz/resources/dictionaries/el_GR/el_GR.aff.zip"], "path":"$hunspell$/el/el_GR.aff", "date":"2015-09-21T17:56:43+02:00", "size":15647}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/el_GR/el_GR.dic","https://translator.gres.biz/resources/dictionaries/el_GR/el_GR.dic.zip"], "path":"$hunspell$/el/el_GR.dic", "date":"2015-09-21T17:56:43+02:00", "size":10125390}
  ]}
  , "English":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff","https://translator.gres.biz/resources/dictionaries/en/en_US.aff.zip"], "path":"$hunspell$/en/en_US.aff", "date":"2020-03-17T12:21:16+01:00", "size":3090}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic","https://translator.gres.biz/resources/dictionaries/en/en_US.dic.zip"], "path":"$hunspell$/en/en_US.dic", "date":"2020-03-17T12:21:16+01:00", "size":551260}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff","https://translator.gres.biz/resources/dictionaries/en/en_US.aff.zip"], "path":"$hunspell$/en/en_US.aff", "date":"2018-05-15T00:49:14+02:00", "size":3090}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic","https://translator.gres.biz/resources/dictionaries/en/en_US.dic.zip"], "path":"$hunspell$/en/en_US.dic", "date":"2021-05-12T15:36:00+02:00", "size":551762}
  ]}
- , "Spanish":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/es/es_ANY.aff","https://translator.gres.biz/resources/dictionaries/es/es_ANY.aff.zip"], "path":"$hunspell$/es/es_ANY.aff", "date":"2020-03-17T12:21:16+01:00", "size":169377}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/es/es_ANY.dic","https://translator.gres.biz/resources/dictionaries/es/es_ANY.dic.zip"], "path":"$hunspell$/es/es_ANY.dic", "date":"2020-03-17T12:21:16+01:00", "size":804058}
+ , "Esperanto":{"files":[
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/eo/eo.aff","https://translator.gres.biz/resources/dictionaries/eo/eo.aff.zip"], "path":"$hunspell$/eo/eo.aff", "date":"2021-04-11T10:01:47+02:00", "size":19129}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/eo/eo.dic","https://translator.gres.biz/resources/dictionaries/eo/eo.dic.zip"], "path":"$hunspell$/eo/eo.dic", "date":"2021-04-11T10:01:47+02:00", "size":377989}
  ]}
  , "Estonian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.aff","https://translator.gres.biz/resources/dictionaries/et_EE/et_EE.aff.zip"], "path":"$hunspell$/et/et_EE.aff", "date":"2020-03-17T12:21:16+01:00", "size":236336}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.dic","https://translator.gres.biz/resources/dictionaries/et_EE/et_EE.dic.zip"], "path":"$hunspell$/et/et_EE.dic", "date":"2020-03-17T12:21:16+01:00", "size":4383841}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.aff","https://translator.gres.biz/resources/dictionaries/et_EE/et_EE.aff.zip"], "path":"$hunspell$/et/et_EE.aff", "date":"2012-10-16T11:09:27-05:00", "size":236336}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/et_EE/et_EE.dic","https://translator.gres.biz/resources/dictionaries/et_EE/et_EE.dic.zip"], "path":"$hunspell$/et/et_EE.dic", "date":"2012-10-16T11:09:27-05:00", "size":4383841}
+ ]}
+ , "Persian":{"files":[
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fa_IR/fa-IR.aff","https://translator.gres.biz/resources/dictionaries/fa_IR/fa-IR.aff.zip"], "path":"$hunspell$/fa/fa-IR.aff", "date":"2022-08-27T17:55:37+02:00", "size":5439}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fa_IR/fa-IR.dic","https://translator.gres.biz/resources/dictionaries/fa_IR/fa-IR.dic.zip"], "path":"$hunspell$/fa/fa-IR.dic", "date":"2022-08-27T17:55:37+02:00", "size":2575990}
  ]}
  , "French":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.aff","https://translator.gres.biz/resources/dictionaries/fr_FR/fr.aff.zip"], "path":"$hunspell$/fr/fr.aff", "date":"2020-03-17T12:21:16+01:00", "size":256857}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.dic","https://translator.gres.biz/resources/dictionaries/fr_FR/fr.dic.zip"], "path":"$hunspell$/fr/fr.dic", "date":"2020-03-17T12:21:16+01:00", "size":1100397}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.aff","https://translator.gres.biz/resources/dictionaries/fr_FR/fr.aff.zip"], "path":"$hunspell$/fr/fr.aff", "date":"2020-12-22T09:23:57+01:00", "size":201591}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/fr_FR/fr.dic","https://translator.gres.biz/resources/dictionaries/fr_FR/fr.dic.zip"], "path":"$hunspell$/fr/fr.dic", "date":"2020-12-22T09:23:57+01:00", "size":1227095}
  ]}
  , "Gaelic":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.aff","https://translator.gres.biz/resources/dictionaries/gd_GB/gd_GB.aff.zip"], "path":"$hunspell$/gd/gd_GB.aff", "date":"2020-03-17T12:21:16+01:00", "size":8228}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.dic","https://translator.gres.biz/resources/dictionaries/gd_GB/gd_GB.dic.zip"], "path":"$hunspell$/gd/gd_GB.dic", "date":"2020-03-17T12:21:16+01:00", "size":4806682}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.aff","https://translator.gres.biz/resources/dictionaries/gd_GB/gd_GB.aff.zip"], "path":"$hunspell$/gd/gd_GB.aff", "date":"2017-06-22T00:27:25+02:00", "size":8228}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gd_GB/gd_GB.dic","https://translator.gres.biz/resources/dictionaries/gd_GB/gd_GB.dic.zip"], "path":"$hunspell$/gd/gd_GB.dic", "date":"2017-06-22T00:27:25+02:00", "size":4806682}
  ]}
  , "Galician":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.aff","https://translator.gres.biz/resources/dictionaries/gl/gl_ES.aff.zip"], "path":"$hunspell$/gl/gl_ES.aff", "date":"2020-03-17T12:21:16+01:00", "size":1159910}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.dic","https://translator.gres.biz/resources/dictionaries/gl/gl_ES.dic.zip"], "path":"$hunspell$/gl/gl_ES.dic", "date":"2020-03-17T12:21:16+01:00", "size":8636406}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.aff","https://translator.gres.biz/resources/dictionaries/gl/gl_ES.aff.zip"], "path":"$hunspell$/gl/gl_ES.aff", "date":"2021-07-26T16:31:04+02:00", "size":1163541}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gl/gl_ES.dic","https://translator.gres.biz/resources/dictionaries/gl/gl_ES.dic.zip"], "path":"$hunspell$/gl/gl_ES.dic", "date":"2021-07-26T16:31:04+02:00", "size":8325262}
  ]}
  , "Gujarati":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.aff","https://translator.gres.biz/resources/dictionaries/gu_IN/gu_IN.aff.zip"], "path":"$hunspell$/gu/gu_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":174}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.dic","https://translator.gres.biz/resources/dictionaries/gu_IN/gu_IN.dic.zip"], "path":"$hunspell$/gu/gu_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":3792870}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.aff","https://translator.gres.biz/resources/dictionaries/gu_IN/gu_IN.aff.zip"], "path":"$hunspell$/gu/gu_IN.aff", "date":"2012-10-16T11:09:27-05:00", "size":174}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/gu_IN/gu_IN.dic","https://translator.gres.biz/resources/dictionaries/gu_IN/gu_IN.dic.zip"], "path":"$hunspell$/gu/gu_IN.dic", "date":"2012-10-16T11:09:27-05:00", "size":3792870}
  ]}
  , "Hebrew":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.aff","https://translator.gres.biz/resources/dictionaries/he_IL/he_IL.aff.zip"], "path":"$hunspell$/he/he_IL.aff", "date":"2020-03-17T12:21:16+01:00", "size":78883}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.dic","https://translator.gres.biz/resources/dictionaries/he_IL/he_IL.dic.zip"], "path":"$hunspell$/he/he_IL.dic", "date":"2020-03-17T12:21:16+01:00", "size":7796259}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.aff","https://translator.gres.biz/resources/dictionaries/he_IL/he_IL.aff.zip"], "path":"$hunspell$/he/he_IL.aff", "date":"2017-09-05T18:11:31+02:00", "size":78883}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/he_IL/he_IL.dic","https://translator.gres.biz/resources/dictionaries/he_IL/he_IL.dic.zip"], "path":"$hunspell$/he/he_IL.dic", "date":"2017-09-05T18:11:31+02:00", "size":7796259}
  ]}
  , "Hindi":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.aff","https://translator.gres.biz/resources/dictionaries/hi_IN/hi_IN.aff.zip"], "path":"$hunspell$/hi/hi_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":210}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.dic","https://translator.gres.biz/resources/dictionaries/hi_IN/hi_IN.dic.zip"], "path":"$hunspell$/hi/hi_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":303963}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.aff","https://translator.gres.biz/resources/dictionaries/hi_IN/hi_IN.aff.zip"], "path":"$hunspell$/hi/hi_IN.aff", "date":"2012-10-16T11:09:27-05:00", "size":210}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hi_IN/hi_IN.dic","https://translator.gres.biz/resources/dictionaries/hi_IN/hi_IN.dic.zip"], "path":"$hunspell$/hi/hi_IN.dic", "date":"2012-10-16T11:09:27-05:00", "size":303963}
  ]}
  , "Croatian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.aff","https://translator.gres.biz/resources/dictionaries/hr_HR/hr_HR.aff.zip"], "path":"$hunspell$/hr/hr_HR.aff", "date":"2020-03-17T12:21:16+01:00", "size":95802}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.dic","https://translator.gres.biz/resources/dictionaries/hr_HR/hr_HR.dic.zip"], "path":"$hunspell$/hr/hr_HR.dic", "date":"2020-03-17T12:21:16+01:00", "size":731819}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.aff","https://translator.gres.biz/resources/dictionaries/hr_HR/hr_HR.aff.zip"], "path":"$hunspell$/hr/hr_HR.aff", "date":"2018-05-29T22:11:06+02:00", "size":95802}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hr_HR/hr_HR.dic","https://translator.gres.biz/resources/dictionaries/hr_HR/hr_HR.dic.zip"], "path":"$hunspell$/hr/hr_HR.dic", "date":"2018-05-29T22:11:06+02:00", "size":731819}
  ]}
  , "Hungarian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.aff","https://translator.gres.biz/resources/dictionaries/hu_HU/hu_HU.aff.zip"], "path":"$hunspell$/hu/hu_HU.aff", "date":"2020-03-17T12:21:16+01:00", "size":2106214}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.dic","https://translator.gres.biz/resources/dictionaries/hu_HU/hu_HU.dic.zip"], "path":"$hunspell$/hu/hu_HU.dic", "date":"2020-03-17T12:21:16+01:00", "size":1653155}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.aff","https://translator.gres.biz/resources/dictionaries/hu_HU/hu_HU.aff.zip"], "path":"$hunspell$/hu/hu_HU.aff", "date":"2018-05-22T22:26:58+02:00", "size":2106214}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU.dic","https://translator.gres.biz/resources/dictionaries/hu_HU/hu_HU.dic.zip"], "path":"$hunspell$/hu/hu_HU.dic", "date":"2018-05-22T22:26:58+02:00", "size":1653155}
  ]}
  , "Indonesian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.aff","https://translator.gres.biz/resources/dictionaries/id/id_ID.aff.zip"], "path":"$hunspell$/id/id_ID.aff", "date":"2020-03-17T12:21:16+01:00", "size":14957}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.dic","https://translator.gres.biz/resources/dictionaries/id/id_ID.dic.zip"], "path":"$hunspell$/id/id_ID.dic", "date":"2020-03-17T12:21:16+01:00", "size":315384}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.aff","https://translator.gres.biz/resources/dictionaries/id/id_ID.aff.zip"], "path":"$hunspell$/id/id_ID.aff", "date":"2018-02-28T01:40:08+01:00", "size":14957}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/id/id_ID.dic","https://translator.gres.biz/resources/dictionaries/id/id_ID.dic.zip"], "path":"$hunspell$/id/id_ID.dic", "date":"2018-02-28T01:40:08+01:00", "size":315384}
  ]}
  , "Icelandic":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.aff","https://translator.gres.biz/resources/dictionaries/is/is.aff.zip"], "path":"$hunspell$/is/is.aff", "date":"2020-03-17T12:21:16+01:00", "size":309734}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.dic","https://translator.gres.biz/resources/dictionaries/is/is.dic.zip"], "path":"$hunspell$/is/is.dic", "date":"2020-03-17T12:21:16+01:00", "size":2454138}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.aff","https://translator.gres.biz/resources/dictionaries/is/is.aff.zip"], "path":"$hunspell$/is/is.aff", "date":"2016-03-14T09:05:09+00:00", "size":309734}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/is/is.dic","https://translator.gres.biz/resources/dictionaries/is/is.dic.zip"], "path":"$hunspell$/is/is.dic", "date":"2016-03-14T09:05:09+00:00", "size":2454138}
  ]}
  , "Italian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.aff","https://translator.gres.biz/resources/dictionaries/it_IT/it_IT.aff.zip"], "path":"$hunspell$/it/it_IT.aff", "date":"2020-03-17T12:21:16+01:00", "size":80216}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.dic","https://translator.gres.biz/resources/dictionaries/it_IT/it_IT.dic.zip"], "path":"$hunspell$/it/it_IT.dic", "date":"2020-03-17T12:21:16+01:00", "size":1290681}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.aff","https://translator.gres.biz/resources/dictionaries/it_IT/it_IT.aff.zip"], "path":"$hunspell$/it/it_IT.aff", "date":"2020-10-28T10:37:21+01:00", "size":70054}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/it_IT/it_IT.dic","https://translator.gres.biz/resources/dictionaries/it_IT/it_IT.dic.zip"], "path":"$hunspell$/it/it_IT.dic", "date":"2021-01-20T09:47:03+01:00", "size":1295078}
+ ]}
+ , "Korean":{"files":[
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ko_KR/ko_KR.aff","https://translator.gres.biz/resources/dictionaries/ko_KR/ko_KR.aff.zip"], "path":"$hunspell$/ko/ko_KR.aff", "date":"2020-10-28T10:46:18+01:00", "size":11094418}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ko_KR/ko_KR.dic","https://translator.gres.biz/resources/dictionaries/ko_KR/ko_KR.dic.zip"], "path":"$hunspell$/ko/ko_KR.dic", "date":"2020-10-28T10:46:18+01:00", "size":2862610}
  ]}
  , "Lao":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.aff","https://translator.gres.biz/resources/dictionaries/lo_LA/lo_LA.aff.zip"], "path":"$hunspell$/lo/lo_LA.aff", "date":"2020-03-17T12:21:16+01:00", "size":10}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.dic","https://translator.gres.biz/resources/dictionaries/lo_LA/lo_LA.dic.zip"], "path":"$hunspell$/lo/lo_LA.dic", "date":"2020-03-17T12:21:16+01:00", "size":203209}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.aff","https://translator.gres.biz/resources/dictionaries/lo_LA/lo_LA.aff.zip"], "path":"$hunspell$/lo/lo_LA.aff", "date":"2013-11-24T19:21:08+01:00", "size":10}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lo_LA/lo_LA.dic","https://translator.gres.biz/resources/dictionaries/lo_LA/lo_LA.dic.zip"], "path":"$hunspell$/lo/lo_LA.dic", "date":"2021-05-11T15:56:42+02:00", "size":671495}
  ]}
  , "Lithuanian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.aff","https://translator.gres.biz/resources/dictionaries/lt_LT/lt.aff.zip"], "path":"$hunspell$/lt/lt.aff", "date":"2020-03-17T12:21:16+01:00", "size":92208}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.dic","https://translator.gres.biz/resources/dictionaries/lt_LT/lt.dic.zip"], "path":"$hunspell$/lt/lt.dic", "date":"2020-03-17T12:21:16+01:00", "size":1085291}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.aff","https://translator.gres.biz/resources/dictionaries/lt_LT/lt.aff.zip"], "path":"$hunspell$/lt/lt.aff", "date":"2013-01-23T11:35:37+00:00", "size":92208}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lt_LT/lt.dic","https://translator.gres.biz/resources/dictionaries/lt_LT/lt.dic.zip"], "path":"$hunspell$/lt/lt.dic", "date":"2013-01-23T11:35:37+00:00", "size":1085291}
  ]}
  , "Latvian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.aff","https://translator.gres.biz/resources/dictionaries/lv_LV/lv_LV.aff.zip"], "path":"$hunspell$/lv/lv_LV.aff", "date":"2020-03-17T12:21:16+01:00", "size":69597}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.dic","https://translator.gres.biz/resources/dictionaries/lv_LV/lv_LV.dic.zip"], "path":"$hunspell$/lv/lv_LV.dic", "date":"2020-03-17T12:21:16+01:00", "size":2226834}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.aff","https://translator.gres.biz/resources/dictionaries/lv_LV/lv_LV.aff.zip"], "path":"$hunspell$/lv/lv_LV.aff", "date":"2020-05-24T12:13:08+02:00", "size":130475}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/lv_LV/lv_LV.dic","https://translator.gres.biz/resources/dictionaries/lv_LV/lv_LV.dic.zip"], "path":"$hunspell$/lv/lv_LV.dic", "date":"2020-05-24T12:13:08+02:00", "size":1844831}
+ ]}
+ , "Mongolian":{"files":[
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/mn_MN/mn_MN.aff","https://translator.gres.biz/resources/dictionaries/mn_MN/mn_MN.aff.zip"], "path":"$hunspell$/mn/mn_MN.aff", "date":"2022-04-18T07:06:27+02:00", "size":398455}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/mn_MN/mn_MN.dic","https://translator.gres.biz/resources/dictionaries/mn_MN/mn_MN.dic.zip"], "path":"$hunspell$/mn/mn_MN.dic", "date":"2022-04-18T07:06:27+02:00", "size":16650918}
  ]}
  , "Nepali":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.aff","https://translator.gres.biz/resources/dictionaries/ne_NP/ne_NP.aff.zip"], "path":"$hunspell$/ne/ne_NP.aff", "date":"2020-03-17T12:21:16+01:00", "size":14162}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.dic","https://translator.gres.biz/resources/dictionaries/ne_NP/ne_NP.dic.zip"], "path":"$hunspell$/ne/ne_NP.dic", "date":"2020-03-17T12:21:16+01:00", "size":874372}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.aff","https://translator.gres.biz/resources/dictionaries/ne_NP/ne_NP.aff.zip"], "path":"$hunspell$/ne/ne_NP.aff", "date":"2012-10-16T11:09:27-05:00", "size":14162}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ne_NP/ne_NP.dic","https://translator.gres.biz/resources/dictionaries/ne_NP/ne_NP.dic.zip"], "path":"$hunspell$/ne/ne_NP.dic", "date":"2012-10-16T11:09:27-05:00", "size":874372}
  ]}
  , "Dutch":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.aff","https://translator.gres.biz/resources/dictionaries/nl_NL/nl_NL.aff.zip"], "path":"$hunspell$/nl/nl_NL.aff", "date":"2020-03-17T12:21:16+01:00", "size":27835}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.dic","https://translator.gres.biz/resources/dictionaries/nl_NL/nl_NL.dic.zip"], "path":"$hunspell$/nl/nl_NL.dic", "date":"2020-03-17T12:21:16+01:00", "size":1881063}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.aff","https://translator.gres.biz/resources/dictionaries/nl_NL/nl_NL.aff.zip"], "path":"$hunspell$/nl/nl_NL.aff", "date":"2013-07-22T17:41:01+00:00", "size":27835}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/nl_NL/nl_NL.dic","https://translator.gres.biz/resources/dictionaries/nl_NL/nl_NL.dic.zip"], "path":"$hunspell$/nl/nl_NL.dic", "date":"2013-07-22T17:41:01+00:00", "size":1881063}
  ]}
  , "Norwegian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.aff","https://translator.gres.biz/resources/dictionaries/no/nb_NO.aff.zip"], "path":"$hunspell$/no/nb_NO.aff", "date":"2020-03-17T12:21:16+01:00", "size":17259}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.dic","https://translator.gres.biz/resources/dictionaries/no/nb_NO.dic.zip"], "path":"$hunspell$/no/nb_NO.dic", "date":"2020-03-17T12:21:16+01:00", "size":5274030}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.aff","https://translator.gres.biz/resources/dictionaries/no/nb_NO.aff.zip"], "path":"$hunspell$/no/nb_NO.aff", "date":"2013-05-23T11:54:36+01:00", "size":17259}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/no/nb_NO.dic","https://translator.gres.biz/resources/dictionaries/no/nb_NO.dic.zip"], "path":"$hunspell$/no/nb_NO.dic", "date":"2018-09-05T10:30:32+02:00", "size":5274030}
  ]}
  , "Polish":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.aff","https://translator.gres.biz/resources/dictionaries/pl_PL/pl_PL.aff.zip"], "path":"$hunspell$/pl/pl_PL.aff", "date":"2020-03-17T12:21:16+01:00", "size":246842}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.dic","https://translator.gres.biz/resources/dictionaries/pl_PL/pl_PL.dic.zip"], "path":"$hunspell$/pl/pl_PL.dic", "date":"2020-03-17T12:21:16+01:00", "size":4539105}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.aff","https://translator.gres.biz/resources/dictionaries/pl_PL/pl_PL.aff.zip"], "path":"$hunspell$/pl/pl_PL.aff", "date":"2017-05-05T15:26:38+02:00", "size":246842}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pl_PL/pl_PL.dic","https://translator.gres.biz/resources/dictionaries/pl_PL/pl_PL.dic.zip"], "path":"$hunspell$/pl/pl_PL.dic", "date":"2017-05-21T10:58:59+02:00", "size":4539105}
  ]}
  , "Portuguese":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_PT/pt_PT.aff","https://translator.gres.biz/resources/dictionaries/pt_PT/pt_PT.aff.zip"], "path":"$hunspell$/pt/pt_PT.aff", "date":"2020-03-17T12:21:16+01:00", "size":95089}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_PT/pt_PT.dic","https://translator.gres.biz/resources/dictionaries/pt_PT/pt_PT.dic.zip"], "path":"$hunspell$/pt/pt_PT.dic", "date":"2020-03-17T12:21:16+01:00", "size":1473077}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_BR/pt_BR.aff","https://translator.gres.biz/resources/dictionaries/pt_BR/pt_BR.aff.zip"], "path":"$hunspell$/pt/pt_BR.aff", "date":"2021-11-12T14:13:08+01:00", "size":979792}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/pt_BR/pt_BR.dic","https://translator.gres.biz/resources/dictionaries/pt_BR/pt_BR.dic.zip"], "path":"$hunspell$/pt/pt_BR.dic", "date":"2021-11-12T14:13:08+01:00", "size":4477695}
  ]}
  , "Romanian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.aff","https://translator.gres.biz/resources/dictionaries/ro/ro_RO.aff.zip"], "path":"$hunspell$/ro/ro_RO.aff", "date":"2020-03-17T12:21:16+01:00", "size":55181}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.dic","https://translator.gres.biz/resources/dictionaries/ro/ro_RO.dic.zip"], "path":"$hunspell$/ro/ro_RO.dic", "date":"2020-03-17T12:21:16+01:00", "size":2196348}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.aff","https://translator.gres.biz/resources/dictionaries/ro/ro_RO.aff.zip"], "path":"$hunspell$/ro/ro_RO.aff", "date":"2013-03-28T11:26:45+01:00", "size":55181}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ro/ro_RO.dic","https://translator.gres.biz/resources/dictionaries/ro/ro_RO.dic.zip"], "path":"$hunspell$/ro/ro_RO.dic", "date":"2013-03-28T11:26:45+01:00", "size":2196348}
  ]}
  , "Russian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.aff","https://translator.gres.biz/resources/dictionaries/ru_RU/ru_RU.aff.zip"], "path":"$hunspell$/ru/ru_RU.aff", "date":"2020-03-17T12:21:16+01:00", "size":53019}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.dic","https://translator.gres.biz/resources/dictionaries/ru_RU/ru_RU.dic.zip"], "path":"$hunspell$/ru/ru_RU.dic", "date":"2020-03-17T12:21:16+01:00", "size":1969349}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.aff","https://translator.gres.biz/resources/dictionaries/ru_RU/ru_RU.aff.zip"], "path":"$hunspell$/ru/ru_RU.aff", "date":"2020-06-04T15:36:15+02:00", "size":71236}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.dic","https://translator.gres.biz/resources/dictionaries/ru_RU/ru_RU.dic.zip"], "path":"$hunspell$/ru/ru_RU.dic", "date":"2021-07-27T15:41:55+02:00", "size":3473191}
  ]}
  , "Slovak":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.aff","https://translator.gres.biz/resources/dictionaries/sk_SK/sk_SK.aff.zip"], "path":"$hunspell$/sk/sk_SK.aff", "date":"2020-03-17T12:21:16+01:00", "size":99414}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.dic","https://translator.gres.biz/resources/dictionaries/sk_SK/sk_SK.dic.zip"], "path":"$hunspell$/sk/sk_SK.dic", "date":"2020-03-17T12:21:16+01:00", "size":3289769}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.aff","https://translator.gres.biz/resources/dictionaries/sk_SK/sk_SK.aff.zip"], "path":"$hunspell$/sk/sk_SK.aff", "date":"2020-06-10T20:31:32+02:00", "size":195963}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sk_SK/sk_SK.dic","https://translator.gres.biz/resources/dictionaries/sk_SK/sk_SK.dic.zip"], "path":"$hunspell$/sk/sk_SK.dic", "date":"2020-06-10T20:31:32+02:00", "size":4308934}
  ]}
  , "Slovenian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.aff","https://translator.gres.biz/resources/dictionaries/sl_SI/sl_SI.aff.zip"], "path":"$hunspell$/sl/sl_SI.aff", "date":"2020-03-17T12:21:16+01:00", "size":14730}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.dic","https://translator.gres.biz/resources/dictionaries/sl_SI/sl_SI.dic.zip"], "path":"$hunspell$/sl/sl_SI.dic", "date":"2020-03-17T12:21:16+01:00", "size":2967766}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.aff","https://translator.gres.biz/resources/dictionaries/sl_SI/sl_SI.aff.zip"], "path":"$hunspell$/sl/sl_SI.aff", "date":"2012-10-16T11:09:27-05:00", "size":14730}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sl_SI/sl_SI.dic","https://translator.gres.biz/resources/dictionaries/sl_SI/sl_SI.dic.zip"], "path":"$hunspell$/sl/sl_SI.dic", "date":"2012-10-16T11:09:27-05:00", "size":2967766}
  ]}
  , "Albanian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.aff","https://translator.gres.biz/resources/dictionaries/sq_AL/sq_AL.aff.zip"], "path":"$hunspell$/sq/sq_AL.aff", "date":"2020-03-17T12:21:16+01:00", "size":7555}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.dic","https://translator.gres.biz/resources/dictionaries/sq_AL/sq_AL.dic.zip"], "path":"$hunspell$/sq/sq_AL.dic", "date":"2020-03-17T12:21:16+01:00", "size":2605147}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.aff","https://translator.gres.biz/resources/dictionaries/sq_AL/sq_AL.aff.zip"], "path":"$hunspell$/sq/sq_AL.aff", "date":"2021-01-08T00:11:15+01:00", "size":7764}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sq_AL/sq_AL.dic","https://translator.gres.biz/resources/dictionaries/sq_AL/sq_AL.dic.zip"], "path":"$hunspell$/sq/sq_AL.dic", "date":"2021-01-08T00:11:15+01:00", "size":2726785}
  ]}
  , "Serbian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.aff","https://translator.gres.biz/resources/dictionaries/sr/sr.aff.zip"], "path":"$hunspell$/sr/sr.aff", "date":"2020-03-17T12:21:16+01:00", "size":901060}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.dic","https://translator.gres.biz/resources/dictionaries/sr/sr.dic.zip"], "path":"$hunspell$/sr/sr.dic", "date":"2020-03-17T12:21:16+01:00", "size":5878745}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.aff","https://translator.gres.biz/resources/dictionaries/sr/sr.aff.zip"], "path":"$hunspell$/sr/sr.aff", "date":"2019-04-20T11:24:57+02:00", "size":901060}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sr/sr.dic","https://translator.gres.biz/resources/dictionaries/sr/sr.dic.zip"], "path":"$hunspell$/sr/sr.dic", "date":"2019-04-20T11:24:57+02:00", "size":5878745}
  ]}
  , "Swedish":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.aff","https://translator.gres.biz/resources/dictionaries/sv_SE/sv_FI.aff.zip"], "path":"$hunspell$/sv/sv_FI.aff", "date":"2020-03-17T12:21:16+01:00", "size":18583}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.dic","https://translator.gres.biz/resources/dictionaries/sv_SE/sv_FI.dic.zip"], "path":"$hunspell$/sv/sv_FI.dic", "date":"2020-03-17T12:21:16+01:00", "size":2317112}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.aff","https://translator.gres.biz/resources/dictionaries/sv_SE/sv_FI.aff.zip"], "path":"$hunspell$/sv/sv_FI.aff", "date":"2015-09-08T21:02:20+00:00", "size":18583}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sv_SE/sv_FI.dic","https://translator.gres.biz/resources/dictionaries/sv_SE/sv_FI.dic.zip"], "path":"$hunspell$/sv/sv_FI.dic", "date":"2016-08-16T20:00:33+00:00", "size":2317112}
  ]}
  , "Swahili":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.aff","https://translator.gres.biz/resources/dictionaries/sw_TZ/sw_TZ.aff.zip"], "path":"$hunspell$/sw/sw_TZ.aff", "date":"2020-03-17T12:21:16+01:00", "size":974}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.dic","https://translator.gres.biz/resources/dictionaries/sw_TZ/sw_TZ.dic.zip"], "path":"$hunspell$/sw/sw_TZ.dic", "date":"2020-03-17T12:21:16+01:00", "size":630844}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.aff","https://translator.gres.biz/resources/dictionaries/sw_TZ/sw_TZ.aff.zip"], "path":"$hunspell$/sw/sw_TZ.aff", "date":"2012-10-16T11:09:27-05:00", "size":974}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/sw_TZ/sw_TZ.dic","https://translator.gres.biz/resources/dictionaries/sw_TZ/sw_TZ.dic.zip"], "path":"$hunspell$/sw/sw_TZ.dic", "date":"2012-10-16T11:09:27-05:00", "size":630844}
  ]}
  , "Telugu":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.aff","https://translator.gres.biz/resources/dictionaries/te_IN/te_IN.aff.zip"], "path":"$hunspell$/te/te_IN.aff", "date":"2020-03-17T12:21:16+01:00", "size":160}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.dic","https://translator.gres.biz/resources/dictionaries/te_IN/te_IN.dic.zip"], "path":"$hunspell$/te/te_IN.dic", "date":"2020-03-17T12:21:16+01:00", "size":3402272}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.aff","https://translator.gres.biz/resources/dictionaries/te_IN/te_IN.aff.zip"], "path":"$hunspell$/te/te_IN.aff", "date":"2012-10-16T11:09:27-05:00", "size":160}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/te_IN/te_IN.dic","https://translator.gres.biz/resources/dictionaries/te_IN/te_IN.dic.zip"], "path":"$hunspell$/te/te_IN.dic", "date":"2012-10-16T11:09:27-05:00", "size":3402272}
  ]}
  , "Thai":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.aff","https://translator.gres.biz/resources/dictionaries/th_TH/th_TH.aff.zip"], "path":"$hunspell$/th/th_TH.aff", "date":"2020-03-17T12:21:16+01:00", "size":156}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.dic","https://translator.gres.biz/resources/dictionaries/th_TH/th_TH.dic.zip"], "path":"$hunspell$/th/th_TH.dic", "date":"2020-03-17T12:21:16+01:00", "size":1251425}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.aff","https://translator.gres.biz/resources/dictionaries/th_TH/th_TH.aff.zip"], "path":"$hunspell$/th/th_TH.aff", "date":"2019-04-30T09:35:45+02:00", "size":156}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/th_TH/th_TH.dic","https://translator.gres.biz/resources/dictionaries/th_TH/th_TH.dic.zip"], "path":"$hunspell$/th/th_TH.dic", "date":"2019-06-04T14:18:16+02:00", "size":1251425}
  ]}
  , "Turkish":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.aff","https://translator.gres.biz/resources/dictionaries/tr_TR/tr_TR.aff.zip"], "path":"$hunspell$/tr/tr_TR.aff", "date":"2020-03-17T12:21:16+01:00", "size":235315}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.dic","https://translator.gres.biz/resources/dictionaries/tr_TR/tr_TR.dic.zip"], "path":"$hunspell$/tr/tr_TR.dic", "date":"2020-03-17T12:21:16+01:00", "size":9061155}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.aff","https://translator.gres.biz/resources/dictionaries/tr_TR/tr_TR.aff.zip"], "path":"$hunspell$/tr/tr_TR.aff", "date":"2018-08-27T16:55:14+02:00", "size":235315}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/tr_TR/tr_TR.dic","https://translator.gres.biz/resources/dictionaries/tr_TR/tr_TR.dic.zip"], "path":"$hunspell$/tr/tr_TR.dic", "date":"2018-08-27T16:55:14+02:00", "size":9061155}
  ]}
  , "Ukrainian":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.aff","https://translator.gres.biz/resources/dictionaries/uk_UA/uk_UA.aff.zip"], "path":"$hunspell$/uk/uk_UA.aff", "date":"2020-03-17T12:21:16+01:00", "size":159599}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.dic","https://translator.gres.biz/resources/dictionaries/uk_UA/uk_UA.dic.zip"], "path":"$hunspell$/uk/uk_UA.dic", "date":"2020-03-17T12:21:16+01:00", "size":2584267}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.aff","https://translator.gres.biz/resources/dictionaries/uk_UA/uk_UA.aff.zip"], "path":"$hunspell$/uk/uk_UA.aff", "date":"2022-08-28T03:23:22+02:00", "size":203463}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/uk_UA/uk_UA.dic","https://translator.gres.biz/resources/dictionaries/uk_UA/uk_UA.dic.zip"], "path":"$hunspell$/uk/uk_UA.dic", "date":"2022-08-28T03:23:22+02:00", "size":8355640}
  ]}
  , "Vietnamese":{"files":[
-  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.aff","https://translator.gres.biz/resources/dictionaries/vi/vi_VN.aff.zip"], "path":"$hunspell$/vi/vi_VN.aff", "date":"2020-03-17T12:21:16+01:00", "size":788}
-  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.dic","https://translator.gres.biz/resources/dictionaries/vi/vi_VN.dic.zip"], "path":"$hunspell$/vi/vi_VN.dic", "date":"2020-03-17T12:21:16+01:00", "size":39852}
+  {"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.aff","https://translator.gres.biz/resources/dictionaries/vi/vi_VN.aff.zip"], "path":"$hunspell$/vi/vi_VN.aff", "date":"2012-10-16T11:09:27-05:00", "size":788}
+  ,{"url":["https://cgit.freedesktop.org/libreoffice/dictionaries/plain/vi/vi_VN.dic","https://translator.gres.biz/resources/dictionaries/vi/vi_VN.dic.zip"], "path":"$hunspell$/vi/vi_VN.dic", "date":"2012-10-16T11:09:27-05:00", "size":39852}
  ]}
 }
 
