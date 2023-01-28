@@ -606,7 +606,7 @@
   {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/papago.js", "path":"$translators$/papago.js", "md5":"603a56fc23990453942064ec53d1eaa3", "size":2164}
  ]}
  ,"yandex": {"files":[
-  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js", "path":"$translators$/yandex.js", "md5":"6bc71c24270ca418b193f073e6155d5f", "size":1177}
+  {"url":"https://raw.githubusercontent.com/OneMoreGres/ScreenTranslator/master/translators/yandex.js", "path":"$translators$/yandex.js", "md5":"82c10bddde30f3a1dc6675f7eea71986", "size":1170}
  ]}
 }
 

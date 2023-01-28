@@ -4,9 +4,9 @@ var active = window.location.href !== "about:blank";
 function checkFinished() {
     if (!active) return;
 
-    let spans = [].slice.call(document.querySelectorAll('span.translation-chunk'));
+    let spans = [].slice.call(document.querySelectorAll('span.translation-word'));
     let text = spans.reduce(function (res, i) {
-        return res + ' ' + i.innerText;
+        return res + i.innerText;
     }, '').trim();
 
     if (text === lastText || text === '')
