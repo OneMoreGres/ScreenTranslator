@@ -896,11 +896,6 @@ QDateTime Updater::lastUpdateCheck() const
 
 void Updater::setAutoUpdate(int intervalDays, const QDateTime &lastCheck)
 {
-  if (intervalDays < 1) {
-    autoChecker_.reset();
-    return;
-  }
-
   autoChecker_ = std::make_unique<AutoChecker>(*this, intervalDays, lastCheck);
 }
 
