@@ -117,7 +117,8 @@ OTHER_FILES += \
   updates.json
 
 TRANSLATIONS += \
-    share/translations/screentranslator_ru.ts
+    share/translations/screentranslator_ru.ts \
+    share/translations/screentranslator_he.ts
 
 linux {
     PREFIX = /usr

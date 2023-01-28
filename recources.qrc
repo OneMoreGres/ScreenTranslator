@@ -11,5 +11,6 @@
     </qresource>
     <qresource prefix="/translations">
         <file alias="screentranslator_ru.qm">share/translations/screentranslator_ru.qm</file>
+        <file alias="screentranslator_he.qm">share/translations/screentranslator_he.qm</file>
     </qresource>
 </RCC>
