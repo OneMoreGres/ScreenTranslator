@@ -33,6 +33,9 @@ WebPage::WebPage(Translator &translator, const QString &script,
   channel->registerObject("proxy", proxy_.get());
   setWebChannel(channel, QWebEngineScript::ScriptWorldId::UserWorld);
 
+  connect(this, &QWebEnginePage::certificateError,  //
+          this, &WebPage::handleCertificateError);
+
   // to load scripts
   setUrl(QUrl::fromUserInput("about:blank"));
 }
@@ -186,11 +189,15 @@ void WebPage::javaScriptConsoleMessage(
   emit log(QString("%1: %2 %3").arg(sourceID).arg(lineNumber).arg(message));
 }
 
-bool WebPage::certificateError(const QWebEngineCertificateError &error)
+void WebPage::handleCertificateError(const QWebEngineCertificateError &error)
 {
-  qDebug() << "certificateError" << error.url() << error.error()
-           << error.errorDescription();
-  return ignoreSslErrors_;
+  qDebug() << "certificateError" << error.url() << error.type()
+           << error.description();
+  if (ignoreSslErrors_) {
+    const_cast<QWebEngineCertificateError &>(error).acceptCertificate();
+    return;
+  }
+  const_cast<QWebEngineCertificateError &>(error).rejectCertificate();
 }
 
 void WebPage::authenticateProxy(const QUrl & /*requestUrl*/,

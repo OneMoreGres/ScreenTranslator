@@ -3,7 +3,9 @@
 #include <memory>
 
 class QString;
-class QStringList;
+template <class T>
+class QList;
+using QStringList = QList<QString>;
 
 class Manager;
 class Settings;

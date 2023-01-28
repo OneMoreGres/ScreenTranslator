@@ -14,7 +14,7 @@ win32{
   LIBS += -lUser32
 }
 linux{
-  QT += x11extras
+#  QT += x11extras
   LIBS += -lX11
 }
 

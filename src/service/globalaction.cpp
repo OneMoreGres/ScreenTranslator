@@ -77,7 +77,7 @@ void GlobalAction::triggerHotKey(quint32 nativeKey, quint32 nativeMods)
 #ifdef Q_OS_LINUX
 #include <X11/Xlib.h>
 #include <xcb/xcb_event.h>
-#include <QX11Info>
+#include <QWindow>
 
 namespace service
 {
@@ -101,18 +101,22 @@ static int customHandler(Display *display, XErrorEvent *event)
 
 bool GlobalAction::registerHotKey(quint32 nativeKey, quint32 nativeMods)
 {
-  Display *display = QX11Info::display();
-  Window window = QX11Info::appRootWindow();
+  auto nativeInterface =
+      qApp->nativeInterface<QNativeInterface::QX11Application>();
+  SOFT_ASSERT(nativeInterface, return false);
+  Display *display = nativeInterface->display();
+  SOFT_ASSERT(display, return false);
   Bool owner = True;
   int pointer = GrabModeAsync;
   int keyboard = GrabModeAsync;
   error = false;
   int (*handler)(Display * display, XErrorEvent * event) =
       XSetErrorHandler(customHandler);
-  XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard);
+  XGrabKey(display, nativeKey, nativeMods, DefaultRootWindow(display), owner,
+           pointer, keyboard);
   // allow numlock
-  XGrabKey(display, nativeKey, nativeMods | Mod2Mask, window, owner, pointer,
-           keyboard);
+  XGrabKey(display, nativeKey, nativeMods | Mod2Mask,
+           DefaultRootWindow(display), owner, pointer, keyboard);
   XSync(display, False);
   XSetErrorHandler(handler);
   return !error;
@@ -120,21 +124,25 @@ bool GlobalAction::registerHotKey(quint32 nativeKey, quint32 nativeMods)
 
 bool GlobalAction::unregisterHotKey(quint32 nativeKey, quint32 nativeMods)
 {
-  Display *display = QX11Info::display();
-  Window window = QX11Info::appRootWindow();
+  auto nativeInterface =
+      qApp->nativeInterface<QNativeInterface::QX11Application>();
+  SOFT_ASSERT(nativeInterface, return false);
+  Display *display = nativeInterface->display();
+  SOFT_ASSERT(display, return false);
   error = false;
   int (*handler)(Display * display, XErrorEvent * event) =
       XSetErrorHandler(customHandler);
-  XUngrabKey(display, nativeKey, nativeMods, window);
+  XUngrabKey(display, nativeKey, nativeMods, DefaultRootWindow(display));
   // allow numlock
-  XUngrabKey(display, nativeKey, nativeMods | Mod2Mask, window);
+  XUngrabKey(display, nativeKey, nativeMods | Mod2Mask,
+             DefaultRootWindow(display));
   XSync(display, False);
   XSetErrorHandler(handler);
   return !error;
 }
 
 bool GlobalAction::nativeEventFilter(const QByteArray &eventType, void *message,
-                                     long *result)
+                                     qintptr *result)
 {
   Q_UNUSED(eventType);
   Q_UNUSED(result);
@@ -151,7 +159,9 @@ bool GlobalAction::nativeEventFilter(const QByteArray &eventType, void *message,
 
 quint32 GlobalAction::nativeKeycode(Qt::Key key)
 {
-  Display *display = QX11Info::display();
+  auto nativeInterface =
+      qApp->nativeInterface<QNativeInterface::QX11Application>();
+  Display *display = nativeInterface->display();
   KeySym keySym = XStringToKeysym(qPrintable(QKeySequence(key).toString()));
   if (XKeysymToString(keySym) == nullptr) {
     keySym = QChar(key).unicode();
@@ -191,7 +201,7 @@ bool GlobalAction::unregisterHotKey(quint32 nativeKey, quint32 nativeMods)
 }
 
 bool GlobalAction::nativeEventFilter(const QByteArray &eventType, void *message,
-                                     long *result)
+                                     qintptr *result)
 {
   Q_UNUSED(eventType);
   Q_UNUSED(result);
@@ -407,8 +417,8 @@ bool GlobalAction::unregisterHotKey(quint32 nativeKey, quint32 nativeMods)
   }
 }
 
-bool GlobalAction::nativeEventFilter(const QByteArray & /*eventType*/,
-                                     void * /*message*/, long * /*result*/)
+bool GlobalAction::nativeEventFilter(const QByteArray &eventType, void *message,
+                                     qintptr *result)
 {
   return false;
 }

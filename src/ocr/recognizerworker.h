@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+Q_MOC_INCLUDE("tesseract.h")
+
 class Tesseract;
 
 class RecognizeWorker : public QObject

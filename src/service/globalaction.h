@@ -11,7 +11,7 @@ class GlobalAction : public QAbstractNativeEventFilter
 {
 public:
   bool nativeEventFilter(const QByteArray &eventType, void *message,
-                         long *result);
+                         qintptr *result) override;
 
   static void init();
   static bool makeGlobal(QAction *action);

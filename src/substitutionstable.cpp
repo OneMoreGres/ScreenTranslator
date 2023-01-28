@@ -55,7 +55,7 @@ public:
           {"\\\\", "\\"},
           {"\\n", "\n"},
       };
-      for (auto i = 0, end = text.size() - 1; i < end; ++i) {
+      for (auto i = 0ll, end = text.size() - 1; i < end; ++i) {
         const auto pair = text.mid(i, 2);
         const auto replaced = replacements.value(pair);
         if (replaced.isEmpty())

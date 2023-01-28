@@ -5,6 +5,7 @@
 #include <QString>
 
 class Hunspell;
+class QStringEncoder;
 
 class HunspellCorrector
 {
@@ -19,7 +20,7 @@ public:
 
 private:
   void init(const QString& path);
-  void correctWord(QString& word, QTextCodec& codec) const;
+  void correctWord(QString& word, QStringEncoder& codec) const;
 
   std::unique_ptr<Hunspell> engine_;
   QString error_;

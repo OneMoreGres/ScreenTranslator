@@ -85,7 +85,7 @@ Substitutions unpackSubstitutions(const QStringList& raw)
     return {};
 
   Substitutions result;
-  for (auto i = 0, end = raw.size(); i < end; i += 3) {
+  for (auto i = 0ll, end = raw.size(); i < end; i += 3) {
     result.emplace(raw[i], Substitution{raw[i + 1], raw[i + 2]});
   }
   return result;

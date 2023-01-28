@@ -14,6 +14,7 @@
 #include <QLineEdit>
 #include <QSplitter>
 #include <QTabWidget>
+#include <QTcpSocket>
 #include <QTextEdit>
 #include <QToolBar>
 

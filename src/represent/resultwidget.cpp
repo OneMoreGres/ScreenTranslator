@@ -7,7 +7,6 @@
 
 #include <QApplication>
 #include <QBoxLayout>
-#include <QDesktopWidget>
 #include <QLabel>
 #include <QMenu>
 #include <QMouseEvent>
@@ -70,7 +69,7 @@ ResultWidget::ResultWidget(Manager &manager, Representer &representer,
   layout->addWidget(separator_);
   layout->addWidget(translated_);
 
-  layout->setMargin(0);
+  layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
 
   updateSettings();

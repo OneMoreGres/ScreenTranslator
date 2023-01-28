@@ -16,6 +16,7 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QNetworkProxy>
+#include <QStandardPaths>
 #include <QThread>
 
 namespace
@@ -187,7 +188,8 @@ bool Manager::setupTrace(bool isOn)
   const auto traceFile =
       QStandardPaths::writableLocation(QStandardPaths::TempLocation) +
       QLatin1String("/screen-translator-") +
-      QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
+      QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss") +
+      QLatin1String(".txt");
 
   if (!debug::setTraceFileName(traceFile)) {
     QMessageBox::warning(

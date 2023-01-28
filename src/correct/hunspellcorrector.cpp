@@ -7,7 +7,7 @@
 
 #include <QDir>
 #include <QRegularExpression>
-#include <QTextCodec>
+#include <QStringConverter>
 
 static int levenshteinDistance(const QString &source, const QString &target)
 {
@@ -106,19 +106,21 @@ QString HunspellCorrector::correct(const QString &original)
 {
   SOFT_ASSERT(engine_, return original);
 
-  const auto codec =
-      QTextCodec::codecForName(engine_->get_dict_encoding().c_str());
-  SOFT_ASSERT(codec, return original);
+  const auto encoding =
+      QStringConverter::encodingForName(engine_->get_dict_encoding().c_str());
+  SOFT_ASSERT(encoding, return original);
+  auto codec = QStringEncoder(*encoding);
 
   QString result;
 
   QString word;
   QString separator;
-  for (auto i = 0, end = original.size(); i < end; ++i) {
+
+  for (auto i = 0ll, end = original.size(); i < end; ++i) {
     const auto ch = original[i];
     if (ch.isPunct() || ch.isSpace()) {
       if (!word.isEmpty()) {
-        correctWord(word, *codec);
+        correctWord(word, codec);
         result += word;
         word.clear();
       }
@@ -139,7 +141,7 @@ QString HunspellCorrector::correct(const QString &original)
   }
 
   if (!word.isEmpty()) {
-    correctWord(word, *codec);
+    correctWord(word, codec);
     result += word;
   }
   result += separator;
@@ -147,12 +149,12 @@ QString HunspellCorrector::correct(const QString &original)
   return result;
 }
 
-void HunspellCorrector::correctWord(QString &word, QTextCodec &codec) const
+void HunspellCorrector::correctWord(QString &word, QStringEncoder &codec) const
 {
   if (word.isEmpty())
     return;
 
-  const auto stdWord = codec.fromUnicode(word).toStdString();
+  const auto stdWord = codec(word).data.toStdString();
   if (engine_->spell(stdWord))
     return;
 
