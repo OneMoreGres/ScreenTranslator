@@ -4,8 +4,8 @@ var active = window.location.href !== "about:blank";
 function checkFinished() {
   if (!active) return;
 
-  let area = document.querySelector('textarea[dl-test=translator-target-input]');
-  let text = area ? area.value : '';
+  let area = document.querySelector('div#target-dummydiv');
+  let text = area ? area.innerHTML.trim() : '';
 
   if (text === lastText || text === '')
     return;
@@ -44,14 +44,17 @@ function translate(text, from, to) {
   let langs = from + '/' + to + '/';
   if (window.location.href.indexOf('www.deepl.com/translator') !== -1
     && window.location.href.indexOf(langs) !== -1) {
-    var input = document.querySelector('textarea[dl-test=translator-source-input]');
-    if (input.value == text) {
+    var input = document.querySelector('d-textarea[dl-test=translator-source-input] p');
+    if (input.innerText == text) {
         console.log('using cached result');
         lastText = '';
         return;
     }
-    input.value = text;
-    input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
+    input.innerText = text;
+    document.querySelector('div#source-dummydiv').innerHTML = text;
+    setTimeout(function() {
+      input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
+    }, 300);
     return;
   }
 
