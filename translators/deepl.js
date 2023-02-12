@@ -41,24 +41,26 @@ function translate(text, from, to) {
 
   active = true;
 
+  var singleLineText = text.replace(/(?:\r\n|\r|\n)/g, ' ');
+
   let langs = from + '/' + to + '/';
   if (window.location.href.indexOf('www.deepl.com/translator') !== -1
     && window.location.href.indexOf(langs) !== -1) {
     var input = document.querySelector('d-textarea[dl-test=translator-source-input] p');
-    if (input.innerText == text) {
+    if (input.innerText == singleLineText) {
         console.log('using cached result');
         lastText = '';
         return;
     }
-    input.innerText = text;
-    document.querySelector('div#source-dummydiv').innerHTML = text;
+    input.innerText = singleLineText;
+    document.querySelector('div#source-dummydiv').innerHTML = singleLineText;
     setTimeout(function() {
       input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
     }, 300);
     return;
   }
 
-  let url = 'https://www.deepl.com/translator#' + langs + encodeURIComponent(text);
+  let url = 'https://www.deepl.com/translator#' + langs + encodeURIComponent(singleLineText);
   console.log("setting url", url);
   window.location = url;
 }
