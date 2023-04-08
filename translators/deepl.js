@@ -46,7 +46,7 @@ function translate(text, from, to) {
   let langs = from + '/' + to + '/';
   if (window.location.href.indexOf('www.deepl.com/translator') !== -1
     && window.location.href.indexOf(langs) !== -1) {
-    var input = document.querySelector('d-textarea[dl-test=translator-source-input] p');
+    var input = document.querySelector('d-textarea.lmt__source_textarea p');
     if (input.innerText == singleLineText) {
         console.log('using cached result');
         lastText = '';
