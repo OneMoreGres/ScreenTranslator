@@ -1,5 +1,7 @@
 # Screen Translator
 
+**The project is almost abandoned. I don't have time for it and I can only fix minor issues**
+
 ## Introduction
 
 This software allows you to translate any text on screen.
@@ -27,7 +29,7 @@ file and place it into the `translations` folder next to `screen-translator.exe`
 The app doesn't have a main window.
 After start it shows only the tray icon.
 
-If the app detects invalid settings, it will show the error message via system tray. 
+If the app detects invalid settings, it will show the error message via system tray.
 It will also highlight the section name in red on the left panel of the settings window.
 Clicking on that section name will show a more detailed error message in the right panel (also in red).
 
