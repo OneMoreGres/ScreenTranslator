@@ -6,6 +6,10 @@ function checkFinished() {
 
   let area = document.querySelector('div#target-dummydiv');
   let text = area ? area.innerHTML.trim() : '';
+  if (area == null) {
+    area = document.querySelector('d-textarea.lmt__target_textarea p');
+    text = area ? area.innerText.trim() : '';
+  }
 
   if (text === lastText || text === '')
     return;
@@ -53,7 +57,8 @@ function translate(text, from, to) {
         return;
     }
     input.innerText = singleLineText;
-    document.querySelector('div#source-dummydiv').innerHTML = singleLineText;
+    if (areaCopy = document.querySelector('div#source-dummydiv'))
+      areaCopy.innerHTML = singleLineText;
     setTimeout(function() {
       input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
     }, 300);
