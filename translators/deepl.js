@@ -10,6 +10,10 @@ function checkFinished() {
     area = document.querySelector('d-textarea.lmt__target_textarea p');
     text = area ? area.innerText.trim() : '';
   }
+  if (area == null) {
+    area = document.querySelector('d-textarea[data-testid=translator-target-input] p');
+    text = area ? area.innerText.trim() : '';
+  }
 
   if (text === lastText || text === '')
     return;
@@ -24,16 +28,16 @@ function translate(text, from, to) {
   console.log('start translate', text, from, to)
 
   if (text.trim().length == 0) {
-      proxy.setTranslated('');
-      return;
+    proxy.setTranslated('');
+    return;
   }
 
   from = from == 'zh-CN' ? 'zh' : from;
   to = to == 'zh-CN' ? 'zh' : to;
 
   let supported = ['ru', 'en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ja', 'zh',
-  'uk', 'bg', 'hu', 'el', 'da', 'id', 'lt', 'pt', 'ro', 'sk', 'sk', 'tr', 'fi', 'cs',
-  'sv', 'et']
+    'uk', 'bg', 'hu', 'el', 'da', 'id', 'lt', 'pt', 'ro', 'sk', 'sk', 'tr', 'fi', 'cs',
+    'sv', 'et']
   if (supported.indexOf(from) == -1) {
     proxy.setFailed('Source language not supported');
     return;
@@ -50,16 +54,21 @@ function translate(text, from, to) {
   let langs = from + '/' + to + '/';
   if (window.location.href.indexOf('www.deepl.com/translator') !== -1
     && window.location.href.indexOf(langs) !== -1) {
-    var input = document.querySelector('d-textarea.lmt__source_textarea p');
+
+    var input = document.querySelector('d-textarea[dl-test=translator-source-input] p');
+    if (input == null)
+      input = document.querySelector('d-textarea.lmt__source_textarea p');
+    if (input == null)
+      input = document.querySelector('d-textarea[data-testid=translator-source-input] p');
     if (input.innerText == singleLineText) {
-        console.log('using cached result');
-        lastText = '';
-        return;
+      console.log('using cached result');
+      lastText = '';
+      return;
     }
     input.innerText = singleLineText;
     if (areaCopy = document.querySelector('div#source-dummydiv'))
       areaCopy.innerHTML = singleLineText;
-    setTimeout(function() {
+    setTimeout(function () {
       input.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
     }, 300);
     return;
