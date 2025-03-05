@@ -18,12 +18,6 @@ If the app fails to start complaining about missing dlls or there are any update
 
 **OS X**: currently not supported.
 
-### App translation
-
-To install Hebrew translation of the app (thanks to [Y-PLONI](https://github.com/Y-PLONI)),
-download [this](https://github.com/OneMoreGres/ScreenTranslator/releases/download/3.3.0/screentranslator_he.qm)
-file and place it into the `translations` folder next to `screen-translator.exe`.
-
 ## Setup
 
 The app doesn't have a main window.
@@ -47,6 +41,16 @@ Then go to the `Translation` section, update the default translation language se
 
 After that all sections in the left panel should be black.
 Then click `Ok` to close settings.
+
+### Third party enhancements
+
+**Not tested or reviewed by me**
+
+* to translate with online AI services use scripts from [here](https://github.com/Suki8898/Translator)
+
+* to install Hebrew translation of the app itself (thanks to [Y-PLONI](https://github.com/Y-PLONI)),
+download [this](https://github.com/OneMoreGres/ScreenTranslator/releases/download/3.3.0/screentranslator_he.qm)
+file and place it into the `translations` folder next to `screen-translator.exe`.
 
 ## Usage
 
