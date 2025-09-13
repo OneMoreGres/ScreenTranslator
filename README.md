@@ -94,3 +94,7 @@ Build dependencies at first, then build the app.
 [Smashicons](https://www.flaticon.com/authors/smashicons),
 [Freepik](https://www.flaticon.com/authors/freepik),
 from [Flaticon](https://www.flaticon.com/)
+
+## Alternative solutions
+
+* [Translumo](https://github.com/ramjke/Translumo) - Advanced real-time screen translator for games, hardcoded subtitles in videos, static text and etc.
